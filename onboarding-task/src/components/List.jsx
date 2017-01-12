@@ -3,16 +3,17 @@ import Item from './Item';
 import NewItem from './NewItem'
 import assignment from './../../../assignment.gif';
 
-class List extends Component {
+export default class List extends Component {
+  state = {
+    items: [
+      { description: 'Make a coffee'},
+      { description: 'Make a coffee great again' },
+      { description: 'We want you, coffee!'}
+    ]
+  };
+
   constructor(props){
-    super(props)
-    this.state = {
-      items: [
-        { description: 'Make a coffee'},
-        { description: 'Make a coffee great again' },
-        { description: 'We want you, coffee!'}
-      ]
-    };
+    super(props);
     this.newItemAdded = this.newItemAdded.bind(this);
   }
 
@@ -49,5 +50,3 @@ class List extends Component {
     );
   }
 }
-
-export default List;

@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 
-class NewItem extends Component {
+export default class NewItem extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired
+  };
+
+  state = {
+    description: '',
+    addButtonEnabled: false
+  }
+
   constructor(props){
     super(props)
-    this.state = {
-      description: '',
-      addButtonEnabled: false
-    }
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
     this.onAddClicked = this.onAddClicked.bind(this);
   }
@@ -42,9 +47,3 @@ class NewItem extends Component {
     );
   }
 }
-
-NewItem.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
-
-export default NewItem;
