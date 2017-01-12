@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Item from './Item';
 import assignment from './../../../assignment.gif';
 
-class List extends React.Component {
+class List extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      items: [
+        { description: 'Make a coffee'},
+        { description: 'Make a coffee great again' },
+        { description: 'We want you, coffee!'}
+      ]
+    }
+  }
+
   render() {
     return (
       <div className="row">
@@ -16,9 +28,9 @@ class List extends React.Component {
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
+            <ul className="list-group">
+              { this.state.items.map((item, index) => <Item key={index} index={index + 1} {...item} />) }
+            </ul>
           </div>
         </div>
       </div>
