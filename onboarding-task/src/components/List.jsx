@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item from './Item';
+import NewItem from './NewItem'
 import assignment from './../../../assignment.gif';
 
 class List extends Component {
@@ -11,7 +12,17 @@ class List extends Component {
         { description: 'Make a coffee great again' },
         { description: 'We want you, coffee!'}
       ]
-    }
+    };
+    this.newItemAdded = this.newItemAdded.bind(this);
+  }
+
+  newItemAdded(description) {
+    const newItem = { description: description };
+    const newItems = [
+      ...this.state.items,
+      newItem
+    ];
+    this.setState({ items: newItems });
   }
 
   render() {
@@ -30,6 +41,7 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul className="list-group">
               { this.state.items.map((item, index) => <Item key={index} index={index + 1} {...item} />) }
+              <NewItem onSubmit={ this.newItemAdded } />
             </ul>
           </div>
         </div>
