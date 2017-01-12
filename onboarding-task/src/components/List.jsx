@@ -6,9 +6,10 @@ import assignment from './../../../assignment.gif';
 export default class List extends Component {
   state = {
     items: [
-      { description: 'Make a coffee'},
+      { description: 'Make a coffee' },
       { description: 'Make a coffee great again' },
-      { description: 'We want you, coffee!'}
+      { description: 'We want you, coffee!' },
+      { description: 'Coffee can do it \uD83D\uDCAA' }
     ]
   };
 
@@ -23,6 +24,7 @@ export default class List extends Component {
       ...this.state.items,
       newItem
     ];
+
     this.setState({ items: newItems });
   }
 
@@ -41,7 +43,14 @@ export default class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul className="list-group">
-              { this.state.items.map((item, index) => <Item key={index} index={index + 1} {...item} />) }
+              { this
+                  .state
+                  .items
+                  .map((item, index) => <Item
+                    key={index}
+                    index={index + 1}
+                    {...item}
+                  />) }
               <NewItem onSubmit={ this.newItemAdded } />
             </ul>
           </div>

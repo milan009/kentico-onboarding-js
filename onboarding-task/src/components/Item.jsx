@@ -2,7 +2,12 @@ import React, { PropTypes } from 'react';
 
 function Item(props){
   let { description, index } = props;
-  return <li className="list-group-item">{index}. { description }</li>
+  return (
+    <li className="list-group-item">
+      {index}.
+      {description}
+    </li>
+  );
 }
 
 Item.propTypes = {

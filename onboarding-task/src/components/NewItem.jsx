@@ -16,13 +16,13 @@ export default class NewItem extends Component {
     this.onAddClicked = this.onAddClicked.bind(this);
   }
 
-  canClickAdd = (description = '') => description.length > 0;
+  canClickOnAddButton = (description = '') => description.length > 0;
 
   onDescriptionChanged(event){
     let newDescription = event.target.value;
     this.setState({
       description: newDescription,
-      addButtonEnabled: this.canClickAdd(newDescription)
+      addButtonEnabled: this.canClickOnAddButton(newDescription)
     })
   }
 
@@ -30,7 +30,7 @@ export default class NewItem extends Component {
     this.props.onSubmit(this.state.description);
     this.setState({
       description: '',
-      addButtonEnabled: this.canClickAdd()
+      addButtonEnabled: this.canClickOnAddButton()
     });
   }
 
@@ -38,9 +38,21 @@ export default class NewItem extends Component {
     return (
       <li className="list-group-item">
         <div className="input-group">
-          <input type="text" placeholder="New item..." value={this.state.description} onChange={this.onDescriptionChanged} className="form-control"/>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="New item..."
+            value={this.state.description}
+            onChange={this.onDescriptionChanged}
+          />
           <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={this.onAddClicked} disabled={!this.state.addButtonEnabled}>Add</button>
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={this.onAddClicked}
+            disabled={!this.state.addButtonEnabled}>
+              Add
+          </button>
         </span>
         </div>
       </li>
