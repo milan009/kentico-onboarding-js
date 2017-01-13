@@ -46,14 +46,14 @@ export default class NewItem extends Component {
             onChange={this.onDescriptionChanged}
           />
           <span className="input-group-btn">
-          <button
-            className="btn btn-success"
-            type="button"
-            onClick={this.onAddClicked}
-            disabled={!this.state.addButtonEnabled}>
-              Add
-          </button>
-        </span>
+            <button
+              className="btn btn-success"
+              type="button"
+              onClick={this.onAddClicked}
+              disabled={!this.state.updateButtonEnabled}>
+                Add
+            </button>
+          </span>
         </div>
       </li>
     );
