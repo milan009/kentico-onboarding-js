@@ -7,13 +7,14 @@ export default class EditItem extends Component {
     onButtonClick: PropTypes.func.isRequired
   };
 
-  state = {
-    description: null,
-    updateButtonEnabled: true
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      description: props.description,
+      updateButtonEnabled: this.canClickOnUpdateButton(props.description)
+    };
+
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
     this.onUpdateClicked = this.onButtonClicked.bind(this, 'update');
     this.onCancelClicked = this.onButtonClicked.bind(this, 'cancel');
@@ -28,7 +29,7 @@ export default class EditItem extends Component {
       this.state.description || this.props.description);
 
   onDescriptionChanged(event) {
-    let newDescription = event.target.value;
+    const newDescription = event.target.value;
     this.setState({
       description: newDescription,
       updateButtonEnabled: this.canClickOnUpdateButton(newDescription)
@@ -47,7 +48,6 @@ export default class EditItem extends Component {
             type="text"
             placeholder={`Description of item #${this.props.index} in the list…`}
             value={this.state.description}
-            defaultValue={this.props.description}
             onChange={this.onDescriptionChanged}
           />
           <span className="input-group-btn">
