@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
+import Guid from 'guid';
 
 function Item(description) {
   return {
+    id: Guid.create(),
     description: description,
     isEdited: false
   };
