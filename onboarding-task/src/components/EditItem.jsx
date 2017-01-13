@@ -13,7 +13,7 @@ export default class EditItem extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
     this.onUpdateClicked = this.onButtonClicked.bind(this, 'update');
     this.onCancelClicked = this.onButtonClicked.bind(this, 'cancel');
@@ -25,7 +25,6 @@ export default class EditItem extends Component {
   onButtonClicked = (eventType) =>
     this.props.onButtonClick(
       eventType,
-      this.props.index,
       this.state.description || this.props.description);
 
   onDescriptionChanged(event) {
@@ -37,17 +36,16 @@ export default class EditItem extends Component {
   }
 
   render() {
-    let visibleIndex = this.props.index + 1;
     return (
       <li className="list-group-item">
         <div className="input-group">
           <span className="input-group-addon">
-            {visibleIndex}.
+            {this.props.index}.
           </span>
           <input
             className="form-control"
             type="text"
-            placeholder={`Description of item #${visibleIndex} in the list…`}
+            placeholder={`Description of item #${this.props.index} in the list…`}
             value={this.state.description}
             defaultValue={this.props.description}
             onChange={this.onDescriptionChanged}

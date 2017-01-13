@@ -5,8 +5,8 @@ function DisplayItem(props) {
   return (
     <li
       className="list-group-item"
-      onClick={() => props.onItemClick(props.index)}>
-      {index + 1}.
+      onClick={() => props.onItemClick()}>
+      {index}.
       {description}
     </li>
   );
