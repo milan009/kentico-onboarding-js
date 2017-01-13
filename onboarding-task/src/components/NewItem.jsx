@@ -8,17 +8,17 @@ export default class NewItem extends Component {
   state = {
     description: '',
     addButtonEnabled: false
-  }
+  };
 
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
     this.onAddClicked = this.onAddClicked.bind(this);
   }
 
   canClickOnAddButton = (description = '') => description.length > 0;
 
-  onDescriptionChanged(event){
+  onDescriptionChanged(event) {
     let newDescription = event.target.value;
     this.setState({
       description: newDescription,
@@ -26,7 +26,7 @@ export default class NewItem extends Component {
     })
   }
 
-  onAddClicked(){
+  onAddClicked() {
     this.props.onSubmit(this.state.description);
     this.setState({
       description: '',
@@ -41,7 +41,7 @@ export default class NewItem extends Component {
           <input
             className="form-control"
             type="text"
-            placeholder="New item..."
+            placeholder="New item…"
             value={this.state.description}
             onChange={this.onDescriptionChanged}
           />
@@ -50,7 +50,7 @@ export default class NewItem extends Component {
               className="btn btn-success"
               type="button"
               onClick={this.onAddClicked}
-              disabled={!this.state.updateButtonEnabled}>
+              disabled={!this.state.addButtonEnabled}>
                 Add
             </button>
           </span>
