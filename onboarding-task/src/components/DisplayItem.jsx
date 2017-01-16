@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 function DisplayItem(props) {
-  let { description, index } = props;
+  let { item: { description } , index } = props;
   return (
     <li
       className="list-group-item"
@@ -13,7 +13,9 @@ function DisplayItem(props) {
 }
 
 DisplayItem.propTypes = {
-  description: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    description: PropTypes.string.isRequired
+  }),
   index: PropTypes.number.isRequired,
   onItemClick: PropTypes.func.isRequired
 };

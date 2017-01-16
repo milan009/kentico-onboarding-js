@@ -5,16 +5,18 @@ import EditItem from './EditItem';
 export default class ExistingItem extends Component {
   static propTypes = {
     listIndex: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.object.isRequired,
+      isEdited: PropTypes.bool.isRequired,
+      description: PropTypes.string.isRequired,
+      set: PropTypes.func.isRequired
+    }),
     onItemDeleted: PropTypes.func.isRequired,
     onItemUpdated: PropTypes.func.isRequired
   };
 
   static toggleEdition(item) {
-    return {
-      ...item,
-      isEdited: !item.isEdited
-    }
+    return item.set("isEdited", !item.isEdited);
   }
 
   constructor(props) {
@@ -25,10 +27,7 @@ export default class ExistingItem extends Component {
   }
 
   updateDescription(description) {
-    let changedItem = {
-      ...this.props.item,
-      description: description
-    };
+    let changedItem = this.props.item.set("description", description);
     changedItem = ExistingItem.toggleEdition(changedItem);
 
     this.props.onItemUpdated(changedItem);
@@ -63,7 +62,7 @@ export default class ExistingItem extends Component {
         <EditItem
           index={visibleIndex}
           onButtonClick={this.itemChanged}
-          {...this.props.item}
+          item={this.props.item}
         />
       );
 
@@ -71,7 +70,7 @@ export default class ExistingItem extends Component {
       <DisplayItem
         index={visibleIndex}
         onItemClick={this.itemClicked}
-        {...this.props.item}
+        item={this.props.item}
       />
     );
   }

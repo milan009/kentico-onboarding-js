@@ -3,16 +3,19 @@ import React, { Component, PropTypes } from 'react';
 export default class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    description: PropTypes.string,
+    item: PropTypes.shape({
+      description: PropTypes.string.isRequired
+    }),
     onButtonClick: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
 
+    let { item: {description } } = props;
     this.state = {
-      description: props.description,
-      updateButtonEnabled: this.canClickOnUpdateButton(props.description)
+      description: description,
+      updateButtonEnabled: this.canClickOnUpdateButton(description)
     };
 
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
@@ -26,7 +29,7 @@ export default class EditItem extends Component {
   onButtonClicked = (eventType) =>
     this.props.onButtonClick(
       eventType,
-      this.state.description || this.props.description);
+      this.state.description || this.props.item.description);
 
   onDescriptionChanged(event) {
     const newDescription = event.target.value;
