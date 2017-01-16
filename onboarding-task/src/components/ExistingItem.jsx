@@ -24,8 +24,6 @@ export default class ExistingItem extends Component {
     this.itemClicked = this.itemClicked.bind(this);
   }
 
-  updateItem = item => this.props.onItemUpdated(this.props.listIndex, item);
-
   updateDescription(description) {
     let changedItem = {
       ...this.props.item,
@@ -33,7 +31,7 @@ export default class ExistingItem extends Component {
     };
     changedItem = ExistingItem.toggleEdition(changedItem);
 
-    this.updateItem(changedItem);
+    this.props.onItemUpdated(changedItem);
   }
 
   itemChanged(byButton, newDescription) {
@@ -45,7 +43,7 @@ export default class ExistingItem extends Component {
         this.itemClicked();
         break;
       case 'delete':
-          this.props.onItemDeleted(this.props.listIndex);
+          this.props.onItemDeleted(this.props.item.id);
         break;
       default:
         throw new Error('Operation "' + byButton + '" performed at item ' + this.props.listIndex + ' is not known');
@@ -54,7 +52,7 @@ export default class ExistingItem extends Component {
 
   itemClicked() {
     const changedItem = ExistingItem.toggleEdition(this.props.item);
-    this.updateItem(changedItem);
+    this.props.onItemUpdated(changedItem);
   }
 
   render() {

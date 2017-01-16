@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Guid from 'guid';
+import * as Immutable from "immutable";
 
 function Item(description) {
   return {
@@ -13,12 +14,15 @@ function Item(description) {
 
 export default class List extends Component {
   state = {
-    items: [
-      new Item('Make a coffee'),
-      new Item('Make a coffee great again'),
-      new Item('We want you, coffee!'),
-      new Item('Coffee can do it \uD83D\uDCAA')
-    ]
+    items: Immutable
+      .Map([
+          new Item('Make a coffee'),
+          new Item('Make a coffee great again'),
+          new Item('We want you, coffee!'),
+          new Item('Coffee can do it \uD83D\uDCAA')
+        ]
+        .map(item => [item.id, item])
+      )
   };
 
   constructor(props) {
@@ -30,36 +34,27 @@ export default class List extends Component {
   }
 
   newItemAdded(description) {
-    const newItems = [
-      ...this.state.items,
-      new Item(description)
-    ];
+    const newItem = new Item(description);
+    const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   }
 
-  existingItemDeleted(atIndex) {
-    const newItems = [
-      ...this.state.items.slice(0, atIndex),
-      ...this.state.items.slice(atIndex + 1)
-    ];
+  existingItemDeleted(id) {
+    const newItems = this.state.items.delete(id);
 
     this.setState({ items: newItems });
   }
 
-  existingItemUpdated(atIndex, withItem) {
-    const newItems = [
-      ...this.state.items.slice(0, atIndex),
-      withItem,
-      ...this.state.items.slice(atIndex + 1)
-    ];
+  existingItemUpdated(item) {
+    const newItems = this.state.items.set(item.id, item);
 
     this.setState({ items: newItems });
   }
 
   renderItem(item, index) {
     return <ExistingItem
-      key={index}
+      key={item.id}
       listIndex={index}
       item={item}
       onItemDeleted={this.existingItemDeleted}
@@ -75,6 +70,7 @@ export default class List extends Component {
             { this
                 .state
                 .items
+                .valueSeq()
                 .map(this.renderItem) }
             <NewItem onSubmit={this.newItemAdded} />
           </ul>
