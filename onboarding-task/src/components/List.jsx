@@ -47,7 +47,7 @@ export default class List extends Component {
   renderItem(item, index) {
     return <ExistingItem
       key={item.id}
-      listIndex={index}
+      index={index + 1}
       item={item}
       onItemDeleted={this.existingItemDeleted}
       onItemUpdated={this.existingItemUpdated}

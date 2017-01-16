@@ -4,7 +4,7 @@ import EditItem from './EditItem';
 
 export default class ExistingItem extends Component {
   static propTypes = {
-    listIndex: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
     item: PropTypes.shape({
       id: PropTypes.object.isRequired,
       isEdited: PropTypes.bool.isRequired,
@@ -45,7 +45,7 @@ export default class ExistingItem extends Component {
           this.props.onItemDeleted(this.props.item.id);
         break;
       default:
-        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.listIndex + ' is not known');
+        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.index + ' is not known');
     }
   }
 
@@ -55,12 +55,10 @@ export default class ExistingItem extends Component {
   }
 
   render() {
-    const visibleIndex = this.props.listIndex + 1;
-
     if(this.props.item.isEdited)
       return (
         <EditItem
-          index={visibleIndex}
+          index={this.props.index}
           onButtonClick={this.itemChanged}
           item={this.props.item}
         />
@@ -68,7 +66,7 @@ export default class ExistingItem extends Component {
 
     return (
       <DisplayItem
-        index={visibleIndex}
+        index={this.props.index}
         onItemClick={this.itemClicked}
         item={this.props.item}
       />
