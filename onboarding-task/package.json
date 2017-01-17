@@ -7,9 +7,10 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "guid": "^0.0.12",
+    "immutable": "^3.8.1",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "guid": "^0.0.12"
+    "react-dom": "^15.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

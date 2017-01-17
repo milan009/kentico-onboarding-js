@@ -4,17 +4,19 @@ import EditItem from './EditItem';
 
 export default class ExistingItem extends Component {
   static propTypes = {
-    listIndex: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.object.isRequired,
+      isEdited: PropTypes.bool.isRequired,
+      description: PropTypes.string.isRequired,
+      set: PropTypes.func.isRequired
+    }),
     onItemDeleted: PropTypes.func.isRequired,
     onItemUpdated: PropTypes.func.isRequired
   };
 
   static toggleEdition(item) {
-    return {
-      ...item,
-      isEdited: !item.isEdited
-    }
+    return item.set("isEdited", !item.isEdited);
   }
 
   constructor(props) {
@@ -24,16 +26,11 @@ export default class ExistingItem extends Component {
     this.itemClicked = this.itemClicked.bind(this);
   }
 
-  updateItem = item => this.props.onItemUpdated(this.props.listIndex, item);
-
   updateDescription(description) {
-    let changedItem = {
-      ...this.props.item,
-      description: description
-    };
+    let changedItem = this.props.item.set("description", description);
     changedItem = ExistingItem.toggleEdition(changedItem);
 
-    this.updateItem(changedItem);
+    this.props.onItemUpdated(changedItem);
   }
 
   itemChanged(byButton, newDescription) {
@@ -45,35 +42,33 @@ export default class ExistingItem extends Component {
         this.itemClicked();
         break;
       case 'delete':
-          this.props.onItemDeleted(this.props.listIndex);
+          this.props.onItemDeleted(this.props.item.id);
         break;
       default:
-        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.listIndex + ' is not known');
+        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.index + ' is not known');
     }
   }
 
   itemClicked() {
     const changedItem = ExistingItem.toggleEdition(this.props.item);
-    this.updateItem(changedItem);
+    this.props.onItemUpdated(changedItem);
   }
 
   render() {
-    const visibleIndex = this.props.listIndex + 1;
-
     if(this.props.item.isEdited)
       return (
         <EditItem
-          index={visibleIndex}
+          index={this.props.index}
           onButtonClick={this.itemChanged}
-          {...this.props.item}
+          item={this.props.item}
         />
       );
 
     return (
       <DisplayItem
-        index={visibleIndex}
+        index={this.props.index}
         onItemClick={this.itemClicked}
-        {...this.props.item}
+        item={this.props.item}
       />
     );
   }
