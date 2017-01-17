@@ -6,7 +6,7 @@ export default class ExistingItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      id: PropTypes.object.isRequired,
+      id: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
       set: PropTypes.func.isRequired
