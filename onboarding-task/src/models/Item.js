@@ -1,8 +1,8 @@
-import Guid from 'guid';
-import { Record } from "immutable";
+import { v4 as guid } from 'uuid';
+import { Record } from 'immutable';
 
-var defaultNewItem = {
-  id: Guid.EMPTY,
+const defaultNewItem = {
+  id: '00000000-0000-0000-0000-000000000000',
   description: '',
   isEdited: false
 };
@@ -10,7 +10,7 @@ var defaultNewItem = {
 export default class Item extends Record(defaultNewItem) {
   static Create(description){
     return new Item({
-      id: Guid.create(),
+      id: guid(),
       description: description
     });
   }
