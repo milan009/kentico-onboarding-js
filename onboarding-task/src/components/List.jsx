@@ -20,38 +20,38 @@ class List extends Component {
         )
     };
 
-    this.renderItem = this.renderItem.bind(this);
-    this.newItemAdded = this.newItemAdded.bind(this);
-    this.existingItemUpdated = this.existingItemUpdated.bind(this);
-    this.existingItemDeleted = this.existingItemDeleted.bind(this);
+    this._renderItem = this._renderItem.bind(this);
+    this._newItemAdded = this._newItemAdded.bind(this);
+    this._existingItemUpdated = this._existingItemUpdated.bind(this);
+    this._existingItemDeleted = this._existingItemDeleted.bind(this);
   }
 
-  newItemAdded(description) {
+  _newItemAdded(description) {
     const newItem = Item.Create(description);
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   }
 
-  existingItemDeleted(id) {
+  _existingItemDeleted(id) {
     const newItems = this.state.items.delete(id);
 
     this.setState({ items: newItems });
   }
 
-  existingItemUpdated(item) {
+  _existingItemUpdated(item) {
     const newItems = this.state.items.set(item.id, item);
 
     this.setState({ items: newItems });
   }
 
-  renderItem(item, index) {
+  _renderItem(item, index) {
     return <ExistingItem
       key={item.id}
       index={index + 1}
       item={item}
-      onItemDeleted={this.existingItemDeleted}
-      onItemUpdated={this.existingItemUpdated}
+      onItemDeleted={this._existingItemDeleted}
+      onItemUpdated={this._existingItemUpdated}
     />
   }
 
@@ -64,8 +64,8 @@ class List extends Component {
                 .state
                 .items
                 .valueSeq()
-                .map(this.renderItem) }
-            <NewItem onSubmit={this.newItemAdded} />
+                .map(this._renderItem) }
+            <NewItem onSubmit={this._newItemAdded} />
           </ul>
         </div>
       </div>

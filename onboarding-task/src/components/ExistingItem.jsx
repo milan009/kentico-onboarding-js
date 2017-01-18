@@ -15,31 +15,31 @@ class ExistingItem extends Component {
     onItemUpdated: PropTypes.func.isRequired,
   };
 
-  static toggleEdition(item) {
+  static _toggleEdition(item) {
     return item.set('isEdited', !item.isEdited);
   }
 
   constructor(props) {
     super(props);
 
-    this.itemChanged = this.itemChanged.bind(this);
-    this.itemClicked = this.itemClicked.bind(this);
+    this._itemChanged = this._itemChanged.bind(this);
+    this._itemClicked = this._itemClicked.bind(this);
   }
 
-  updateDescription(description) {
+  _updateDescription(description) {
     let changedItem = this.props.item.set('description', description);
-    changedItem = ExistingItem.toggleEdition(changedItem);
+    changedItem = ExistingItem._toggleEdition(changedItem);
 
     this.props.onItemUpdated(changedItem);
   }
 
-  itemChanged(byButton, newDescription) {
+  _itemChanged(byButton, newDescription) {
     switch(byButton){
       case 'update':
-        this.updateDescription(newDescription);
+        this._updateDescription(newDescription);
         break;
       case 'cancel':
-        this.itemClicked();
+        this._itemClicked();
         break;
       case 'delete':
           this.props.onItemDeleted(this.props.item.id);
@@ -49,8 +49,8 @@ class ExistingItem extends Component {
     }
   }
 
-  itemClicked() {
-    const changedItem = ExistingItem.toggleEdition(this.props.item);
+  _itemClicked() {
+    const changedItem = ExistingItem._toggleEdition(this.props.item);
     this.props.onItemUpdated(changedItem);
   }
 
@@ -59,7 +59,7 @@ class ExistingItem extends Component {
       return (
         <EditItem
           index={this.props.index}
-          onButtonClick={this.itemChanged}
+          onButtonClick={this._itemChanged}
           item={this.props.item}
         />
       );
@@ -67,7 +67,7 @@ class ExistingItem extends Component {
     return (
       <DisplayItem
         index={this.props.index}
-        onItemClick={this.itemClicked}
+        onItemClick={this._itemClicked}
         item={this.props.item}
       />
     );
