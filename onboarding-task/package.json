@@ -10,6 +10,7 @@
     "immutable": "^3.8.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-immutable-proptypes": "^2.1.0",
     "uuid": "^3.0.1"
   },
   "scripts": {

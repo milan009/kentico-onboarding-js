@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import DisplayItem from './DisplayItem';
 import EditItem from './EditItem';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 class ExistingItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
+    item: ImmutablePropTypes.recordOf({
       id: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
-      set: PropTypes.func.isRequired,
     }),
     onItemDeleted: PropTypes.func.isRequired,
     onItemUpdated: PropTypes.func.isRequired,

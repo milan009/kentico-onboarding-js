@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 function DisplayItem(props) {
   let { item: { description }, index } = props;
@@ -12,7 +13,7 @@ function DisplayItem(props) {
 }
 
 DisplayItem.propTypes = {
-  item: PropTypes.shape({
+  item: ImmutablePropTypes.recordOf({
     description: PropTypes.string.isRequired
   }),
   index: PropTypes.number.isRequired,
