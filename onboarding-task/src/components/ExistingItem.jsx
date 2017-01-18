@@ -16,7 +16,7 @@ class ExistingItem extends Component {
   };
 
   static toggleEdition(item) {
-    return item.set("isEdited", !item.isEdited);
+    return item.set('isEdited', !item.isEdited);
   }
 
   constructor(props) {
@@ -27,7 +27,7 @@ class ExistingItem extends Component {
   }
 
   updateDescription(description) {
-    let changedItem = this.props.item.set("description", description);
+    let changedItem = this.props.item.set('description', description);
     changedItem = ExistingItem.toggleEdition(changedItem);
 
     this.props.onItemUpdated(changedItem);
