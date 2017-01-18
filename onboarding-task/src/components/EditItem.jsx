@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
+    item: ImmutablePropTypes.recordOf({
       description: PropTypes.string.isRequired,
     }),
     onButtonClick: PropTypes.func.isRequired,
