@@ -1,36 +1,37 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class NewItem extends Component {
+class NewItem extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired
-  };
-
-  state = {
-    description: '',
-    addButtonEnabled: false
+    onSubmit: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
-    this.onAddClicked = this.onAddClicked.bind(this);
+
+    this.state = {
+      description: '',
+      addButtonEnabled: false,
+    };
+
+    this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
+    this._onAddClicked = this._onAddClicked.bind(this);
   }
 
-  canClickOnAddButton = (description = '') => description.length > 0;
+  _canClickOnAddButton = (description = '') => description.length > 0;
 
-  onDescriptionChanged(event) {
+  _onDescriptionChanged(event) {
     let newDescription = event.target.value;
     this.setState({
       description: newDescription,
-      addButtonEnabled: this.canClickOnAddButton(newDescription)
+      addButtonEnabled: this._canClickOnAddButton(newDescription),
     })
   }
 
-  onAddClicked() {
+  _onAddClicked() {
     this.props.onSubmit(this.state.description);
     this.setState({
       description: '',
-      addButtonEnabled: this.canClickOnAddButton()
+      addButtonEnabled: this._canClickOnAddButton(),
     });
   }
 
@@ -43,13 +44,13 @@ export default class NewItem extends Component {
             type="text"
             placeholder="New item…"
             value={this.state.description}
-            onChange={this.onDescriptionChanged}
+            onChange={this._onDescriptionChanged}
           />
           <span className="input-group-btn">
             <button
               className="btn btn-success"
               type="button"
-              onClick={this.onAddClicked}
+              onClick={this._onAddClicked}
               disabled={!this.state.addButtonEnabled}>
                 Add
             </button>
@@ -59,3 +60,5 @@ export default class NewItem extends Component {
     );
   }
 }
+
+export default NewItem;

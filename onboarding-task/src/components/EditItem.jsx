@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class EditItem extends Component {
+class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      description: PropTypes.string.isRequired
+      description: PropTypes.string.isRequired,
     }),
-    onButtonClick: PropTypes.func.isRequired
+    onButtonClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -15,27 +15,27 @@ export default class EditItem extends Component {
     let { item: {description } } = props;
     this.state = {
       description: description,
-      updateButtonEnabled: this.canClickOnUpdateButton(description)
+      updateButtonEnabled: this._canClickOnUpdateButton(description),
     };
 
-    this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
-    this.onUpdateClicked = this.onButtonClicked.bind(this, 'update');
-    this.onCancelClicked = this.onButtonClicked.bind(this, 'cancel');
-    this.onDeleteClicked = this.onButtonClicked.bind(this, 'delete');
+    this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
+    this._onUpdateClicked = this._onButtonClicked.bind(this, 'update');
+    this._onCancelClicked = this._onButtonClicked.bind(this, 'cancel');
+    this._onDeleteClicked = this._onButtonClicked.bind(this, 'delete');
   }
 
-  canClickOnUpdateButton = description => description.length > 0;
+  _canClickOnUpdateButton = description => description.length > 0;
 
-  onButtonClicked = (eventType) =>
+  _onButtonClicked = (eventType) =>
     this.props.onButtonClick(
       eventType,
       this.state.description || this.props.item.description);
 
-  onDescriptionChanged(event) {
+  _onDescriptionChanged(event) {
     const newDescription = event.target.value;
     this.setState({
       description: newDescription,
-      updateButtonEnabled: this.canClickOnUpdateButton(newDescription)
+      updateButtonEnabled: this._canClickOnUpdateButton(newDescription),
     })
   }
 
@@ -51,26 +51,26 @@ export default class EditItem extends Component {
             type="text"
             placeholder={`Description of item #${this.props.index} in the list…`}
             value={this.state.description}
-            onChange={this.onDescriptionChanged}
+            onChange={this._onDescriptionChanged}
           />
           <span className="input-group-btn">
             <button
               className="btn btn-primary"
               type="button"
-              onClick={this.onUpdateClicked}
+              onClick={this._onUpdateClicked}
               disabled={!this.state.updateButtonEnabled}>
                 Update
             </button>
             <button
               className="btn btn-default"
               type="button"
-              onClick={this.onCancelClicked}>
+              onClick={this._onCancelClicked}>
                 Cancel
             </button>
             <button
               className="btn btn-danger"
               type="button"
-              onClick={this.onDeleteClicked}>
+              onClick={this._onDeleteClicked}>
                 Delete
             </button>
           </span>
@@ -79,3 +79,5 @@ export default class EditItem extends Component {
     );
   }
 }
+
+export default EditItem;

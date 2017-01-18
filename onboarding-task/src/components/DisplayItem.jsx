@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 function DisplayItem(props) {
-  let { item: { description } , index } = props;
+  let { item: { description }, index } = props;
   return (
     <li
       className="list-group-item"
@@ -16,7 +16,7 @@ DisplayItem.propTypes = {
     description: PropTypes.string.isRequired
   }),
   index: PropTypes.number.isRequired,
-  onItemClick: PropTypes.func.isRequired
+  onItemClick: PropTypes.func.isRequired,
 };
 
 export default DisplayItem;

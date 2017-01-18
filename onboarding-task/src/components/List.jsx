@@ -4,53 +4,54 @@ import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Item from '../models/Item';
 
-export default class List extends Component {
-  state = {
-    items: Immutable
-      .Map([
-          Item.Create('Make a coffee'),
-          Item.Create('Make a coffee great again'),
-          Item.Create('We want you, coffee!'),
-          Item.Create('Coffee can do it \uD83D\uDCAA')
-        ]
-        .map(item => [item.id, item])
-      )
-  };
-
+class List extends Component {
   constructor(props) {
     super(props);
-    this.renderItem = this.renderItem.bind(this);
-    this.newItemAdded = this.newItemAdded.bind(this);
-    this.existingItemUpdated = this.existingItemUpdated.bind(this);
-    this.existingItemDeleted = this.existingItemDeleted.bind(this);
+
+    this.state = {
+      items: Immutable
+        .Map([
+            Item.Create('Make a coffee'),
+            Item.Create('Make a coffee great again'),
+            Item.Create('We want you, coffee!'),
+            Item.Create('Coffee can do it \uD83D\uDCAA'),
+          ]
+            .map(item => [item.id, item])
+        )
+    };
+
+    this._renderItem = this._renderItem.bind(this);
+    this._newItemAdded = this._newItemAdded.bind(this);
+    this._existingItemUpdated = this._existingItemUpdated.bind(this);
+    this._existingItemDeleted = this._existingItemDeleted.bind(this);
   }
 
-  newItemAdded(description) {
+  _newItemAdded(description) {
     const newItem = Item.Create(description);
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   }
 
-  existingItemDeleted(id) {
+  _existingItemDeleted(id) {
     const newItems = this.state.items.delete(id);
 
     this.setState({ items: newItems });
   }
 
-  existingItemUpdated(item) {
+  _existingItemUpdated(item) {
     const newItems = this.state.items.set(item.id, item);
 
     this.setState({ items: newItems });
   }
 
-  renderItem(item, index) {
+  _renderItem(item, index) {
     return <ExistingItem
       key={item.id}
       index={index + 1}
       item={item}
-      onItemDeleted={this.existingItemDeleted}
-      onItemUpdated={this.existingItemUpdated}
+      onItemDeleted={this._existingItemDeleted}
+      onItemUpdated={this._existingItemUpdated}
     />
   }
 
@@ -63,11 +64,13 @@ export default class List extends Component {
                 .state
                 .items
                 .valueSeq()
-                .map(this.renderItem) }
-            <NewItem onSubmit={this.newItemAdded} />
+                .map(this._renderItem) }
+            <NewItem onSubmit={this._newItemAdded} />
           </ul>
         </div>
       </div>
     );
   }
 }
+
+export default List;
