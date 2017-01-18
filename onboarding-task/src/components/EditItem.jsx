@@ -4,9 +4,9 @@ class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      description: PropTypes.string.isRequired
+      description: PropTypes.string.isRequired,
     }),
-    onButtonClick: PropTypes.func.isRequired
+    onButtonClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -15,7 +15,7 @@ class EditItem extends Component {
     let { item: {description } } = props;
     this.state = {
       description: description,
-      updateButtonEnabled: this.canClickOnUpdateButton(description)
+      updateButtonEnabled: this.canClickOnUpdateButton(description),
     };
 
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
@@ -35,7 +35,7 @@ class EditItem extends Component {
     const newDescription = event.target.value;
     this.setState({
       description: newDescription,
-      updateButtonEnabled: this.canClickOnUpdateButton(newDescription)
+      updateButtonEnabled: this.canClickOnUpdateButton(newDescription),
     })
   }
 

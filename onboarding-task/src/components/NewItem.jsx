@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 class NewItem extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
   };
 
   state = {
     description: '',
-    addButtonEnabled: false
+    addButtonEnabled: false,
   };
 
   constructor(props) {
@@ -22,7 +22,7 @@ class NewItem extends Component {
     let newDescription = event.target.value;
     this.setState({
       description: newDescription,
-      addButtonEnabled: this.canClickOnAddButton(newDescription)
+      addButtonEnabled: this.canClickOnAddButton(newDescription),
     })
   }
 
@@ -30,7 +30,7 @@ class NewItem extends Component {
     this.props.onSubmit(this.state.description);
     this.setState({
       description: '',
-      addButtonEnabled: this.canClickOnAddButton()
+      addButtonEnabled: this.canClickOnAddButton(),
     });
   }
 

@@ -11,7 +11,7 @@ class List extends Component {
           Item.Create('Make a coffee'),
           Item.Create('Make a coffee great again'),
           Item.Create('We want you, coffee!'),
-          Item.Create('Coffee can do it \uD83D\uDCAA')
+          Item.Create('Coffee can do it \uD83D\uDCAA'),
         ]
         .map(item => [item.id, item])
       )

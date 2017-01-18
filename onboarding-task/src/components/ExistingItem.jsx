@@ -9,10 +9,10 @@ class ExistingItem extends Component {
       id: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
-      set: PropTypes.func.isRequired
+      set: PropTypes.func.isRequired,
     }),
     onItemDeleted: PropTypes.func.isRequired,
-    onItemUpdated: PropTypes.func.isRequired
+    onItemUpdated: PropTypes.func.isRequired,
   };
 
   static toggleEdition(item) {
