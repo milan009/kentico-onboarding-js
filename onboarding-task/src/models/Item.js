@@ -7,7 +7,7 @@ const defaultNewItem = {
   isEdited: false
 };
 
-export default class Item extends Record(defaultNewItem) {
+class Item extends Record(defaultNewItem) {
   static Create(description){
     return new Item({
       id: guid(),
@@ -15,3 +15,5 @@ export default class Item extends Record(defaultNewItem) {
     });
   }
 }
+
+export default Item;

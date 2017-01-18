@@ -4,7 +4,7 @@ import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Item from '../models/Item';
 
-export default class List extends Component {
+class List extends Component {
   state = {
     items: Immutable
       .Map([
@@ -71,3 +71,5 @@ export default class List extends Component {
     );
   }
 }
+
+export default List;

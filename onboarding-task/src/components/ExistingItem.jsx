@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import DisplayItem from './DisplayItem';
 import EditItem from './EditItem';
 
-export default class ExistingItem extends Component {
+class ExistingItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
@@ -73,3 +73,5 @@ export default class ExistingItem extends Component {
     );
   }
 }
+
+export default ExistingItem;

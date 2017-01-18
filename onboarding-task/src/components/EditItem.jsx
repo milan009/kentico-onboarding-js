@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class EditItem extends Component {
+class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
@@ -79,3 +79,5 @@ export default class EditItem extends Component {
     );
   }
 }
+
+export default EditItem;

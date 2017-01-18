@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class NewItem extends Component {
+class NewItem extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired
   };
@@ -59,3 +59,5 @@ export default class NewItem extends Component {
     );
   }
 }
+
+export default NewItem;
