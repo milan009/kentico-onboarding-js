@@ -5,20 +5,21 @@ import NewItem from './NewItem';
 import Item from '../models/Item';
 
 class List extends Component {
-  state = {
-    items: Immutable
-      .Map([
-          Item.Create('Make a coffee'),
-          Item.Create('Make a coffee great again'),
-          Item.Create('We want you, coffee!'),
-          Item.Create('Coffee can do it \uD83D\uDCAA'),
-        ]
-        .map(item => [item.id, item])
-      )
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      items: Immutable
+        .Map([
+            Item.Create('Make a coffee'),
+            Item.Create('Make a coffee great again'),
+            Item.Create('We want you, coffee!'),
+            Item.Create('Coffee can do it \uD83D\uDCAA'),
+          ]
+            .map(item => [item.id, item])
+        )
+    };
+
     this.renderItem = this.renderItem.bind(this);
     this.newItemAdded = this.newItemAdded.bind(this);
     this.existingItemUpdated = this.existingItemUpdated.bind(this);

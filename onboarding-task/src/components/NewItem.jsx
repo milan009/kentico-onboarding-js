@@ -5,13 +5,14 @@ class NewItem extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  state = {
-    description: '',
-    addButtonEnabled: false,
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      description: '',
+      addButtonEnabled: false,
+    };
+
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
     this.onAddClicked = this.onAddClicked.bind(this);
   }
