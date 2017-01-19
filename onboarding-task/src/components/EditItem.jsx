@@ -13,11 +13,7 @@ class EditItem extends Component {
   constructor(props) {
     super(props);
 
-    const { item: { description } } = props;
-    this.state = {
-      description,
-      updateButtonEnabled: this._canClickOnUpdateButton(description),
-    };
+    this.state = { description: props.item.description };
 
     this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
     this._onUpdateClicked = this._onButtonClicked.bind(this, 'update');
@@ -25,7 +21,7 @@ class EditItem extends Component {
     this._onDeleteClicked = this._onButtonClicked.bind(this, 'delete');
   }
 
-  _canClickOnUpdateButton = description => description.length > 0;
+  _canClickOnUpdateButton = () => (this.state.description || '').length > 0;
 
   _onButtonClicked = (eventType) =>
     this.props.onButtonClick(
@@ -34,10 +30,7 @@ class EditItem extends Component {
 
   _onDescriptionChanged(event) {
     const newDescription = event.target.value;
-    this.setState({
-      description: newDescription,
-      updateButtonEnabled: this._canClickOnUpdateButton(newDescription),
-    });
+    this.setState({ description: newDescription });
   }
 
   render() {
@@ -58,7 +51,7 @@ class EditItem extends Component {
             className="btn btn-primary"
             type="button"
             onClick={this._onUpdateClicked}
-            disabled={!this.state.updateButtonEnabled}
+            disabled={!this._canClickOnUpdateButton()}
           >
             Update
           </button>

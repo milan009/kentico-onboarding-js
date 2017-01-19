@@ -8,31 +8,22 @@ class NewItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      description: '',
-      addButtonEnabled: false,
-    };
+    this.state = { description: '' };
 
     this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
     this._onAddClicked = this._onAddClicked.bind(this);
   }
 
-  _canClickOnAddButton = (description = '') => description.length > 0;
+  _canClickOnAddButton = () => (this.state.description || '').length > 0;
 
   _onDescriptionChanged(event) {
     const newDescription = event.target.value;
-    this.setState({
-      description: newDescription,
-      addButtonEnabled: this._canClickOnAddButton(newDescription),
-    });
+    this.setState({ description: newDescription });
   }
 
   _onAddClicked() {
     this.props.onSubmit(this.state.description);
-    this.setState({
-      description: '',
-      addButtonEnabled: this._canClickOnAddButton(),
-    });
+    this.setState({ description: '' });
   }
 
   render() {
@@ -50,7 +41,7 @@ class NewItem extends Component {
             className="btn btn-success"
             type="button"
             onClick={this._onAddClicked}
-            disabled={!this.state.addButtonEnabled}
+            disabled={!this._canClickOnAddButton}
           >
             Add
           </button>
