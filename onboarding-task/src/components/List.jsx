@@ -10,7 +10,7 @@ class List extends Component {
 
     this.state = {
       items: Immutable
-        .Map([
+        .OrderedMap([
             new Item('Make a coffee'),
             new Item('Make a coffee great again'),
             new Item('We want you, coffee!'),
