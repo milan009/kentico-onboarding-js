@@ -24,25 +24,25 @@ class List extends Component {
     };
 
     this._renderItem = this._renderItem.bind(this);
-    this._newItemAdded = this._newItemAdded.bind(this);
-    this._existingItemUpdated = this._existingItemUpdated.bind(this);
-    this._existingItemDeleted = this._existingItemDeleted.bind(this);
+    this._addNewItem = this._addNewItem.bind(this);
+    this._deleteExistingItem = this._deleteExistingItem.bind(this);
+    this._updateExistingItem = this._updateExistingItem.bind(this);
   }
 
-  _newItemAdded(description) {
+  _addNewItem(description) {
     const newItem = new Item(description);
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   }
 
-  _existingItemDeleted(id) {
+  _updateExistingItem(id) {
     const newItems = this.state.items.delete(id);
 
     this.setState({ items: newItems });
   }
 
-  _existingItemUpdated(item) {
+  _deleteExistingItem(item) {
     const newItems = this.state.items.set(item.id, item);
 
     this.setState({ items: newItems });
@@ -57,8 +57,8 @@ class List extends Component {
         <ExistingItem
           index={index + 1}
           item={item}
-          onItemDeleted={this._existingItemDeleted}
-          onItemUpdated={this._existingItemUpdated}
+          onItemDeleted={this._updateExistingItem}
+          onItemUpdated={this._deleteExistingItem}
         />
       </li>);
   }
@@ -74,7 +74,7 @@ class List extends Component {
                 .valueSeq()
                 .map(this._renderItem)}
             <li className="list-group-item">
-              <NewItem onSubmit={this._newItemAdded} />
+              <NewItem onSubmit={this._addNewItem} />
             </li>
           </ul>
         </div>
