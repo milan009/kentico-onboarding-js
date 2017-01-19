@@ -4,12 +4,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 function DisplayItem(props) {
   let { item: { description }, index } = props;
   return (
-    <li
-      className="list-group-item"
-      onClick={() => props.onItemClick()}
-    >
+    <div onClick={() => props.onItemClick()}>
       {index}. {description}
-    </li>
+    </div>
   );
 }
 

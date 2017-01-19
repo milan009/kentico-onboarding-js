@@ -42,44 +42,42 @@ class EditItem extends Component {
 
   render() {
     return (
-      <li className="list-group-item">
-        <div className="input-group">
-          <span className="input-group-addon">
-            {this.props.index}.
-          </span>
-          <input
-            className="form-control"
-            type="text"
-            placeholder={`Description of item #${this.props.index} in the list…`}
-            value={this.state.description}
-            onChange={this._onDescriptionChanged}
-          />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-primary"
-              type="button"
-              onClick={this._onUpdateClicked}
-              disabled={!this.state.updateButtonEnabled}
-            >
-              Update
-            </button>
-            <button
-              className="btn btn-default"
-              type="button"
-              onClick={this._onCancelClicked}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn btn-danger"
-              type="button"
-              onClick={this._onDeleteClicked}
-            >
-              Delete
-            </button>
-          </span>
-        </div>
-      </li>
+      <div className="input-group">
+        <span className="input-group-addon">
+          {this.props.index}.
+        </span>
+        <input
+          className="form-control"
+          type="text"
+          placeholder={`Description of item #${this.props.index} in the list…`}
+          value={this.state.description}
+          onChange={this._onDescriptionChanged}
+        />
+        <span className="input-group-btn">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={this._onUpdateClicked}
+            disabled={!this.state.updateButtonEnabled}
+          >
+            Update
+          </button>
+          <button
+            className="btn btn-default"
+            type="button"
+            onClick={this._onCancelClicked}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={this._onDeleteClicked}
+          >
+            Delete
+          </button>
+        </span>
+      </div>
     );
   }
 }

@@ -37,27 +37,25 @@ class NewItem extends Component {
 
   render() {
     return (
-      <li className="list-group-item">
-        <div className="input-group">
-          <input
-            className="form-control"
-            type="text"
-            placeholder="New item…"
-            value={this.state.description}
-            onChange={this._onDescriptionChanged}
-          />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={this._onAddClicked}
-              disabled={!this.state.addButtonEnabled}
-            >
-              Add
-            </button>
-          </span>
-        </div>
-      </li>
+      <div className="input-group">
+        <input
+          className="form-control"
+          type="text"
+          placeholder="New item…"
+          value={this.state.description}
+          onChange={this._onDescriptionChanged}
+        />
+        <span className="input-group-btn">
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={this._onAddClicked}
+            disabled={!this.state.addButtonEnabled}
+          >
+            Add
+          </button>
+        </span>
+      </div>
     );
   }
 }

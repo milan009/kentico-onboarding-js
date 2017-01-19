@@ -49,13 +49,18 @@ class List extends Component {
   }
 
   _renderItem(item, index) {
-    return (<ExistingItem
-      key={item.id}
-      index={index + 1}
-      item={item}
-      onItemDeleted={this._existingItemDeleted}
-      onItemUpdated={this._existingItemUpdated}
-    />);
+    return (
+      <li
+        key={item.id}
+        className="list-group-item"
+      >
+        <ExistingItem
+          index={index + 1}
+          item={item}
+          onItemDeleted={this._existingItemDeleted}
+          onItemUpdated={this._existingItemUpdated}
+        />
+      </li>);
   }
 
   render() {
@@ -68,7 +73,9 @@ class List extends Component {
                 .items
                 .valueSeq()
                 .map(this._renderItem)}
-            <NewItem onSubmit={this._newItemAdded} />
+            <li className="list-group-item">
+              <NewItem onSubmit={this._newItemAdded} />
+            </li>
           </ul>
         </div>
       </div>
