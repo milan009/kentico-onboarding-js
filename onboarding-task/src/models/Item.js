@@ -8,8 +8,8 @@ const defaultNewItem = {
 };
 
 class Item extends Record(defaultNewItem) {
-  static Create(description){
-    return new Item({
+  constructor (description){
+    super({
       id: guid(),
       description: description,
     });

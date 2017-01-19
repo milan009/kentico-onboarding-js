@@ -11,10 +11,10 @@ class List extends Component {
     this.state = {
       items: Immutable
         .Map([
-            Item.Create('Make a coffee'),
-            Item.Create('Make a coffee great again'),
-            Item.Create('We want you, coffee!'),
-            Item.Create('Coffee can do it \uD83D\uDCAA'),
+            new Item('Make a coffee'),
+            new Item('Make a coffee great again'),
+            new Item('We want you, coffee!'),
+            new Item('Coffee can do it \uD83D\uDCAA'),
           ]
             .map(item => [item.id, item])
         )
@@ -27,7 +27,7 @@ class List extends Component {
   }
 
   _newItemAdded(description) {
-    const newItem = Item.Create(description);
+    const newItem = new Item(description);
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
