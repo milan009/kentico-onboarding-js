@@ -26,7 +26,7 @@ class EditItem extends Component {
   _onButtonClicked = (eventType) =>
     this.props.onButtonClick(
       eventType,
-      this.state.description || this.props.item.description);
+      this.state.description);
 
   _onDescriptionChanged(event) {
     const newDescription = event.target.value;
