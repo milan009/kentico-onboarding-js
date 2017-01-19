@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class EditItem extends Component {
   static propTypes = {
@@ -13,9 +13,9 @@ class EditItem extends Component {
   constructor(props) {
     super(props);
 
-    let { item: {description } } = props;
+    const { item: { description } } = props;
     this.state = {
-      description: description,
+      description,
       updateButtonEnabled: this._canClickOnUpdateButton(description),
     };
 
@@ -37,7 +37,7 @@ class EditItem extends Component {
     this.setState({
       description: newDescription,
       updateButtonEnabled: this._canClickOnUpdateButton(newDescription),
-    })
+    });
   }
 
   render() {
@@ -59,20 +59,23 @@ class EditItem extends Component {
               className="btn btn-primary"
               type="button"
               onClick={this._onUpdateClicked}
-              disabled={!this.state.updateButtonEnabled}>
-                Update
+              disabled={!this.state.updateButtonEnabled}
+            >
+              Update
             </button>
             <button
               className="btn btn-default"
               type="button"
-              onClick={this._onCancelClicked}>
-                Cancel
+              onClick={this._onCancelClicked}
+            >
+              Cancel
             </button>
             <button
               className="btn btn-danger"
               type="button"
-              onClick={this._onDeleteClicked}>
-                Delete
+              onClick={this._onDeleteClicked}
+            >
+              Delete
             </button>
           </span>
         </div>

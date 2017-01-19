@@ -8,10 +8,10 @@ const defaultNewItem = {
 };
 
 class Item extends Record(defaultNewItem) {
-  constructor (description){
+  constructor(description) {
     super({
       id: guid(),
-      description: description,
+      description,
     });
   }
 }

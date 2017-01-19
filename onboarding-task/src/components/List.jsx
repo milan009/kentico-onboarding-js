@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as Immutable from "immutable";
+import * as Immutable from 'immutable';
 import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Item from '../models/Item';
@@ -11,14 +11,13 @@ class List extends Component {
     this.state = {
       items: Immutable
         .OrderedMap([
-            new Item('Make a coffee'),
-            new Item('Make a coffee great again'),
-            new Item('We want you, coffee!'),
-            new Item('Coffee can do it \uD83D\uDCAA'),
-          ]
+          new Item('Make a coffee'),
+          new Item('Make a coffee great again'),
+          new Item('We want you, coffee!'),
+          new Item('Coffee can do it \uD83D\uDCAA'),
+        ]
             .map(item => [item.id, item])
-        )
-    };
+        ) };
 
     this._renderItem = this._renderItem.bind(this);
     this._newItemAdded = this._newItemAdded.bind(this);
@@ -46,13 +45,13 @@ class List extends Component {
   }
 
   _renderItem(item, index) {
-    return <ExistingItem
+    return (<ExistingItem
       key={item.id}
       index={index + 1}
       item={item}
       onItemDeleted={this._existingItemDeleted}
       onItemUpdated={this._existingItemUpdated}
-    />
+    />);
   }
 
   render() {
@@ -60,11 +59,11 @@ class List extends Component {
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ul className="list-group">
-            { this
+            {this
                 .state
                 .items
                 .valueSeq()
-                .map(this._renderItem) }
+                .map(this._renderItem)}
             <NewItem onSubmit={this._newItemAdded} />
           </ul>
         </div>

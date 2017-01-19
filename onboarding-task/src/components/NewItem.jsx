@@ -20,11 +20,11 @@ class NewItem extends Component {
   _canClickOnAddButton = (description = '') => description.length > 0;
 
   _onDescriptionChanged(event) {
-    let newDescription = event.target.value;
+    const newDescription = event.target.value;
     this.setState({
       description: newDescription,
       addButtonEnabled: this._canClickOnAddButton(newDescription),
-    })
+    });
   }
 
   _onAddClicked() {
@@ -51,8 +51,9 @@ class NewItem extends Component {
               className="btn btn-success"
               type="button"
               onClick={this._onAddClicked}
-              disabled={!this.state.addButtonEnabled}>
-                Add
+              disabled={!this.state.addButtonEnabled}
+            >
+              Add
             </button>
           </span>
         </div>

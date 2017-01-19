@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DisplayItem from './DisplayItem';
 import EditItem from './EditItem';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ExistingItem extends Component {
   static propTypes = {
@@ -34,7 +34,7 @@ class ExistingItem extends Component {
   }
 
   _itemChanged(byButton, newDescription) {
-    switch(byButton){
+    switch (byButton) {
       case 'update':
         this._updateDescription(newDescription);
         break;
@@ -42,7 +42,7 @@ class ExistingItem extends Component {
         this._itemClicked();
         break;
       case 'delete':
-          this.props.onItemDeleted(this.props.item.id);
+        this.props.onItemDeleted(this.props.item.id);
         break;
       default:
         throw new Error('Operation "' + byButton + '" performed at item ' + this.props.index + ' is not known');
@@ -55,7 +55,7 @@ class ExistingItem extends Component {
   }
 
   render() {
-    if(this.props.item.isEdited)
+    if (this.props.item.isEdited) {
       return (
         <EditItem
           index={this.props.index}
@@ -63,6 +63,7 @@ class ExistingItem extends Component {
           item={this.props.item}
         />
       );
+    }
 
     return (
       <DisplayItem
