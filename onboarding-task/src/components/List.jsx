@@ -4,20 +4,24 @@ import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Item from '../models/Item';
 
+const _getStaticItems = () => [
+  new Item('Make a coffee'),
+  new Item('Make a coffee great again'),
+  new Item('We want you, coffee!'),
+  new Item('Coffee can do it \uD83D\uDCAA'),
+];
+
+const _getStaticItemsDictionary = () => _getStaticItems()
+  .map(item => [item.id, item]);
+
 class List extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: Immutable
-        .OrderedMap([
-          new Item('Make a coffee'),
-          new Item('Make a coffee great again'),
-          new Item('We want you, coffee!'),
-          new Item('Coffee can do it \uD83D\uDCAA'),
-        ]
-            .map(item => [item.id, item])
-        ) };
+      items: Immutable.OrderedMap(
+        _getStaticItemsDictionary()),
+    };
 
     this._renderItem = this._renderItem.bind(this);
     this._newItemAdded = this._newItemAdded.bind(this);
