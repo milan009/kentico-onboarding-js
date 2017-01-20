@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DisplayItem from './DisplayItem';
 import EditItem from './EditItem';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ExistingItem extends Component {
   static propTypes = {
@@ -11,8 +11,8 @@ class ExistingItem extends Component {
       isEdited: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
     }),
-    onItemDeleted: PropTypes.func.isRequired,
-    onItemUpdated: PropTypes.func.isRequired,
+    onItemDelete: PropTypes.func.isRequired,
+    onItemUpdate: PropTypes.func.isRequired,
   };
 
   static _toggleEdition(item) {
@@ -22,52 +22,41 @@ class ExistingItem extends Component {
   constructor(props) {
     super(props);
 
-    this._itemChanged = this._itemChanged.bind(this);
-    this._itemClicked = this._itemClicked.bind(this);
+    this._toggleItemEdition = this._toggleItemEdition.bind(this);
+    this._updateDescription = this._updateDescription.bind(this);
   }
+
+  _deleteItem = () => this.props.onItemDelete(this.props.item.id);
 
   _updateDescription(description) {
     let changedItem = this.props.item.set('description', description);
     changedItem = ExistingItem._toggleEdition(changedItem);
 
-    this.props.onItemUpdated(changedItem);
+    this.props.onItemUpdate(changedItem);
   }
 
-  _itemChanged(byButton, newDescription) {
-    switch(byButton){
-      case 'update':
-        this._updateDescription(newDescription);
-        break;
-      case 'cancel':
-        this._itemClicked();
-        break;
-      case 'delete':
-          this.props.onItemDeleted(this.props.item.id);
-        break;
-      default:
-        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.index + ' is not known');
-    }
-  }
-
-  _itemClicked() {
+  _toggleItemEdition() {
     const changedItem = ExistingItem._toggleEdition(this.props.item);
-    this.props.onItemUpdated(changedItem);
+    this.props.onItemUpdate(changedItem);
   }
 
   render() {
-    if(this.props.item.isEdited)
+    if (this.props.item.isEdited) {
       return (
         <EditItem
           index={this.props.index}
-          onButtonClick={this._itemChanged}
+          onUpdateButtonClick={this._updateDescription}
+          onCancelButtonClick={this._toggleItemEdition}
+          onDeleteButtonClick={this._deleteItem}
           item={this.props.item}
         />
       );
+    }
 
     return (
       <DisplayItem
         index={this.props.index}
-        onItemClick={this._itemClicked}
+        onItemClick={this._toggleItemEdition}
         item={this.props.item}
       />
     );

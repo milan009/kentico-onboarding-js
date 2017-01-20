@@ -1,20 +1,19 @@
 import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-function DisplayItem(props) {
-  let { item: { description }, index } = props;
-  return (
-    <li
-      className="list-group-item"
-      onClick={() => props.onItemClick()}>
-        {index}. {description}
-    </li>
-  );
-}
+const DisplayItem = ({
+    item: { description },
+    index,
+    onItemClick,
+  }) => (
+  <div onClick={() => onItemClick()}>
+    {index}. {description}
+  </div>
+);
 
 DisplayItem.propTypes = {
   item: ImmutablePropTypes.recordOf({
-    description: PropTypes.string.isRequired
+    description: PropTypes.string.isRequired,
   }),
   index: PropTypes.number.isRequired,
   onItemClick: PropTypes.func.isRequired,
