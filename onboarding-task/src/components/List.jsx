@@ -57,8 +57,8 @@ class List extends Component {
         <ExistingItem
           index={index + 1}
           item={item}
-          onItemDeleted={this._updateExistingItem}
-          onItemUpdated={this._deleteExistingItem}
+          onItemDelete={this._updateExistingItem}
+          onItemUpdate={this._deleteExistingItem}
         />
       </li>);
   }

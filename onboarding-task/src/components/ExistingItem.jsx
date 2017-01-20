@@ -11,8 +11,8 @@ class ExistingItem extends Component {
       isEdited: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
     }),
-    onItemDeleted: PropTypes.func.isRequired,
-    onItemUpdated: PropTypes.func.isRequired,
+    onItemDelete: PropTypes.func.isRequired,
+    onItemUpdate: PropTypes.func.isRequired,
   };
 
   static _toggleEdition(item) {
@@ -26,18 +26,18 @@ class ExistingItem extends Component {
     this._updateDescription = this._updateDescription.bind(this);
   }
 
-  _deleteItem = () => this.props.onItemDeleted(this.props.item.id);
+  _deleteItem = () => this.props.onItemDelete(this.props.item.id);
 
   _updateDescription(description) {
     let changedItem = this.props.item.set('description', description);
     changedItem = ExistingItem._toggleEdition(changedItem);
 
-    this.props.onItemUpdated(changedItem);
+    this.props.onItemUpdate(changedItem);
   }
 
   _toggleItemEdition() {
     const changedItem = ExistingItem._toggleEdition(this.props.item);
-    this.props.onItemUpdated(changedItem);
+    this.props.onItemUpdate(changedItem);
   }
 
   render() {
@@ -45,9 +45,9 @@ class ExistingItem extends Component {
       return (
         <EditItem
           index={this.props.index}
-          onUpdateButtonClicked={this._updateDescription}
-          onCancelButtonClicked={this._toggleItemEdition}
-          onDeleteButtonClicked={this._deleteItem}
+          onUpdateButtonClick={this._updateDescription}
+          onCancelButtonClick={this._toggleItemEdition}
+          onDeleteButtonClick={this._deleteItem}
           item={this.props.item}
         />
       );

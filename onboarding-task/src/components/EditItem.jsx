@@ -7,9 +7,9 @@ class EditItem extends Component {
     item: ImmutablePropTypes.recordOf({
       description: PropTypes.string.isRequired,
     }),
-    onUpdateButtonClicked: PropTypes.func.isRequired,
-    onCancelButtonClicked: PropTypes.func.isRequired,
-    onDeleteButtonClicked: PropTypes.func.isRequired,
+    onUpdateButtonClick: PropTypes.func.isRequired,
+    onCancelButtonClick: PropTypes.func.isRequired,
+    onDeleteButtonClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -17,14 +17,14 @@ class EditItem extends Component {
 
     this.state = { description: props.item.description };
 
-    this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
+    this._onDescriptionChange = this._onDescriptionChange.bind(this);
   }
 
   _canClickOnUpdateButton = () => (this.state.description || '').length > 0;
 
-  _onUpdateButtonClicked = () => this.props.onUpdateButtonClicked(this.state.description);
+  _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.state.description);
 
-  _onDescriptionChanged(event) {
+  _onDescriptionChange(event) {
     const newDescription = event.target.value;
     this.setState({ description: newDescription });
   }
@@ -40,13 +40,13 @@ class EditItem extends Component {
           type="text"
           placeholder={`Description of item #${this.props.index} in the list…`}
           value={this.state.description}
-          onChange={this._onDescriptionChanged}
+          onChange={this._onDescriptionChange}
         />
         <span className="input-group-btn">
           <button
             className="btn btn-primary"
             type="button"
-            onClick={this._onUpdateButtonClicked}
+            onClick={this._onUpdateButtonClick}
             disabled={!this._canClickOnUpdateButton()}
           >
             Update
@@ -54,14 +54,14 @@ class EditItem extends Component {
           <button
             className="btn btn-default"
             type="button"
-            onClick={this.props.onCancelButtonClicked}
+            onClick={this.props.onCancelButtonClick}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
             type="button"
-            onClick={this.props.onDeleteButtonClicked}
+            onClick={this.props.onDeleteButtonClick}
           >
             Delete
           </button>
