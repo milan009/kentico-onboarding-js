@@ -25,8 +25,8 @@ class List extends Component {
 
     this._renderItem = this._renderItem.bind(this);
     this._addNewItem = this._addNewItem.bind(this);
-    this._deleteExistingItem = this._deleteExistingItem.bind(this);
     this._updateExistingItem = this._updateExistingItem.bind(this);
+    this._deleteExistingItem = this._deleteExistingItem.bind(this);
   }
 
   _addNewItem(description) {
@@ -36,13 +36,13 @@ class List extends Component {
     this.setState({ items: newItems });
   }
 
-  _updateExistingItem(id) {
+  _deleteExistingItem(id) {
     const newItems = this.state.items.delete(id);
 
     this.setState({ items: newItems });
   }
 
-  _deleteExistingItem(item) {
+  _updateExistingItem(item) {
     const newItems = this.state.items.set(item.id, item);
 
     this.setState({ items: newItems });
@@ -57,8 +57,8 @@ class List extends Component {
         <ExistingItem
           index={index + 1}
           item={item}
-          onItemDelete={this._updateExistingItem}
-          onItemUpdate={this._deleteExistingItem}
+          onItemUpdate={this._updateExistingItem}
+          onItemDelete={this._deleteExistingItem}
         />
       </li>);
   }
