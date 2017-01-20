@@ -22,9 +22,11 @@ class ExistingItem extends Component {
   constructor(props) {
     super(props);
 
-    this._itemChanged = this._itemChanged.bind(this);
-    this._itemClicked = this._itemClicked.bind(this);
+    this._toggleItemEdition = this._toggleItemEdition.bind(this);
+    this._updateDescription = this._updateDescription.bind(this);
   }
+
+  _deleteItem = () => this.props.onItemDeleted(this.props.item.id);
 
   _updateDescription(description) {
     let changedItem = this.props.item.set('description', description);
@@ -33,23 +35,7 @@ class ExistingItem extends Component {
     this.props.onItemUpdated(changedItem);
   }
 
-  _itemChanged(byButton, newDescription) {
-    switch (byButton) {
-      case 'update':
-        this._updateDescription(newDescription);
-        break;
-      case 'cancel':
-        this._itemClicked();
-        break;
-      case 'delete':
-        this.props.onItemDeleted(this.props.item.id);
-        break;
-      default:
-        throw new Error('Operation "' + byButton + '" performed at item ' + this.props.index + ' is not known');
-    }
-  }
-
-  _itemClicked() {
+  _toggleItemEdition() {
     const changedItem = ExistingItem._toggleEdition(this.props.item);
     this.props.onItemUpdated(changedItem);
   }
@@ -59,7 +45,9 @@ class ExistingItem extends Component {
       return (
         <EditItem
           index={this.props.index}
-          onButtonClick={this._itemChanged}
+          onUpdateButtonClicked={this._updateDescription}
+          onCancelButtonClicked={this._toggleItemEdition}
+          onDeleteButtonClicked={this._deleteItem}
           item={this.props.item}
         />
       );
@@ -68,7 +56,7 @@ class ExistingItem extends Component {
     return (
       <DisplayItem
         index={this.props.index}
-        onItemClick={this._itemClicked}
+        onItemClick={this._toggleItemEdition}
         item={this.props.item}
       />
     );

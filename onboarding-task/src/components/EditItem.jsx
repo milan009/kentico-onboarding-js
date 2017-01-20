@@ -7,7 +7,9 @@ class EditItem extends Component {
     item: ImmutablePropTypes.recordOf({
       description: PropTypes.string.isRequired,
     }),
-    onButtonClick: PropTypes.func.isRequired,
+    onUpdateButtonClicked: PropTypes.func.isRequired,
+    onCancelButtonClicked: PropTypes.func.isRequired,
+    onDeleteButtonClicked: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -16,17 +18,11 @@ class EditItem extends Component {
     this.state = { description: props.item.description };
 
     this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
-    this._onUpdateClicked = this._onButtonClicked.bind(this, 'update');
-    this._onCancelClicked = this._onButtonClicked.bind(this, 'cancel');
-    this._onDeleteClicked = this._onButtonClicked.bind(this, 'delete');
   }
 
   _canClickOnUpdateButton = () => (this.state.description || '').length > 0;
 
-  _onButtonClicked = (eventType) =>
-    this.props.onButtonClick(
-      eventType,
-      this.state.description);
+  _onUpdateButtonClicked = () => this.props.onUpdateButtonClicked(this.state.description);
 
   _onDescriptionChanged(event) {
     const newDescription = event.target.value;
@@ -50,7 +46,7 @@ class EditItem extends Component {
           <button
             className="btn btn-primary"
             type="button"
-            onClick={this._onUpdateClicked}
+            onClick={this._onUpdateButtonClicked}
             disabled={!this._canClickOnUpdateButton()}
           >
             Update
@@ -58,14 +54,14 @@ class EditItem extends Component {
           <button
             className="btn btn-default"
             type="button"
-            onClick={this._onCancelClicked}
+            onClick={this.props.onCancelButtonClicked}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
             type="button"
-            onClick={this._onDeleteClicked}
+            onClick={this.props.onDeleteButtonClicked}
           >
             Delete
           </button>
