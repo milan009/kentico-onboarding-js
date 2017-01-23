@@ -1,20 +1,16 @@
 import * as ReactRedux from 'react-redux';
 import ExistingItemComponent from '../components/ExistingItem';
-import deleteItemAction from '../actions/deleteItem';
-import updateItemDescriptionAction from '../actions/updateItemDescription';
-import updateItemIsEdited from '../actions/updateItemIsEdited';
+import storeEditedItemDescription from '../actions/storeEditedItemDescription';
 
 const mapStateToProps = (state, { item: { id } }) => {
   return {
-    isEdited: state.editedItems.contains(id),
+    isEdited: state.editedItems.has(id),
   };
 };
 
-const mapDispatchToProps = (dispatch, { item: { id } }) => {
+const mapDispatchToProps = (dispatch, { item: { id, description } }) => {
   return {
-    updateDescription: description => dispatch(updateItemDescriptionAction(id, description)),
-    updateIsEdited: isEdited => dispatch(updateItemIsEdited(id, isEdited)),
-    deleteItem: () => dispatch(deleteItemAction(id)),
+    enableEdition: () => dispatch(storeEditedItemDescription(id, description)),
   };
 };
 

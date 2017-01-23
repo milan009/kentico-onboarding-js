@@ -4,6 +4,7 @@ import itemsReducer from '../../src/reducers/items';
 import addItem from '../../src/actions/addItem';
 import deleteItem from '../../src/actions/deleteItem';
 import updateItemDescription from '../../src/actions/updateItemDescription';
+import updateAllItemsDescription from '../../src/actions/updateAllItemsDescription';
 import Item from '../../src/models/Item';
 
 describe('items', reducersTests(itemsReducer, () => {
@@ -55,5 +56,32 @@ describe('items', reducersTests(itemsReducer, () => {
     const actualState = itemsReducer(currentState, action);
 
     expect(actualState).toEqualImmutable(new Immutable.OrderedMap());
+  });
+
+  it('update all description action does modify all edited items', () => {
+    const item1 = new Item('test description 1');
+    const item2 = new Item('test description 2');
+    const item3 = new Item('test description 3');
+    const updatedItem1 = item1.set('description', 'new');
+    const updatedItem2 = item2.set('description', 'newer');
+    const editedItems = new Immutable
+      .Map()
+      .set(item1.id, updatedItem1.description)
+      .set(item2.id, updatedItem2.description);
+    const action = updateAllItemsDescription(editedItems);
+    const currentState = new Immutable
+      .OrderedMap()
+      .set(item1.id, item1)
+      .set(item2.id, item2)
+      .set(item3.id, item3);
+    const expectedState = new Immutable
+      .OrderedMap()
+      .set(item1.id, updatedItem1)
+      .set(item2.id, updatedItem2)
+      .set(item3.id, item3);
+
+    const actualState = itemsReducer(currentState, action);
+
+    expect(actualState).toEqualImmutable(expectedState);
   });
 }));

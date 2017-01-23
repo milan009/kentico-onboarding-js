@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ExistingItem from '../containers/ExistingItem';
 import NewItem from '../containers/NewItem';
+import UpdateAllEditedItems from '../containers/UpdateAllEditedItems';
 
 const List = ({ items }) => (
   <div className="row">
@@ -21,6 +22,9 @@ const List = ({ items }) => (
               </li>))}
         <li className="list-group-item">
           <NewItem />
+        </li>
+        <li className="list-group-item">
+          <UpdateAllEditedItems />
         </li>
       </ul>
     </div>

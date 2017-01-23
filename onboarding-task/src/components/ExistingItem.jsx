@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import DisplayItem from './DisplayItem';
-import EditItem from './EditItem';
+import EditItem from '../containers/EditItem';
 
 class ExistingItem extends Component {
   static propTypes = {
@@ -11,21 +11,14 @@ class ExistingItem extends Component {
       description: PropTypes.string.isRequired,
     }),
     isEdited: PropTypes.bool.isRequired,
-    updateDescription: PropTypes.func.isRequired,
-    updateIsEdited: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
+    enableEdition: PropTypes.func.isRequired,
   };
-
-  toggleEdition = () => this.props.updateIsEdited(!this.props.isEdited);
 
   render() {
     if (this.props.isEdited) {
       return (
         <EditItem
           index={this.props.index}
-          onUpdateButtonClick={this.props.updateDescription}
-          onCancelButtonClick={this.toggleEdition}
-          onDeleteButtonClick={this.props.deleteItem}
           item={this.props.item}
         />
       );
@@ -34,7 +27,7 @@ class ExistingItem extends Component {
     return (
       <DisplayItem
         index={this.props.index}
-        onItemClick={this.toggleEdition}
+        onItemClick={this.props.enableEdition}
         item={this.props.item}
       />
     );

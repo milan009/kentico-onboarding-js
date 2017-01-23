@@ -1,6 +1,6 @@
 import * as Immutable from 'immutable';
 import Item from '../models/Item';
-import { ITEM_ADD, ITEM_DELETE, ITEM_UPDATE_DESCRIPTION } from '../actions/actionTypes';
+import { ITEM_ADD, ITEM_DELETE, ITEM_UPDATE_DESCRIPTION, ALL_ITEMS_DESCRIPTION_UPDATE } from '../actions/actionTypes';
 
 function items(state = Immutable.OrderedMap(), action) {
   switch (action.type) {
@@ -17,6 +17,11 @@ function items(state = Immutable.OrderedMap(), action) {
       }
 
       return state.setIn([action.id, 'description'], action.description);
+    }
+    case ALL_ITEMS_DESCRIPTION_UPDATE: {
+      return state.mergeWith(
+        (item, editedDescription) => item.set('description', editedDescription),
+        action.editedItems);
     }
     default: {
       return state;
