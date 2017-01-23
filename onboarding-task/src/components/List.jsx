@@ -4,14 +4,14 @@ import ExistingItem from './ExistingItem';
 import NewItem from './NewItem';
 import Item from '../models/Item';
 
-const _getStaticItems = () => [
+const getStaticItems = () => [
   new Item('Make a coffee'),
   new Item('Make a coffee great again'),
   new Item('We want you, coffee!'),
   new Item('Coffee can do it \uD83D\uDCAA'),
 ];
 
-const _getStaticItemsDictionary = () => _getStaticItems()
+const getStaticItemsDictionary = () => getStaticItems()
   .map(item => [item.id, item]);
 
 class List extends Component {
@@ -20,7 +20,7 @@ class List extends Component {
 
     this.state = {
       items: Immutable.OrderedMap(
-        _getStaticItemsDictionary()),
+        getStaticItemsDictionary()),
     };
 
     this._renderItem = this._renderItem.bind(this);
