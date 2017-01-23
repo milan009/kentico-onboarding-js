@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import DisplayItem from './DisplayItem';
 import EditItem from './EditItem';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ExistingItem extends Component {
   static propTypes = {

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { isStorable } from '../utils/text';
 
 class NewItem extends Component {
   static propTypes = {
@@ -13,8 +14,6 @@ class NewItem extends Component {
     this._onDescriptionChanged = this._onDescriptionChanged.bind(this);
     this._onAddClicked = this._onAddClicked.bind(this);
   }
-
-  _canClickOnAddButton = () => (this.state.description || '').length > 0;
 
   _onDescriptionChanged(event) {
     const newDescription = event.target.value;
@@ -41,7 +40,7 @@ class NewItem extends Component {
             className="btn btn-success"
             type="button"
             onClick={this._onAddClicked}
-            disabled={!this._canClickOnAddButton}
+            disabled={!isStorable(this.state.description)}
           >
             Add
           </button>
