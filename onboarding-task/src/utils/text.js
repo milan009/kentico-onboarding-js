@@ -1,3 +1,3 @@
-const isStorable = text => (text || '').length > 0;
+const isStorable = text => (text || '').trim().length > 0;
 
 export { isStorable };
