@@ -1,30 +1,12 @@
 import * as Immutable from 'immutable';
-import * as matchers from 'jest-immutable-matchers';
+import reducersTests from './reducersTests';
 import itemsReducer from '../../src/reducers/items';
 import addItem from '../../src/actions/addItem';
 import deleteItem from '../../src/actions/deleteItem';
 import updateItemDescription from '../../src/actions/updateItemDescription';
 import Item from '../../src/models/Item';
 
-describe('items', () => {
-  beforeEach(() => jest.addMatchers(matchers));
-
-  it('undefined action does not change state', () => {
-    const expectedState = 'no change';
-
-    const actualState = itemsReducer(expectedState, { });
-
-    expect(actualState).toBe(expectedState);
-  });
-
-  it('unknown action does not change state', () => {
-    const expectedState = 'no change';
-
-    const actualState = itemsReducer(expectedState, { type: 'NOTKNOWN_ACTION' });
-
-    expect(actualState).toBe(expectedState);
-  });
-
+describe('items', reducersTests(itemsReducer, () => {
   it('add action adds new item to state', () => {
     const action = addItem('test description');
     const actualState = itemsReducer(undefined, action);
@@ -74,4 +56,4 @@ describe('items', () => {
 
     expect(actualState).toEqualImmutable(new Immutable.OrderedMap());
   });
-});
+}));
