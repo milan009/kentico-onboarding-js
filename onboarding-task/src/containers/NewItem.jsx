@@ -1,5 +1,5 @@
 import * as ReactRedux from 'react-redux';
-import VisibleNewItem from '../components/NewItem';
+import NewItemComponent from '../components/NewItem';
 import addItemAction from '../actions/addItem';
 
 const mapStateToProps = () => ({});
@@ -13,6 +13,6 @@ const mapDispatchToProps = dispatch => {
 const NewItem = ReactRedux.connect(
   mapStateToProps,
   mapDispatchToProps,
-)(VisibleNewItem);
+)(NewItemComponent);
 
 export default NewItem;

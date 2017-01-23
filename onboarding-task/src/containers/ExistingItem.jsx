@@ -1,5 +1,5 @@
 import * as ReactRedux from 'react-redux';
-import VisibleExistingItem from '../components/ExistingItem';
+import ExistingItemComponent from '../components/ExistingItem';
 import deleteItemAction from '../actions/deleteItem';
 import updateItemDescriptionAction from '../actions/updateItemDescription';
 import updateItemIsEdited from '../actions/updateItemIsEdited';
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch, { item: { id } }) => {
 const ExistingItem = ReactRedux.connect(
   mapStateToProps,
   mapDispatchToProps,
-)(VisibleExistingItem);
+)(ExistingItemComponent);
 
 export default ExistingItem;
