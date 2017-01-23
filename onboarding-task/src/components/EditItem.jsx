@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { isStorable } from '../utils/text';
 
 class EditItem extends Component {
   static propTypes = {
@@ -19,8 +20,6 @@ class EditItem extends Component {
 
     this._onDescriptionChange = this._onDescriptionChange.bind(this);
   }
-
-  _canClickOnUpdateButton = () => (this.state.description || '').length > 0;
 
   _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.state.description);
 
@@ -47,7 +46,7 @@ class EditItem extends Component {
             className="btn btn-primary"
             type="button"
             onClick={this._onUpdateButtonClick}
-            disabled={!this._canClickOnUpdateButton()}
+            disabled={!isStorable(this.state.description)}
           >
             Update
           </button>
