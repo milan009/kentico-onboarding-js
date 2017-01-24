@@ -1,13 +1,13 @@
 import * as ReactRedux from 'react-redux';
 import ExistingItemComponent from '../components/ExistingItem';
-import storeEditedItemDescription from '../actions/storeEditedItemDescription';
+import storeEditedItemDescriptionAction from '../actions/storeEditedItemDescription';
 
 const mapStateToProps = (state, { item: { id } }) => ({
   isEdited: state.editedItems.getIn([id, 'isEdited'], false),
 });
 
 const mapDispatchToProps = (dispatch, { item: { id, description } }) => ({
-  enableEdition: () => dispatch(storeEditedItemDescription(id, description, true)),
+  enableEdition: () => dispatch(storeEditedItemDescriptionAction(id, description, true)),
 });
 
 const ExistingItem = ReactRedux.connect(
