@@ -4,11 +4,13 @@ class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     isStorable: PropTypes.bool,
+    isOriginal: PropTypes.bool,
     description: PropTypes.string.isRequired,
     onDescriptionChange: PropTypes.func.isRequired,
     onUpdateButtonClick: PropTypes.func.isRequired,
     onCancelButtonClick: PropTypes.func.isRequired,
     onDeleteButtonClick: PropTypes.func.isRequired,
+    onOriginButtonClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -45,6 +47,14 @@ class EditItem extends Component {
             disabled={!this.props.isStorable}
           >
             Update
+          </button>
+          <button
+            className="btn btn-warning"
+            type="button"
+            onClick={this.props.onOriginButtonClick}
+            disabled={this.props.isOriginal}
+          >
+            Original
           </button>
           <button
             className="btn btn-default"
