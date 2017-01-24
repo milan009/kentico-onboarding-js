@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ListItem from './ListItem.jsx';
 import AddItem from './AddItem.jsx';
 
-class List extends React.Component {
+class List extends Component {
+  static displayName = 'List';
+
   constructor() {
     super();
     this.state = { items: [{ text: 'prva', guid: '1010' }] };
-    this.addItem = this.addItem.bind(this);
+    this._addItem = this._addItem.bind(this);
   }
 
-  addItem(item) {
+  _addItem(item) {
     const items = this.state.items;
     items.push(item);
     this.setState(items);
@@ -22,7 +24,7 @@ class List extends React.Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             {items.map(item => <ListItem item={item} key={item.guid} />)}
-            <AddItem addItem={this.addItem} />
+            <AddItem addItem={this._addItem} />
           </div>
         </div>
       </div>

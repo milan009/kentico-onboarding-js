@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-class ListItem extends React.Component {
+class ListItem extends Component {
+  static displayName = 'ListItem';
+  static propTypes = {
+    key: PropTypes.number.isRequired,
+    item: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = { editable: false, text: '', guid: '' };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this._handleClick = this._handleClick.bind(this);
+    this._handleDelete = this._handleDelete.bind(this);
+    this._handleChange = this._handleChange.bind(this);
   }
 
-  handleClick() {
+  _handleClick() {
     this.setState(prevState => ({
       editable: !prevState.editable,
     }));
   }
 
-  handleChange(event) {
+  _handleChange(event) {
     this.setState({ text: event.target.value, editable: false });
   }
 
-  handleDelete() {
+  _handleDelete() {
     ReactDOM.unmountComponentAtNode(document.getElementById(this.state.text));
   }
 
@@ -29,15 +35,15 @@ class ListItem extends React.Component {
       return (
         <div>
           <input type="text" defaultValue={this.state.text} />
-          <button onClick={this.handleChange}>Save</button>
-          <button onClick={this.handleDelete}>Delete</button>
-          <button onClick={this.handleClick}>Cancel</button>
+          <button onClick={this._handleChange}>Save</button>
+          <button onClick={this._handleDelete}>Delete</button>
+          <button onClick={this._handleClick}>Cancel</button>
         </div>
       );
     }
     return (
       <div>
-        <h2 onClick={this.handleClick}>{this.state.text}</h2>
+        <h2 onClick={this._handleClick}>{this.state.text}</h2>
       </div>
     );
   }
