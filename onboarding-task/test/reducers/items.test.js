@@ -21,6 +21,7 @@ describe('items', reducersTests(itemsReducer, () => {
     const actualItem = actualState.first();
     const exptedItemWithActualId = expectedItem.set('id', actualItem.id);
     expect(actualItem).toEqualImmutable(exptedItemWithActualId);
+    expect(actualItem.id).not.toBeFalsy();
   });
 
   it('delete action removes item from state', () => {
