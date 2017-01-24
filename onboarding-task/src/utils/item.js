@@ -5,6 +5,7 @@ const getStorableEditedItems = editedItems => Immutable
   .Seq(editedItems)
   .filter(item => item.isEdited)
   .filter(item => !item.isOriginal)
-  .filter(item => isStorable(item.description));
+  .filter(item => isStorable(item.description))
+  .toMap();
 
 export { getStorableEditedItems };
