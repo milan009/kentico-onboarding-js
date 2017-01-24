@@ -4,14 +4,20 @@ import storeEditedItemDescription from '../actions/storeEditedItemDescription';
 import deleteItemAction from '../actions/deleteItem';
 import updateItemDescriptionAction from '../actions/updateItemDescription';
 import updateItemIsEdited from '../actions/updateItemIsEdited';
+import { isStorable } from '../utils/text';
 
-const mapStateToProps = (state, { item: { id } }) => ({
-  editedDescription: state.editedItems.get(id, ''),
-});
+const mapStateToProps = (state, { item: { id } }) => {
+  const editedDescription = state.editedItems.getIn([id, 'description'], '');
+
+  return {
+    description: editedDescription,
+    isStorable: isStorable(editedDescription),
+  };
+};
 
 const mapDispatchToProps = (dispatch, { item: { id } }) => ({
-  onDescriptionChange: description => dispatch(storeEditedItemDescription(id, description)),
-  onUpdateButtonClick: description => dispatch(updateItemDescriptionAction(id, description)),
+  onDescriptionChange: newDescription => dispatch(storeEditedItemDescription(id, newDescription)),
+  onUpdateButtonClick: newDescription => dispatch(updateItemDescriptionAction(id, newDescription)),
   onCancelButtonClick: () => dispatch(updateItemIsEdited(id, false)),
   onDeleteButtonClick: () => dispatch(deleteItemAction(id)),
 });

@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { isStorable } from '../utils/text';
 
 class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      description: PropTypes.string.isRequired,
-    }),
-    editedDescription: PropTypes.string.isRequired,
+    isStorable: PropTypes.bool,
+    description: PropTypes.string.isRequired,
     onDescriptionChange: PropTypes.func.isRequired,
     onUpdateButtonClick: PropTypes.func.isRequired,
     onCancelButtonClick: PropTypes.func.isRequired,
@@ -21,7 +17,7 @@ class EditItem extends Component {
     this._onDescriptionChange = this._onDescriptionChange.bind(this);
   }
 
-  _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.props.editedDescription);
+  _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.props.description);
 
   _onDescriptionChange(event) {
     const newDescription = event.target.value;
@@ -38,7 +34,7 @@ class EditItem extends Component {
           className="form-control"
           type="text"
           placeholder={`Description of item #${this.props.index} in the list…`}
-          value={this.props.editedDescription}
+          value={this.props.description}
           onChange={this._onDescriptionChange}
         />
         <span className="input-group-btn">
@@ -46,7 +42,7 @@ class EditItem extends Component {
             className="btn btn-primary"
             type="button"
             onClick={this._onUpdateButtonClick}
-            disabled={!isStorable(this.props.editedDescription)}
+            disabled={!this.props.isStorable}
           >
             Update
           </button>

@@ -6,6 +6,7 @@ import deleteItem from '../../src/actions/deleteItem';
 import updateItemDescription from '../../src/actions/updateItemDescription';
 import updateAllItemsDescription from '../../src/actions/updateAllItemsDescription';
 import Item from '../../src/models/Item';
+import EditedItem from '../../src/models/EditedItem';
 
 describe('items', reducersTests(itemsReducer, () => {
   it('add action adds new item to state', () => {
@@ -66,8 +67,8 @@ describe('items', reducersTests(itemsReducer, () => {
     const updatedItem2 = item2.set('description', 'newer');
     const editedItems = new Immutable
       .Map()
-      .set(item1.id, updatedItem1.description)
-      .set(item2.id, updatedItem2.description);
+      .set(item2.id, new EditedItem(updatedItem2.description))
+      .set(item1.id, new EditedItem(updatedItem1.description));
     const action = updateAllItemsDescription(editedItems);
     const currentState = new Immutable
       .OrderedMap()

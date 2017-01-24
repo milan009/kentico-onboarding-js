@@ -20,8 +20,8 @@ function items(state = Immutable.OrderedMap(), action) {
     }
     case ALL_ITEMS_DESCRIPTION_UPDATE: {
       return state.mergeWith(
-        (item, editedDescription) => item.set('description', editedDescription),
-        action.editedItems);
+        (item, editedItem) => item.set('description', editedItem.description),
+        action.storableItems);
     }
     default: {
       return state;

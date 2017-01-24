@@ -3,7 +3,7 @@ import ExistingItemComponent from '../components/ExistingItem';
 import storeEditedItemDescription from '../actions/storeEditedItemDescription';
 
 const mapStateToProps = (state, { item: { id } }) => ({
-  isEdited: state.editedItems.has(id),
+  isEdited: state.editedItems.getIn([id, 'isEdited'], false),
 });
 
 const mapDispatchToProps = (dispatch, { item: { id, description } }) => ({

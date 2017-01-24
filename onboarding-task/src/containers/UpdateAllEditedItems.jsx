@@ -1,14 +1,18 @@
 import * as ReactRedux from 'react-redux';
 import UpdateAllEditedItemsComponent from '../components/UpdateAllEditedItems';
 import updateAllItemsDescription from '../actions/updateAllItemsDescription';
+import { getStorableEditedItems } from '../utils/item';
 
-const mapStateToProps = state => ({
-    editedItems: state.editedItems,
-    editedItemsCount: state.editedItems.count(),
-  });
+const mapStateToProps = ({ editedItems }) => {
+  const storableItems = getStorableEditedItems(editedItems);
+  return {
+    storableItems,
+    storableItemsCount: storableItems.count(),
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  updateAllItems: editedItems => dispatch(updateAllItemsDescription(editedItems)),
+  updateAllItems: storableItems => dispatch(updateAllItemsDescription(storableItems)),
 });
 
 const UpdateAllEditedItems = ReactRedux.connect(

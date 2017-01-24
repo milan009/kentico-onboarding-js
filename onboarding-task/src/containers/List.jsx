@@ -1,9 +1,10 @@
 import * as ReactRedux from 'react-redux';
 import ListComponent from '../components/List';
+import { getStorableEditedItems } from '../utils/item';
 
 const mapStateToProps = state => ({
-  ...state,
-  isMultipleItemsEdited: state.editedItems.count() > 1,
+  items: state.items,
+  isMultipleItemsEdited: getStorableEditedItems(state.editedItems).count() > 1,
 });
 
 const mapDispatchToProps = () => ({});

@@ -3,25 +3,28 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class UpdateAllEditedItems extends Component {
   static propTypes = {
-    editedItems: ImmutablePropTypes.mapOf(
-      PropTypes.string,
+    storableItems: ImmutablePropTypes.mapOf(
+      ImmutablePropTypes.recordOf({
+        description: PropTypes.string,
+        isEdited: PropTypes.bool,
+      }),
       PropTypes.string,
     ),
-    editedItemsCount: PropTypes.number.isRequired,
+    storableItemsCount: PropTypes.number.isRequired,
     updateAllItems: PropTypes.func.isRequired,
   };
 
-  _updateAllItems = () => this.props.updateAllItems(this.props.editedItems);
+  _updateAllItems = () => this.props.updateAllItems(this.props.storableItems);
 
   render() {
     return (
       <div className="input-group">
         <span className="input-group-addon">
-          There are currently {this.props.editedItemsCount} edited items.
+          There are currently {this.props.storableItemsCount} edited items ready to update.
         </span>
         <span className="input-group-btn">
           <button
-            className="btn btn-warning btn-block"
+            className="btn btn-info btn-block"
             type="button"
             onClick={this._updateAllItems}
           >
