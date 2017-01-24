@@ -76,8 +76,8 @@ describe('items', reducersTests(itemsReducer, () => {
     const updatedItem2 = item2.set('description', 'newer');
     const editedItems = new Immutable
       .Map()
-      .set(item2.id, new EditedItem(updatedItem2.description))
-      .set(item1.id, new EditedItem(updatedItem1.description));
+      .set(item2.id, new EditedItem({ description: updatedItem2.description, isOriginal: false }))
+      .set(item1.id, new EditedItem({ description: updatedItem1.description, isOriginal: false }));
     const action = updateAllItemsDescription(editedItems);
     const currentState = new Immutable
       .OrderedMap()

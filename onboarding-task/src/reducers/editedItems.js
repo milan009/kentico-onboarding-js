@@ -1,5 +1,4 @@
 import * as Immutable from 'immutable';
-import EditedItem from '../models/EditedItem';
 import {
   ITEM_UPDATE_IS_EDITED,
   ITEM_UPDATE_DESCRIPTION,
@@ -18,7 +17,7 @@ function editedItems(state = Immutable.Map(), { type, payload }) {
     }
     case (ITEM_STORE_EDITED_DESCRIPTION): {
       // Stores edition description for any currently edited item
-      return state.set(payload.id, new EditedItem(payload.description, payload.isOriginal));
+      return state.set(payload.id, payload.editedItem);
     }
     case (ITEM_DELETE): {
       // Renders item without edit mode after description update
@@ -29,18 +28,12 @@ function editedItems(state = Immutable.Map(), { type, payload }) {
       return state.delete(payload.id);
     }
     case (ITEM_UPDATE_IS_EDITED): {
-      if (state.has(payload.id)) {
-        // item already exists in the map, isEdited has to be updated
-        return state.setIn([payload.id, 'isEdited'], payload.isEdited);
+      if (!state.has(payload.id) && !payload.editedItem.isEdited) {
+        // item is not in the map and it is not edited - no change in state required
+        return state;
       }
 
-      if (payload.isEdited) {
-        // adding item to map with isEdited flag set
-        return state.set(payload.id, new EditedItem(null));
-      }
-
-      // item is not in the map and it is not edited - no change in state required
-      return state;
+      return state.set(payload.id, payload.editedItem);
     }
     default: {
       return state;
