@@ -4,11 +4,22 @@ import ExistingItem from '../containers/ExistingItem';
 import NewItem from '../containers/NewItem';
 import UpdateAllEditedItems from '../containers/UpdateAllEditedItems';
 
-const List = ({ items }) => (
-  <div className="row">
-    <div className="col-sm-12 col-md-offset-2 col-md-8">
-      <ul className="list-group">
-        {items
+const List = ({ items, isMultipleItemsEdited }) => {
+  let updateAllItemsBox;
+  if (isMultipleItemsEdited) {
+    updateAllItemsBox = (
+      <li className="list-group-item">
+        <UpdateAllEditedItems />
+      </li>
+    );
+  }
+
+  return (
+    <div className="row">
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <ul className="list-group">
+          {updateAllItemsBox}
+          {items
             .valueSeq()
             .map((item, index) => (
               <li
@@ -20,16 +31,14 @@ const List = ({ items }) => (
                   item={item}
                 />
               </li>))}
-        <li className="list-group-item">
-          <NewItem />
-        </li>
-        <li className="list-group-item">
-          <UpdateAllEditedItems />
-        </li>
-      </ul>
+          <li className="list-group-item">
+            <NewItem />
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 List.propTypes = {
   items: ImmutablePropTypes.orderedMapOf(
@@ -39,6 +48,7 @@ List.propTypes = {
     }),
     PropTypes.string,
   ),
+  isMultipleItemsEdited: PropTypes.bool,
 };
 
 export default List;

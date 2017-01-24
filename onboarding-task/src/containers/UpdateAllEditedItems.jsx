@@ -5,6 +5,7 @@ import updateAllItemsDescription from '../actions/updateAllItemsDescription';
 const mapStateToProps = state => {
   return {
     editedItems: state.editedItems,
+    editedItemsCount: state.editedItems.count(),
   };
 };
 
