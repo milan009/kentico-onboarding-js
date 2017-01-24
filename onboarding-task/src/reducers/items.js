@@ -1,27 +1,25 @@
 import * as Immutable from 'immutable';
-import Item from '../models/Item';
 import { ITEM_ADD, ITEM_DELETE, ITEM_UPDATE_DESCRIPTION, ALL_ITEMS_DESCRIPTION_UPDATE } from '../actions/actionTypes';
 
-function items(state = Immutable.OrderedMap(), action) {
-  switch (action.type) {
+function items(state = Immutable.OrderedMap(), { type, payload }) {
+  switch (type) {
     case ITEM_ADD: {
-      const newItem = new Item(action.description);
-      return state.set(newItem.id, newItem);
+      return state.set(payload.id, payload);
     }
     case ITEM_DELETE: {
-      return state.delete(action.id);
+      return state.delete(payload);
     }
     case ITEM_UPDATE_DESCRIPTION: {
-      if (!state.has(action.id)) {
+      if (!state.has(payload.id)) {
         return state;
       }
 
-      return state.setIn([action.id, 'description'], action.description);
+      return state.setIn([payload.id, 'description'], payload.description);
     }
     case ALL_ITEMS_DESCRIPTION_UPDATE: {
       return state.mergeWith(
         (item, editedItem) => item.set('description', editedItem.description),
-        action.storableItems);
+        payload);
     }
     default: {
       return state;

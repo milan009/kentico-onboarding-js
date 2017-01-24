@@ -4,14 +4,14 @@ import storeEditedItemDescription from '../actions/storeEditedItemDescription';
 import deleteItemAction from '../actions/deleteItem';
 import updateItemDescriptionAction from '../actions/updateItemDescription';
 import updateItemIsEdited from '../actions/updateItemIsEdited';
-import { isStorable } from '../utils/text';
+import { isNotEmpty } from '../utils/text';
 
 const mapStateToProps = (state, { item: { id } }) => {
   const editedItem = state.editedItems.get(id);
 
   return {
     description: editedItem.description,
-    isStorable: isStorable(editedItem.description) && !editedItem.isOriginal,
+    isStorable: isNotEmpty(editedItem.description) && !editedItem.isOriginal,
     isOriginal: editedItem.isOriginal,
   };
 };

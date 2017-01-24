@@ -7,11 +7,8 @@ const mapStateToProps = state => ({
   isMultipleItemsEdited: getStorableEditedItems(state.editedItems).count() > 1,
 });
 
-const mapDispatchToProps = () => ({});
-
 const List = ReactRedux.connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  mapStateToProps
 )(ListComponent);
 
 export default List;

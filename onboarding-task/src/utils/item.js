@@ -1,11 +1,11 @@
 import * as Immutable from 'immutable';
-import { isStorable } from './text';
+import { isNotEmpty } from './text';
 
 const getStorableEditedItems = editedItems => Immutable
   .Seq(editedItems)
   .filter(item => item.isEdited)
   .filter(item => !item.isOriginal)
-  .filter(item => isStorable(item.description))
+  .filter(item => isNotEmpty(item.description))
   .toMap();
 
 export { getStorableEditedItems };

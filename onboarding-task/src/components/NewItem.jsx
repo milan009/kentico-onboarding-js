@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isStorable } from '../utils/text';
+import { isNotEmpty } from '../utils/text';
 
 class NewItem extends Component {
   static propTypes = {
@@ -40,7 +40,7 @@ class NewItem extends Component {
             className="btn btn-success"
             type="button"
             onClick={this._onAddClicked}
-            disabled={!isStorable(this.state.description)}
+            disabled={!isNotEmpty(this.state.description)}
           >
             Add
           </button>
