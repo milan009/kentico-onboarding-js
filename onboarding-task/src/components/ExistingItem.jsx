@@ -16,7 +16,7 @@ class ExistingItem extends Component {
     deleteItem: PropTypes.func.isRequired,
   };
 
-  toggleEdition = () => this.props.updateIsEdited(!this.props.isEdited);
+  _toggleEdition = () => this.props.updateIsEdited(!this.props.isEdited);
 
   render() {
     if (this.props.isEdited) {
@@ -24,7 +24,7 @@ class ExistingItem extends Component {
         <EditItem
           index={this.props.index}
           onUpdateButtonClick={this.props.updateDescription}
-          onCancelButtonClick={this.toggleEdition}
+          onCancelButtonClick={this._toggleEdition}
           onDeleteButtonClick={this.props.deleteItem}
           item={this.props.item}
         />
@@ -34,7 +34,7 @@ class ExistingItem extends Component {
     return (
       <DisplayItem
         index={this.props.index}
-        onItemClick={this.toggleEdition}
+        onItemClick={this._toggleEdition}
         item={this.props.item}
       />
     );

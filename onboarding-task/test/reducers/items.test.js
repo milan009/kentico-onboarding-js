@@ -8,11 +8,20 @@ import Item from '../../src/models/Item';
 
 describe('items', reducersTests(itemsReducer, () => {
   it('add action adds new item to state', () => {
-    const action = addItem('test description');
+    const expectedDescription = 'test description';
+    const expectedItem = new Item('test description');
+
+    const action = addItem(expectedDescription);
     const actualState = itemsReducer(undefined, action);
 
     expect(actualState).toBeImmutableOrderedMap();
     expect(actualState.count()).toBe(1);
+
+    // this hack is not nice, however, it tests both that item is immutable and all its properties (other than random id)
+    const actualItem = actualState.first();
+    const exptedItemWithActualId = expectedItem.set('id', actualItem.id);
+    expect(actualItem).toEqualImmutable(exptedItemWithActualId);
+    expect(actualItem.id).not.toBeFalsy();
   });
 
   it('delete action removes item from state', () => {

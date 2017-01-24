@@ -1,3 +1,3 @@
-const isStorable = text => (text || '').trim().length > 0;
+const isNotEmpty = text => (text || '').trim().length > 0;
 
-export { isStorable };
+export { isNotEmpty };

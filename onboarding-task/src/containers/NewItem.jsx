@@ -2,8 +2,6 @@ import * as ReactRedux from 'react-redux';
 import NewItemComponent from '../components/NewItem';
 import addItemAction from '../actions/addItem';
 
-const mapStateToProps = () => ({});
-
 const mapDispatchToProps = dispatch => {
   return {
     onSubmit: description => dispatch(addItemAction(description)),
@@ -11,7 +9,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const NewItem = ReactRedux.connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps,
 )(NewItemComponent);
 

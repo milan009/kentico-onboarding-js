@@ -2,7 +2,7 @@ import * as ReactRedux from 'react-redux';
 import ExistingItemComponent from '../components/ExistingItem';
 import deleteItemAction from '../actions/deleteItem';
 import updateItemDescriptionAction from '../actions/updateItemDescription';
-import updateItemIsEdited from '../actions/updateItemIsEdited';
+import updateItemIsEditedAction from '../actions/updateItemIsEdited';
 
 const mapStateToProps = (state, { item: { id } }) => {
   return {
@@ -13,7 +13,7 @@ const mapStateToProps = (state, { item: { id } }) => {
 const mapDispatchToProps = (dispatch, { item: { id } }) => {
   return {
     updateDescription: description => dispatch(updateItemDescriptionAction(id, description)),
-    updateIsEdited: isEdited => dispatch(updateItemIsEdited(id, isEdited)),
+    updateIsEdited: isEdited => dispatch(updateItemIsEditedAction(id, isEdited)),
     deleteItem: () => dispatch(deleteItemAction(id)),
   };
 };
