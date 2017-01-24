@@ -1,17 +1,31 @@
-import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
+import React from 'react';
+import ListItem from './ListItem.jsx';
 
-import TsComponent from './TsComponent.tsx';
+class List extends React.Component {
+  constructor() {
+    super();
+    this.state = { items: [] };
+    this._addItem = this._addItem.bind(this);
+  }
 
-class List extends Component {
+  componentDidMount() {
+  }
+
+  _addItem(item) {
+    const items = this.state.items;
+    items.push(item);
+    this.setState(items);
+  }
+
+
   render() {
+    const items = this.state.items;
     return (
       <div className="row">
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
+            {items.map(item => <Text item={item} />)}
+            <ListItem addItem={this.addItem} />
           </div>
         </div>
       </div>
