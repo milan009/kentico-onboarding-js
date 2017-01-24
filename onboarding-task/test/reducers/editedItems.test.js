@@ -11,12 +11,18 @@ import deleteItem from '../../src/actions/deleteItem';
 
 describe('editedItems', reducersTests(editedItemsReducer, () => {
   it('update isEdited=true action adds new item to state if not present', () => {
-    const action = updateItemIsEdited('uuiduuiduuiduuiduuid', true);
+    const expectedItem = new EditedItem({
+      description: '',
+      isEdited: true,
+      isOriginal: true,
+    });
 
+    const action = updateItemIsEdited('uuiduuiduuiduuiduuid', true);
     const actualState = editedItemsReducer(undefined, action);
 
     expect(actualState).toBeImmutableMap();
     expect(actualState.count()).toBe(1);
+    expect(actualState.first()).toEqualImmutable(expectedItem);
   });
 
   it('update isEdited=true action sets flag of item if present', () => {
