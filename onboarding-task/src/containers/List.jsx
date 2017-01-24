@@ -3,11 +3,8 @@ import ListComponent from '../components/List';
 
 const mapStateToProps = state => state;
 
-const mapDispatchToProps = () => ({});
-
 const List = ReactRedux.connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  mapStateToProps
 )(ListComponent);
 
 export default List;
