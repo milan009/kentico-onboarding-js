@@ -18,7 +18,7 @@ function editedItems(state = Immutable.Map(), action) {
     }
     case (ITEM_STORE_EDITED_DESCRIPTION): {
       // Stores edition description for any currently edited item
-      return state.set(action.id, new EditedItem(action.description));
+      return state.set(action.id, new EditedItem(action.description, action.isOriginal));
     }
     case (ITEM_DELETE):
     case (ITEM_UPDATE_DESCRIPTION): {

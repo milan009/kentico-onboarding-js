@@ -118,10 +118,10 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
 
   it('store edited description action modified state for non-existing item', () => {
     const itemId = 'aGuidIdToBeHereForSure';
-    const expectedItem = new EditedItem('newer description');
+    const expectedItem = new EditedItem('newer description', true);
     const currentState = new Immutable.Map();
 
-    const action = storeEditedItemDescription(itemId, expectedItem.description);
+    const action = storeEditedItemDescription(itemId, expectedItem.description, true);
     const actualState = editedItemsReducer(currentState, action);
 
     expect(actualState)

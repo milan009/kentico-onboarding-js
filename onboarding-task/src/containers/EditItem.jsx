@@ -6,22 +6,22 @@ import updateItemDescriptionAction from '../actions/updateItemDescription';
 import updateItemIsEdited from '../actions/updateItemIsEdited';
 import { isStorable } from '../utils/text';
 
-const mapStateToProps = (state, { item: { id, description: originalDescription } }) => {
-  const editedDescription = state.editedItems.getIn([id, 'description'], '');
+const mapStateToProps = (state, { item: { id } }) => {
+  const editedItem = state.editedItems.get(id);
 
   return {
-    description: editedDescription,
-    isStorable: isStorable(editedDescription),
-    isOriginal: editedDescription === originalDescription,
+    description: editedItem.description,
+    isStorable: isStorable(editedItem.description) && !editedItem.isOriginal,
+    isOriginal: editedItem.isOriginal,
   };
 };
 
 const mapDispatchToProps = (dispatch, { item: { id, description: orginalDescription } }) => ({
-  onDescriptionChange: newDescription => dispatch(storeEditedItemDescription(id, newDescription)),
+  onDescriptionChange: (newDescription, isOriginal) => dispatch(storeEditedItemDescription(id, newDescription, isOriginal)),
   onUpdateButtonClick: newDescription => dispatch(updateItemDescriptionAction(id, newDescription)),
   onCancelButtonClick: () => dispatch(updateItemIsEdited(id, false)),
   onDeleteButtonClick: () => dispatch(deleteItemAction(id)),
-  onOriginButtonClick: () => dispatch(storeEditedItemDescription(id, orginalDescription)),
+  onOriginButtonClick: () => dispatch(storeEditedItemDescription(id, orginalDescription, true)),
 });
 
 const EditItem = ReactRedux.connect(

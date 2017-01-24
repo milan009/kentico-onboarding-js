@@ -7,7 +7,7 @@ const mapStateToProps = (state, { item: { id } }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { item: { id, description } }) => ({
-  enableEdition: () => dispatch(storeEditedItemDescription(id, description)),
+  enableEdition: () => dispatch(storeEditedItemDescription(id, description, true)),
 });
 
 const ExistingItem = ReactRedux.connect(

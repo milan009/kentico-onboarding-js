@@ -3,12 +3,14 @@ import { Record } from 'immutable';
 const defaultNewItem = {
   description: '',
   isEdited: false,
+  isOriginal: false,
 };
 
 class EditedItem extends Record(defaultNewItem) {
-  constructor(description) {
+  constructor(description, isOriginal = false) {
     super({
       isEdited: true,
+      isOriginal,
       description,
     });
   }

@@ -23,7 +23,8 @@ class EditItem extends Component {
 
   _onDescriptionChange(event) {
     const newDescription = event.target.value;
-    this.props.onDescriptionChange(newDescription);
+    const isOriginal = this.props.isOriginal && this.props.description === newDescription;
+    this.props.onDescriptionChange(newDescription, isOriginal);
   }
 
   render() {
