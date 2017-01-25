@@ -13,7 +13,7 @@ function editedItems(state = Immutable.Map(), { type, payload }) {
       // All edited descriptions can be removed as Update All button was clicked
       return state
         .toSeq()
-        .filter((editedItem, id) => !payload.has(id))
+        .filter((editedItem, id) => !payload.storableItems.has(id))
         .toMap();
     }
     case (ITEM_STORE_EDITED_DESCRIPTION): {
@@ -26,7 +26,7 @@ function editedItems(state = Immutable.Map(), { type, payload }) {
     }
     case (ITEM_DELETE): // Cleans up edited item after delete button click
     case (ITEM_CANCEL_EDITION): { // Renders item without edit mode after cancel button click
-      return state.delete(payload);
+      return state.delete(payload.id);
     }
     default: {
       return state;

@@ -4,6 +4,8 @@ import { getStorableEditedItems } from '../utils/item';
 
 const updateItemDescription = editedItems => action(
   ALL_ITEMS_DESCRIPTION_UPDATE,
-  getStorableEditedItems(editedItems));
+  {
+    storableItems: getStorableEditedItems(editedItems),
+  });
 
 export default updateItemDescription;
