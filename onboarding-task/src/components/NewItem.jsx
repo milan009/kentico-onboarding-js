@@ -39,10 +39,11 @@ class NewItem extends Component {
           <button
             className="btn btn-success"
             type="button"
+            title="Add"
             onClick={this._onAddClicked}
             disabled={!isNotEmpty(this.state.description)}
           >
-            Add
+            <span className="glyphicon glyphicon-plus" />
           </button>
         </span>
       </div>
