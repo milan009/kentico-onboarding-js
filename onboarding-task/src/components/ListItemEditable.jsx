@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-class ListItem extends Component {
-  static displayName = 'ListItem';
+class ListItemEditable extends Component {
+  static displayName = 'ListItemEditable';
   static propTypes = {
     key: PropTypes.number.isRequired,
     item: PropTypes.object.isRequired,
     handleDelete: PropTypes.func.isRequired,
-    handleItemUpdate: PropTypes.func.isRequired,
+    handleUpdate: PropTypes.func.isRequired,
+    handleClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,14 +19,12 @@ class ListItem extends Component {
   }
 
   _handleClick() {
-    this.setState(prevState => ({
-      editable: !prevState.editable,
-    }));
+    this.props.handleClick(this.state);
   }
 
   _handleChange() {
-    this.setState({ text: this.textInput.value, editable: false, guid: this.props.item.guid });
-    this.props.handleItemUpdate(this.state);
+    const editedItem = { text: this.textInput.value, editable: false, guid: this.props.item.guid };
+    this.props.handleUpdate(editedItem);
   }
 
   _handleDelete() {
@@ -33,10 +32,11 @@ class ListItem extends Component {
   }
 
   render() {
-    if (this.state.editable) {
-      return (
-        <div>
+    return (
+      <div className="form-inline">
+        <div className="form-group">
           <input
+            className="form-control"
             type="text"
             defaultValue={this.state.text}
             ref={
@@ -45,18 +45,15 @@ class ListItem extends Component {
               }
             }
           />
-          <button onClick={this._handleChange}>Save</button>
-          <button onClick={this._handleDelete}>Delete</button>
-          <button onClick={this._handleClick}>Cancel</button>
         </div>
-      );
-    }
-    return (
-      <div>
-        <h2 onClick={this._handleClick}>{this.state.text}</h2>
+        <div className="form-group">
+          <button className="btn btn-primary" onClick={this._handleChange}>Save</button>
+          <button className="btn btn-default" onClick={this._handleDelete}>Delete</button>
+          <button className="btn btn-danger" onClick={this._handleClick}>Cancel</button>
+        </div>
       </div>
     );
   }
 }
 
-export default ListItem;
+export default ListItemEditable;

@@ -20,7 +20,8 @@ class AddItem extends Component {
   _createNewItem() {
     const newItem = {
       guid: this._generateGuid(),
-      text: this.state.text,
+      text: this.textInput.value,
+      editable: false,
     };
     this.props.addItem(newItem);
     this.textInput.value = '';
@@ -38,22 +39,26 @@ class AddItem extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          defaultValue={''}
-          onChange={this._handleInputChange}
-          ref={
-          (input) => {
-            this.textInput = input;
-          }
-        }
-        />
-        <input type="button" value="Add" onClick={this._createNewItem} />
+      <div className="form-inline">
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="text"
+            defaultValue={''}
+            onChange={this._handleInputChange}
+            ref={
+              (input) => {
+                this.textInput = input;
+              }
+            }
+          />
+        </div>
+        <div className="form-group">
+          <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
+        </div>
       </div>
     );
   }
-
 }
 
 export default AddItem;
