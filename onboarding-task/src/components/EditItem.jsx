@@ -44,32 +44,36 @@ class EditItem extends Component {
           <button
             className="btn btn-primary"
             type="button"
+            title="Update"
             onClick={this._onUpdateButtonClick}
             disabled={!this.props.isStorable}
           >
-            Update
+            <span className="glyphicon glyphicon-pencil" />
           </button>
           <button
             className="btn btn-warning"
             type="button"
+            title="Original"
             onClick={this.props.onOriginButtonClick}
             disabled={this.props.isOriginal}
           >
-            Original
+            <span className="glyphicon glyphicon-repeat" />
           </button>
           <button
             className="btn btn-default"
             type="button"
+            title="Cancel"
             onClick={this.props.onCancelButtonClick}
           >
-            Cancel
+            <span className="glyphicon glyphicon-remove" />
           </button>
           <button
             className="btn btn-danger"
             type="button"
+            title="Delete"
             onClick={this.props.onDeleteButtonClick}
           >
-            Delete
+            <span className="glyphicon glyphicon-trash" />
           </button>
         </span>
       </div>

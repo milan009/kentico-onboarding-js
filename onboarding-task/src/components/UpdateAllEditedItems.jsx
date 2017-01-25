@@ -25,10 +25,11 @@ class UpdateAllEditedItems extends Component {
         <span className="input-group-btn">
           <button
             className="btn btn-info btn-block"
+            title="Update all"
             type="button"
             onClick={this._updateAllItems}
           >
-            Update all
+            <span className="glyphicon glyphicon-pencil" />
           </button>
         </span>
       </div>);
