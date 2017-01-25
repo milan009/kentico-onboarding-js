@@ -14,7 +14,7 @@ const getStaticItemsDictionary = () => getStaticItems()
 const seedStore = () => {
   return {
     items: new Immutable.OrderedMap(getStaticItemsDictionary()),
-    editedItems: new Immutable.Set(),
+    editedItems: undefined,
   };
 };
 

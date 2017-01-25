@@ -1,20 +1,32 @@
 import * as Immutable from 'immutable';
-import { ITEM_UPDATE_IS_EDITED, ITEM_UPDATE_DESCRIPTION } from '../actions/actionTypes';
+import {
+  ITEM_CANCEL_EDITION,
+  ITEM_UPDATE_DESCRIPTION,
+  ALL_ITEMS_DESCRIPTION_UPDATE,
+  ITEM_STORE_EDITED_DESCRIPTION,
+  ITEM_DELETE,
+} from '../actions/actionTypes';
 
-function editedItems(state = Immutable.Set(), { type, payload }) {
+function editedItems(state = Immutable.Map(), { type, payload }) {
   switch (type) {
+    case (ALL_ITEMS_DESCRIPTION_UPDATE): {
+      // All edited descriptions can be removed as Update All button was clicked
+      return state
+        .toSeq()
+        .filter((editedItem, id) => !payload.has(id))
+        .toMap();
+    }
+    case (ITEM_STORE_EDITED_DESCRIPTION): {
+      // Stores edition description for any currently edited item
+      return state.set(payload.id, payload.editedItem);
+    }
     case (ITEM_UPDATE_DESCRIPTION): {
       // Renders item without edit mode after description update
       return state.delete(payload.id);
     }
-    case (ITEM_UPDATE_IS_EDITED): {
-      if (!payload.isEdited) {
-        // by removing id from the set signals it is not edited anymore
-        return state.delete(payload.id);
-      }
-
-      // by adding id to the set signals it should be rendered in edit mode
-      return state.add(payload.id);
+    case (ITEM_DELETE): // Cleans up edited item after delete button click
+    case (ITEM_CANCEL_EDITION): { // Renders item without edit mode after cancel button click
+      return state.delete(payload);
     }
     default: {
       return state;

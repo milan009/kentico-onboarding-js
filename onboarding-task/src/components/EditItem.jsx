@@ -1,31 +1,30 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { isNotEmpty } from '../utils/text';
 
 class EditItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      description: PropTypes.string.isRequired,
-    }),
+    isStorable: PropTypes.bool,
+    isOriginal: PropTypes.bool,
+    description: PropTypes.string.isRequired,
+    onDescriptionChange: PropTypes.func.isRequired,
     onUpdateButtonClick: PropTypes.func.isRequired,
     onCancelButtonClick: PropTypes.func.isRequired,
     onDeleteButtonClick: PropTypes.func.isRequired,
+    onOriginButtonClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    this.state = { description: props.item.description };
-
     this._onDescriptionChange = this._onDescriptionChange.bind(this);
   }
 
-  _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.state.description);
+  _onUpdateButtonClick = () => this.props.onUpdateButtonClick(this.props.description);
 
   _onDescriptionChange(event) {
     const newDescription = event.target.value;
-    this.setState({ description: newDescription });
+    const isOriginal = this.props.isOriginal && this.props.description === newDescription;
+    this.props.onDescriptionChange(newDescription, isOriginal);
   }
 
   render() {
@@ -38,31 +37,43 @@ class EditItem extends Component {
           className="form-control"
           type="text"
           placeholder={`Description of item #${this.props.index} in the list…`}
-          value={this.state.description}
+          value={this.props.description}
           onChange={this._onDescriptionChange}
         />
         <span className="input-group-btn">
           <button
             className="btn btn-primary"
             type="button"
+            title="Update"
             onClick={this._onUpdateButtonClick}
-            disabled={!isNotEmpty(this.state.description)}
+            disabled={!this.props.isStorable}
           >
-            Update
+            <span className="glyphicon glyphicon-pencil" />
+          </button>
+          <button
+            className="btn btn-warning"
+            type="button"
+            title="Original"
+            onClick={this.props.onOriginButtonClick}
+            disabled={this.props.isOriginal}
+          >
+            <span className="glyphicon glyphicon-repeat" />
           </button>
           <button
             className="btn btn-default"
             type="button"
+            title="Cancel"
             onClick={this.props.onCancelButtonClick}
           >
-            Cancel
+            <span className="glyphicon glyphicon-remove" />
           </button>
           <button
             className="btn btn-danger"
             type="button"
+            title="Delete"
             onClick={this.props.onDeleteButtonClick}
           >
-            Delete
+            <span className="glyphicon glyphicon-trash" />
           </button>
         </span>
       </div>

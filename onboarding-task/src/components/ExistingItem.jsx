@@ -1,44 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import DisplayItem from './DisplayItem';
-import EditItem from './EditItem';
+import EditItem from '../containers/EditItem';
 
-class ExistingItem extends Component {
-  static propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    }),
-    isEdited: PropTypes.bool.isRequired,
-    updateDescription: PropTypes.func.isRequired,
-    updateIsEdited: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-  };
-
-  _toggleEdition = () => this.props.updateIsEdited(!this.props.isEdited);
-
-  render() {
-    if (this.props.isEdited) {
-      return (
-        <EditItem
-          index={this.props.index}
-          onUpdateButtonClick={this.props.updateDescription}
-          onCancelButtonClick={this._toggleEdition}
-          onDeleteButtonClick={this.props.deleteItem}
-          item={this.props.item}
-        />
-      );
-    }
-
+const ExistingItem = props => {
+  if (props.isEdited) {
     return (
-      <DisplayItem
-        index={this.props.index}
-        onItemClick={this._toggleEdition}
-        item={this.props.item}
+      <EditItem
+        index={props.index}
+        item={props.item}
       />
     );
   }
-}
+
+  return (
+    <DisplayItem
+      index={props.index}
+      onItemClick={props.enableEdition}
+      item={props.item}
+    />
+  );
+};
+
+ExistingItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  item: ImmutablePropTypes.recordOf({
+    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }),
+  isEdited: PropTypes.bool.isRequired,
+  enableEdition: PropTypes.func.isRequired,
+};
 
 export default ExistingItem;
