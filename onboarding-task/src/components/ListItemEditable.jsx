@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
-    key: PropTypes.number.isRequired,
     item: PropTypes.object.isRequired,
     handleDelete: PropTypes.func.isRequired,
     handleUpdate: PropTypes.func.isRequired,
@@ -33,25 +32,29 @@ class ListItemEditable extends Component {
 
   render() {
     return (
-      <div className="form-inline">
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="text"
-            defaultValue={this.state.text}
-            ref={
-              (input) => {
-                this.textInput = input;
-              }
-            }
-          />
-        </div>
-        <div className="form-group">
-          <button className="btn btn-primary" onClick={this._handleChange}>Save</button>
-          <button className="btn btn-default" onClick={this._handleDelete}>Delete</button>
-          <button className="btn btn-danger" onClick={this._handleClick}>Cancel</button>
-        </div>
-      </div>
+      <tr>
+        <td>
+          <div className="form-inline">
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.text}
+                ref={
+                  (input) => {
+                    this.textInput = input;
+                  }
+                }
+              />
+            </div>
+            <div className="form-group">
+              <button className="btn btn-primary" onClick={this._handleChange}>Save</button>
+              <button className="btn btn-default" onClick={this._handleClick}>Cancel</button>
+              <button className="btn btn-danger" onClick={this._handleDelete}>Delete</button>
+            </div>
+          </div>
+        </td>
+      </tr>
     );
   }
 }

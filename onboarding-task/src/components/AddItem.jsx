@@ -39,24 +39,28 @@ class AddItem extends Component {
 
   render() {
     return (
-      <div className="form-inline">
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="text"
-            defaultValue={''}
-            onChange={this._handleInputChange}
-            ref={
-              (input) => {
-                this.textInput = input;
-              }
-            }
-          />
-        </div>
-        <div className="form-group">
-          <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
-        </div>
-      </div>
+      <tr>
+        <td>
+          <div className="form-inline">
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={''}
+                onChange={this._handleInputChange}
+                ref={
+                  (input) => {
+                    this.textInput = input;
+                  }
+                }
+              />
+            </div>
+            <div className="form-group">
+              <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
+            </div>
+          </div>
+        </td>
+      </tr>
     );
   }
 }

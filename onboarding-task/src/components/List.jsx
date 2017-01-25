@@ -63,28 +63,12 @@ class List extends Component {
               <tbody>
                 {items.map((item, index) => {
                   if (item.editable) {
-                    return (
-                      <tr>
-                        <td>
-                          <ListItemEditable item={item} key={item.guid} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} />
-                        </td>
-                      </tr>
-                    );
+                    return <ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} />;
                   }
-                  return (
-                    <tr>
-                      <td>
-                        <ListItemStatic item={item} key={item.guid} handleClick={this._editItem} index={index} />
-                      </td>
-                    </tr>
-                  );
+                  return <ListItemStatic key={item.guid} item={item} handleClick={this._editItem} index={index} />;
                 })
                 }
-                <tr>
-                  <td>
-                    <AddItem addItem={this._addItem} />
-                  </td>
-                </tr>
+                <AddItem addItem={this._addItem} />
               </tbody>
             </table>
           </div>
