@@ -11,14 +11,13 @@ class ListItemEditable extends Component {
 
   constructor(props) {
     super(props);
-    this.state = props.item;
     this._handleClick = this._handleClick.bind(this);
     this._handleDelete = this._handleDelete.bind(this);
     this._handleChange = this._handleChange.bind(this);
   }
 
   _handleClick() {
-    this.props.handleClick(this.state);
+    this.props.handleClick(this.props.item);
   }
 
   _handleChange() {
@@ -39,7 +38,7 @@ class ListItemEditable extends Component {
               <input
                 className="form-control"
                 type="text"
-                defaultValue={this.state.text}
+                defaultValue={this.props.item.text}
                 ref={
                   (input) => {
                     this.textInput = input;

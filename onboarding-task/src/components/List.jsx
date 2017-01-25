@@ -8,7 +8,7 @@ class List extends Component {
 
   constructor() {
     super();
-    this.state = { items: [] };
+    this.state = { items: [{ guid: 22, text: 'serus', editable: false }, { guid: 24, text: 'nazdar', editable: true }] };
     this._addItem = this._addItem.bind(this);
     this._removeItem = this._removeItem.bind(this);
     this._updateItem = this._updateItem.bind(this);
@@ -16,19 +16,14 @@ class List extends Component {
   }
 
   _removeItem(guid) {
-    const items = this.state.items;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].guid === guid) {
-        items.splice(i, 1);
-      }
-    }
-    this.setState(items);
+    const items = this.state.items.filter(item => item.guid !== guid);
+    this.setState({ items });
   }
 
   _addItem(item) {
     const items = this.state.items;
     items.push(item);
-    this.setState(items);
+    this.setState({ items });
   }
 
   _updateItem(item) {
@@ -38,7 +33,7 @@ class List extends Component {
         items[i] = item;
       }
     }
-    this.setState(items);
+    this.setState({ items });
   }
 
   _editItem(item) {
@@ -50,7 +45,7 @@ class List extends Component {
         items[i] = editedItem;
       }
     }
-    this.setState(items);
+    this.setState({ items });
   }
 
   render() {
