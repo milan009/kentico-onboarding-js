@@ -3,7 +3,7 @@ import EditItemComponent from '../components/EditItem';
 import storeEditedItemDescriptionAction from '../actions/storeEditedItemDescription';
 import deleteItemAction from '../actions/deleteItem';
 import updateItemDescriptionAction from '../actions/updateItemDescription';
-import updateItemIsEditedAction from '../actions/updateItemIsEdited';
+import cancelItemEditionAction from '../actions/cancelItemEdition';
 import { isNotEmpty } from '../utils/text';
 
 const mapStateToProps = (state, { item: { id } }) => {
@@ -19,7 +19,7 @@ const mapStateToProps = (state, { item: { id } }) => {
 const mapDispatchToProps = (dispatch, { item: { id, description: orginalDescription } }) => ({
   onDescriptionChange: (newDescription, isOriginal) => dispatch(storeEditedItemDescriptionAction(id, newDescription, isOriginal)),
   onUpdateButtonClick: newDescription => dispatch(updateItemDescriptionAction(id, newDescription)),
-  onCancelButtonClick: () => dispatch(updateItemIsEditedAction(id, false)),
+  onCancelButtonClick: () => dispatch(cancelItemEditionAction(id)),
   onDeleteButtonClick: () => dispatch(deleteItemAction(id)),
   onOriginButtonClick: () => dispatch(storeEditedItemDescriptionAction(id, orginalDescription, true)),
 });

@@ -1,64 +1,30 @@
 import * as Immutable from 'immutable';
-import Item from '../../src/models/Item';
 import EditedItem from '../../src/models/EditedItem';
 import reducersTests from './reducersTests';
 import editedItemsReducer from '../../src/reducers/editedItems';
 import updateItemDescription from '../../src/actions/updateItemDescription';
-import updateItemIsEdited from '../../src/actions/updateItemIsEdited';
+import cancelItemEdition from '../../src/actions/cancelItemEdition';
 import updateAllItemsDescription from '../../src/actions/updateAllItemsDescription';
 import storeEditedItemDescription from '../../src/actions/storeEditedItemDescription';
 import deleteItem from '../../src/actions/deleteItem';
 
 describe('editedItems', reducersTests(editedItemsReducer, () => {
-  it('update isEdited=true action adds new item to state if not present', () => {
-    const expectedItem = new EditedItem({
-      description: '',
-      isEdited: true,
-      isOriginal: true,
-    });
-
-    const action = updateItemIsEdited('uuiduuiduuiduuiduuid', true);
-    const actualState = editedItemsReducer(undefined, action);
-
-    expect(actualState).toBeImmutableMap();
-    expect(actualState.count()).toBe(1);
-    expect(actualState.first()).toEqualImmutable(expectedItem);
-  });
-
-  it('update isEdited=true action sets flag of item if present', () => {
-    const itemId = 'test GUID description';
-    const editedItem = new EditedItem({ isEdited: false });
-    const expectedEditedItem = editedItem.set('isEdited', true);
-    const action = updateItemIsEdited(itemId, true);
-    const currentState = new Immutable
-      .Map()
-      .set(itemId, editedItem);
-
-    const actualState = editedItemsReducer(currentState, action);
-
-    expect(actualState).toEqualImmutable(new Immutable
-      .Map()
-      .set(itemId, expectedEditedItem));
-  });
-
-  it('update isEdited=false action sets flag of item if present', () => {
+  it('update isEdited=false action deletes item if present', () => {
     const itemId = 'baubaubauba';
     const editedItem = new EditedItem({ isEdited: true });
-    const expectedEditedItem = editedItem.set('isEdited', false);
-    const action = updateItemIsEdited(itemId, false);
+
+    const action = cancelItemEdition(itemId);
     const currentState = new Immutable
       .Map()
       .set(itemId, editedItem);
 
     const actualState = editedItemsReducer(currentState, action);
 
-    expect(actualState).toEqualImmutable(new Immutable
-      .Map()
-      .set(itemId, expectedEditedItem));
+    expect(actualState).toEqualImmutable(new Immutable.Map());
   });
 
   it('update isEdited=false action does not change state if item not present', () => {
-    const action = updateItemIsEdited('hugaGuidhugaGuid', false);
+    const action = cancelItemEdition('hugaGuidhugaGuid');
 
     const actualState = editedItemsReducer(undefined, action);
 
@@ -95,8 +61,6 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     const itemId3 = 'zxcxzczczcz';
     const editedItem1 = new EditedItem({ description: 'new', isEdited: true, isOriginal: false });
     const editedItem2 = new EditedItem({ description: 'newer', isEdited: true, isOriginal: false });
-    const expectedItem1 = editedItem1.set('isEdited', false);
-    const expectedItem2 = editedItem2.set('isEdited', false);
     const expectedItem3 = new EditedItem({ description: 'newest', isEdited: true });
     const action = updateAllItemsDescription(new Immutable
       .Map()
@@ -109,8 +73,6 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
       .set(itemId3, expectedItem3);
     const expectedState = new Immutable
       .Map()
-      .set(itemId1, expectedItem1)
-      .set(itemId2, expectedItem2)
       .set(itemId3, expectedItem3);
 
     const actualState = editedItemsReducer(currentState, action);
