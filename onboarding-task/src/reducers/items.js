@@ -4,10 +4,10 @@ import { ITEM_ADD, ITEM_DELETE, ITEM_UPDATE_DESCRIPTION, ALL_ITEMS_DESCRIPTION_U
 function items(state = Immutable.OrderedMap(), { type, payload }) {
   switch (type) {
     case ITEM_ADD: {
-      return state.set(payload.id, payload);
+      return state.set(payload.item.id, payload.item);
     }
     case ITEM_DELETE: {
-      return state.delete(payload);
+      return state.delete(payload.id);
     }
     case ITEM_UPDATE_DESCRIPTION: {
       if (!state.has(payload.id)) {
@@ -19,7 +19,7 @@ function items(state = Immutable.OrderedMap(), { type, payload }) {
     case ALL_ITEMS_DESCRIPTION_UPDATE: {
       return state.mergeWith(
         (item, editedItem) => item.set('description', editedItem.description),
-        payload);
+        payload.storableItems);
     }
     default: {
       return state;
