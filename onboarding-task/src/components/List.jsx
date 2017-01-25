@@ -13,6 +13,7 @@ class List extends Component {
     this._removeItem = this._removeItem.bind(this);
     this._updateItem = this._updateItem.bind(this);
     this._editItem = this._editItem.bind(this);
+    this._getItemToRender = this._getItemToRender.bind(this);
   }
 
   _removeItem(guid) {
@@ -48,25 +49,23 @@ class List extends Component {
     this.setState({ items });
   }
 
+  _getItemToRender(item, index) {
+    return (item.editable)
+      ? (<ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} />)
+      : (<ListItemStatic key={item.guid} item={item} handleClick={this._editItem} index={index} />);
+  }
+
   render() {
     const items = this.state.items;
     return (
       <div className="row">
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <table className="table table-bordered">
-              <tbody>
-                {items.map((item, index) => {
-                  if (item.editable) {
-                    return <ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} />;
-                  }
-                  return <ListItemStatic key={item.guid} item={item} handleClick={this._editItem} index={index} />;
-                })
-                }
-                <AddItem addItem={this._addItem} />
-              </tbody>
-            </table>
-          </div>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <table className="table table-bordered">
+            <tbody>
+              {items.map(this._getItemToRender)}
+              <AddItem addItem={this._addItem} />
+            </tbody>
+          </table>
         </div>
       </div>
     );
