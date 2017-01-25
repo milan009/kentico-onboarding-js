@@ -23,6 +23,7 @@ class AddItem extends Component {
       text: this.state.text,
     };
     this.props.addItem(newItem);
+    this.textInput.value = '';
   }
 
   _generateGuid() {
@@ -38,7 +39,16 @@ class AddItem extends Component {
   render() {
     return (
       <div>
-        <input type="text" defaultValue={this.state.text} onChange={this._handleInputChange} />
+        <input
+          type="text"
+          defaultValue={''}
+          onChange={this._handleInputChange}
+          ref={
+          (input) => {
+            this.textInput = input;
+          }
+        }
+        />
         <input type="button" value="Add" onClick={this._createNewItem} />
       </div>
     );

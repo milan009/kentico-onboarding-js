@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 
 class ListItem extends Component {
   static displayName = 'ListItem';
   static propTypes = {
     key: PropTypes.number.isRequired,
     item: PropTypes.object.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleItemUpdate: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.state = { editable: false, text: '', guid: '' };
+    this.state = props.item;
     this._handleClick = this._handleClick.bind(this);
     this._handleDelete = this._handleDelete.bind(this);
     this._handleChange = this._handleChange.bind(this);
@@ -23,11 +24,12 @@ class ListItem extends Component {
   }
 
   _handleChange(event) {
-    this.setState({ text: event.target.value, editable: false });
+    this.setState({ text: event.target.value, editable: false, guid: this.props.item.guid });
+    this.props.handleItemUpdate(this.state);
   }
 
   _handleDelete() {
-    ReactDOM.unmountComponentAtNode(document.getElementById(this.state.text));
+    this.props.handleDelete(this.props.item.guid);
   }
 
   render() {
