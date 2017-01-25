@@ -2,7 +2,6 @@ import { Record } from 'immutable';
 
 const defaultNewItem = {
   description: '',
-  isEdited: true,
   isOriginal: true,
 };
 

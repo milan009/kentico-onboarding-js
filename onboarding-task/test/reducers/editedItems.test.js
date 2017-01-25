@@ -9,9 +9,9 @@ import storeEditedItemDescription from '../../src/actions/storeEditedItemDescrip
 import deleteItem from '../../src/actions/deleteItem';
 
 describe('editedItems', reducersTests(editedItemsReducer, () => {
-  it('update isEdited=false action deletes item if present', () => {
+  it('cancel edition action deletes item if present', () => {
     const itemId = 'baubaubauba';
-    const editedItem = new EditedItem({ isEdited: true });
+    const editedItem = new EditedItem();
 
     const action = cancelItemEdition(itemId);
     const currentState = new Immutable
@@ -23,7 +23,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     expect(actualState).toEqualImmutable(new Immutable.Map());
   });
 
-  it('update isEdited=false action does not change state if item not present', () => {
+  it('cancel edition action does not change state if item not present', () => {
     const action = cancelItemEdition('hugaGuidhugaGuid');
 
     const actualState = editedItemsReducer(undefined, action);
@@ -55,13 +55,13 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     expect(actualState).toEqualImmutable(new Immutable.Map());
   });
 
-  it('update all description reset isEdited for affected items', () => {
+  it('update all description reset edition for affected items', () => {
     const itemId1 = 'asdasdasdas';
     const itemId2 = 'qweqwewqeqw';
     const itemId3 = 'zxcxzczczcz';
-    const editedItem1 = new EditedItem({ description: 'new', isEdited: true, isOriginal: false });
-    const editedItem2 = new EditedItem({ description: 'newer', isEdited: true, isOriginal: false });
-    const expectedItem3 = new EditedItem({ description: 'newest', isEdited: true });
+    const editedItem1 = new EditedItem({ description: 'new', isOriginal: false });
+    const editedItem2 = new EditedItem({ description: 'newer', isOriginal: false });
+    const expectedItem3 = new EditedItem({ description: 'newest' });
     const action = updateAllItemsDescription(new Immutable
       .Map()
       .set(itemId1, editedItem1)

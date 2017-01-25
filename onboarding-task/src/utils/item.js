@@ -3,7 +3,6 @@ import { isNotEmpty } from './text';
 
 const getStorableEditedItems = editedItems => Immutable
   .Seq(editedItems)
-  .filter(item => item.isEdited)
   .filter(item => !item.isOriginal)
   .filter(item => isNotEmpty(item.description))
   .toMap();
