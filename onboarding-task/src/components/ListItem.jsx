@@ -23,8 +23,8 @@ class ListItem extends Component {
     }));
   }
 
-  _handleChange(event) {
-    this.setState({ text: event.target.value, editable: false, guid: this.props.item.guid });
+  _handleChange() {
+    this.setState({ text: this.textInput.value, editable: false, guid: this.props.item.guid });
     this.props.handleItemUpdate(this.state);
   }
 
@@ -36,7 +36,15 @@ class ListItem extends Component {
     if (this.state.editable) {
       return (
         <div>
-          <input type="text" defaultValue={this.state.text} />
+          <input
+            type="text"
+            defaultValue={this.state.text}
+            ref={
+              (input) => {
+                this.textInput = input;
+              }
+            }
+          />
           <button onClick={this._handleChange}>Save</button>
           <button onClick={this._handleDelete}>Delete</button>
           <button onClick={this._handleClick}>Cancel</button>
