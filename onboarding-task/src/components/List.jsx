@@ -29,11 +29,11 @@ class List extends Component {
 
   _updateItem(item) {
     const items = this.state.items;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].guid === item.guid) {
-        items[i] = item;
+    items.forEach((singleItem, index) => {
+      if (singleItem.guid === item.guid) {
+        items[index] = item;
       }
-    }
+    });
     this.setState({ items });
   }
 
@@ -41,11 +41,11 @@ class List extends Component {
     const items = this.state.items;
     const editedItem = item;
     editedItem.editable = !item.editable;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].guid === editedItem.guid) {
-        items[i] = editedItem;
+    items.forEach((singleItem, index) => {
+      if (singleItem.guid === editedItem.guid) {
+        items[index] = editedItem;
       }
-    }
+    });
     this.setState({ items });
   }
 
