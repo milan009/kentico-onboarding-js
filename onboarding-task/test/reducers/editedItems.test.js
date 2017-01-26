@@ -14,9 +14,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     const editedItem = new EditedItem();
 
     const action = cancelItemEdition(itemId);
-    const currentState = new Immutable
-      .Map()
-      .set(itemId, editedItem);
+    const currentState = new Immutable.Map({ [itemId]: editedItem });
 
     const actualState = editedItemsReducer(currentState, action);
 
@@ -34,9 +32,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
   it('update description action removes item from state if present', () => {
     const itemId = 'testGuid';
     const action = updateItemDescription(itemId, 'what ever description');
-    const currentState = new Immutable
-      .Map()
-      .set(itemId, new EditedItem());
+    const currentState = new Immutable.Map({ [itemId]: new EditedItem() });
 
     const actualState = editedItemsReducer(currentState, action);
 
@@ -46,9 +42,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
   it('delete item action removes edited item as well', () => {
     const itemId = 'GuiDGuidGuidGuid';
     const action = deleteItem(itemId);
-    const currentState = new Immutable
-      .Map()
-      .set(itemId, new EditedItem());
+    const currentState = new Immutable.Map({ [itemId]: new EditedItem() });
 
     const actualState = editedItemsReducer(currentState, action);
 
@@ -62,18 +56,16 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     const editedItem1 = new EditedItem({ description: 'new', isOriginal: false });
     const editedItem2 = new EditedItem({ description: 'newer', isOriginal: false });
     const expectedItem3 = new EditedItem({ description: 'newest' });
-    const action = updateAllItemsDescription(new Immutable
-      .Map()
-      .set(itemId1, editedItem1)
-      .set(itemId2, editedItem2));
-    const currentState = new Immutable
-      .Map()
-      .set(itemId1, editedItem1)
-      .set(itemId2, editedItem2)
-      .set(itemId3, expectedItem3);
-    const expectedState = new Immutable
-      .Map()
-      .set(itemId3, expectedItem3);
+    const action = updateAllItemsDescription(new Immutable.Map({
+      [itemId1]: editedItem1,
+      [itemId2]: editedItem2,
+    }));
+    const currentState = new Immutable.Map({
+      [itemId1]: editedItem1,
+      [itemId2]: editedItem2,
+      [itemId3]: expectedItem3,
+    });
+    const expectedState = new Immutable.Map({ [itemId3]: expectedItem3 });
 
     const actualState = editedItemsReducer(currentState, action);
 
@@ -90,10 +82,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     const action = storeEditedItemDescription(itemId, expectedItem.description);
     const actualState = editedItemsReducer(currentState, action);
 
-    expect(actualState)
-      .toEqualImmutable(new Immutable
-        .Map()
-        .set(itemId, expectedItem));
+    expect(actualState).toEqualImmutable(new Immutable.Map({ [itemId]: expectedItem }));
   });
 
   it('store edited description action modified state for non-existing item', () => {
@@ -104,10 +93,7 @@ describe('editedItems', reducersTests(editedItemsReducer, () => {
     const action = storeEditedItemDescription(itemId, expectedItem.description, true);
     const actualState = editedItemsReducer(currentState, action);
 
-    expect(actualState)
-      .toEqualImmutable(new Immutable
-        .Map()
-        .set(itemId, expectedItem));
+    expect(actualState).toEqualImmutable(new Immutable.Map({ [itemId]: expectedItem }));
   });
 }));
 
