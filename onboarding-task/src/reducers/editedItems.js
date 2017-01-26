@@ -20,10 +20,7 @@ function editedItems(state = Immutable.Map(), { type, payload }) {
       // Stores edition description for any currently edited item
       return state.set(payload.id, payload.editedItem);
     }
-    case (ITEM_UPDATE_DESCRIPTION): {
-      // Renders item without edit mode after description update
-      return state.delete(payload.id);
-    }
+    case (ITEM_UPDATE_DESCRIPTION): // Renders item without edit mode after description update
     case (ITEM_DELETE): // Cleans up edited item after delete button click
     case (ITEM_CANCEL_EDITION): { // Renders item without edit mode after cancel button click
       return state.delete(payload.id);
