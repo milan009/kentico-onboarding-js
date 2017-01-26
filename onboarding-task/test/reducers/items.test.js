@@ -74,21 +74,21 @@ describe('items', reducersTests(itemsReducer, () => {
     const item3 = new Item('test description 3');
     const updatedItem1 = item1.set('description', 'new');
     const updatedItem2 = item2.set('description', 'newer');
-    const editedItems = new Immutable
-      .Map()
-      .set(item2.id, new EditedItem({ description: updatedItem2.description, isOriginal: false }))
-      .set(item1.id, new EditedItem({ description: updatedItem1.description, isOriginal: false }));
+    const editedItems = new Immutable.Map({
+      [item2.id]: new EditedItem({ description: updatedItem2.description, isOriginal: false }),
+      [item1.id]: new EditedItem({ description: updatedItem1.description, isOriginal: false }),
+    });
     const action = updateAllItemsDescription(editedItems);
-    const currentState = new Immutable
-      .OrderedMap()
-      .set(item1.id, item1)
-      .set(item2.id, item2)
-      .set(item3.id, item3);
-    const expectedState = new Immutable
-      .OrderedMap()
-      .set(item1.id, updatedItem1)
-      .set(item2.id, updatedItem2)
-      .set(item3.id, item3);
+    const currentState = new Immutable.OrderedMap({
+      [item1.id]: item1,
+      [item2.id]: item2,
+      [item3.id]: item3,
+    });
+    const expectedState = new Immutable.OrderedMap({
+      [item1.id]: updatedItem1,
+      [item2.id]: updatedItem2,
+      [item3.id]: item3,
+    });
 
     const actualState = itemsReducer(currentState, action);
 
