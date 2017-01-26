@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { _generateGuid } from '../utils/utils.js';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
@@ -19,22 +20,12 @@ class AddItem extends Component {
 
   _createNewItem() {
     const newItem = {
-      guid: this._generateGuid(),
+      guid: _generateGuid(),
       text: this.state.text,
       editable: false,
     };
     this.props.addItem(newItem);
     this.setState({ text: '' });
-  }
-
-  _generateGuid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
   }
 
   render() {
