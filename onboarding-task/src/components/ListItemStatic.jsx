@@ -14,7 +14,7 @@ class ListItemStatic extends Component {
   }
 
   _handleClick() {
-    this.props.handleClick(this.props.item);
+    this.props.handleClick(this.props.item, this.props.index);
   }
 
   render() {

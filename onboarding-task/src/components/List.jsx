@@ -27,31 +27,23 @@ class List extends Component {
     this.setState({ items });
   }
 
-  _updateItem(item) {
+  _updateItem(item, index) {
     const items = this.state.items;
-    items.forEach((singleItem, index) => {
-      if (singleItem.guid === item.guid) {
-        items[index] = item;
-      }
-    });
+    items[index] = item;
     this.setState({ items });
   }
 
-  _editItem(item) {
+  _editItem(item, index) {
     const items = this.state.items;
     const editedItem = item;
     editedItem.editable = !item.editable;
-    items.forEach((singleItem, index) => {
-      if (singleItem.guid === editedItem.guid) {
-        items[index] = editedItem;
-      }
-    });
+    items[index] = editedItem;
     this.setState({ items });
   }
 
   _getItemToRender(item, index) {
     return (item.editable)
-      ? (<ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} />)
+      ? (<ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} index={index} />)
       : (<ListItemStatic key={item.guid} item={item} handleClick={this._editItem} index={index} />);
   }
 
