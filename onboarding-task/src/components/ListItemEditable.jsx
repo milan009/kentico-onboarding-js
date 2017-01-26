@@ -12,9 +12,11 @@ class ListItemEditable extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { text: props.item.text };
     this._handleClick = this._handleClick.bind(this);
     this._handleDelete = this._handleDelete.bind(this);
     this._handleUpdate = this._handleUpdate.bind(this);
+    this._handleInputChange = this._handleInputChange.bind(this);
   }
 
   _handleClick() {
@@ -22,12 +24,16 @@ class ListItemEditable extends Component {
   }
 
   _handleUpdate() {
-    const editedItem = { text: this.textInput.value, editable: false, guid: this.props.item.guid };
+    const editedItem = { text: this.state.text, editable: false, guid: this.props.item.guid };
     this.props.onSave(editedItem, this.props.index);
   }
 
   _handleDelete() {
     this.props.onDelete(this.props.item.guid);
+  }
+
+  _handleInputChange(e) {
+    this.setState({ text: e.target.value });
   }
 
   render() {
@@ -36,16 +42,7 @@ class ListItemEditable extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                defaultValue={this.props.item.text}
-                ref={
-                  (input) => {
-                    this.textInput = input;
-                  }
-                }
-              />
+              <input className="form-control" type="text" value={this.state.text} onChange={this._handleInputChange} />
             </div>
             <div className="form-group">
               <button className="btn btn-primary" onClick={this._handleUpdate}>Save</button>
