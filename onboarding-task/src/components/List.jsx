@@ -8,15 +8,19 @@ class List extends Component {
 
   constructor() {
     super();
-    this.state = { items: [{ guid: 22, text: 'serus', editable: false }, { guid: 24, text: 'nazdar', editable: true }] };
+    this.state = {
+      items: [
+        { guid: 22, text: 'serus', editable: false },
+        { guid: 24, text: 'nazdar', editable: true }],
+    };
     this._addItem = this._addItem.bind(this);
-    this._removeItem = this._removeItem.bind(this);
-    this._updateItem = this._updateItem.bind(this);
-    this._editItem = this._editItem.bind(this);
+    this._deleteItem = this._deleteItem.bind(this);
+    this._saveItem = this._saveItem.bind(this);
+    this._toggleEditMode = this._toggleEditMode.bind(this);
     this._getItemToRender = this._getItemToRender.bind(this);
   }
 
-  _removeItem(guid) {
+  _deleteItem(guid) {
     const items = this.state.items.filter(item => item.guid !== guid);
     this.setState({ items });
   }
@@ -27,24 +31,22 @@ class List extends Component {
     this.setState({ items });
   }
 
-  _updateItem(item, index) {
+  _saveItem(item, index) {
     const items = this.state.items;
     items[index] = item;
     this.setState({ items });
   }
 
-  _editItem(item, index) {
+  _toggleEditMode(item, index) {
     const items = this.state.items;
-    const editedItem = item;
-    editedItem.editable = !item.editable;
-    items[index] = editedItem;
+    items[index] = Object.assign({}, item, { editable: !item.editable });
     this.setState({ items });
   }
 
   _getItemToRender(item, index) {
     return (item.editable)
-      ? (<ListItemEditable key={item.guid} item={item} handleDelete={this._removeItem} handleUpdate={this._updateItem} handleClick={this._editItem} index={index} />)
-      : (<ListItemStatic key={item.guid} item={item} handleClick={this._editItem} index={index} />);
+      ? (<ListItemEditable key={item.guid} item={item} onDelete={this._deleteItem} onSave={this._saveItem} onCancel={this._toggleEditMode} index={index} />)
+      : (<ListItemStatic key={item.guid} item={item} onClick={this._toggleEditMode} index={index} />);
   }
 
   render() {

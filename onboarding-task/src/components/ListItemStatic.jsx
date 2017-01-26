@@ -4,7 +4,7 @@ class ListItemStatic extends Component {
   static displayName = 'ListItemStatic';
   static propTypes = {
     item: PropTypes.object.isRequired,
-    handleClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
   };
 
@@ -14,7 +14,7 @@ class ListItemStatic extends Component {
   }
 
   _handleClick() {
-    this.props.handleClick(this.props.item, this.props.index);
+    this.props.onClick(this.props.item, this.props.index);
   }
 
   render() {

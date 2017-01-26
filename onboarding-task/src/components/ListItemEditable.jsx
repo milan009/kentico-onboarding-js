@@ -5,9 +5,9 @@ class ListItemEditable extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
-    handleDelete: PropTypes.func.isRequired,
-    handleUpdate: PropTypes.func.isRequired,
-    handleClick: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,16 +18,16 @@ class ListItemEditable extends Component {
   }
 
   _handleClick() {
-    this.props.handleClick(this.props.item);
+    this.props.onCancel(this.props.item, this.props.index);
   }
 
   _handleUpdate() {
     const editedItem = { text: this.textInput.value, editable: false, guid: this.props.item.guid };
-    this.props.handleUpdate(editedItem, this.props.index);
+    this.props.onSave(editedItem, this.props.index);
   }
 
   _handleDelete() {
-    this.props.handleDelete(this.props.item.guid);
+    this.props.onDelete(this.props.item.guid);
   }
 
   render() {

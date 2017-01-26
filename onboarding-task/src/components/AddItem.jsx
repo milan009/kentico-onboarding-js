@@ -8,6 +8,7 @@ class AddItem extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { text: '' };
     this._handleInputChange = this._handleInputChange.bind(this);
     this._createNewItem = this._createNewItem.bind(this);
   }
@@ -19,11 +20,11 @@ class AddItem extends Component {
   _createNewItem() {
     const newItem = {
       guid: this._generateGuid(),
-      text: this.textInput.value,
+      text: this.state.text,
       editable: false,
     };
     this.props.addItem(newItem);
-    this.textInput.value = '';
+    this.setState({ text: '' });
   }
 
   _generateGuid() {
@@ -42,17 +43,7 @@ class AddItem extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                defaultValue={''}
-                onChange={this._handleInputChange}
-                ref={
-                  (input) => {
-                    this.textInput = input;
-                  }
-                }
-              />
+              <input className="form-control" type="text" value={this.state.text} onChange={this._handleInputChange} />
             </div>
             <div className="form-group">
               <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
