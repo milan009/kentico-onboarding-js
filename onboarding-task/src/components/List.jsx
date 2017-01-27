@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
 import AddItem from './AddItem.jsx';
+import Immutable from 'immutable';
 
 class List extends Component {
   static displayName = 'List';
@@ -18,6 +19,12 @@ class List extends Component {
     this._saveItem = this._saveItem.bind(this);
     this._toggleEditMode = this._toggleEditMode.bind(this);
     this._getItemToRender = this._getItemToRender.bind(this);
+  }
+
+  getInitialState() {
+    return {
+      data: Immutable.Map({ count: 0, items: Immutable.Map() }),
+    };
   }
 
   _deleteItem(guid) {
