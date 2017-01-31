@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { _generateGuid } from '../utils/utils.js';
+import { generateGuid } from '../utils/utils.js';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
@@ -20,7 +20,7 @@ class AddItem extends Component {
 
   _createNewItem() {
     const newItem = {
-      guid: _generateGuid(),
+      guid: generateGuid(),
       text: this.state.text,
       editable: false,
     };
