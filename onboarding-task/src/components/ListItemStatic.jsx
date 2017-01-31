@@ -10,10 +10,10 @@ class ListItemStatic extends Component {
 
   constructor(props) {
     super(props);
-    this._handleClick = this._handleClick.bind(this);
+    this._onClick = this._onClick.bind(this);
   }
 
-  _handleClick() {
+  _onClick() {
     this.props.onClick(this.props.item, this.props.index);
   }
 
@@ -21,7 +21,7 @@ class ListItemStatic extends Component {
     return (
       <tr>
         <td>
-          <div onClick={this._handleClick}>{this.props.index + 1}. {this.props.item.text}</div>
+          <div onClick={this._onClick}>{this.props.index + 1}. {this.props.item.text}</div>
         </td>
       </tr>
     );

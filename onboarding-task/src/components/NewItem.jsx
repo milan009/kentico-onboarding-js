@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { _generateGuid } from '../utils/utils.js';
+import { generateGuid } from '../utils/utils.js';
 
-class AddItem extends Component {
-  static displayName = 'AddItem';
+class NewItem extends Component {
+  static displayName = 'NewItem';
   static propTypes = {
     addItem: PropTypes.func.isRequired,
   };
@@ -10,17 +10,17 @@ class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = { text: '' };
-    this._handleInputChange = this._handleInputChange.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
     this._createNewItem = this._createNewItem.bind(this);
   }
 
-  _handleInputChange(e) {
+  _onInputChange(e) {
     this.setState({ text: e.target.value });
   }
 
   _createNewItem() {
     const newItem = {
-      guid: _generateGuid(),
+      guid: generateGuid(),
       text: this.state.text,
       editable: false,
     };
@@ -34,7 +34,7 @@ class AddItem extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input className="form-control" type="text" value={this.state.text} onChange={this._handleInputChange} />
+              <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
             </div>
             <div className="form-group">
               <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
@@ -46,4 +46,4 @@ class AddItem extends Component {
   }
 }
 
-export default AddItem;
+export default NewItem;
