@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { generateGuid } from '../utils/utils.js';
 
-class AddItem extends Component {
-  static displayName = 'AddItem';
+class NewItem extends Component {
+  static displayName = 'NewItem';
   static propTypes = {
     addItem: PropTypes.func.isRequired,
   };
@@ -46,4 +46,4 @@ class AddItem extends Component {
   }
 }
 
-export default AddItem;
+export default NewItem;

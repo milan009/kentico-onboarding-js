@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
-import AddItem from './AddItem.jsx';
+import NewItem from './NewItem.jsx';
 
 class List extends Component {
   static displayName = 'List';
@@ -57,7 +57,7 @@ class List extends Component {
           <table className="table table-bordered">
             <tbody>
               {items.map(this._getItemToRender)}
-              <AddItem addItem={this._addItem} />
+              <NewItem addItem={this._addItem} />
             </tbody>
           </table>
         </div>
