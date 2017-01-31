@@ -13,26 +13,26 @@ class ListItemEditable extends Component {
   constructor(props) {
     super(props);
     this.state = { text: props.item.text };
-    this._handleClick = this._handleClick.bind(this);
-    this._handleDelete = this._handleDelete.bind(this);
-    this._handleUpdate = this._handleUpdate.bind(this);
-    this._handleInputChange = this._handleInputChange.bind(this);
+    this._onClick = this._onClick.bind(this);
+    this._onDelete = this._onDelete.bind(this);
+    this._onUpdate = this._onUpdate.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
   }
 
-  _handleClick() {
+  _onClick() {
     this.props.onCancel(this.props.item, this.props.index);
   }
 
-  _handleUpdate() {
+  _onUpdate() {
     const editedItem = { text: this.state.text, editable: false, guid: this.props.item.guid };
     this.props.onSave(editedItem, this.props.index);
   }
 
-  _handleDelete() {
+  _onDelete() {
     this.props.onDelete(this.props.item.guid);
   }
 
-  _handleInputChange(e) {
+  _onInputChange(e) {
     this.setState({ text: e.target.value });
   }
 
@@ -42,12 +42,12 @@ class ListItemEditable extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input className="form-control" type="text" value={this.state.text} onChange={this._handleInputChange} />
+              <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
             </div>
             <div className="form-group">
-              <button className="btn btn-primary" onClick={this._handleUpdate}>Save</button>
-              <button className="btn btn-default" onClick={this._handleClick}>Cancel</button>
-              <button className="btn btn-danger" onClick={this._handleDelete}>Delete</button>
+              <button className="btn btn-primary" onClick={this._onUpdate}>Save</button>
+              <button className="btn btn-default" onClick={this._onClick}>Cancel</button>
+              <button className="btn btn-danger" onClick={this._onDelete}>Delete</button>
             </div>
           </div>
         </td>

@@ -10,11 +10,11 @@ class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = { text: '' };
-    this._handleInputChange = this._handleInputChange.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
     this._createNewItem = this._createNewItem.bind(this);
   }
 
-  _handleInputChange(e) {
+  _onInputChange(e) {
     this.setState({ text: e.target.value });
   }
 
@@ -34,7 +34,7 @@ class AddItem extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input className="form-control" type="text" value={this.state.text} onChange={this._handleInputChange} />
+              <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
             </div>
             <div className="form-group">
               <input className="btn btn-default" type="button" value="Add" onClick={this._createNewItem} />
