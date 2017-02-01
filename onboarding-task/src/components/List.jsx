@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
-<<<<<<< HEAD
-import AddItem from './AddItem.jsx';
 import Immutable from 'immutable';
-=======
 import NewItem from './NewItem.jsx';
->>>>>>> features/task-1
+
 
 class List extends Component {
   static displayName = 'List';
