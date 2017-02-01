@@ -20,9 +20,9 @@ class List extends Component {
   }
 
   getInitialState() {
-    const firstItem = Immutable.Map({ guid: generateGuid(), text: 'serus', editable: false });
-    const secondItem = Immutable.Map({ guid: generateGuid(), text: 'soj', editable: false });
-    const thirdItem = Immutable.Map({ guid: generateGuid(), text: 'nazdar', editable: false });
+    const firstItem = Immutable.Map({ guid: generateGuid(), text: 'serus', isEdited: false });
+    const secondItem = Immutable.Map({ guid: generateGuid(), text: 'soj', isEdited: false });
+    const thirdItem = Immutable.Map({ guid: generateGuid(), text: 'nazdar', isEdited: false });
 
     this.state = {
       items: Immutable.Map({
@@ -42,7 +42,7 @@ class List extends Component {
     const newItem = Immutable.Map({
       guid: generateGuid(),
       text: newText,
-      editable: false,
+      isEdited: false,
     });
 
     const items = this.state.items.set(newItem.get('guid'), newItem);
@@ -50,17 +50,17 @@ class List extends Component {
   }
 
   _saveItem(guid, text) {
-    const items = this.state.items.updateIn([guid, 'text'], val => text).updateIn([guid, 'editable'], val => false);
+    const items = this.state.items.updateIn([guid, 'text'], val => text).updateIn([guid, 'isEdited'], val => false);
     this.setState({ items });
   }
 
   _toggleEditMode(guid) {
-    const items = this.state.items.updateIn([guid, 'editable'], val => !val);
+    const items = this.state.items.updateIn([guid, 'isEdited'], val => !val);
     this.setState({ items });
   }
 
   _getItemToRender(item) {
-    return (item.get('editable'))
+    return (item.get('isEdited'))
       ? (<ListItemEditable key={item.guid} item={item} onDelete={this._deleteItem} onSave={this._saveItem} onCancel={this._toggleEditMode} />)
       : (<ListItemStatic key={item.guid} item={item} onClick={this._toggleEditMode} />);
   }
