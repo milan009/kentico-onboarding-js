@@ -50,7 +50,7 @@ class List extends Component {
   }
 
   _saveItem(guid, text) {
-    const items = this.state.items.updateIn([guid, 'text'], val => text).updateIn([guid, 'isEdited'], val => false);
+    const items = this.state.items.updateIn([guid, 'text'], () => text).updateIn([guid, 'isEdited'], () => false);
     this.setState({ items });
   }
 
