@@ -4,7 +4,6 @@ class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
     item: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -12,7 +11,7 @@ class ListItemEditable extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: props.item.text };
+    this.state = { text: props.item.get('text') };
     this._onClick = this._onClick.bind(this);
     this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
@@ -20,16 +19,15 @@ class ListItemEditable extends Component {
   }
 
   _onClick() {
-    this.props.onCancel(this.props.item, this.props.index);
+    this.props.onCancel(this.props.item.get('guid'));
   }
 
   _onUpdate() {
-    const editedItem = { text: this.state.text, editable: false, guid: this.props.item.guid };
-    this.props.onSave(editedItem, this.props.index);
+    this.props.onSave(this.props.item.get('guid'), this.state.text);
   }
 
   _onDelete() {
-    this.props.onDelete(this.props.item.guid);
+    this.props.onDelete(this.props.item.get('guid'));
   }
 
   _onInputChange(e) {

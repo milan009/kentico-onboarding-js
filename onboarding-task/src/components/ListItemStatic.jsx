@@ -5,7 +5,6 @@ class ListItemStatic extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -14,14 +13,14 @@ class ListItemStatic extends Component {
   }
 
   _onClick() {
-    this.props.onClick(this.props.item, this.props.index);
+    this.props.onClick(this.props.item.get('guid'));
   }
 
   render() {
     return (
       <tr>
         <td>
-          <div onClick={this._onClick}>{this.props.index + 1}. {this.props.item.text}</div>
+          <div onClick={this._onClick}>{this.props.item.get('text')}</div>
         </td>
       </tr>
     );

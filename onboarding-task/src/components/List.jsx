@@ -3,6 +3,7 @@ import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
 import Immutable from 'immutable';
 import NewItem from './NewItem.jsx';
+import { generateGuid } from '../utils/utils.js';
 
 
 class List extends Component {
@@ -10,11 +11,10 @@ class List extends Component {
 
   constructor() {
     super();
-    this.state = {
-      items: [
-        { guid: 22, text: 'serus', editable: false },
-        { guid: 24, text: 'nazdar', editable: true }],
-    };
+
+    this.getInitialState();
+
+
     this._addItem = this._addItem.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
     this._saveItem = this._saveItem.bind(this);
@@ -23,38 +23,49 @@ class List extends Component {
   }
 
   getInitialState() {
-    return {
-      data: Immutable.Map({ count: 0, items: Immutable.Map() }),
+    const firstItem = Immutable.Map({ guid: generateGuid(), text: 'serus', editable: false });
+    const secondItem = Immutable.Map({ guid: generateGuid(), text: 'soj', editable: false });
+    const thirdItem = Immutable.Map({ guid: generateGuid(), text: 'nazdar', editable: false });
+
+    this.state = {
+      items: Immutable.Map({
+        [firstItem.get('guid')]: firstItem,
+        [secondItem.get('guid')]: secondItem,
+        [thirdItem.get('guid')]: thirdItem,
+      }),
     };
   }
 
   _deleteItem(guid) {
-    const items = this.state.items.filter(item => item.guid !== guid);
+    const items = this.state.items.delete(guid);
     this.setState({ items });
   }
 
-  _addItem(item) {
-    const items = this.state.items;
-    items.push(item);
+  _addItem(newText) {
+    const newItem = Immutable.Map({
+      guid: generateGuid(),
+      text: newText,
+      editable: false,
+    });
+
+    const items = this.state.items.set(newItem.get('guid'), newItem);
     this.setState({ items });
   }
 
-  _saveItem(item, index) {
-    const items = this.state.items;
-    items[index] = item;
+  _saveItem(guid, text) {
+    const items = this.state.items.updateIn([guid, 'text'], val => text).updateIn([guid, 'editable'], val => false);
     this.setState({ items });
   }
 
-  _toggleEditMode(item, index) {
-    const items = this.state.items;
-    items[index] = Object.assign({}, item, { editable: !item.editable });
+  _toggleEditMode(guid) {
+    const items = this.state.items.updateIn([guid, 'editable'], val => !val);
     this.setState({ items });
   }
 
-  _getItemToRender(item, index) {
-    return (item.editable)
-      ? (<ListItemEditable key={item.guid} item={item} onDelete={this._deleteItem} onSave={this._saveItem} onCancel={this._toggleEditMode} index={index} />)
-      : (<ListItemStatic key={item.guid} item={item} onClick={this._toggleEditMode} index={index} />);
+  _getItemToRender(item) {
+    return (item.get('editable'))
+      ? (<ListItemEditable key={item.guid} item={item} onDelete={this._deleteItem} onSave={this._saveItem} onCancel={this._toggleEditMode} />)
+      : (<ListItemStatic key={item.guid} item={item} onClick={this._toggleEditMode} />);
   }
 
   render() {
