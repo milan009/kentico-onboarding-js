@@ -11,10 +11,7 @@ class List extends Component {
 
   constructor() {
     super();
-
     this.getInitialState();
-
-
     this._addItem = this._addItem.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
     this._saveItem = this._saveItem.bind(this);
