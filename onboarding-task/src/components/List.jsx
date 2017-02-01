@@ -1,34 +1,50 @@
 import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
-
-import TsComponent from './TsComponent.tsx';
 
 class List extends Component {
+  static _changeItemWithId(item, id, changedProperties) {
+    if (item.id.toString() === id) {
+      return { ...item, ...changedProperties };
+    }
+    return item;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [{
+        id: 1,
+        text: 'test',
+        formDisplayed: false,
+      }],
+    };
+
+    this._onListItemSubmit = this._onListItemSubmit.bind(this);
+    this._onListItemClick = this._onListItemClick.bind(this);
+  }
+
+  _onListItemClick(event) {
+    const newItems = this.state.items.map(item => List._changeItemWithId(item, event.target.id, { formDisplayed: true }));
+    this.setState({ items: newItems });
+  }
+
+  _onListItemSubmit(event) {
+    event.preventDefault();
+    const newItems = this.state.items.map(item => List._changeItemWithId(item, event.target.id, { text: event.target.value }));
+    this.setState({ items: newItems });
+  }
+
   render() {
+    const listItems = this.state.items.map(item =>
+      <div id={item.id} onClick={this._onListItemClick} onSubmit={this._onListItemSubmit} key={item.id}>
+        id: {item.id} <br />
+        text: {item.text} <br />
+        formDisplayed: {item.formDisplayed ? 'true' : 'false'} <br />
+      </div>
+    );
+
     return (
-      <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="Fancy" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
-        </div>
+      <div className="table">
+        {listItems}
       </div>
     );
   }
