@@ -8,11 +8,21 @@ class List extends Component {
     return item;
   }
 
+  static _guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       items: [{
-        id: 1,
+        id: List._guid(),
         text: 'test',
         formDisplayed: false,
       }],
@@ -20,6 +30,8 @@ class List extends Component {
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
     this._onListItemClick = this._onListItemClick.bind(this);
+    this._onListItemAdd = this._onListItemAdd.bind(this);
+    this._onAddListItemInputChange = this._onAddListItemInputChange.bind(this);
   }
 
   _onListItemClick(event) {
@@ -31,6 +43,18 @@ class List extends Component {
     event.preventDefault();
     const newItems = this.state.items.map(item => List._changeItemWithId(item, event.target.id, { text: event.target.value }));
     this.setState({ items: newItems });
+  }
+
+  _onListItemAdd(event) {
+    event.preventDefault();
+    const newState = this.state;
+    newState.items.push({ id: List._guid(), text: this.state.addListItemInput, formDisplayed: false });
+    newState.addListItemInput = '';
+    this.setState(newState);
+  }
+
+  _onAddListItemInputChange(event) {
+    this.setState({ addListItemInput: event.target.value });
   }
 
   render() {
@@ -45,6 +69,12 @@ class List extends Component {
     return (
       <div className="table">
         {listItems}
+        <div>
+          <form className="form-inline" onSubmit={this._onListItemAdd} >
+            <input type="text" className="form-control" value={this.state.addListItemInput || ''} placeholder="Add item" onChange={this._onAddListItemInputChange} />
+            <button type="submit" className="btn btn-default" > Add </button>
+          </form>
+        </div>
       </div>
     );
   }
