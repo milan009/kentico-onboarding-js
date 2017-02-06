@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import ListItem from './ListItem';
 
 class List extends Component {
-  static _changeItemWithId(item, id, changedProperties) {
-    if (item.id.toString() === id) {
-      return { ...item, ...changedProperties };
-    }
-    return item;
+  static _changeItemWithId(array, id, changedProperties) {
+    const index = array.map(i => i.id).indexOf(id);
+    const newArray = array;
+    newArray[index] = { ...newArray[index], ...changedProperties };
+    return newArray;
   }
 
   static _guid() {
@@ -33,14 +33,8 @@ class List extends Component {
     this._onListItemCancel = this._onListItemCancel.bind(this);
   }
 
-  _onListItemClick(id) {
-    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { formDisplayed: true }));
-    this.setState({ items: newItems });
-  }
-
-  _onListItemSubmit(id, txt) {
-    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { text: txt, formDisplayed: false }));
-    this.setState({ items: newItems });
+  _createFunctionWithBindId(id, func) {
+    return func.bind(this, id);
   }
 
   _onListItemAdd(event) {
@@ -55,14 +49,25 @@ class List extends Component {
     this.setState({ addListItemInput: event.target.value });
   }
 
+  _onListItemClick(id) {
+    const newItems = List._changeItemWithId(this.state.items, id, { formDisplayed: true });
+    this.setState({ items: newItems });
+  }
+
+  _onListItemSubmit(id, txt) {
+    const newItems = List._changeItemWithId(this.state.items, id, { text: txt, formDisplayed: false });
+    this.setState({ items: newItems });
+  }
+
   _onListItemDelete(id) {
     const newItems = this.state.items;
-    newItems.splice(newItems.map(i => i.id).indexOf((id)), 1);
+    const index = newItems.map(i => i.id).indexOf(id);
+    newItems.splice(index, 1);
     this.setState({ items: newItems });
   }
 
   _onListItemCancel(id) {
-    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { formDisplayed: false }));
+    const newItems = List._changeItemWithId(this.state.items, id, { formDisplayed: false });
     this.setState({ items: newItems });
   }
 
@@ -70,15 +75,14 @@ class List extends Component {
     const listItems = this.state.items.map((item, index) =>
       <ListItem
         id={item.id}
-        onClick={this._onListItemClick}
         onFormSubmit={this._onListItemSubmit}
         text={item.text}
         formDisplayed={item.formDisplayed}
-        onCancelClick={this._onListItemCancel}
-        onDeleteClick={this._onListItemDelete}
+        onCancelClick={this._createFunctionWithBindId(item.id, this._onListItemCancel)}
+        onDeleteClick={this._createFunctionWithBindId(item.id, this._onListItemDelete)}
         place={index + 1}
         key={item.id}
-        onItemClick={this._onListItemClick}
+        onItemClick={this._createFunctionWithBindId(item.id, this._onListItemClick)}
       />
     );
 

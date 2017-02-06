@@ -15,35 +15,12 @@ class ListItem extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: this.props.text };
-
-    this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
-    this._onCancelClick = this._onCancelClick.bind(this);
-    this._onDeleteClick = this._onDeleteClick.bind(this);
-    this._onItemClick = this._onItemClick.bind(this);
-  }
-
-  _onInputChange(event) {
-    this.setState({ text: event.target.value });
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    this.props.onFormSubmit(this.props.id, this.state.text);
-  }
-
-  _onCancelClick() {
-    this.props.onCancelClick(this.props.id);
-    this.setState({ text: this.props.text });
-  }
-
-  _onDeleteClick() {
-    this.props.onDeleteClick(this.props.id);
-  }
-
-  _onItemClick() {
-    this.props.onItemClick(this.props.id);
+    this.props.onFormSubmit(this.props.id, this.input.value);
   }
 
   render() {
@@ -51,15 +28,21 @@ class ListItem extends Component {
     if (this.props.formDisplayed) {
       item = (
         <form className="form-inline" onSubmit={this._onSubmit} >
-          <input className="form-control" value={this.state.text} onChange={this._onInputChange} />
+          <input
+            className="form-control"
+            defaultValue={this.props.text}
+            ref={(input) => {
+              this.input = input;
+            }}
+          />
           <button type="submit" className="btn btn-primary" > Change </button>
-          <button type="button" className="btn btn-default" onClick={this._onCancelClick} > Cancel </button>
-          <button type="button" className="btn btn-danger" onClick={this._onDeleteClick} > Delete </button>
+          <button type="button" className="btn btn-default" onClick={this.props.onCancelClick} > Cancel </button>
+          <button type="button" className="btn btn-danger" onClick={this.props.onDeleteClick} > Delete </button>
         </form>
       );
     }
     else {
-      item = (<div onClick={this._onItemClick} >{this.props.place}. {this.props.text}</div>);
+      item = (<div onClick={this.props.onItemClick} >{this.props.place}. {this.props.text}</div>);
     }
 
     return (
