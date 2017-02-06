@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ListItem from './ListItem';
 
 class List extends Component {
   static _changeItemWithId(item, id, changedProperties) {
@@ -21,27 +22,24 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [{
-        id: List._guid(),
-        text: 'test',
-        formDisplayed: false,
-      }],
+      items: [],
     };
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
     this._onListItemClick = this._onListItemClick.bind(this);
     this._onListItemAdd = this._onListItemAdd.bind(this);
     this._onAddListItemInputChange = this._onAddListItemInputChange.bind(this);
+    this._onListItemDelete = this._onListItemDelete.bind(this);
+    this._onListItemCancel = this._onListItemCancel.bind(this);
   }
 
-  _onListItemClick(event) {
-    const newItems = this.state.items.map(item => List._changeItemWithId(item, event.target.id, { formDisplayed: true }));
+  _onListItemClick(id) {
+    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { formDisplayed: true }));
     this.setState({ items: newItems });
   }
 
-  _onListItemSubmit(event) {
-    event.preventDefault();
-    const newItems = this.state.items.map(item => List._changeItemWithId(item, event.target.id, { text: event.target.value }));
+  _onListItemSubmit(id, txt) {
+    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { text: txt, formDisplayed: false }));
     this.setState({ items: newItems });
   }
 
@@ -57,25 +55,43 @@ class List extends Component {
     this.setState({ addListItemInput: event.target.value });
   }
 
+  _onListItemDelete(id) {
+    const newItems = this.state.items;
+    newItems.splice(newItems.map(i => i.id).indexOf((id)), 1);
+    this.setState({ items: newItems });
+  }
+
+  _onListItemCancel(id) {
+    const newItems = this.state.items.map(item => List._changeItemWithId(item, id, { formDisplayed: false }));
+    this.setState({ items: newItems });
+  }
+
   render() {
-    const listItems = this.state.items.map(item =>
-      <div id={item.id} onClick={this._onListItemClick} onSubmit={this._onListItemSubmit} key={item.id}>
-        id: {item.id} <br />
-        text: {item.text} <br />
-        formDisplayed: {item.formDisplayed ? 'true' : 'false'} <br />
-      </div>
+    const listItems = this.state.items.map((item, index) =>
+      <ListItem
+        id={item.id}
+        onClick={this._onListItemClick}
+        onFormSubmit={this._onListItemSubmit}
+        text={item.text}
+        formDisplayed={item.formDisplayed}
+        onCancelClick={this._onListItemCancel}
+        onDeleteClick={this._onListItemDelete}
+        place={index + 1}
+        key={item.id}
+        onItemClick={this._onListItemClick}
+      />
     );
 
     return (
-      <div className="table">
+      <ul className="list-group">
         {listItems}
-        <div>
+        <li className="list-group-item">
           <form className="form-inline" onSubmit={this._onListItemAdd} >
             <input type="text" className="form-control" value={this.state.addListItemInput || ''} placeholder="Add item" onChange={this._onAddListItemInputChange} />
             <button type="submit" className="btn btn-default" > Add </button>
           </form>
-        </div>
-      </div>
+        </li>
+      </ul>
     );
   }
 }
