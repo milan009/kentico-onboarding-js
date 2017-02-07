@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
+import CreateListItem from './CreateListItem';
 
 class List extends Component {
   static _changeItemWithId(array, id, changedProperties) {
@@ -28,25 +29,18 @@ class List extends Component {
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
     this._onListItemClick = this._onListItemClick.bind(this);
     this._onListItemAdd = this._onListItemAdd.bind(this);
-    this._onAddListItemInputChange = this._onAddListItemInputChange.bind(this);
     this._onListItemDelete = this._onListItemDelete.bind(this);
     this._onListItemCancel = this._onListItemCancel.bind(this);
   }
 
-  _createFunctionWithBindId(id, func) {
+  _createFunctionWithBoundId(id, func) {
     return func.bind(this, id);
   }
 
-  _onListItemAdd(event) {
-    event.preventDefault();
+  _onListItemAdd(text) {
     const newState = this.state;
-    newState.items.push({ id: List._guid(), text: this.state.addListItemInput, formDisplayed: false });
-    newState.addListItemInput = '';
+    newState.items.push({ id: List._guid(), text, formDisplayed: false });
     this.setState(newState);
-  }
-
-  _onAddListItemInputChange(event) {
-    this.setState({ addListItemInput: event.target.value });
   }
 
   _onListItemClick(id) {
@@ -78,23 +72,18 @@ class List extends Component {
         onFormSubmit={this._onListItemSubmit}
         text={item.text}
         formDisplayed={item.formDisplayed}
-        onCancelClick={this._createFunctionWithBindId(item.id, this._onListItemCancel)}
-        onDeleteClick={this._createFunctionWithBindId(item.id, this._onListItemDelete)}
+        onCancelClick={this._createFunctionWithBoundId(item.id, this._onListItemCancel)}
+        onDeleteClick={this._createFunctionWithBoundId(item.id, this._onListItemDelete)}
         place={index + 1}
         key={item.id}
-        onItemClick={this._createFunctionWithBindId(item.id, this._onListItemClick)}
+        onItemClick={this._createFunctionWithBoundId(item.id, this._onListItemClick)}
       />
     );
 
     return (
       <ul className="list-group">
         {listItems}
-        <li className="list-group-item">
-          <form className="form-inline" onSubmit={this._onListItemAdd} >
-            <input type="text" className="form-control" value={this.state.addListItemInput || ''} placeholder="Add item" onChange={this._onAddListItemInputChange} />
-            <button type="submit" className="btn btn-default" > Add </button>
-          </form>
-        </li>
+        <CreateListItem _onListItemAdd={this._onListItemAdd} />
       </ul>
     );
   }
