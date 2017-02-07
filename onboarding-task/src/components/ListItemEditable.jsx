@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import Immutable from 'immutable';
 
 class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: PropTypes.instanceOf(Immutable.Map).isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
