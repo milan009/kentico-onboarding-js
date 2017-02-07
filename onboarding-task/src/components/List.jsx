@@ -11,7 +11,7 @@ class List extends Component {
 
   constructor() {
     super();
-    this.getInitialState();
+    this.state = this._getInitialState();
     this._addItem = this._addItem.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
     this._saveItem = this._saveItem.bind(this);
@@ -19,12 +19,12 @@ class List extends Component {
     this._getItemToRender = this._getItemToRender.bind(this);
   }
 
-  getInitialState() {
+  _getInitialState() {
     const firstItem = Immutable.Map({ guid: generateGuid(), text: 'serus', isEdited: false });
     const secondItem = Immutable.Map({ guid: generateGuid(), text: 'soj', isEdited: false });
     const thirdItem = Immutable.Map({ guid: generateGuid(), text: 'nazdar', isEdited: false });
 
-    this.state = {
+    return {
       items: Immutable.Map({
         [firstItem.get('guid')]: firstItem,
         [secondItem.get('guid')]: secondItem,

@@ -12,13 +12,13 @@ class ListItemEditable extends Component {
   constructor(props) {
     super(props);
     this.state = { text: props.item.get('text') };
-    this._onClick = this._onClick.bind(this);
+    this._onCancel = this._onCancel.bind(this);
     this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
   }
 
-  _onClick() {
+  _onCancel() {
     this.props.onCancel(this.props.item.get('guid'));
   }
 
@@ -44,7 +44,7 @@ class ListItemEditable extends Component {
             </div>
             <div className="form-group">
               <button className="btn btn-primary" onClick={this._onUpdate}>Save</button>
-              <button className="btn btn-default" onClick={this._onClick}>Cancel</button>
+              <button className="btn btn-default" onClick={this._onCancel}>Cancel</button>
               <button className="btn btn-danger" onClick={this._onDelete}>Delete</button>
             </div>
           </div>
