@@ -1,29 +1,14 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
+import newGuid from '../utils/guidHelper';
 
 class List extends Component {
-  static _changeItemWithId(array, id, changedProperties) {
-    const index = array.map(i => i.id).indexOf(id);
-    const newArray = array;
-    newArray[index] = { ...newArray[index], ...changedProperties };
-    return newArray;
-  }
-
-  static _guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
 
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: new Map(),
     };
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
@@ -39,45 +24,50 @@ class List extends Component {
 
   _onListItemAdd(text) {
     const newState = this.state;
-    newState.items.push({ id: List._guid(), text, formDisplayed: false });
+    newState.items.set(newGuid(), { text, formDisplayed: false, timeStamp: Date.now() });
     this.setState(newState);
   }
 
   _onListItemClick(id) {
-    const newItems = List._changeItemWithId(this.state.items, id, { formDisplayed: true });
+    const newItems = this.state.items;
+    newItems.set(id, { ...newItems.get(id), formDisplayed: true });
     this.setState({ items: newItems });
   }
 
-  _onListItemSubmit(id, txt) {
-    const newItems = List._changeItemWithId(this.state.items, id, { text: txt, formDisplayed: false });
+  _onListItemSubmit(id, text) {
+    const newItems = this.state.items;
+    newItems.set(id, { ...newItems.get(id), formDisplayed: false, text });
     this.setState({ items: newItems });
   }
 
   _onListItemDelete(id) {
     const newItems = this.state.items;
-    const index = newItems.map(i => i.id).indexOf(id);
-    newItems.splice(index, 1);
+    newItems.delete(id);
     this.setState({ items: newItems });
   }
 
   _onListItemCancel(id) {
-    const newItems = List._changeItemWithId(this.state.items, id, { formDisplayed: false });
+    const newItems = this.state.items;
+    newItems.set(id, { ...newItems.get(id), formDisplayed: false });
     this.setState({ items: newItems });
   }
 
   render() {
-    const listItems = this.state.items.map((item, index) =>
+    const listItems = Array.from(this.state.items.keys()).map((key, index) =>
       <ListItem
-        id={item.id}
+        id={key}
         onFormSubmit={this._onListItemSubmit}
-        text={item.text}
-        formDisplayed={item.formDisplayed}
-        onCancelClick={this._createFunctionWithBoundId(item.id, this._onListItemCancel)}
-        onDeleteClick={this._createFunctionWithBoundId(item.id, this._onListItemDelete)}
+        text={this.state.items.get(key).text}
+        formDisplayed={this.state.items.get(key).formDisplayed}
+        onCancelClick={this._createFunctionWithBoundId(key, this._onListItemCancel)}
+        onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
         place={index + 1}
-        key={item.id}
-        onItemClick={this._createFunctionWithBoundId(item.id, this._onListItemClick)}
-      />
+        key={key}
+        onItemClick={this._createFunctionWithBoundId(key, this._onListItemClick)}
+      />,
+      (key1, key2) => {
+        return listItems.get(key1).timeStamp - listItems.get(key2).timeStamp;
+      }
     );
 
     return (
