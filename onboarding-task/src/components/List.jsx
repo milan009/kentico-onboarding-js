@@ -12,10 +12,9 @@ class List extends Component {
     };
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
-    this._onListItemClick = this._onListItemClick.bind(this);
     this._onListItemAdd = this._onListItemAdd.bind(this);
     this._onListItemDelete = this._onListItemDelete.bind(this);
-    this._onListItemCancel = this._onListItemCancel.bind(this);
+    this._switchFormDisplayedOnId = this._switchFormDisplayedOnId.bind(this);
   }
 
   _createFunctionWithBoundId(id, func) {
@@ -26,12 +25,6 @@ class List extends Component {
     const newState = this.state;
     newState.items.set(newGuid(), { text, formDisplayed: false, timeStamp: Date.now() });
     this.setState(newState);
-  }
-
-  _onListItemClick(id) {
-    const newItems = this.state.items;
-    newItems.set(id, { ...newItems.get(id), formDisplayed: true });
-    this.setState({ items: newItems });
   }
 
   _onListItemSubmit(id, text) {
@@ -46,9 +39,9 @@ class List extends Component {
     this.setState({ items: newItems });
   }
 
-  _onListItemCancel(id) {
+  _switchFormDisplayedOnId(id) {
     const newItems = this.state.items;
-    newItems.set(id, { ...newItems.get(id), formDisplayed: false });
+    newItems.set(id, { ...newItems.get(id), formDisplayed: !newItems.get(id).formDisplayed });
     this.setState({ items: newItems });
   }
 
@@ -59,11 +52,10 @@ class List extends Component {
         onFormSubmit={this._onListItemSubmit}
         text={this.state.items.get(key).text}
         formDisplayed={this.state.items.get(key).formDisplayed}
-        onCancelClick={this._createFunctionWithBoundId(key, this._onListItemCancel)}
+        switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
         onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
         place={index + 1}
         key={key}
-        onItemClick={this._createFunctionWithBoundId(key, this._onListItemClick)}
       />,
       (key1, key2) => {
         return listItems.get(key1).timeStamp - listItems.get(key2).timeStamp;

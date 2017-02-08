@@ -7,10 +7,9 @@ class ListItem extends Component {
     id: React.PropTypes.string.isRequired,
     formDisplayed: React.PropTypes.bool.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
-    onCancelClick: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
     place: React.PropTypes.number.isRequired,
-    onItemClick: React.PropTypes.func.isRequired,
+    switchFormDisplayed: React.PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -36,13 +35,13 @@ class ListItem extends Component {
             }}
           />
           <button type="submit" className="btn btn-primary" > Change </button>
-          <button type="button" className="btn btn-default" onClick={this.props.onCancelClick} > Cancel </button>
+          <button type="button" className="btn btn-default" onClick={this.props.switchFormDisplayed} > Cancel </button>
           <button type="button" className="btn btn-danger" onClick={this.props.onDeleteClick} > Delete </button>
         </form>
       );
     }
     else {
-      item = (<div onClick={this.props.onItemClick} >{this.props.place}. {this.props.text}</div>);
+      item = (<div onClick={this.props.switchFormDisplayed} >{this.props.place}. {this.props.text}</div>);
     }
 
     return (
