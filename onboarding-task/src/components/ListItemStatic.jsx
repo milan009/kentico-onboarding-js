@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import Immutable from 'immutable';
 
 class ListItemStatic extends Component {
   static displayName = 'ListItemStatic';
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: PropTypes.instanceOf(Immutable.Map).isRequired,
     onClick: PropTypes.func.isRequired,
   };
 
