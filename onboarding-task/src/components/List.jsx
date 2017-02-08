@@ -48,14 +48,13 @@ class List extends Component {
   render() {
     const listItems = Array.from(this.state.items.keys()).map((key, index) =>
       <ListItem
+        key={key}
         id={key}
-        onFormSubmit={this._onListItemSubmit}
-        text={this.state.items.get(key).text}
-        formDisplayed={this.state.items.get(key).formDisplayed}
+        index={index + 1}
+        item={this.state.items.get(key)}
         switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
         onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
-        place={index + 1}
-        key={key}
+        onFormSubmit={this._onListItemSubmit}
       />,
       (key1, key2) => {
         return listItems.get(key1).timeStamp - listItems.get(key2).timeStamp;
@@ -65,7 +64,7 @@ class List extends Component {
     return (
       <ul className="list-group">
         {listItems}
-        <CreateListItem _onListItemAdd={this._onListItemAdd} />
+        <CreateListItem onListItemAdd={this._onListItemAdd} />
       </ul>
     );
   }

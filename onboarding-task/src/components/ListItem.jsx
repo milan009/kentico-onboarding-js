@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 class ListItem extends Component {
 
   static propTypes = {
-    text: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
-    formDisplayed: React.PropTypes.bool.isRequired,
+    item: React.PropTypes.object.isRequired,
+    index: React.PropTypes.number.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
-    place: React.PropTypes.number.isRequired,
     switchFormDisplayed: React.PropTypes.func.isRequired,
   };
 
@@ -24,12 +23,12 @@ class ListItem extends Component {
 
   render() {
     let item = '';
-    if (this.props.formDisplayed) {
+    if (this.props.item.formDisplayed) {
       item = (
         <form className="form-inline" onSubmit={this._onSubmit} >
           <input
             className="form-control"
-            defaultValue={this.props.text}
+            defaultValue={this.props.item.text}
             ref={(input) => {
               this.input = input;
             }}
@@ -41,7 +40,7 @@ class ListItem extends Component {
       );
     }
     else {
-      item = (<div onClick={this.props.switchFormDisplayed} >{this.props.place}. {this.props.text}</div>);
+      item = (<div onClick={this.props.switchFormDisplayed} >{this.props.index}. {this.props.item.text}</div>);
     }
 
     return (

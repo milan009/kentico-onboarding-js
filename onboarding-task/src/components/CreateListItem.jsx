@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class CreateListItem extends Component {
 
   static propTypes = {
-    _onListItemAdd: React.PropTypes.func.isRequired,
+    onListItemAdd: React.PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -21,7 +21,7 @@ class CreateListItem extends Component {
 
   _onSubmit(event) {
     event.preventDefault();
-    this.props._onListItemAdd(this.state.input);
+    this.props.onListItemAdd(this.state.input);
     this.setState({ input: '' });
   }
 
@@ -29,7 +29,7 @@ class CreateListItem extends Component {
     return (
       <li className="list-group-item">
         <form className="form-inline" onSubmit={this._onSubmit} >
-          <input type="text" className="form-control" value={this.state.input || ''} placeholder="Add item" onChange={this._onInputChange} />
+          <input type="text" className="form-control" value={this.state.input} placeholder="Add item" onChange={this._onInputChange} />
           <button type="submit" className="btn btn-default" > Add </button>
         </form>
       </li>
