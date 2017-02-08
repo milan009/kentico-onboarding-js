@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
-import newGuid from '../utils/guidHelper';
+import GuidHelpers from '../utils/guidHelpers';
 
 class List extends Component {
 
@@ -23,7 +23,7 @@ class List extends Component {
 
   _onListItemAdd(text) {
     const newState = this.state;
-    newState.items.set(newGuid(), { text, formDisplayed: false, timeStamp: Date.now() });
+    newState.items.set(GuidHelpers.guid(Date.now()), { text, formDisplayed: false });
     this.setState(newState);
   }
 
@@ -57,7 +57,7 @@ class List extends Component {
         onFormSubmit={this._onListItemSubmit}
       />,
       (key1, key2) => {
-        return listItems.get(key1).timeStamp - listItems.get(key2).timeStamp;
+        return Number(GuidHelpers.getArgumentFromGuid(key1)) - Number(GuidHelpers.getArgumentFromGuid(key2));
       }
     );
 
