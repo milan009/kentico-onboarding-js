@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import assignment from './../../../assignment.gif';
 
-class List extends React.Component {
+import TsComponent from './TsComponent.tsx';
+
+class List extends Component {
   render() {
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
+        <div className="row">
+          <div className="col-sm-12 text-center">
+            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
+          </div>
+        </div>
+
         <div className="row">
           <div className="col-sm-12">
             <p className="lead text-center">Desired functionality is captured on the gif image. </p>
