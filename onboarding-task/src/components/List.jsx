@@ -80,7 +80,7 @@ class List extends Component {
               <ul className="list-group">
                 {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this.deleteItem} save={this.updateItemText} key={item.id} guid={item.id} />)}
                 <li className="list-group-item">
-                  <div className="form-group">
+                  <form className="form-inline">
                     <input
                       type="text"
                       className="form-control"
@@ -89,8 +89,8 @@ class List extends Component {
                         this.itemText = input;
                       }}
                     />
-                  </div>
-                  <button type="button" className="btn btn-default" onClick={this.onAddClick}>Add</button>
+                    <button type="button" className="btn btn-default" onClick={this.onAddClick}>Add</button>
+                  </form>
                 </li>
               </ul>
             </pre>

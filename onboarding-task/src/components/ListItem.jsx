@@ -40,17 +40,19 @@ class ListItem extends Component {
     if (this.state.edit) {
       return (
         <li className="list-group-item">
-          <span>{`${this.props.index + 1}. `}</span>
-          <input
-            type="text"
-            className="form-control"
-            defaultValue={this.props.text} ref={(input) => {
-              this.editInput = input;
-            }}
-          />
-          <button type="button" className="btn btn-primary" onClick={this.onSaveClick}>Save</button>
-          <button type="button" className="btn btn-default" onClick={this.stopEditing} >Cancel</button>
-          <button type="button" className="btn btn-danger" onClick={() => this.props.delete(this.props.guid)}>Delete</button>
+          <form className="form-inline">
+            <label>{`${this.props.index + 1}. `}</label>
+            <input
+              type="text"
+              className="form-control"
+              defaultValue={this.props.text} ref={(input) => {
+                this.editInput = input;
+              }}
+            />
+            <button type="button" className="btn btn-primary" onClick={this.onSaveClick}>Save</button>
+            <button type="button" className="btn btn-default" onClick={this.stopEditing} >Cancel</button>
+            <button type="button" className="btn btn-danger" onClick={() => this.props.delete(this.props.guid)}>Delete</button>
+          </form>
         </li>
       );
     }
