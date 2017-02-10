@@ -11,6 +11,7 @@ class List extends Component {
       items: [],
     };
     this.onAddClick = this.onAddClick.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   onAddClick() {
@@ -32,6 +33,13 @@ class List extends Component {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
+  }
+
+  deleteItem(guid) {
+    const remainingItems = this.state.items.filter(item => item.id !== guid);
+    this.setState({
+      items: remainingItems,
+    });
   }
 
   render() {
@@ -56,7 +64,7 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
               <ul className="list-group">
-                {this.state.items.map((item, index) => <ListItem text={`${index + 1}. ${item.text}`} key={item.id} />)}
+                {this.state.items.map((item, index) => <ListItem text={`${index + 1}. ${item.text}`} delete={this.deleteItem} key={item.id} guid={item.id} />)}
                 <li className="list-group-item">
                   <div className="form-group">
                     <input type="text" className="form-control" id="itemText" ref="itemText" />
