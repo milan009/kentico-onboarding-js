@@ -12,14 +12,15 @@ class List extends Component {
     };
     this.onAddClick = this.onAddClick.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.updateItemText = this.updateItemText.bind(this);
   }
 
   onAddClick() {
     const newItem = {
       id: this.generateGUID(),
-      text: this.refs.itemText.value,
+      text: this.itemText.value,
     };
-    this.refs.itemText.value = '';
+    this.itemText.value = '';
     this.setState({
       items: this.state.items.concat([newItem]),
     });
@@ -39,6 +40,19 @@ class List extends Component {
     const remainingItems = this.state.items.filter(item => item.id !== guid);
     this.setState({
       items: remainingItems,
+    });
+  }
+
+  updateItemText(guid, text) {
+    const updatedItems = this.state.items.map((item => {
+      const newItem = item;
+      if (item.id === guid) {
+        newItem.text = text;
+      }
+      return newItem;
+    }));
+    this.setState({
+      items: updatedItems,
     });
   }
 
@@ -64,10 +78,17 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
               <ul className="list-group">
-                {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this.deleteItem} key={item.id} guid={item.id} />)}
+                {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this.deleteItem} save={this.updateItemText} key={item.id} guid={item.id} />)}
                 <li className="list-group-item">
                   <div className="form-group">
-                    <input type="text" className="form-control" id="itemText" ref="itemText" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="itemText"
+                      ref={(input) => {
+                        this.itemText = input;
+                      }}
+                    />
                   </div>
                   <button type="button" className="btn btn-default" onClick={this.onAddClick}>Add</button>
                 </li>
