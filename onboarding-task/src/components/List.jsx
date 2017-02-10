@@ -5,8 +5,8 @@ import ListItem from './ListItem.jsx';
 import TsComponent from './TsComponent.tsx';
 
 class List extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       items: [],
     };
@@ -64,7 +64,7 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
               <ul className="list-group">
-                {this.state.items.map((item, index) => <ListItem text={`${index + 1}. ${item.text}`} delete={this.deleteItem} key={item.id} guid={item.id} />)}
+                {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this.deleteItem} key={item.id} guid={item.id} />)}
                 <li className="list-group-item">
                   <div className="form-group">
                     <input type="text" className="form-control" id="itemText" ref="itemText" />
