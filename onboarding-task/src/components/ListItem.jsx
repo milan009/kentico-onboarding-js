@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 
 class ListItem extends Component {
   static propTypes = {
-    text: React.PropTypes.string.isRequired,
-    delete: React.PropTypes.func.isRequired,
-    save: React.PropTypes.func.isRequired,
-    guid: React.PropTypes.string.isRequired,
-    index: React.PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    delete: PropTypes.func.isRequired,
+    save: PropTypes.func.isRequired,
+    guid: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
   };
 
   constructor(props) {
