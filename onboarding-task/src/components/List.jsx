@@ -5,6 +5,35 @@ import ListItem from './ListItem.jsx';
 import TsComponent from './TsComponent.tsx';
 
 class List extends Component {
+  constructor() {
+    super();
+    this.state = {
+      items: [],
+    };
+    this.onAddClick = this.onAddClick.bind(this);
+  }
+
+  onAddClick() {
+    const newItem = {
+      id: this.generateGUID(),
+      text: this.refs.itemText.value,
+    };
+    this.refs.itemText.value = '';
+    this.setState({
+      items: this.state.items.concat([newItem]),
+    });
+  }
+
+  generateGUID() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+
   render() {
     return (
       <div className="row">
@@ -27,7 +56,13 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
               <ul className="list-group">
-                <ListItem />
+                {this.state.items.map((item, index) => <ListItem text={`${index + 1}. ${item.text}`} key={item.id} />)}
+                <li className="list-group-item">
+                  <div className="form-group">
+                    <input type="text" className="form-control" id="itemText" ref="itemText" />
+                  </div>
+                  <button type="button" className="btn btn-default" onClick={this.onAddClick}>Add</button>
+                </li>
               </ul>
             </pre>
           </div>
