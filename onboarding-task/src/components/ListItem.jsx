@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
 class ListItem extends Component {
+
+  static displayName = 'ListItem';
+
   static propTypes = {
     text: PropTypes.string.isRequired,
     delete: PropTypes.func.isRequired,
     save: PropTypes.func.isRequired,
-    guid: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
   };
 
@@ -14,26 +17,26 @@ class ListItem extends Component {
     this.state = {
       edit: false,
     };
-    this.startEditing = this.startEditing.bind(this);
-    this.stopEditing = this.stopEditing.bind(this);
-    this.onSaveClick = this.onSaveClick.bind(this);
+    this._startEditing = this._startEditing.bind(this);
+    this._stopEditing = this._stopEditing.bind(this);
+    this._onSaveClick = this._onSaveClick.bind(this);
   }
 
-  onSaveClick() {
-    this.props.save(this.props.guid, this.editInput.value);
-    this.stopEditing();
-  }
-
-  startEditing() {
+  _startEditing() {
     this.setState({
       edit: true,
     });
   }
 
-  stopEditing() {
+  _stopEditing() {
     this.setState({
       edit: false,
     });
+  }
+
+  _onSaveClick() {
+    this.props.save(this.props.id, this.editInput.value);
+    this._stopEditing();
   }
 
   render() {
@@ -49,15 +52,15 @@ class ListItem extends Component {
                 this.editInput = input;
               }}
             />
-            <button type="button" className="btn btn-primary" onClick={this.onSaveClick}>Save</button>
-            <button type="button" className="btn btn-default" onClick={this.stopEditing} >Cancel</button>
-            <button type="button" className="btn btn-danger" onClick={() => this.props.delete(this.props.guid)}>Delete</button>
+            <button type="button" className="btn btn-primary" onClick={this._onSaveClick}>Save</button>
+            <button type="button" className="btn btn-default" onClick={this._stopEditing} >Cancel</button>
+            <button type="button" className="btn btn-danger" onClick={() => this.props.delete(this.props.id)}>Delete</button>
           </form>
         </li>
       );
     }
     return (
-      <li className="list-group-item" onClick={this.startEditing} >
+      <li className="list-group-item" onClick={this._startEditing} >
         <span>{`${this.props.index + 1}. ${this.props.text}`}</span>
       </li>
     );
