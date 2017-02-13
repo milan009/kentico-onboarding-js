@@ -12,7 +12,7 @@ class List extends Component {
     };
     this._onAddClick = this._onAddClick.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
-    this._updateItemText = this._updateItemText.bind(this);
+    this._updateItem = this._updateItem.bind(this);
     this._generateGUID = this._generateGUID.bind(this);
   }
 
@@ -34,7 +34,7 @@ class List extends Component {
     });
   }
 
-  _updateItemText(guid, text) {
+  _updateItem(guid, text) {
     const updatedItems = this.state.items.map((item => {
       const newItem = item;
       if (item.id === guid) {
@@ -63,7 +63,7 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <pre>
             <ul className="list-group">
-              {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this._deleteItem} save={this._updateItemText} key={item.id} id={item.id} />)}
+              {this.state.items.map((item, index) => <ListItem text={item.text} index={index} delete={this._deleteItem} save={this._updateItem} key={item.id} id={item.id} />)}
               <li className="list-group-item">
                 <form className="form-inline">
                   <input
