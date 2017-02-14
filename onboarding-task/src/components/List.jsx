@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
-import GuidHelpers from '../utils/guidHelpers';
+import guid from '../utils/guidHelper';
 
 class List extends Component {
 
@@ -9,6 +9,7 @@ class List extends Component {
     super(props);
     this.state = {
       items: new Map(),
+      itemsOrder: [],
     };
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
@@ -23,7 +24,9 @@ class List extends Component {
 
   _onListItemAdd(text) {
     const newState = this.state;
-    newState.items.set(GuidHelpers.guid(Date.now()), { text, formDisplayed: false });
+    const id = guid();
+    newState.items.set(id, { text, formDisplayed: false });
+    newState.itemsOrder.push(id);
     this.setState(newState);
   }
 
@@ -36,7 +39,10 @@ class List extends Component {
   _onListItemDelete(id) {
     const newItems = this.state.items;
     newItems.delete(id);
-    this.setState({ items: newItems });
+    const index = this.state.itemsOrder.indexOf(id);
+    const newItemsOrder = this.state.itemsOrder;
+    newItemsOrder.splice(index, 1);
+    this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
   _switchFormDisplayedOnId(id) {
@@ -47,7 +53,7 @@ class List extends Component {
   }
 
   render() {
-    const listItems = Array.from(this.state.items.keys()).map((key, index) =>
+    const listItems = this.state.itemsOrder.map((key, index) =>
       <ListItem
         key={key}
         id={key}
@@ -56,10 +62,7 @@ class List extends Component {
         switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
         onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
         onFormSubmit={this._onListItemSubmit}
-      />,
-      (key1, key2) => {
-        return Number(GuidHelpers.getArgumentFromGuid(key1)) - Number(GuidHelpers.getArgumentFromGuid(key2));
-      }
+      />
     );
 
     return (
