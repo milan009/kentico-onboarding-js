@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
 import guid from '../utils/guidHelper';
+import Immutable from 'immutable';
 
 class List extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      items: new Map(),
+      items: new Immutable.Map(),
       itemsOrder: [],
     };
 
@@ -23,32 +24,29 @@ class List extends Component {
   }
 
   _onListItemAdd(text) {
-    const newState = this.state;
     const id = guid();
-    newState.items.set(id, { id, text, formDisplayed: false });
-    newState.itemsOrder.push(id);
-    this.setState(newState);
+    const newItems = this.state.items.set(id, { id, text, formDisplayed: false });
+    const newItemsOrder = this.state.itemsOrder;
+    newItemsOrder.push(id);
+    this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
   _onListItemSubmit(id, text) {
-    const newItems = this.state.items;
-    newItems.set(id, { ...newItems.get(id), formDisplayed: false, text });
+    const newItems = this.state.items.set(id, { ...this.state.items.get(id), formDisplayed: false, text });
     this.setState({ items: newItems });
   }
 
   _onListItemDelete(id) {
-    const newItems = this.state.items;
-    newItems.delete(id);
     const index = this.state.itemsOrder.indexOf(id);
+    const newItems = this.state.items.delete(id);
     const newItemsOrder = this.state.itemsOrder;
     newItemsOrder.splice(index, 1);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
   _switchFormDisplayedOnId(id) {
-    const newItems = this.state.items;
     const item = this.state.items.get(id);
-    newItems.set(id, { ...item, formDisplayed: !item.formDisplayed });
+    const newItems = this.state.items.set(id, { ...item, formDisplayed: !item.formDisplayed });
     this.setState({ items: newItems });
   }
 
