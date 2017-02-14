@@ -22,11 +22,14 @@ You won't be added as a contributor to this repository. You have to fork it to o
  - `git checkout -b features/task-1` -- crates and checkouts new branch named `features/task-1` based on develop. Commit all your progress on Task 1 to this branch. Once ready, you can merge this branch to develop using following commands:
     - `git checkout develop`
     - `git merge features/task-1` -- now you have all the latest code in develop branch
- - You can submit **Pull request** to the original repository. Please, always submit the pull request to the branch witch starts with your name/login. (I have to create it first, so if it's not there, let me know.)
+ - You can submit **Pull request** to the original repository. Please, always submit the pull request to the branch witch starts with your name/login. (I have to create it first, so if it's not there, let me know.) Every task should be submitted a separate pull request. You should wait for the previous PR to be merged before you submit another. Git flow and commiting each task to separate feature branch should help you here :)
 
 ### Development
+**IMPORTANT:** Run `npm install` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
+
 Now you have everything git-related set-up and you can start developing... 
-Please, commit with reasonable commit messages (http://chris.beams.io/posts/git-commit/), you can squash your commits as well. Feel free to create new branches when developing (task-1, 2 etc.) and merge them to `develop` when you want to submit a pull request.
+Please, commit with reasonable commit messages (http://chris.beams.io/posts/git-commit/), you can squash your commits as well. Feel free to create new branches when developing (task-1, 2 etc.) and merge them to `develop` when you want to submit a pull request. Submit your PRs from `develop` branch.
+
 
 ## How to run the project 
 **tl;dr**
@@ -38,6 +41,13 @@ npm start
 
 The project was created with [react-create-app](https://github.com/facebookincubator/create-react-app) boilerplate. 
 You should use WebStorm IDE to get familiar with it. Prerequisites for running this project are node v6+ and npm v3+. (If you followed the Draft onboarding on Kentico wiki pages, you should be ready to go.)
+
+## Coding style
+ESlint and TSlint are already set-up for you, so you will see all the errors and warnings in console and also in your WebStorm IDE. Please follow this rules while developing:
+ - JavaScript file names are `lowerCamelCase`
+ - one React component per file, name is `UpperCamelCase`, and has `.jsx` extension
+ - use `'single quotes'` instead of `"double quotes"`
+ - more Draft-specific coding rules are specified in https://kentico.atlassian.net/wiki/display/KA/04b+-+JS+Draft+Conventions+--+DRAFT
 
 ## Task 1
 According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
@@ -58,17 +68,15 @@ Refactor the application to use ReduxJS.
  - Create **`actionTypes.js`** where you describe all possible actions (as string constants) that can modify state of the app (e.g: "ITEM_CREATED").
  - Create **action creators** (helper functions) for all the action types you defined.
  - Move all the state of top level component (`List.jsx`) to Redux store (state in Redux is described by reducers; use reducer composition if possible).
+  - Write jasmine **unit tests** for your Redux logic (used TDD to write tests for actionCreators and reducers combined).
   - Implement **reducers** that react to dispatched actions and change the state accordingly.
  - In index.js:
   - Create instance of Redux store, pass root reducer and use logging middleware.
   - Wrap the instance of App.jsx in `<Provider>` component so that all the components can access global store (via `connect()` function).
  - Refactor `List.jsx` so that it receives the app state from Redux store as its props and passes it down to its child components. (`connect()` + `mapStateToProps()`)
  - Child components should dispatch actions that describe changes of the application. (`connect()` + `mapDispatchToProps()`)
-  
+
 **IMPORTANT:** preserve Immutability!
 
-## Coding style
-Please follow this rules while developing: 
- - JavaScript file names are `lowerCamelCase`
- - one React component per file, name is `UpperCamelCase`, and has `.jsx` extension
- - use `'single quotes'` instead of `"double quotes"`
+## [optional] Task 4
+Rewrite the app to Typescript.

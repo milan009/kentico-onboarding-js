@@ -1,27 +1,74 @@
-import React from 'react';
-import assignment from './../../../assignment.gif';
+import React, { Component } from 'react';
+import ListItem from './ListItem';
+import CreateListItem from './CreateListItem';
+import guid from '../utils/guidHelper';
 
-class List extends React.Component {
+class List extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: new Map(),
+      itemsOrder: [],
+    };
+
+    this._onListItemSubmit = this._onListItemSubmit.bind(this);
+    this._onListItemAdd = this._onListItemAdd.bind(this);
+    this._onListItemDelete = this._onListItemDelete.bind(this);
+    this._switchFormDisplayedOnId = this._switchFormDisplayedOnId.bind(this);
+  }
+
+  _createFunctionWithBoundId(id, func) {
+    return func.bind(this, id);
+  }
+
+  _onListItemAdd(text) {
+    const newState = this.state;
+    const id = guid();
+    newState.items.set(id, { id, text, formDisplayed: false });
+    newState.itemsOrder.push(id);
+    this.setState(newState);
+  }
+
+  _onListItemSubmit(id, text) {
+    const newItems = this.state.items;
+    newItems.set(id, { ...newItems.get(id), formDisplayed: false, text });
+    this.setState({ items: newItems });
+  }
+
+  _onListItemDelete(id) {
+    const newItems = this.state.items;
+    newItems.delete(id);
+    const index = this.state.itemsOrder.indexOf(id);
+    const newItemsOrder = this.state.itemsOrder;
+    newItemsOrder.splice(index, 1);
+    this.setState({ items: newItems, itemsOrder: newItemsOrder });
+  }
+
+  _switchFormDisplayedOnId(id) {
+    const newItems = this.state.items;
+    const item = this.state.items.get(id);
+    newItems.set(id, { ...item, formDisplayed: !item.formDisplayed });
+    this.setState({ items: newItems });
+  }
+
   render() {
-    return (
-      <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
+    const listItems = this.state.itemsOrder.map((key, index) =>
+      <ListItem
+        key={key}
+        index={index + 1}
+        item={this.state.items.get(key)}
+        switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
+        onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
+        onFormSubmit={this._createFunctionWithBoundId(key, this._onListItemSubmit)}
+      />
+    );
 
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
-        </div>
-      </div>
+    return (
+      <ul className="list-group">
+        {listItems}
+        <CreateListItem onListItemAdd={this._onListItemAdd} />
+      </ul>
     );
   }
 }
