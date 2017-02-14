@@ -38,15 +38,11 @@ class ListItem extends Component {
   render() {
     if (this.state.canEdit) {
       return (
-        <li className="list-group-item">
-          <EditForm {...this.props} onCancel={this._stopEditing} />
-        </li>
+        <EditForm {...this.props} onCancel={this._stopEditing} />
       );
     }
     return (
-      <li className="list-group-item" onClick={this._startEditing} >
-        <span>{`${this.props.index + 1}. ${this.props.item.text}`}</span>
-      </li>
+      <div onClick={this._startEditing}>{`${this.props.index + 1}. ${this.props.item.text}`}</div>
     );
   }
 }

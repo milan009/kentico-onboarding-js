@@ -54,13 +54,14 @@ class List extends Component {
           <pre>
             <ul className="list-group">
               {this.state.items.map((item, index) =>
-                <ListItem
-                  item={item}
-                  index={index}
-                  onDelete={this._deleteItem}
-                  onSave={this._updateItem}
-                  key={item.id}
-                />
+                <li className="list-group-item" key={item.id}>
+                  <ListItem
+                    item={item}
+                    index={index}
+                    onDelete={this._deleteItem}
+                    onSave={this._updateItem}
+                  />
+                </li>
               )}
               <li className="list-group-item">
                 <AddForm onAdd={this._addItem} />
