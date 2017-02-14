@@ -1,4 +1,4 @@
-export default function generateId() {
+function generateId() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
@@ -7,3 +7,5 @@ export default function generateId() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
 }
+
+export { generateId };

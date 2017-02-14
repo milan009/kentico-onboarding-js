@@ -3,7 +3,7 @@ import { OrderedMap } from 'immutable';
 
 import ListItem from './ListItem.jsx';
 import AddForm from './AddForm';
-import generateID from './../utils/idGenerator';
+import { generateId } from './../utils/idGenerator';
 import { Item } from '../models/ItemModel.js';
 
 class List extends Component {
@@ -20,7 +20,7 @@ class List extends Component {
   }
 
   _addItem(text) {
-    const id = generateID();
+    const id = generateId();
     this.setState({
       items: this.state.items.set(id, Item({ text, id })),
     });
