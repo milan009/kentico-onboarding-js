@@ -40,8 +40,8 @@ class List extends Component {
 
   _updateItem(id, text) {
     this.setState({
-      items: this.state.items.updateIn([id], value => {
-        return value.set('text', text);
+      items: this.state.items.updateIn([id], item => {
+        return item.set('text', text);
       }),
     });
   }
@@ -64,9 +64,9 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <pre>
             <ul className="list-group">
-              {this.state.items.valueSeq().map((item, index) => {
-                if (this.state.areEditable.get(item.id)) {
-                  return (<li className="list-group-item" key={item.id}>
+              {this.state.items.valueSeq().map((item, index) =>
+                <li className="list-group-item" key={item.id}>
+                  {this.state.areEditable.get(item.id) ?
                     <EditForm
                       item={item}
                       index={index}
@@ -74,12 +74,10 @@ class List extends Component {
                       onDelete={this._deleteItem}
                       onCancel={this._stopEditingItem}
                     />
-                  </li>);
-                }
-                return (<li className="list-group-item" key={item.id}>
-                  <ListItem onListItemClick={this._startEditingItem} item={item} index={index} />
-                </li>);
-              })}
+                    : <ListItem onListItemClick={this._startEditingItem} item={item} index={index} />
+                  }
+                </li>)
+              }
               <li className="list-group-item">
                 <AddForm onAdd={this._addItem} />
               </li>
