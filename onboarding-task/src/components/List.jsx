@@ -10,7 +10,7 @@ class List extends Component {
     super(props);
     this.state = {
       items: new Immutable.Map(),
-      itemsOrder: [],
+      itemsOrder: Immutable.List(),
     };
 
     this._onListItemSubmit = this._onListItemSubmit.bind(this);
@@ -26,8 +26,7 @@ class List extends Component {
   _onListItemAdd(text) {
     const id = guid();
     const newItems = this.state.items.set(id, { id, text, formDisplayed: false });
-    const newItemsOrder = this.state.itemsOrder;
-    newItemsOrder.push(id);
+    const newItemsOrder = this.state.itemsOrder.push(id);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
@@ -39,8 +38,7 @@ class List extends Component {
   _onListItemDelete(id) {
     const index = this.state.itemsOrder.indexOf(id);
     const newItems = this.state.items.delete(id);
-    const newItemsOrder = this.state.itemsOrder;
-    newItemsOrder.splice(index, 1);
+    const newItemsOrder = this.state.itemsOrder.splice(index, 1);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
