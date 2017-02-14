@@ -3,6 +3,7 @@ import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
 import guid from '../utils/guidHelper';
 import Immutable from 'immutable';
+import { ItemRecord } from '../models/ItemRecord';
 
 class List extends Component {
 
@@ -25,13 +26,13 @@ class List extends Component {
 
   _onListItemAdd(text) {
     const id = guid();
-    const newItems = this.state.items.set(id, { id, text, formDisplayed: false });
+    const newItems = this.state.items.set(id, new ItemRecord({ id, text, formDisplayed: false }));
     const newItemsOrder = this.state.itemsOrder.push(id);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
   _onListItemSubmit(id, text) {
-    const newItems = this.state.items.set(id, { ...this.state.items.get(id), formDisplayed: false, text });
+    const newItems = this.state.items.set(id, new ItemRecord({ id, formDisplayed: false, text }));
     this.setState({ items: newItems });
   }
 
@@ -44,7 +45,7 @@ class List extends Component {
 
   _switchFormDisplayedOnId(id) {
     const item = this.state.items.get(id);
-    const newItems = this.state.items.set(id, { ...item, formDisplayed: !item.formDisplayed });
+    const newItems = this.state.items.set(id, { id, text: item.text, formDisplayed: !item.formDisplayed });
     this.setState({ items: newItems });
   }
 
