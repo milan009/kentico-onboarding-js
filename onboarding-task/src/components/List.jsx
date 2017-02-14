@@ -20,10 +20,6 @@ class List extends Component {
     this._switchFormDisplayedOnId = this._switchFormDisplayedOnId.bind(this);
   }
 
-  _createFunctionWithBoundId(id, func) {
-    return func.bind(this, id);
-  }
-
   _onListItemAdd(text) {
     const id = guid();
     const newItems = this.state.items.set(id, new ItemRecord({ id, text, formDisplayed: false }));
@@ -55,9 +51,9 @@ class List extends Component {
         key={key}
         index={index + 1}
         item={this.state.items.get(key)}
-        switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
-        onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
-        onFormSubmit={this._createFunctionWithBoundId(key, this._onListItemSubmit)}
+        switchFormDisplayed={this._switchFormDisplayedOnId}
+        onDeleteClick={this._onListItemDelete}
+        onFormSubmit={this._onListItemSubmit}
       />
     );
 
