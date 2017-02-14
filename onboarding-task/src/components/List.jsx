@@ -1,33 +1,73 @@
 import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
 
-import TsComponent from './TsComponent.tsx';
+import ListItem from './ListItem.jsx';
+import AddForm from './AddForm';
+import generateID from './../utils/idGenerator';
 
 class List extends Component {
+  static displayName = 'List';
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+    this._addItem = this._addItem.bind(this);
+    this._deleteItem = this._deleteItem.bind(this);
+    this._updateItem = this._updateItem.bind(this);
+  }
+
+  _addItem(text) {
+    const newItem = {
+      id: generateID(),
+      text,
+    };
+    this.setState({
+      items: [...this.state.items, newItem],
+    });
+  }
+
+  _deleteItem(id) {
+    const remainingItems = this.state.items.filter(item => item.id !== id);
+    this.setState({
+      items: remainingItems,
+    });
+  }
+
+  _updateItem(id, text) {
+    const updatedItems = this.state.items.map((item => {
+      if (item.id === id) {
+        const updatedItem = { ...item, text };
+        return updatedItem;
+      }
+      return item;
+    }));
+    this.setState({
+      items: updatedItems,
+    });
+  }
+
   render() {
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <pre>
+            <ul className="list-group">
+              {this.state.items.map((item, index) =>
+                <li className="list-group-item" key={item.id}>
+                  <ListItem
+                    item={item}
+                    index={index}
+                    onDelete={this._deleteItem}
+                    onSave={this._updateItem}
+                  />
+                </li>
+              )}
+              <li className="list-group-item">
+                <AddForm onAdd={this._addItem} />
+              </li>
+            </ul>
+          </pre>
         </div>
       </div>
     );
