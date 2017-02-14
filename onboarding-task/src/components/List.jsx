@@ -25,7 +25,7 @@ class List extends Component {
   _onListItemAdd(text) {
     const newState = this.state;
     const id = guid();
-    newState.items.set(id, { text, formDisplayed: false });
+    newState.items.set(id, { id, text, formDisplayed: false });
     newState.itemsOrder.push(id);
     this.setState(newState);
   }
