@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class ListItem extends Component {
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
     item: React.PropTypes.object.isRequired,
     index: React.PropTypes.number.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
@@ -18,7 +17,7 @@ class ListItem extends Component {
 
   _onSubmit(event) {
     event.preventDefault();
-    this.props.onFormSubmit(this.props.id, this.input.value);
+    this.props.onFormSubmit(this.input.value);
   }
 
   render() {

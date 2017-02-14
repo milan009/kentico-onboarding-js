@@ -56,12 +56,11 @@ class List extends Component {
     const listItems = this.state.itemsOrder.map((key, index) =>
       <ListItem
         key={key}
-        id={key}
         index={index + 1}
         item={this.state.items.get(key)}
         switchFormDisplayed={this._createFunctionWithBoundId(key, this._switchFormDisplayedOnId)}
         onDeleteClick={this._createFunctionWithBoundId(key, this._onListItemDelete)}
-        onFormSubmit={this._onListItemSubmit}
+        onFormSubmit={this._createFunctionWithBoundId(key, this._onListItemSubmit)}
       />
     );
 
