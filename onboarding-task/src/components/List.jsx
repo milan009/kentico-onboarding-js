@@ -21,6 +21,7 @@ class List extends Component {
     this._updateItem = this._updateItem.bind(this);
     this._startEditingItem = this._startEditingItem.bind(this);
     this._stopEditingItem = this._stopEditingItem.bind(this);
+    this._getItemToRender = this._getItemToRender.bind(this);
   }
 
   _addItem(text) {
@@ -58,6 +59,19 @@ class List extends Component {
     });
   }
 
+  _getItemToRender(item, index) {
+    if (this.state.areEditable.get(item.id)) {
+      return (<EditForm
+        item={item}
+        index={index}
+        onSave={this._updateItem}
+        onDelete={this._deleteItem}
+        onCancel={this._stopEditingItem}
+      />);
+    }
+    return <ListItem onListItemClick={this._startEditingItem} item={item} index={index} />;
+  }
+
   render() {
     return (
       <div className="row">
@@ -66,16 +80,7 @@ class List extends Component {
             <ul className="list-group">
               {this.state.items.valueSeq().map((item, index) =>
                 <li className="list-group-item" key={item.id}>
-                  {this.state.areEditable.get(item.id) ?
-                    <EditForm
-                      item={item}
-                      index={index}
-                      onSave={this._updateItem}
-                      onDelete={this._deleteItem}
-                      onCancel={this._stopEditingItem}
-                    />
-                    : <ListItem onListItemClick={this._startEditingItem} item={item} index={index} />
-                  }
+                  {this._getItemToRender(item, index)}
                 </li>)
               }
               <li className="list-group-item">
