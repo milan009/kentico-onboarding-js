@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItem extends Component {
 
   static propTypes = {
-    item: React.PropTypes.object.isRequired,
+    item: ImmutablePropTypes.recordOf({
+      id: React.PropTypes.string.isRequired,
+      text: React.PropTypes.string.isRequired,
+      formDisplayed: React.PropTypes.bool.isRequired,
+    }),
     index: React.PropTypes.number.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
