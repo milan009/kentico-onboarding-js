@@ -41,7 +41,8 @@ class List extends Component {
 
   _switchFormDisplayedOnId(id) {
     const newItems = this.state.items;
-    newItems.set(id, { ...newItems.get(id), formDisplayed: !newItems.get(id).formDisplayed });
+    const item = this.state.items.get(id);
+    newItems.set(id, { ...item, formDisplayed: !item.formDisplayed });
     this.setState({ items: newItems });
   }
 
