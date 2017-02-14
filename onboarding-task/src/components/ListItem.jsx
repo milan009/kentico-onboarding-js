@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItem extends Component {
 
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: ImmutablePropTypes.contains({
+      id: PropTypes.string,
+      text: PropTypes.string,
+    }).isRequired,
     index: PropTypes.number.isRequired,
     onListItemClick: PropTypes.func.isRequired,
   };

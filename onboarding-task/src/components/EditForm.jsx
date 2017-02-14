@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class EditForm extends Component {
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: ImmutablePropTypes.contains({
+      id: PropTypes.string,
+      text: PropTypes.string,
+    }).isRequired,
     index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
