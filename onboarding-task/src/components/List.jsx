@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { OrderedMap } from 'immutable';
 
 import ListItem from './ListItem.jsx';
 import AddForm from './AddForm';
 import generateID from './../utils/idGenerator';
+import { Item } from '../models/ItemModel.js';
 
 class List extends Component {
   static displayName = 'List';
@@ -10,7 +12,7 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: OrderedMap(),
     };
     this._addItem = this._addItem.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
@@ -18,32 +20,23 @@ class List extends Component {
   }
 
   _addItem(text) {
-    const newItem = {
-      id: generateID(),
-      text,
-    };
+    const id = generateID();
     this.setState({
-      items: [...this.state.items, newItem],
+      items: this.state.items.set(id, Item({ text, id })),
     });
   }
 
   _deleteItem(id) {
-    const remainingItems = this.state.items.filter(item => item.id !== id);
     this.setState({
-      items: remainingItems,
+      items: this.state.items.delete(id),
     });
   }
 
   _updateItem(id, text) {
-    const updatedItems = this.state.items.map((item => {
-      if (item.id === id) {
-        const updatedItem = { ...item, text };
-        return updatedItem;
-      }
-      return item;
-    }));
     this.setState({
-      items: updatedItems,
+      items: this.state.items.updateIn([id], value => {
+        return value.set('text', text);
+      }),
     });
   }
 
@@ -53,7 +46,7 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <pre>
             <ul className="list-group">
-              {this.state.items.map((item, index) =>
+              {this.state.items.valueSeq().map((item, index) =>
                 <li className="list-group-item" key={item.id}>
                   <ListItem
                     item={item}
