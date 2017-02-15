@@ -58,9 +58,7 @@ class ListItem extends Component {
     }
 
     return (
-      <li className="list-group-item">
-        {item}
-      </li>
+      item
     );
   }
 }

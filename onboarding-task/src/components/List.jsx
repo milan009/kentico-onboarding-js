@@ -52,20 +52,23 @@ class List extends Component {
 
   render() {
     const listItems = this.state.itemsOrder.map((key, index) =>
-      <ListItem
-        key={key}
-        index={index + 1}
-        item={this.state.items.get(key)}
-        onFormDisplayedSwitch={this._switchListItemFormDisplayed}
-        onDeleteClick={this._deleteListItem}
-        onFormSubmit={this._updateListItemText}
-      />
+      <li key={key} className="list-group-item">
+        <ListItem
+          index={index + 1}
+          item={this.state.items.get(key)}
+          onFormDisplayedSwitch={this._switchListItemFormDisplayed}
+          onDeleteClick={this._deleteListItem}
+          onFormSubmit={this._updateListItemText}
+        />
+      </li>
     );
 
     return (
       <ul className="list-group">
         {listItems}
-        <CreateListItem onListItemAdd={this._addListItem} />
+        <li key="CreateListItemKey" className="list-group-item">
+          <CreateListItem onListItemAdd={this._addListItem} />
+        </li>
       </ul>
     );
   }
