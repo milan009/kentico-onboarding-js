@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
 
-import TsComponent from './TsComponent.tsx';
+import ListItem from './ListItem';
+import AddItemElement from './AddItemElement';
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { listValues: ['a', 'b', 'c'] };
+
+    this._handleAdd = this._handleAdd.bind(this);
+    this._handleEdit = this._handleEdit.bind(this);
+  }
+
+  _handleAdd(value) {
+    const values = this.state.listValues.concat([value]);
+    this.setState({ listValues: values });
+  }
+
+  _handleEdit() {
+  }
+
   render() {
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <div>
+            <ol>
+              {this.state.listValues.map((listValue) => <ListItem value={listValue} edit={this._handleEdit} />)}
+            </ol>
+            <AddItemElement add={this._handleAdd} />
           </div>
         </div>
       </div>
