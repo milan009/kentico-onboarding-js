@@ -37,20 +37,18 @@ class ListItem extends Component {
     const value = this.state.tempValue;
     if (this.state.isEditable) {
       return (
-        <li>
-          <label>
-            <input type="text" value={value} onChange={this._handleChange} />
-          </label>
+        <div>
+          <input type="text" value={value} onChange={this._handleChange} />
           <button onClick={this._handleSave}>Save</button>
           <button onClick={this._handleCancel}>Cancel</button>
           <button onClick={this._handleDelete}>Delete</button>
-        </li>
+        </div>
       );
     }
     return (
-      <li onClick={this._handleClick}>
+      <div onClick={this._handleClick}>
         {value}
-      </li>
+      </div>
     );
   }
 }

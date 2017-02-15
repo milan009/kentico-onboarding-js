@@ -33,12 +33,10 @@ class List extends Component {
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <div>
-            <ol>
-              {this.state.listItems.map((item) => <ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} delete={this._handleDelete} />)}
-            </ol>
-            <AddItemElement add={this._handleAdd} />
-          </div>
+          <ol>
+            {this.state.listItems.map((item) => <li><ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} delete={this._handleDelete} /></li>)}
+          </ol>
+          <AddItemElement add={this._handleAdd} />
         </div>
       </div>
     );
