@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import Immutable from 'immutable';
+
+import { ItemRecord } from '../models/ItemRecord';
 import ListItem from './ListItem';
 import CreateListItem from './CreateListItem';
 import guid from '../utils/guidHelper';
-import Immutable from 'immutable';
-import { ItemRecord } from '../models/ItemRecord';
 
 class List extends Component {
 
@@ -14,10 +15,10 @@ class List extends Component {
       itemsOrder: Immutable.List(),
     };
 
-    this._onListItemSubmit = this._onListItemSubmit.bind(this);
+    this._onListItemTextUpdate = this._onListItemTextUpdate.bind(this);
     this._onListItemAdd = this._onListItemAdd.bind(this);
     this._onListItemDelete = this._onListItemDelete.bind(this);
-    this._switchFormDisplayedOnId = this._switchFormDisplayedOnId.bind(this);
+    this._onListItemFormDisplayedSwitch = this._onListItemFormDisplayedSwitch.bind(this);
   }
 
   _onListItemAdd(text) {
@@ -27,7 +28,7 @@ class List extends Component {
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
-  _onListItemSubmit(id, text) {
+  _onListItemTextUpdate(id, text) {
     const newItems = this.state.items.set(id, new ItemRecord({ id, formDisplayed: false, text }));
     this.setState({ items: newItems });
   }
@@ -39,7 +40,7 @@ class List extends Component {
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
-  _switchFormDisplayedOnId(id) {
+  _onListItemFormDisplayedSwitch(id) {
     const item = this.state.items.get(id);
     const newItems = this.state.items.set(id, { id, text: item.text, formDisplayed: !item.formDisplayed });
     this.setState({ items: newItems });
@@ -51,9 +52,9 @@ class List extends Component {
         key={key}
         index={index + 1}
         item={this.state.items.get(key)}
-        switchFormDisplayed={this._switchFormDisplayedOnId}
+        onFormDisplayedSwitch={this._onListItemFormDisplayedSwitch}
         onDeleteClick={this._onListItemDelete}
-        onFormSubmit={this._onListItemSubmit}
+        onFormSubmit={this._onListItemTextUpdate}
       />
     );
 

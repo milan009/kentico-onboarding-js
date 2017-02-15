@@ -12,7 +12,7 @@ class ListItem extends Component {
     index: React.PropTypes.number.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
-    switchFormDisplayed: React.PropTypes.func.isRequired,
+    onFormDisplayedSwitch: React.PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,7 +28,7 @@ class ListItem extends Component {
   }
 
   _switchFormDisplayed() {
-    this.props.switchFormDisplayed(this.props.item.id);
+    this.props.onFormDisplayedSwitch(this.props.item.id);
   }
 
   _onDeleteClick() {
