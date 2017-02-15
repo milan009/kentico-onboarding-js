@@ -14,12 +14,13 @@ class List extends Component {
   }
 
   _handleAdd(value) {
-    const values = this.state.listItems.concat([{ id: generateGUID(), value }]);
-    this.setState({ listItems: values });
+    const updatedListItems = this.state.listItems.concat([{ id: generateGUID(), value }]);
+    this.setState({ listItems: updatedListItems });
   }
 
-  _handleEdit() {
-
+  _handleEdit(changedItem) {
+    const updatedListItems = this.state.listItems.map((item) => ((item.id === changedItem.id) && changedItem) || item);
+    this.setState({ listItems: updatedListItems });
   }
 
   render() {
