@@ -1,8 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class EditForm extends Component {
+  static displayName = 'EditForm';
+
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: ImmutablePropTypes.recordOf({
+      id: PropTypes.string,
+      text: PropTypes.string,
+    }).isRequired,
     index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -17,6 +23,7 @@ class EditForm extends Component {
     this._handleEditInputChange = this._handleEditInputChange.bind(this);
     this._save = this._save.bind(this);
     this._delete = this._delete.bind(this);
+    this._cancel = this._cancel.bind(this);
   }
 
   _handleEditInputChange(event) {
@@ -25,7 +32,11 @@ class EditForm extends Component {
 
   _save() {
     this.props.onSave(this.props.item.id, this.state.editInput);
-    this.props.onCancel();
+    this.props.onCancel(this.props.item.id);
+  }
+
+  _cancel() {
+    this.props.onCancel(this.props.item.id);
   }
 
   _delete() {
@@ -43,11 +54,11 @@ class EditForm extends Component {
           onChange={this._handleEditInputChange}
         />
         <button type="button" className="btn btn-primary" onClick={this._save}>Save</button>
-        <button type="button" className="btn btn-default" onClick={this.props.onCancel} >Cancel</button>
+        <button type="button" className="btn btn-default" onClick={this._cancel} >Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this._delete}>Delete</button>
       </form>
     );
   }
 }
 
-export default EditForm;
+export { EditForm };

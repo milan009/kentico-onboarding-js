@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 class AddForm extends Component {
+  static displayName = 'AddForm';
+
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
@@ -39,4 +41,4 @@ class AddForm extends Component {
   }
 }
 
-export default AddForm;
+export { AddForm };
