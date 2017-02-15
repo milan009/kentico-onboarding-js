@@ -7,18 +7,19 @@ import generateGUID from './GenerateGUID';
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = { listValues: [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }] };
+    this.state = { listItems: [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }] };
 
     this._handleAdd = this._handleAdd.bind(this);
     this._handleEdit = this._handleEdit.bind(this);
   }
 
   _handleAdd(value) {
-    const values = this.state.listValues.concat([{ id: generateGUID(), value }]);
-    this.setState({ listValues: values });
+    const values = this.state.listItems.concat([{ id: generateGUID(), value }]);
+    this.setState({ listItems: values });
   }
 
   _handleEdit() {
+
   }
 
   render() {
@@ -27,7 +28,7 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <div>
             <ol>
-              {this.state.listValues.map((listValue) => <ListItem key={listValue.id} id={listValue.id} value={listValue.value} edit={this._handleEdit} />)}
+              {this.state.listItems.map((item) => <ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} />)}
             </ol>
             <AddItemElement add={this._handleAdd} />
           </div>
