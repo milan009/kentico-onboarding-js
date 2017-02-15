@@ -22,6 +22,7 @@ class CreateListItem extends Component {
   _onSubmit(event) {
     event.preventDefault();
     this.props.onListItemAdd(this.state.input);
+
     this.setState({ input: '' });
   }
 

@@ -38,6 +38,7 @@ class ListItem extends Component {
 
   _onFormDisplayedSwitch() {
     this.props.onFormDisplayedSwitch(this.props.item.id);
+
     this.setState({ formInputValue: this.props.item.text });
   }
 
@@ -50,31 +51,19 @@ class ListItem extends Component {
   }
 
   render() {
-    let item = '';
-    if (this.props.item.formDisplayed) {
-      item = (
-        <ListItemForm
-          inputValue={this.state.formInputValue}
-          onFormSubmit={this._onSubmit}
-          onFormCancelClick={this._onFormDisplayedSwitch}
-          onFormDeleteClick={this._onDeleteClick}
-          onInputChange={this._onFormInputChange}
-        />
-      );
-    }
-    else {
-      item = (
-        <ListItemLabel
-          text={this.props.item.text}
-          index={this.props.index}
-          onClickHandler={this._onFormDisplayedSwitch}
-        />
-      );
-    }
-
-    return (
-      item
-    );
+    return (this.props.item.formDisplayed)
+      ? (<ListItemForm
+        inputValue={this.state.formInputValue}
+        onFormSubmit={this._onSubmit}
+        onFormCancelClick={this._onFormDisplayedSwitch}
+        onFormDeleteClick={this._onDeleteClick}
+        onInputChange={this._onFormInputChange}
+      />)
+      : (<ListItemLabel
+        text={this.props.item.text}
+        index={this.props.index}
+        onClickHandler={this._onFormDisplayedSwitch}
+      />);
   }
 }
 

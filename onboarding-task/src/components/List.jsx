@@ -26,6 +26,7 @@ class List extends Component {
     const newItem = new ItemRecord({ id, text, formDisplayed: false });
     const newItems = this.state.items.set(id, newItem);
     const newItemsOrder = this.state.itemsOrder.push(id);
+
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
@@ -33,6 +34,7 @@ class List extends Component {
     const item = this.state.items.get(id);
     const updatedItem = item.merge({ formDisplayed: false, text });
     const newItems = this.state.items.set(id, updatedItem);
+
     this.setState({ items: newItems });
   }
 
@@ -40,6 +42,7 @@ class List extends Component {
     const index = this.state.itemsOrder.indexOf(id);
     const newItems = this.state.items.delete(id);
     const newItemsOrder = this.state.itemsOrder.splice(index, 1);
+
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
@@ -47,6 +50,7 @@ class List extends Component {
     const item = this.state.items.get(id);
     const updatedItem = item.merge({ formDisplayed: !item.formDisplayed });
     const newItems = this.state.items.set(id, updatedItem);
+
     this.setState({ items: newItems });
   }
 
