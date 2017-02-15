@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ListItemForm from './ListItemForm';
 
 class ListItem extends Component {
 
@@ -17,40 +18,46 @@ class ListItem extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      formInputValue: this.props.item.text,
+    };
+
     this._onSubmit = this._onSubmit.bind(this);
     this._onFormDisplayedSwitch = this._onFormDisplayedSwitch.bind(this);
     this._onDeleteClick = this._onDeleteClick.bind(this);
+    this._onFormInputChange = this._onFormInputChange.bind(this);
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    this.props.onFormSubmit(this.props.item.id, this.input.value);
+    this.props.onFormSubmit(this.props.item.id, this.state.formInputValue);
   }
 
   _onFormDisplayedSwitch() {
     this.props.onFormDisplayedSwitch(this.props.item.id);
+    this.setState({ formInputValue: this.props.item.text });
   }
 
   _onDeleteClick() {
     this.props.onDeleteClick(this.props.item.id);
   }
 
+  _onFormInputChange(event) {
+    this.setState({ formInputValue: event.target.value });
+  }
+
   render() {
     let item = '';
     if (this.props.item.formDisplayed) {
       item = (
-        <form className="form-inline" onSubmit={this._onSubmit} >
-          <input
-            className="form-control"
-            defaultValue={this.props.item.text}
-            ref={(input) => {
-              this.input = input;
-            }}
-          />
-          <button type="submit" className="btn btn-primary" > Change </button>
-          <button type="button" className="btn btn-default" onClick={this._onFormDisplayedSwitch} > Cancel </button>
-          <button type="button" className="btn btn-danger" onClick={this._onDeleteClick} > Delete </button>
-        </form>
+        <ListItemForm
+          inputValue={this.state.formInputValue}
+          onFormSubmit={this._onSubmit}
+          onFormCancelClick={this._onFormDisplayedSwitch}
+          onFormDeleteClick={this._onDeleteClick}
+          onInputChange={this._onFormInputChange}
+        />
       );
     }
     else {
