@@ -15,13 +15,13 @@ class List extends Component {
       itemsOrder: Immutable.List(),
     };
 
-    this._onListItemTextUpdate = this._onListItemTextUpdate.bind(this);
-    this._onListItemAdd = this._onListItemAdd.bind(this);
-    this._onListItemDelete = this._onListItemDelete.bind(this);
-    this._onListItemFormDisplayedSwitch = this._onListItemFormDisplayedSwitch.bind(this);
+    this._updateListItemText = this._updateListItemText.bind(this);
+    this._addListItem = this._addListItem.bind(this);
+    this._deleteListItem = this._deleteListItem.bind(this);
+    this._switchListItemFormDisplayed = this._switchListItemFormDisplayed.bind(this);
   }
 
-  _onListItemAdd(text) {
+  _addListItem(text) {
     const id = guid();
     const newItem = new ItemRecord({ id, text, formDisplayed: false });
     const newItems = this.state.items.set(id, newItem);
@@ -29,21 +29,21 @@ class List extends Component {
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
-  _onListItemTextUpdate(id, text) {
+  _updateListItemText(id, text) {
     const item = this.state.items.get(id);
     const updatedItem = item.merge({ formDisplayed: false, text });
     const newItems = this.state.items.set(id, updatedItem);
     this.setState({ items: newItems });
   }
 
-  _onListItemDelete(id) {
+  _deleteListItem(id) {
     const index = this.state.itemsOrder.indexOf(id);
     const newItems = this.state.items.delete(id);
     const newItemsOrder = this.state.itemsOrder.splice(index, 1);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
-  _onListItemFormDisplayedSwitch(id) {
+  _switchListItemFormDisplayed(id) {
     const item = this.state.items.get(id);
     const updatedItem = item.merge({ formDisplayed: !item.formDisplayed });
     const newItems = this.state.items.set(id, updatedItem);
@@ -56,16 +56,16 @@ class List extends Component {
         key={key}
         index={index + 1}
         item={this.state.items.get(key)}
-        onFormDisplayedSwitch={this._onListItemFormDisplayedSwitch}
-        onDeleteClick={this._onListItemDelete}
-        onFormSubmit={this._onListItemTextUpdate}
+        onFormDisplayedSwitch={this._switchListItemFormDisplayed}
+        onDeleteClick={this._deleteListItem}
+        onFormSubmit={this._updateListItemText}
       />
     );
 
     return (
       <ul className="list-group">
         {listItems}
-        <CreateListItem onListItemAdd={this._onListItemAdd} />
+        <CreateListItem onListItemAdd={this._addListItem} />
       </ul>
     );
   }
