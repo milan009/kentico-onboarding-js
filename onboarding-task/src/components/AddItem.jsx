@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { addItem } from '../actions/actionCreators.js';
 
-class NewItem extends Component {
-  static displayName = 'NewItem';
+class AddItem extends Component {
+  static displayName = 'AddItem';
   static propTypes = {
     addItem: PropTypes.func.isRequired,
   };
@@ -40,4 +42,4 @@ class NewItem extends Component {
   }
 }
 
-export default NewItem;
+export default AddItem;
