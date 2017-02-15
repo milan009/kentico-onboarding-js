@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItem extends Component {
-
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: ImmutablePropTypes.contains({
+    item: ImmutablePropTypes.recordOf({
       id: PropTypes.string,
       text: PropTypes.string,
     }).isRequired,
@@ -30,4 +29,4 @@ class ListItem extends Component {
   }
 }
 
-export default ListItem;
+export { ListItem };

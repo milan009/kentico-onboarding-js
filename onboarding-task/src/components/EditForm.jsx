@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class EditForm extends Component {
+  static displayName = 'EditForm';
+
   static propTypes = {
-    item: ImmutablePropTypes.contains({
+    item: ImmutablePropTypes.recordOf({
       id: PropTypes.string,
       text: PropTypes.string,
     }).isRequired,
@@ -59,4 +61,4 @@ class EditForm extends Component {
   }
 }
 
-export default EditForm;
+export { EditForm };

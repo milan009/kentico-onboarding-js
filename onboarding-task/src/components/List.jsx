@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { OrderedMap, Map } from 'immutable';
 
-import ListItem from './ListItem.jsx';
-import AddForm from './AddForm';
-import EditForm from './EditForm';
+import { ListItem } from './ListItem.jsx';
+import { AddForm } from './AddForm';
+import { EditForm } from './EditForm';
 import { generateId } from './../utils/idGenerator';
 import { Item } from '../models/ItemModel.js';
 
@@ -94,4 +94,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export { List };
