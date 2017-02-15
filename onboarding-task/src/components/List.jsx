@@ -11,6 +11,7 @@ class List extends Component {
 
     this._handleAdd = this._handleAdd.bind(this);
     this._handleEdit = this._handleEdit.bind(this);
+    this._handleDelete = this._handleDelete.bind(this);
   }
 
   _handleAdd(value) {
@@ -23,13 +24,18 @@ class List extends Component {
     this.setState({ listItems: updatedListItems });
   }
 
+  _handleDelete(deletedItemID) {
+    const updatedListItems = this.state.listItems.filter((item) => item.id !== deletedItemID);
+    this.setState({ listItems: updatedListItems });
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <div>
             <ol>
-              {this.state.listItems.map((item) => <ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} />)}
+              {this.state.listItems.map((item) => <ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} delete={this._handleDelete} />)}
             </ol>
             <AddItemElement add={this._handleAdd} />
           </div>

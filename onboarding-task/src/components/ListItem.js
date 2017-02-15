@@ -9,6 +9,7 @@ class ListItem extends Component {
     this._handleChange = this._handleChange.bind(this);
     this._handleCancel = this._handleCancel.bind(this);
     this._handleSave = this._handleSave.bind(this);
+    this._handleDelete = this._handleDelete.bind(this);
   }
 
   _handleClick() {
@@ -28,6 +29,10 @@ class ListItem extends Component {
     this.setState({ isEditable: false });
   }
 
+  _handleDelete() {
+    this.props.delete(this.props.id);
+  }
+
   render() {
     const value = this.state.tempValue;
     if (this.state.isEditable) {
@@ -38,6 +43,7 @@ class ListItem extends Component {
           </label>
           <button onClick={this._handleSave}>Save</button>
           <button onClick={this._handleCancel}>Cancel</button>
+          <button onClick={this._handleDelete}>Delete</button>
         </li>
       );
     }
@@ -48,6 +54,7 @@ class ListItem extends Component {
     );
   }
 }
-ListItem.propTypes = { id: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired, edit: React.PropTypes.func.isRequired };
+ListItem.propTypes = { id: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired,
+  edit: React.PropTypes.func.isRequired, delete: React.PropTypes.func.isRequired };
 
 export default ListItem;
