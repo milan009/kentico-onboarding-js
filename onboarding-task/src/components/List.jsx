@@ -23,13 +23,16 @@ class List extends Component {
 
   _onListItemAdd(text) {
     const id = guid();
-    const newItems = this.state.items.set(id, new ItemRecord({ id, text, formDisplayed: false }));
+    const newItem = new ItemRecord({ id, text, formDisplayed: false });
+    const newItems = this.state.items.set(id, newItem);
     const newItemsOrder = this.state.itemsOrder.push(id);
     this.setState({ items: newItems, itemsOrder: newItemsOrder });
   }
 
   _onListItemTextUpdate(id, text) {
-    const newItems = this.state.items.set(id, new ItemRecord({ id, formDisplayed: false, text }));
+    const item = this.state.items.get(id);
+    const updatedItem = item.merge({ formDisplayed: false, text });
+    const newItems = this.state.items.set(id, updatedItem);
     this.setState({ items: newItems });
   }
 
@@ -42,7 +45,8 @@ class List extends Component {
 
   _onListItemFormDisplayedSwitch(id) {
     const item = this.state.items.get(id);
-    const newItems = this.state.items.set(id, { id, text: item.text, formDisplayed: !item.formDisplayed });
+    const updatedItem = item.merge({ formDisplayed: !item.formDisplayed });
+    const newItems = this.state.items.set(id, updatedItem);
     this.setState({ items: newItems });
   }
 

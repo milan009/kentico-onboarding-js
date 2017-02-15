@@ -18,7 +18,7 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
     this._onSubmit = this._onSubmit.bind(this);
-    this._switchFormDisplayed = this._switchFormDisplayed.bind(this);
+    this._onFormDisplayedSwitch = this._onFormDisplayedSwitch.bind(this);
     this._onDeleteClick = this._onDeleteClick.bind(this);
   }
 
@@ -27,7 +27,7 @@ class ListItem extends Component {
     this.props.onFormSubmit(this.props.item.id, this.input.value);
   }
 
-  _switchFormDisplayed() {
+  _onFormDisplayedSwitch() {
     this.props.onFormDisplayedSwitch(this.props.item.id);
   }
 
@@ -48,13 +48,13 @@ class ListItem extends Component {
             }}
           />
           <button type="submit" className="btn btn-primary" > Change </button>
-          <button type="button" className="btn btn-default" onClick={this._switchFormDisplayed} > Cancel </button>
+          <button type="button" className="btn btn-default" onClick={this._onFormDisplayedSwitch} > Cancel </button>
           <button type="button" className="btn btn-danger" onClick={this._onDeleteClick} > Delete </button>
         </form>
       );
     }
     else {
-      item = (<div onClick={this._switchFormDisplayed} >{this.props.index}. {this.props.item.text}</div>);
+      item = (<div onClick={this._onFormDisplayedSwitch} >{this.props.index}. {this.props.item.text}</div>);
     }
 
     return (
