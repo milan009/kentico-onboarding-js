@@ -24,7 +24,7 @@ class ListItem extends Component {
   }
 
   _handleSave() {
-    this.props.edit(this.state.tempValue);
+    this.props.edit({ id: this.props.id, value: this.state.tempValue });
     this.setState({ isEditable: false });
   }
 
@@ -43,11 +43,11 @@ class ListItem extends Component {
     }
     return (
       <li onClick={this._handleClick}>
-        {this.state.tempValue}
+        {value}
       </li>
     );
   }
 }
-ListItem.propTypes = { value: React.PropTypes.string.isRequired, edit: React.PropTypes.func.isRequired };
+ListItem.propTypes = { id: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired, edit: React.PropTypes.func.isRequired };
 
 export default ListItem;
