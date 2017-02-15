@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+
 import ListItemForm from './ListItemForm';
+import ListItemLabel from './ListItemLabel';
 
 class ListItem extends Component {
 
@@ -61,7 +63,13 @@ class ListItem extends Component {
       );
     }
     else {
-      item = (<div onClick={this._onFormDisplayedSwitch} >{this.props.index}. {this.props.item.text}</div>);
+      item = (
+        <ListItemLabel
+          text={this.props.item.text}
+          index={this.props.index}
+          onClickHandler={this._onFormDisplayedSwitch}
+        />
+      );
     }
 
     return (
