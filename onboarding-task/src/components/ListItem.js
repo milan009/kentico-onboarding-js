@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ListItemForm from './ListItemForm';
+
 class ListItem extends Component {
   static displayName = 'ListItem';
   static propTypes = {
@@ -13,7 +15,6 @@ class ListItem extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = { tempValue: this.props.item.value, isEditable: false };
 
     this._labelClick = this._labelClick.bind(this);
@@ -48,16 +49,14 @@ class ListItem extends Component {
     const value = this.state.tempValue;
     if (this.state.isEditable) {
       return (
-        <div className="form-inline">
-          <div className="form-group">
-            {this.props.index}.
-            <input className="form-control" type="text" value={value} onChange={this._inputChange} />
-            <button className="btn btn-primary" onClick={this._saveValue}>Save</button>
-            <button className="btn btn-default" onClick={this._cancelEdit}>Cancel</button>
-            <button className="btn btn-danger" onClick={this._deleteItem}>Delete</button>
-          </div>
-        </div>
-      );
+        <ListItemForm
+          value={this.state.tempValue}
+          index={this.props.index}
+          onEdit={this._saveValue}
+          onDelete={this._deleteItem}
+          onCancel={this._cancelEdit}
+          onChange={this._inputChange}
+        />);
     }
     return (
       <div onClick={this._labelClick}>
