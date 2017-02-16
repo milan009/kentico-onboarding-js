@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class AddItemElement extends Component {
+  static displayName = 'AddItemElement';
+  static propTypes = { onAdd: React.PropTypes.func.isRequired };
+
   constructor(props) {
     super(props);
     this.state = { inputValue: '' };
@@ -14,7 +17,7 @@ class AddItemElement extends Component {
   }
 
   _handleAdd() {
-    this.props.add(this.state.inputValue);
+    this.props.onAdd(this.state.inputValue);
     this.setState({ inputValue: '' });
   }
 
@@ -30,6 +33,5 @@ class AddItemElement extends Component {
     );
   }
 }
-AddItemElement.propTypes = { add: React.PropTypes.func.isRequired };
 
 export default AddItemElement;

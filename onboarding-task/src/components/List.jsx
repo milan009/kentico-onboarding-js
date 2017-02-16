@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import ListItem from './ListItem';
 import AddItemElement from './AddItemElement';
-import generateGUID from './GenerateGUID';
+import { generateGUID } from '../utils/generateGUID';
 
 class List extends Component {
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
     this.state = { listItems: [] };
@@ -36,13 +38,17 @@ class List extends Component {
           {this.state.listItems.map((item, index) =>
             <li className="list-group-item">
               <ListItem
-                key={item.id} id={item.id} value={item.value} index={index + 1}
-                edit={this._handleEdit} delete={this._handleDelete}
+                key={item.id}
+                id={item.id}
+                value={item.value}
+                index={index + 1}
+                onEdit={this._handleEdit}
+                onDelete={this._handleDelete}
               />
             </li>
           )}
           <li className="list-group-item">
-            <AddItemElement add={this._handleAdd} />
+            <AddItemElement onAdd={this._handleAdd} />
           </li>
         </ul>
       </div>

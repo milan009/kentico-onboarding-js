@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 
 class ListItem extends Component {
+  static displayName = 'ListItem';
+  static propTypes = {
+    id: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string.isRequired,
+    index: React.PropTypes.string.isRequired,
+    onEdit: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired };
+
   constructor(props) {
     super(props);
+
     this.state = { tempValue: this.props.value, isEditable: false };
 
     this._handleClick = this._handleClick.bind(this);
@@ -25,12 +34,12 @@ class ListItem extends Component {
   }
 
   _handleSave() {
-    this.props.edit({ id: this.props.id, value: this.state.tempValue });
+    this.props.onEdit({ id: this.props.id, value: this.state.tempValue });
     this.setState({ isEditable: false });
   }
 
   _handleDelete() {
-    this.props.delete(this.props.id);
+    this.props.onDelete(this.props.id);
   }
 
   render() {
@@ -55,7 +64,5 @@ class ListItem extends Component {
     );
   }
 }
-ListItem.propTypes = { id: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired,
-  index: React.PropTypes.string.isRequired, edit: React.PropTypes.func.isRequired, delete: React.PropTypes.func.isRequired };
 
 export default ListItem;
