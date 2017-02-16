@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 class ListItem extends Component {
   static displayName = 'ListItem';
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
-    index: React.PropTypes.string.isRequired,
+    item: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+      value: React.PropTypes.string.isRequired,
+    }).isRequired,
+    index: React.PropTypes.number.isRequired,
     onEdit: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired };
 
   constructor(props) {
     super(props);
 
-    this.state = { tempValue: this.props.value, isEditable: false };
+    this.state = { tempValue: this.props.item.value, isEditable: false };
 
     this._labelClick = this._labelClick.bind(this);
     this._inputChange = this._inputChange.bind(this);
@@ -30,16 +32,16 @@ class ListItem extends Component {
   }
 
   _cancelEdit() {
-    this.setState(() => ({ tempValue: this.props.value, isEditable: false }));
+    this.setState(() => ({ tempValue: this.props.item.value, isEditable: false }));
   }
 
   _saveValue() {
-    this.props.onEdit({ id: this.props.id, value: this.state.tempValue });
+    this.props.onEdit({ id: this.props.item.id, value: this.state.tempValue });
     this.setState({ isEditable: false });
   }
 
   _deleteItem() {
-    this.props.onDelete(this.props.id);
+    this.props.onDelete(this.props.item.id);
   }
 
   render() {

@@ -9,7 +9,7 @@ class List extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { listItems: [] };
+    this.state = { itemsMap: {}, itemsToDisplay: [] };
 
     this._addItem = this._addItem.bind(this);
     this._editItem = this._editItem.bind(this);
@@ -17,30 +17,32 @@ class List extends Component {
   }
 
   _addItem(value) {
-    const updatedListItems = this.state.listItems.concat([{ id: generateGUID(), value }]);
-    this.setState({ listItems: updatedListItems });
+    const newItem = { id: generateGUID(), value };
+    const itemsMap = Object.assign({}, this.state.itemsMap, { [newItem.id]: newItem });
+    const itemsToDisplay = [...this.state.itemsToDisplay, newItem.id];
+    this.setState({ itemsMap, itemsToDisplay });
   }
 
   _editItem(changedItem) {
-    const updatedListItems = this.state.listItems.map((item) => ((item.id === changedItem.id) && changedItem) || item);
-    this.setState({ listItems: updatedListItems });
+    const itemsMap = Object.assign({}, this.state.itemsMap, { [changedItem.id]: changedItem });
+    this.setState({ itemsMap });
   }
 
   _deleteItem(deletedItemID) {
-    const updatedListItems = this.state.listItems.filter((item) => item.id !== deletedItemID);
-    this.setState({ listItems: updatedListItems });
+    const itemsMap = Object.assign({}, this.state.itemsMap);
+    delete itemsMap[deletedItemID];
+    const itemsToDisplay = this.state.itemsToDisplay.filter((id) => id !== deletedItemID);
+    this.setState({ itemsMap, itemsToDisplay });
   }
 
   render() {
     return (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
-          {this.state.listItems.map((item, index) =>
-            <li className="list-group-item">
+          {this.state.itemsToDisplay.map((id, index) =>
+            <li className="list-group-item" key={id}>
               <ListItem
-                key={item.id}
-                id={item.id}
-                value={item.value}
+                item={{ id, value: this.state.itemsMap[id].value }}
                 index={index + 1}
                 onEdit={this._editItem}
                 onDelete={this._deleteItem}
