@@ -14,31 +14,31 @@ class ListItem extends Component {
 
     this.state = { tempValue: this.props.value, isEditable: false };
 
-    this._handleClick = this._handleClick.bind(this);
-    this._handleChange = this._handleChange.bind(this);
-    this._handleCancel = this._handleCancel.bind(this);
-    this._handleSave = this._handleSave.bind(this);
-    this._handleDelete = this._handleDelete.bind(this);
+    this._labelClick = this._labelClick.bind(this);
+    this._inputChange = this._inputChange.bind(this);
+    this._cancelEdit = this._cancelEdit.bind(this);
+    this._saveValue = this._saveValue.bind(this);
+    this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _handleClick() {
+  _labelClick() {
     this.setState({ isEditable: true });
   }
 
-  _handleChange(event) {
+  _inputChange(event) {
     this.setState({ tempValue: event.target.value });
   }
 
-  _handleCancel() {
+  _cancelEdit() {
     this.setState(() => ({ tempValue: this.props.value, isEditable: false }));
   }
 
-  _handleSave() {
+  _saveValue() {
     this.props.onEdit({ id: this.props.id, value: this.state.tempValue });
     this.setState({ isEditable: false });
   }
 
-  _handleDelete() {
+  _deleteItem() {
     this.props.onDelete(this.props.id);
   }
 
@@ -49,16 +49,16 @@ class ListItem extends Component {
         <div className="form-inline">
           <div className="form-group">
             {this.props.index}.
-            <input className="form-control" type="text" value={value} onChange={this._handleChange} />
-            <button className="btn btn-primary" onClick={this._handleSave}>Save</button>
-            <button className="btn btn-default" onClick={this._handleCancel}>Cancel</button>
-            <button className="btn btn-danger" onClick={this._handleDelete}>Delete</button>
+            <input className="form-control" type="text" value={value} onChange={this._inputChange} />
+            <button className="btn btn-primary" onClick={this._saveValue}>Save</button>
+            <button className="btn btn-default" onClick={this._cancelEdit}>Cancel</button>
+            <button className="btn btn-danger" onClick={this._deleteItem}>Delete</button>
           </div>
         </div>
       );
     }
     return (
-      <div onClick={this._handleClick}>
+      <div onClick={this._labelClick}>
         {this.props.index}.{value}
       </div>
     );

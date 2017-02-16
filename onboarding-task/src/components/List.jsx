@@ -11,22 +11,22 @@ class List extends Component {
     super(props);
     this.state = { listItems: [] };
 
-    this._handleAdd = this._handleAdd.bind(this);
-    this._handleEdit = this._handleEdit.bind(this);
-    this._handleDelete = this._handleDelete.bind(this);
+    this._addItem = this._addItem.bind(this);
+    this._editItem = this._editItem.bind(this);
+    this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _handleAdd(value) {
+  _addItem(value) {
     const updatedListItems = this.state.listItems.concat([{ id: generateGUID(), value }]);
     this.setState({ listItems: updatedListItems });
   }
 
-  _handleEdit(changedItem) {
+  _editItem(changedItem) {
     const updatedListItems = this.state.listItems.map((item) => ((item.id === changedItem.id) && changedItem) || item);
     this.setState({ listItems: updatedListItems });
   }
 
-  _handleDelete(deletedItemID) {
+  _deleteItem(deletedItemID) {
     const updatedListItems = this.state.listItems.filter((item) => item.id !== deletedItemID);
     this.setState({ listItems: updatedListItems });
   }
@@ -42,13 +42,13 @@ class List extends Component {
                 id={item.id}
                 value={item.value}
                 index={index + 1}
-                onEdit={this._handleEdit}
-                onDelete={this._handleDelete}
+                onEdit={this._editItem}
+                onDelete={this._deleteItem}
               />
             </li>
           )}
           <li className="list-group-item">
-            <AddItemElement onAdd={this._handleAdd} />
+            <AddItemElement onAdd={this._addItem} />
           </li>
         </ul>
       </div>

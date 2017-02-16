@@ -8,15 +8,15 @@ class AddItemElement extends Component {
     super(props);
     this.state = { inputValue: '' };
 
-    this._handleChange = this._handleChange.bind(this);
-    this._handleAdd = this._handleAdd.bind(this);
+    this._inputChange = this._inputChange.bind(this);
+    this._addItem = this._addItem.bind(this);
   }
 
-  _handleChange(event) {
+  _inputChange(event) {
     this.setState({ inputValue: event.target.value });
   }
 
-  _handleAdd() {
+  _addItem() {
     this.props.onAdd(this.state.inputValue);
     this.setState({ inputValue: '' });
   }
@@ -26,8 +26,8 @@ class AddItemElement extends Component {
     return (
       <div className="form-inline">
         <div className="form-group">
-          <input className="form-control" value={value} onChange={this._handleChange} />
-          <button className="btn btn-default" onClick={this._handleAdd}>Add</button>
+          <input className="form-control" value={value} onChange={this._inputChange} />
+          <button className="btn btn-default" onClick={this._addItem}>Add</button>
         </div>
       </div>
     );
