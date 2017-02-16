@@ -21,9 +21,11 @@ class AddItemElement extends Component {
   render() {
     const value = this.state.inputValue;
     return (
-      <div>
-        <input value={value} onChange={this._handleChange} />
-        <button onClick={this._handleAdd}>Add</button>
+      <div className="form-inline">
+        <div className="form-group">
+          <input className="form-control" value={value} onChange={this._handleChange} />
+          <button className="btn btn-default" onClick={this._handleAdd}>Add</button>
+        </div>
       </div>
     );
   }

@@ -37,22 +37,25 @@ class ListItem extends Component {
     const value = this.state.tempValue;
     if (this.state.isEditable) {
       return (
-        <div>
-          <input type="text" value={value} onChange={this._handleChange} />
-          <button onClick={this._handleSave}>Save</button>
-          <button onClick={this._handleCancel}>Cancel</button>
-          <button onClick={this._handleDelete}>Delete</button>
+        <div className="form-inline">
+          <div className="form-group">
+            {this.props.index}.
+            <input className="form-control" type="text" value={value} onChange={this._handleChange} />
+            <button className="btn btn-primary" onClick={this._handleSave}>Save</button>
+            <button className="btn btn-default" onClick={this._handleCancel}>Cancel</button>
+            <button className="btn btn-danger" onClick={this._handleDelete}>Delete</button>
+          </div>
         </div>
       );
     }
     return (
       <div onClick={this._handleClick}>
-        {value}
+        {this.props.index}.{value}
       </div>
     );
   }
 }
 ListItem.propTypes = { id: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired,
-  edit: React.PropTypes.func.isRequired, delete: React.PropTypes.func.isRequired };
+  index: React.PropTypes.string.isRequired, edit: React.PropTypes.func.isRequired, delete: React.PropTypes.func.isRequired };
 
 export default ListItem;

@@ -7,7 +7,7 @@ import generateGUID from './GenerateGUID';
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = { listItems: [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }] };
+    this.state = { listItems: [] };
 
     this._handleAdd = this._handleAdd.bind(this);
     this._handleEdit = this._handleEdit.bind(this);
@@ -31,13 +31,20 @@ class List extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <ol>
-            {this.state.listItems.map((item) => <li><ListItem key={item.id} id={item.id} value={item.value} edit={this._handleEdit} delete={this._handleDelete} /></li>)}
-          </ol>
-          <AddItemElement add={this._handleAdd} />
-        </div>
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <ul className="list-group">
+          {this.state.listItems.map((item, index) =>
+            <li className="list-group-item">
+              <ListItem
+                key={item.id} id={item.id} value={item.value} index={index + 1}
+                edit={this._handleEdit} delete={this._handleDelete}
+              />
+            </li>
+          )}
+          <li className="list-group-item">
+            <AddItemElement add={this._handleAdd} />
+          </li>
+        </ul>
       </div>
     );
   }
