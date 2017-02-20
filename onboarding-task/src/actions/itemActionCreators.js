@@ -1,32 +1,48 @@
 import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, TOGGLE_EDIT_ITEM } from './actionTypes.js';
 import { generateId } from '../utils/idGenerator.js';
 
-function addItem(text) {
+// do not export this one
+function addItem(text, generateNewId) {
   return {
     type: ADD_ITEM,
-    id: generateId(),
-    text,
+    payload: {
+      id: generateNewId(),
+      text,
+    },
   };
+}
+
+function addItemFunctionCreator(idGenerator) {
+  return (text) => addItem(text, idGenerator);
 }
 
 function deleteItem(id) {
   return {
     type: DELETE_ITEM,
-    id,
+    payload: {
+      id,
+    },
   };
 }
 
 function updateItem(id, text) {
   return {
     type: UPDATE_ITEM,
-    id,
-    text,
+    payload: {
+      id,
+      text,
+    },
   };
 }
 
 function toggleEditItem(id) {
   return {
     type: TOGGLE_EDIT_ITEM,
-    id,
+    payload: {
+      id,
+    },
   };
 }
+
+const addItemWithDependencies = addItemFunctionCreator(generateId);
+export { addItemFunctionCreator, deleteItem, updateItem, toggleEditItem, addItemWithDependencies as addItem };
