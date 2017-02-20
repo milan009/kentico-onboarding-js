@@ -3,7 +3,7 @@ import { list } from '../src/reducers/listReducer.js';
 import { addItemFunctionCreator, deleteItem, updateItem } from '../src/actions/itemActionCreators.js';
 import { Item } from '../src/models/ItemModel.js';
 
-describe('List reducer', function () {
+describe('List reducer', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
   const addItem = addItemFunctionCreator(() => firstTestId);
 
@@ -43,6 +43,6 @@ describe('List reducer', function () {
     mockList = mockList.set(firstTestId, Item({ id: firstTestId, text: 'updated text' }));
     testList = testList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
 
-    expect(list(testList, updateItem)).toEqual(mockList);
+    expect(list(testList, updateItem(firstTestId, 'updated text'))).toEqual(mockList);
   });
 });
