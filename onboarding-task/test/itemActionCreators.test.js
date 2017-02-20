@@ -1,5 +1,5 @@
-import { addItemFunctionCreator, updateItem, deleteItem, toggleEditItem } from '../src/actions/itemActionCreators.js';
-import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM, TOGGLE_EDIT_ITEM } from '../src/actions/actionTypes.js';
+import { addItemFunctionCreator, updateItem, deleteItem, startEditItem, stopEditItem } from '../src/actions/itemActionCreators.js';
+import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM, START_EDIT_ITEM, STOP_EDIT_ITEM } from '../src/actions/actionTypes.js';
 
 describe('action creators', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -35,9 +35,18 @@ describe('action creators', () => {
     });
   });
 
-  it('returns toggle edit item action', () => {
-    expect(toggleEditItem(testId)).toEqual({
-      type: TOGGLE_EDIT_ITEM,
+  it('returns start edit item action', () => {
+    expect(startEditItem(testId)).toEqual({
+      type: START_EDIT_ITEM,
+      payload: {
+        id: testId,
+      },
+    });
+  });
+
+  it('returns stop edit item action', () => {
+    expect(stopEditItem(testId)).toEqual({
+      type: STOP_EDIT_ITEM,
       payload: {
         id: testId,
       },

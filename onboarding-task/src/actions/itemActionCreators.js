@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, TOGGLE_EDIT_ITEM } from './actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, START_EDIT_ITEM, STOP_EDIT_ITEM } from './actionTypes.js';
 import { generateId } from '../utils/idGenerator.js';
 
 // do not export this one
@@ -35,9 +35,18 @@ function updateItem(id, text) {
   };
 }
 
-function toggleEditItem(id) {
+function startEditItem(id) {
   return {
-    type: TOGGLE_EDIT_ITEM,
+    type: START_EDIT_ITEM,
+    payload: {
+      id,
+    },
+  };
+}
+
+function stopEditItem(id) {
+  return {
+    type: STOP_EDIT_ITEM,
     payload: {
       id,
     },
@@ -45,4 +54,4 @@ function toggleEditItem(id) {
 }
 
 const addItemWithDependencies = addItemFunctionCreator(generateId);
-export { addItemFunctionCreator, deleteItem, updateItem, toggleEditItem, addItemWithDependencies as addItem };
+export { addItemFunctionCreator, deleteItem, updateItem, startEditItem, addItemWithDependencies as addItem, stopEditItem };
