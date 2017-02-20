@@ -1,79 +1,70 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
-import Immutable from 'immutable';
-import NewItem from './NewItem.jsx';
-import { generateGuid } from '../utils/utils.js';
+import AddItem from './AddItem.jsx';
+import { connect } from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { toggleEditMode, deleteItem, updateItem } from '../actions/actionCreators.js';
 
 
 class List extends Component {
   static displayName = 'List';
+  static propTypes = {
+    items: ImmutablePropTypes.mapOf(
+      ImmutablePropTypes.recordOf({
+        guid: React.PropTypes.string.isRequired,
+        text: React.PropTypes.string.isRequired,
+        isEdited: React.PropTypes.bool.isRequired,
+      }),
+    ),
+    onToggleEditMode: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+  };
 
-  constructor() {
-    super();
-    this.state = this._getInitialState();
-    this._addItem = this._addItem.bind(this);
+  constructor(props) {
+    super(props);
     this._deleteItem = this._deleteItem.bind(this);
     this._saveItem = this._saveItem.bind(this);
     this._toggleEditMode = this._toggleEditMode.bind(this);
     this._getItemToRender = this._getItemToRender.bind(this);
   }
 
-  _getInitialState() {
-    const firstItem = Immutable.Map({ guid: generateGuid(), text: 'serus', isEdited: false });
-    const secondItem = Immutable.Map({ guid: generateGuid(), text: 'soj', isEdited: false });
-    const thirdItem = Immutable.Map({ guid: generateGuid(), text: 'nazdar', isEdited: false });
-
-    return {
-      items: Immutable.Map({
-        [firstItem.get('guid')]: firstItem,
-        [secondItem.get('guid')]: secondItem,
-        [thirdItem.get('guid')]: thirdItem,
-      }),
-    };
-  }
-
   _deleteItem(guid) {
-    const items = this.state.items.delete(guid);
-    this.setState({ items });
-  }
-
-  _addItem(newText) {
-    const newItem = Immutable.Map({
-      guid: generateGuid(),
-      text: newText,
-      isEdited: false,
-    });
-
-    const items = this.state.items.set(newItem.get('guid'), newItem);
-    this.setState({ items });
+    this.props.onDelete(guid);
   }
 
   _saveItem(guid, text) {
-    const items = this.state.items.updateIn([guid, 'text'], () => text).updateIn([guid, 'isEdited'], () => false);
-    this.setState({ items });
+    this.props.onUpdate(guid, text);
   }
 
   _toggleEditMode(guid) {
-    const items = this.state.items.updateIn([guid, 'isEdited'], val => !val);
-    this.setState({ items });
+    this.props.onToggleEditMode(guid);
   }
 
   _getItemToRender(item) {
     return (item.get('isEdited'))
-      ? (<ListItemEditable key={item.guid} item={item} onDelete={this._deleteItem} onSave={this._saveItem} onCancel={this._toggleEditMode} />)
-      : (<ListItemStatic key={item.guid} item={item} onClick={this._toggleEditMode} />);
+      ? (<ListItemEditable
+        item={item}
+        onDelete={this._deleteItem}
+        onSave={this._saveItem}
+        onCancel={this._toggleEditMode}
+      />)
+      : (<ListItemStatic
+        item={item}
+        onClick={this._toggleEditMode}
+      />);
   }
 
   render() {
-    const items = this.state.items;
+    const items = this.props.items;
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <table className="table table-bordered">
             <tbody>
-              {items.map(this._getItemToRender)}
-              <NewItem addItem={this._addItem} />
+            {items.map(this._getItemToRender)}
+              <AddItem />
             </tbody>
           </table>
         </div>
@@ -82,4 +73,19 @@ class List extends Component {
   }
 }
 
-export default List;
+const mapStateToProps = (state) => {
+  return {
+    items: state.items,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggleEditMode: (guid) => dispatch(toggleEditMode(guid)),
+    onDelete: (guid) => dispatch(deleteItem(guid)),
+    onUpdate: (guid, text) => dispatch(updateItem(guid, text)),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

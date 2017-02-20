@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
-    item: ImmutablePropTypes.mapContains({
+    item: ImmutablePropTypes.recordOf({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       isEdited: React.PropTypes.bool.isRequired,

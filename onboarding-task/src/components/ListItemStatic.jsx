@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 class ListItemStatic extends Component {
   static displayName = 'ListItemStatic';
   static propTypes = {
-    item: ImmutablePropTypes.mapContains({
+    item: ImmutablePropTypes.recordOf({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       isEdited: React.PropTypes.bool.isRequired,

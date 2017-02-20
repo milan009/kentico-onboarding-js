@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addItem } from '../actions/actionCreators.js';
+import { addItem as addItemAction } from '../actions/actionCreators.js';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
   static propTypes = {
-    addItem: PropTypes.func.isRequired,
+    onItemAdd: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -20,7 +20,7 @@ class AddItem extends Component {
   }
 
   _createNewItem() {
-    this.props.addItem(this.state.text);
+    this.props.onItemAdd(this.state.text);
     this.setState({ text: '' });
   }
 
@@ -42,4 +42,9 @@ class AddItem extends Component {
   }
 }
 
-export default AddItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onItemAdd: (text) => dispatch(addItemAction(text)),
+  };
+};
+export default connect(undefined, mapDispatchToProps)(AddItem);
