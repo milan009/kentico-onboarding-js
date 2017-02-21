@@ -1,6 +1,8 @@
 import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_ITEM_FROM_LIST } from '../src/actionTypes';
 import Immutable from 'immutable';
 
+import { ItemRecord } from '../src/models/ItemRecord';
+
 describe('list', () => {
   it('adds new item into empty List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
     const prevState = {
@@ -10,14 +12,14 @@ describe('list', () => {
     const newState = list(prevState, { type: ADD_ITEM_TO_LIST, text: 'Testing...' });
     const id = newState.itemsOrder.get(0);
     const expectedState = {
-      items: Immutable.Map.of(id, new Immutable.Record({ id, text: 'Testing...', formDisplayed: false })),
+      items: Immutable.Map.of(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false })),
       itemsOrder: Immutable.List.of([id]),
     };
     expect(newState).toEqual(expectedState);
   });
 
   it('adds new item into List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
-    const record = new Immutable.Record({ id: 'test-id', text: 'test', formDisplayed: true });
+    const record = new ItemRecord({ id: 'test-id', text: 'test', formDisplayed: true });
     const prevState = {
       items: Immutable.Map.of(['test-id', record]),
       itemsOrder: Immutable.List.of(['test-id']),
@@ -25,15 +27,15 @@ describe('list', () => {
     const newState = list(prevState, { type: ADD_ITEM_TO_LIST, text: 'Testing...' });
     const id = newState.itemsOrder.get(1);
     const expectedState = prevState;
-    expectedState.items.set(id, new Immutable.Record({ id, text: 'Testing...', formDisplayed: false }));
+    expectedState.items.set(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false }));
     expectedState.itemsOrder.push(id);
     expect(newState).toEqual(expectedState);
   });
 
   it('switches formDisplayed value on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
     const id = 'test-id';
-    const falseFormDisplayedRecord = new Immutable.Record({ id, text: 'test', formDisplayed: false });
-    const trueFormDisplayedRecord = new Immutable.Record({ id, text: 'test', formDisplayed: true });
+    const falseFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: false });
+    const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: true });
     const firstState = {
       items: Immutable.Map.of([id, falseFormDisplayedRecord]),
       itemsOrder: Immutable.List.of([id]),
@@ -53,8 +55,8 @@ describe('list', () => {
 
   it('updates text of item with given id when ' + UPDATE_ITEM + ' action is dispatched', () => {
     const id = 'test-id';
-    const prevRecord = new Immutable.Record({ id, text: 'test-1', formDisplayed: true });
-    const expectedRecord = new Immutable.Record({ id, text: 'test-2', formDisplayed: true });
+    const prevRecord = new ItemRecord({ id, text: 'test-1', formDisplayed: true });
+    const expectedRecord = new ItemRecord({ id, text: 'test-2', formDisplayed: true });
 
     const prevState = {
       items: Immutable.Map.of(id, prevRecord),
@@ -73,7 +75,7 @@ describe('list', () => {
 
   it('deletes item with given id when ' + DELETE_ITEM_FROM_LIST + ' action is dispatched', () => {
     const id = 'test-id';
-    const record = new Immutable.Record({ id, text: 'test', formDisplayed: true });
+    const record = new ItemRecord({ id, text: 'test', formDisplayed: true });
     const prevState = {
       items: Immutable.Map.of(id, record),
       itemsOrder: Immutable.List.of(id),
@@ -91,7 +93,7 @@ describe('list', () => {
 
   it('does nothing when unknown action is dispatched', () => {
     const id = 'test-id';
-    const record = new Immutable.Record({ id, text: 'test', formDisplayed: true });
+    const record = new ItemRecord({ id, text: 'test', formDisplayed: true });
     const prevState = {
       items: Immutable.Map.of(id, record),
       itemsOrder: Immutable.List.of(id),
@@ -108,7 +110,7 @@ describe('list', () => {
       itemsOrder: new Immutable.List(),
     };
 
-    const nextState = list(undefined);
+    const nextState = list(undefined, {});
 
     expect(nextState).toEqual(expectedState);
   });
