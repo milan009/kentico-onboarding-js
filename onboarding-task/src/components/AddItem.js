@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
 
-  static propTypes = { onAdd: React.PropTypes.func.isRequired };
+  static propTypes = { onAdd: PropTypes.func.isRequired };
 
   constructor(props) {
     super(props);

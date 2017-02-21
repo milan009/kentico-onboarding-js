@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class ListItemForm extends Component {
   static displayName = 'ListItemForm';
 
   static propTypes = {
-    value: React.PropTypes.string.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func.isRequired };
+    value: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired };
 
   render() {
     const value = this.props.value;

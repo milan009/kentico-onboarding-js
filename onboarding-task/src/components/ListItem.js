@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ListItemForm from './ListItemForm';
 
@@ -6,13 +6,13 @@ class ListItem extends Component {
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      value: React.PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
     }).isRequired,
-    index: React.PropTypes.number.isRequired,
-    onEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired };
+    index: PropTypes.number.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired };
 
   constructor(props) {
     super(props);
