@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ListItem from './ListItem';
 import AddItem from './AddItem';
-import { generateGUID } from '../utils/generateGUID';
+import { generateGuid } from '../utils/generateGuid';
 
 class List extends Component {
   static displayName = 'List';
@@ -10,7 +10,7 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemsMap: {},
+      items: {},
       itemsToDisplay: [] };
 
     this._addItem = this._addItem.bind(this);
@@ -20,26 +20,26 @@ class List extends Component {
 
   _addItem(value) {
     const newItem = {
-      id: generateGUID(),
+      id: generateGuid(),
       value };
-    const itemsMap = Object.assign({}, this.state.itemsMap, { [newItem.id]: newItem });
+    const items = Object.assign({}, this.state.items, { [newItem.id]: newItem });
     const itemsToDisplay = [...this.state.itemsToDisplay, newItem.id];
     this.setState({
-      itemsMap,
+      items,
       itemsToDisplay });
   }
 
   _editItem(changedItem) {
-    const itemsMap = Object.assign({}, this.state.itemsMap, { [changedItem.id]: changedItem });
-    this.setState({ itemsMap });
+    const items = Object.assign({}, this.state.items, { [changedItem.id]: changedItem });
+    this.setState({ items });
   }
 
   _deleteItem(deletedItemID) {
-    const itemsMap = Object.assign({}, this.state.itemsMap);
-    delete itemsMap[deletedItemID];
+    const items = Object.assign({}, this.state.items);
+    delete items[deletedItemID];
     const itemsToDisplay = this.state.itemsToDisplay.filter(id => id !== deletedItemID);
     this.setState({
-      itemsMap,
+      items,
       itemsToDisplay });
   }
 
@@ -52,7 +52,7 @@ class List extends Component {
               <ListItem
                 item={{
                   id,
-                  value: this.state.itemsMap[id].value }}
+                  value: this.state.items[id].value }}
                 index={index + 1}
                 onEdit={this._editItem}
                 onDelete={this._deleteItem}

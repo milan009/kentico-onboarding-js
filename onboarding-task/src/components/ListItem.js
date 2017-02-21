@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ListItemForm from './ListItemForm';
+import EditItem from './EditItem';
 
 class ListItem extends Component {
   static displayName = 'ListItem';
@@ -17,8 +17,8 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tempValue: this.props.item.value,
-      isEditable: false };
+      inputValue: this.props.item.value,
+      isBeingEdited: false };
 
     this._labelClick = this._labelClick.bind(this);
     this._inputChange = this._inputChange.bind(this);
@@ -28,24 +28,24 @@ class ListItem extends Component {
   }
 
   _labelClick() {
-    this.setState({ isEditable: true });
+    this.setState({ isBeingEdited: true });
   }
 
   _inputChange(event) {
-    this.setState({ tempValue: event.target.value });
+    this.setState({ inputValue: event.target.value });
   }
 
   _cancelEdit() {
     this.setState({
-      tempValue: this.props.item.value,
-      isEditable: false });
+      inputValue: this.props.item.value,
+      isBeingEdited: false });
   }
 
   _saveValue() {
     this.props.onEdit({
       id: this.props.item.id,
-      value: this.state.tempValue });
-    this.setState({ isEditable: false });
+      value: this.state.inputValue });
+    this.setState({ isBeingEdited: false });
   }
 
   _deleteItem() {
@@ -53,11 +53,11 @@ class ListItem extends Component {
   }
 
   render() {
-    const value = this.state.tempValue;
-    if (this.state.isEditable) {
+    const value = this.state.inputValue;
+    if (this.state.isBeingEdited) {
       return (
-        <ListItemForm
-          value={this.state.tempValue}
+        <EditItem
+          value={this.state.inputValue}
           index={this.props.index}
           onEdit={this._saveValue}
           onDelete={this._deleteItem}

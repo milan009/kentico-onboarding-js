@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-class ListItemForm extends Component {
-  static displayName = 'ListItemForm';
+class EditItem extends Component {
+  static displayName = 'EditItem';
 
   static propTypes = {
     value: PropTypes.string.isRequired,
@@ -27,4 +27,4 @@ class ListItemForm extends Component {
   }
 }
 
-export default ListItemForm;
+export default EditItem;
