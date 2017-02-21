@@ -22,7 +22,7 @@ class List extends Component {
     const newItem = {
       id: generateGuid(),
       value };
-    const items = Object.assign({}, this.state.items, { [newItem.id]: newItem });
+    const items = { ...this.state.items, [newItem.id]: newItem };
     const itemsToDisplay = [...this.state.itemsToDisplay, newItem.id];
     this.setState({
       items,
@@ -30,12 +30,12 @@ class List extends Component {
   }
 
   _editItem(changedItem) {
-    const items = Object.assign({}, this.state.items, { [changedItem.id]: changedItem });
+    const items = { ...this.state.items, [changedItem.id]: changedItem };
     this.setState({ items });
   }
 
   _deleteItem(deletedItemID) {
-    const items = Object.assign({}, this.state.items);
+    const items = { ...this.state.items };
     delete items[deletedItemID];
     const itemsToDisplay = this.state.itemsToDisplay.filter(id => id !== deletedItemID);
     this.setState({
