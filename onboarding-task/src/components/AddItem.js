@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-class AddItemElement extends Component {
-  static displayName = 'AddItemElement';
+class AddItem extends Component {
+  static displayName = 'AddItem';
   static propTypes = { onAdd: React.PropTypes.func.isRequired };
 
   constructor(props) {
@@ -34,4 +34,4 @@ class AddItemElement extends Component {
   }
 }
 
-export default AddItemElement;
+export default AddItem;

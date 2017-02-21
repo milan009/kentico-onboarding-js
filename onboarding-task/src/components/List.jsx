@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ListItem from './ListItem';
-import AddItemElement from './AddItemElement';
+import AddItem from './AddItem';
 import { generateGUID } from '../utils/generateGUID';
 
 class List extends Component {
@@ -50,7 +50,7 @@ class List extends Component {
             </li>
           )}
           <li className="list-group-item">
-            <AddItemElement onAdd={this._addItem} />
+            <AddItem onAdd={this._addItem} />
           </li>
         </ul>
       </div>
