@@ -10,12 +10,13 @@ function getInitialState() {
   const secondItem = itemRecord({ guid: generateGuid(), text: 'soj', isEdited: false });
   const thirdItem = itemRecord({ guid: generateGuid(), text: 'nazdar', isEdited: false });
 
-  return {
+  const initState = {
     items: Immutable.Map({
       [firstItem.get('guid')]: firstItem,
       [secondItem.get('guid')]: secondItem,
       [thirdItem.get('guid')]: thirdItem,
     }),
   };
+  return initState;
 }
 export { getInitialState };

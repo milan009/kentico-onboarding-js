@@ -42,22 +42,24 @@ class List extends Component {
     this.props.onToggleEditMode(guid);
   }
 
-  _getItemToRender(item) {
+  _getItemToRender(item, index) {
     return (item.get('isEdited'))
       ? (<ListItemEditable
+        key={item.get('guid')}
         item={item}
         onDelete={this._deleteItem}
         onSave={this._saveItem}
         onCancel={this._toggleEditMode}
       />)
       : (<ListItemStatic
+        key={item.get('guid')}
         item={item}
         onClick={this._toggleEditMode}
       />);
   }
 
   render() {
-    const items = this.props.items;
+    const items = this.props.items.valueSeq();
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">

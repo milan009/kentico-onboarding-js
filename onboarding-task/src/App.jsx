@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import List from './components/List';
-import items from './reducers/itemsReducer';
+import items from './reducers/items';
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState';
 
@@ -11,9 +11,10 @@ const rootReducer = combineReducers({
   items,
 });
 const logger = createLogger();
+const initialState = getInitialState();
 const store = createStore(
   rootReducer,
-  getInitialState(),
+  initialState,
   applyMiddleware(logger)
 );
 
