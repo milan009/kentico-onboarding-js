@@ -2,18 +2,19 @@ import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_
 import Immutable from 'immutable';
 
 import { ItemRecord } from '../src/models/ItemRecord';
+import { listReducer } from '../src/reducers/listReducer';
 
-describe('list', () => {
+describe('listReducer', () => {
   it('adds new item into empty List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
     const id = 'test-id';
     const prevState = {
       items: new Immutable.Map(),
       itemsOrder: new Immutable.List(),
     };
-    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
+    const newState = listReducer(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
     const expectedState = {
       items: Immutable.Map.of(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false })),
-      itemsOrder: Immutable.List.of([id]),
+      itemsOrder: Immutable.List.of(id),
     };
     expect(newState).toEqual(expectedState);
   });
@@ -21,11 +22,11 @@ describe('list', () => {
   it('adds new item into List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
     const record = new ItemRecord({ id: 'test-id', text: 'test', formDisplayed: true });
     const prevState = {
-      items: Immutable.Map.of(['test-id', record]),
-      itemsOrder: Immutable.List.of(['test-id']),
+      items: Immutable.Map.of('test-id', record),
+      itemsOrder: Immutable.List.of('test-id'),
     };
     const id = 'test-id-2';
-    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
+    const newState = listReducer(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
     const expectedState = prevState;
     expectedState.items = expectedState.items.set(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false }));
     expectedState.itemsOrder = expectedState.itemsOrder.push(id);
@@ -37,18 +38,18 @@ describe('list', () => {
     const falseFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: false });
     const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: true });
     const firstState = {
-      items: Immutable.Map.of([id, falseFormDisplayedRecord]),
-      itemsOrder: Immutable.List.of([id]),
+      items: Immutable.Map.of(id, falseFormDisplayedRecord),
+      itemsOrder: Immutable.List.of(id),
     };
     const firstExpectedState = {
-      items: Immutable.Map.of([id, trueFormDisplayedRecord]),
-      itemsOrder: Immutable.List.of([id]),
+      items: Immutable.Map.of(id, trueFormDisplayedRecord),
+      itemsOrder: Immutable.List.of(id),
     };
-    const secondState = list(firstState, { type: SWITCH_FORM_VISIBILITY_FOR_ITEM, id });
+    const secondState = listReducer(firstState, { type: SWITCH_FORM_VISIBILITY_FOR_ITEM, id });
 
     expect(secondState).toEqual(firstExpectedState);
 
-    const thirdState = list(secondState, { type: SWITCH_FORM_VISIBILITY_FOR_ITEM, id });
+    const thirdState = listReducer(secondState, { type: SWITCH_FORM_VISIBILITY_FOR_ITEM, id });
 
     expect(thirdState).toEqual(firstState);
   });
@@ -68,7 +69,7 @@ describe('list', () => {
       itemsOrder: Immutable.List.of(id),
     };
 
-    const nextState = list(prevState, { type: UPDATE_ITEM, id, text: 'test-2' });
+    const nextState = listReducer(prevState, { type: UPDATE_ITEM, id, text: 'test-2' });
 
     expect(nextState).toEqual(expectedState);
   });
@@ -86,7 +87,7 @@ describe('list', () => {
       itemsOrder: new Immutable.List(),
     };
 
-    const nextState = list(prevState, { type: DELETE_ITEM_FROM_LIST, id });
+    const nextState = listReducer(prevState, { type: DELETE_ITEM_FROM_LIST, id });
 
     expect(nextState).toEqual(expectedState);
   });
@@ -99,7 +100,7 @@ describe('list', () => {
       itemsOrder: Immutable.List.of(id),
     };
 
-    const nextState = list(prevState, { type: 'UNKNOWN_ACTION', id });
+    const nextState = listReducer(prevState, { type: 'UNKNOWN_ACTION', id });
 
     expect(nextState).toEqual(prevState);
   });
@@ -110,7 +111,7 @@ describe('list', () => {
       itemsOrder: new Immutable.List(),
     };
 
-    const nextState = list(undefined, {});
+    const nextState = listReducer(undefined, {});
 
     expect(nextState).toEqual(expectedState);
   });

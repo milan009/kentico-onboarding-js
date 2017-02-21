@@ -4,24 +4,24 @@ import { UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM, ADD_ITEM_TO_LIST, DELETE_
 import guid from '../utils/guidHelper';
 import { ItemRecord } from '../models/ItemRecord';
 
-const itemsReducer = (prevState = new Immutable.List(), action) => {
+const itemsReducer = (prevState = new Immutable.Map(), action) => {
   switch (action.type) {
     case ADD_ITEM_TO_LIST: {
       const newItem = new ItemRecord({ id: action.id, text: action.text, formDisplayed: false });
-      return prevState.items.set(action.id, newItem);
+      return prevState.set(action.id, newItem);
     }
     case UPDATE_ITEM: {
-      const item = prevState.items.get(action.id);
-      const updatedItem = item.merge({ formDisplayed: false, text: action.text });
-      return prevState.items.set(action.id, updatedItem);
+      const item = prevState.get(action.id);
+      const updatedItem = item.merge({ text: action.text });
+      return prevState.set(action.id, updatedItem);
     }
     case SWITCH_FORM_VISIBILITY_FOR_ITEM: {
-      const item = prevState.items.get(action.id);
+      const item = prevState.get(action.id);
       const updatedItem = item.merge({ formDisplayed: !item.formDisplayed });
-      return prevState.items.set(action.id, updatedItem);
+      return prevState.set(action.id, updatedItem);
     }
     case DELETE_ITEM_FROM_LIST: {
-      return prevState.items.delete(action.id);
+      return prevState.delete(action.id);
     }
     default:
       return prevState;
