@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class ListItemForm extends Component {
   static displayName = 'ListItemForm';
+
   static propTypes = {
     value: React.PropTypes.string.isRequired,
     index: React.PropTypes.number.isRequired,

@@ -9,7 +9,9 @@ class List extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { itemsMap: {}, itemsToDisplay: [] };
+    this.state = {
+      itemsMap: {},
+      itemsToDisplay: [] };
 
     this._addItem = this._addItem.bind(this);
     this._editItem = this._editItem.bind(this);
@@ -17,10 +19,14 @@ class List extends Component {
   }
 
   _addItem(value) {
-    const newItem = { id: generateGUID(), value };
+    const newItem = {
+      id: generateGUID(),
+      value };
     const itemsMap = Object.assign({}, this.state.itemsMap, { [newItem.id]: newItem });
     const itemsToDisplay = [...this.state.itemsToDisplay, newItem.id];
-    this.setState({ itemsMap, itemsToDisplay });
+    this.setState({
+      itemsMap,
+      itemsToDisplay });
   }
 
   _editItem(changedItem) {
@@ -31,8 +37,10 @@ class List extends Component {
   _deleteItem(deletedItemID) {
     const itemsMap = Object.assign({}, this.state.itemsMap);
     delete itemsMap[deletedItemID];
-    const itemsToDisplay = this.state.itemsToDisplay.filter((id) => id !== deletedItemID);
-    this.setState({ itemsMap, itemsToDisplay });
+    const itemsToDisplay = this.state.itemsToDisplay.filter(id => id !== deletedItemID);
+    this.setState({
+      itemsMap,
+      itemsToDisplay });
   }
 
   render() {
@@ -42,7 +50,9 @@ class List extends Component {
           {this.state.itemsToDisplay.map((id, index) =>
             <li className="list-group-item" key={id}>
               <ListItem
-                item={{ id, value: this.state.itemsMap[id].value }}
+                item={{
+                  id,
+                  value: this.state.itemsMap[id].value }}
                 index={index + 1}
                 onEdit={this._editItem}
                 onDelete={this._deleteItem}

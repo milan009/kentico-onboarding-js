@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
+
   static propTypes = { onAdd: React.PropTypes.func.isRequired };
 
   constructor(props) {

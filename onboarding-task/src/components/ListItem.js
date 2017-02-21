@@ -4,6 +4,7 @@ import ListItemForm from './ListItemForm';
 
 class ListItem extends Component {
   static displayName = 'ListItem';
+
   static propTypes = {
     item: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
@@ -15,7 +16,9 @@ class ListItem extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { tempValue: this.props.item.value, isEditable: false };
+    this.state = {
+      tempValue: this.props.item.value,
+      isEditable: false };
 
     this._labelClick = this._labelClick.bind(this);
     this._inputChange = this._inputChange.bind(this);
@@ -33,11 +36,15 @@ class ListItem extends Component {
   }
 
   _cancelEdit() {
-    this.setState(() => ({ tempValue: this.props.item.value, isEditable: false }));
+    this.setState({
+      tempValue: this.props.item.value,
+      isEditable: false });
   }
 
   _saveValue() {
-    this.props.onEdit({ id: this.props.item.id, value: this.state.tempValue });
+    this.props.onEdit({
+      id: this.props.item.id,
+      value: this.state.tempValue });
     this.setState({ isEditable: false });
   }
 
