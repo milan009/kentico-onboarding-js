@@ -6,6 +6,7 @@ describe('createListItem', () => {
     const action = createListItem('Testing...');
     expect(action.type).toBe(ADD_ITEM_TO_LIST);
     expect(action.text).toBe('Testing...');
+    expect(action.id).not.toBe(undefined);
   });
 });
 

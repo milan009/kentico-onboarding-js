@@ -7,9 +7,8 @@ import { ItemRecord } from '../models/ItemRecord';
 const itemsReducer = (prevState = new Immutable.List(), action) => {
   switch (action.type) {
     case ADD_ITEM_TO_LIST: {
-      const id = guid();
-      const newItem = new ItemRecord({ id, text: action.text, formDisplayed: false });
-      return prevState.items.set(id, newItem);
+      const newItem = new ItemRecord({ id: action.id, text: action.text, formDisplayed: false });
+      return prevState.items.set(action.id, newItem);
     }
     case UPDATE_ITEM: {
       const item = prevState.items.get(action.id);

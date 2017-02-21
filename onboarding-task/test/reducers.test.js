@@ -5,12 +5,12 @@ import { ItemRecord } from '../src/models/ItemRecord';
 
 describe('list', () => {
   it('adds new item into empty List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
+    const id = 'test-id';
     const prevState = {
       items: new Immutable.Map(),
       itemsOrder: new Immutable.List(),
     };
-    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, text: 'Testing...' });
-    const id = newState.itemsOrder.get(0);
+    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
     const expectedState = {
       items: Immutable.Map.of(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false })),
       itemsOrder: Immutable.List.of([id]),
@@ -24,11 +24,11 @@ describe('list', () => {
       items: Immutable.Map.of(['test-id', record]),
       itemsOrder: Immutable.List.of(['test-id']),
     };
-    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, text: 'Testing...' });
-    const id = newState.itemsOrder.get(1);
+    const id = 'test-id-2';
+    const newState = list(prevState, { type: ADD_ITEM_TO_LIST, id, text: 'Testing...' });
     const expectedState = prevState;
-    expectedState.items.set(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false }));
-    expectedState.itemsOrder.push(id);
+    expectedState.items = expectedState.items.set(id, new ItemRecord({ id, text: 'Testing...', formDisplayed: false }));
+    expectedState.itemsOrder = expectedState.itemsOrder.push(id);
     expect(newState).toEqual(expectedState);
   });
 
