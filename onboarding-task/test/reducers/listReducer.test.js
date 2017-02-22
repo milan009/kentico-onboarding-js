@@ -1,8 +1,8 @@
-import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_ITEM_FROM_LIST } from '../src/constants/actionTypes';
+import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_ITEM_FROM_LIST } from '../../src/constants/actionTypes';
 import Immutable from 'immutable';
 
-import { ItemRecord } from '../src/models/ItemRecord';
-import { listReducer } from '../src/reducers/listReducer';
+import { ItemRecord } from '../../src/models/ItemRecord';
+import { listReducer } from '../../src/reducers/listReducer';
 
 describe('listReducer', () => {
   it('adds new item into empty List when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {

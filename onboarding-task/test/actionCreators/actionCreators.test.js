@@ -1,5 +1,5 @@
-import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../src/constants/actionTypes';
-import { createListItem, switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../src/actionCreators/actionCreators';
+import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes';
+import { createListItem, switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
 
 describe('createListItem', () => {
   it('creates ' + ADD_ITEM_TO_LIST + ' action', () => {
