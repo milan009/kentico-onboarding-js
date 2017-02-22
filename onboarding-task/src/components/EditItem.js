@@ -12,12 +12,11 @@ class EditItem extends Component {
     onChange: PropTypes.func.isRequired };
 
   render() {
-    const value = this.props.value;
     return (
       <div className="form-inline">
         <div className="form-group">
           {this.props.index}.
-          <input className="form-control" type="text" value={value} onChange={this.props.onChange} />
+          <input className="form-control" type="text" value={this.props.value} onChange={this.props.onChange} />
           <button className="btn btn-primary" onClick={this.props.onEdit}>Save</button>
           <button className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
           <button className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>

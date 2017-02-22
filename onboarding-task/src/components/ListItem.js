@@ -65,7 +65,7 @@ class ListItem extends Component {
     }
     return (
       <div onClick={this._labelClick}>
-        {this.props.index}.{value}
+        {this.props.index}. {value}
       </div>
     );
   }
