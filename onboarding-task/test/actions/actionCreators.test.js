@@ -6,7 +6,7 @@ import * as actions from '../../src/actions/actionCreators';
 import * as types from '../../src/actions/actionTypes';
 
 describe('actionCreators', () => {
-  const text = 'New todo'
+  const text = 'New item'
   it('should create action to add item', () => {
     const expectedAction = {
       type: types.ADD_ITEM,

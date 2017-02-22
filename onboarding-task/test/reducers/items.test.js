@@ -28,8 +28,12 @@ const initialState = getInitialState().items;
 
 
 describe('itemd reducer', () => {
-  it('should return the initial state', () => {
+  it('should return the initial state if action is uknown or not provided', () => {
     expect(items(initialState, {})).toEqual(initialState);
+  });
+
+  it('should return empty immutable map if no state is provided', () => {
+    expect(items(undefined, {})).toEqual(Immutable.Map());
   });
 
   it('should handle ADD_ITEM action', () => {

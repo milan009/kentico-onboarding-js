@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ListItemEditable from './ListItemEditable.jsx';
 import ListItemStatic from './ListItemStatic.jsx';
 import AddItem from './AddItem.jsx';
-import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { toggleEditMode, deleteItem, updateItem } from '../actions/actionCreators.js';
 
 
 class List extends Component {
@@ -20,6 +18,7 @@ class List extends Component {
     onToggleEditMode: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
+    onAddItem: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,12 +27,16 @@ class List extends Component {
     this._saveItem = this._saveItem.bind(this);
     this._toggleEditMode = this._toggleEditMode.bind(this);
     this._getItemToRender = this._getItemToRender.bind(this);
+    this._addItem = this._addItem.bind(this);
   }
 
   _deleteItem(guid) {
     this.props.onDelete(guid);
   }
 
+  _addItem(text) {
+    this.props.onAddItem(text);
+  }
   _saveItem(guid, text) {
     this.props.onUpdate(guid, text);
   }
@@ -66,7 +69,7 @@ class List extends Component {
           <table className="table table-bordered">
             <tbody>
             {items.map(this._getItemToRender)}
-              <AddItem />
+              <AddItem onItemAdd={this._addItem} />
             </tbody>
           </table>
         </div>
@@ -75,19 +78,4 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    items: state.items,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onToggleEditMode: (guid) => dispatch(toggleEditMode(guid)),
-    onDelete: (guid) => dispatch(deleteItem(guid)),
-    onUpdate: (guid, text) => dispatch(updateItem(guid, text)),
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;

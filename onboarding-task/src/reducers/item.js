@@ -4,7 +4,7 @@
 import { ADD_ITEM, TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.js';
 import { itemRecord } from '../utils/itemRecord';
 
-const item = (state = null, action) => {
+const item = (state = itemRecord({}), action) => {
   switch (action.type) {
     case ADD_ITEM: {
       const newItem = itemRecord({
