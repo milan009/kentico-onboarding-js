@@ -42,9 +42,7 @@ class List extends Component {
           {Object.keys(this.state.items).map((id, index) =>
             <li className="list-group-item" key={id}>
               <ListItem
-                item={{
-                  id,
-                  value: this.state.items[id].value }}
+                item={this.state.items[id]}
                 index={index + 1}
                 onEdit={this._editItem}
                 onDelete={this._deleteItem}
