@@ -12,7 +12,7 @@ class List extends Component {
     this.state = { items: {} };
 
     this._addItem = this._addItem.bind(this);
-    this._editItem = this._editItem.bind(this);
+    this._editItemValue = this._editItemValue.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
   }
 
@@ -24,8 +24,9 @@ class List extends Component {
     this.setState({ items });
   }
 
-  _editItem(changedItem) {
-    const items = { ...this.state.items, [changedItem.id]: changedItem };
+  _editItemValue(id, value) {
+    const items = { ...this.state.items };
+    items[id].value = value;
     this.setState({ items });
   }
 
@@ -44,7 +45,7 @@ class List extends Component {
               <ListItem
                 item={this.state.items[id]}
                 index={index + 1}
-                onEdit={this._editItem}
+                onItemValueEdit={this._editItemValue}
                 onDelete={this._deleteItem}
               />
             </li>

@@ -11,7 +11,7 @@ class ListItem extends Component {
       value: PropTypes.string.isRequired,
     }).isRequired,
     index: PropTypes.number.isRequired,
-    onEdit: PropTypes.func.isRequired,
+    onItemValueEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired };
 
   constructor(props) {
@@ -42,9 +42,7 @@ class ListItem extends Component {
   }
 
   _saveValue() {
-    this.props.onEdit({
-      id: this.props.item.id,
-      value: this.state.inputValue });
+    this.props.onItemValueEdit(this.props.item.id, this.state.inputValue);
     this.setState({ isBeingEdited: false });
   }
 
