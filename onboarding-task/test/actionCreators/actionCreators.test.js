@@ -1,36 +1,31 @@
 import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes';
 import { createListItem, switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
 
-describe('createListItem', () => {
-  it('creates ' + ADD_ITEM_TO_LIST + ' action', () => {
-    const action = createListItem(() => '123', 'Testing...');
-    expect(action.type).toBe(ADD_ITEM_TO_LIST);
-    expect(action.text).toBe('Testing...');
-    expect(action.id).toBe('123');
-  });
-});
+describe('action creators ', () => {
+  const id = 'test-id';
+  const text = 'Testing...';
 
-describe('switchFormVisibilityForListItem', () => {
-  it('creates ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action', () => {
-    const action = switchFormVisibilityForListItem('test-id');
-    expect(action.type).toBe(SWITCH_FORM_VISIBILITY_FOR_ITEM);
-    expect(action.id).toBe('test-id');
+  it('createListItem creates ' + ADD_ITEM_TO_LIST + ' action', () => {
+    const actualAction = createListItem(() => id, text);
+    const expectedAction = { type: ADD_ITEM_TO_LIST, text, id };
+    expect(actualAction).toEqual(expectedAction);
   });
-});
 
-describe('updateListItem', () => {
-  it('creates ' + UPDATE_ITEM + ' action', () => {
-    const action = updateListItem('test-id', 'Testing...');
-    expect(action.type).toBe(UPDATE_ITEM);
-    expect(action.id).toBe('test-id');
-    expect(action.text).toBe('Testing...');
+  it('switchFormVisibilityForListItem creates ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action', () => {
+    const actualAction = switchFormVisibilityForListItem(id);
+    const expectedAction = { type: SWITCH_FORM_VISIBILITY_FOR_ITEM, id };
+    expect(actualAction).toEqual(expectedAction);
   });
-});
 
-describe('deleteListItem', () => {
-  it('creates ' + DELETE_ITEM_FROM_LIST + ' action', () => {
-    const action = deleteListItem('test-id');
-    expect(action.type).toBe(DELETE_ITEM_FROM_LIST);
-    expect(action.id).toBe('test-id');
+  it('updateListItem creates ' + UPDATE_ITEM + ' action', () => {
+    const actualAction = updateListItem(id, text);
+    const expectedAction = { type: UPDATE_ITEM, id, text };
+    expect(actualAction).toEqual(expectedAction);
+  });
+
+  it('deleteListItem creates ' + DELETE_ITEM_FROM_LIST + ' action', () => {
+    const actualAction = deleteListItem(id);
+    const expectedAction = { type: DELETE_ITEM_FROM_LIST, id };
+    expect(actualAction).toEqual(expectedAction);
   });
 });
