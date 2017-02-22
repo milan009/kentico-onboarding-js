@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST } from '../actionTypes';
+import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionTypes';
 
 const itemsOrderReducer = (prevState = new Immutable.List(), action) => {
   switch (action.type) {

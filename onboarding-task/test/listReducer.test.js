@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_ITEM_FROM_LIST } from '../src/actionTypes';
+import { ADD_ITEM_TO_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, UPDATE_ITEM, DELETE_ITEM_FROM_LIST } from '../src/constants/actionTypes';
 import Immutable from 'immutable';
 
 import { ItemRecord } from '../src/models/ItemRecord';
