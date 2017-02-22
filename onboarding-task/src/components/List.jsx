@@ -9,9 +9,7 @@ class List extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      items: {},
-      itemsToDisplay: [] };
+    this.state = { items: {} };
 
     this._addItem = this._addItem.bind(this);
     this._editItem = this._editItem.bind(this);
@@ -23,10 +21,7 @@ class List extends Component {
       id: generateGuid(),
       value };
     const items = { ...this.state.items, [newItem.id]: newItem };
-    const itemsToDisplay = [...this.state.itemsToDisplay, newItem.id];
-    this.setState({
-      items,
-      itemsToDisplay });
+    this.setState({ items });
   }
 
   _editItem(changedItem) {
@@ -37,17 +32,14 @@ class List extends Component {
   _deleteItem(deletedItemID) {
     const items = { ...this.state.items };
     delete items[deletedItemID];
-    const itemsToDisplay = this.state.itemsToDisplay.filter(id => id !== deletedItemID);
-    this.setState({
-      items,
-      itemsToDisplay });
+    this.setState({ items });
   }
 
   render() {
     return (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
-          {this.state.itemsToDisplay.map((id, index) =>
+          {Object.keys(this.state.items).map((id, index) =>
             <li className="list-group-item" key={id}>
               <ListItem
                 item={{
@@ -58,7 +50,7 @@ class List extends Component {
                 onDelete={this._deleteItem}
               />
             </li>
-          )}
+           )}
           <li className="list-group-item">
             <AddItem onAdd={this._addItem} />
           </li>
