@@ -3,10 +3,10 @@ import { createListItem, switchFormVisibilityForListItem, updateListItem, delete
 
 describe('createListItem', () => {
   it('creates ' + ADD_ITEM_TO_LIST + ' action', () => {
-    const action = createListItem('Testing...');
+    const action = createListItem(() => '123', 'Testing...');
     expect(action.type).toBe(ADD_ITEM_TO_LIST);
     expect(action.text).toBe('Testing...');
-    expect(action.id).not.toBe(undefined);
+    expect(action.id).toBe('123');
   });
 });
 
