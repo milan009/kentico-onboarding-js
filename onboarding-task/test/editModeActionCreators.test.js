@@ -1,4 +1,4 @@
-import { startEditItem, stopEditItem } from '../src/actions/editModeActionCreators.js';
+import { startEditItem, stopEditItem } from '../src/actions/areEditableActionCreators.js';
 import { START_EDIT_ITEM, STOP_EDIT_ITEM } from '../src/actions/actionTypes.js';
 
 describe('editModeActionCreators', () => {

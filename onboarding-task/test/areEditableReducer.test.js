@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-import { startEditItem, stopEditItem } from '../src/actions/editModeActionCreators.js';
+import { startEditItem, stopEditItem } from '../src/actions/areEditableActionCreators.js';
 import { areEditable } from '../src/reducers/areEditableReducer.js';
 
 describe('areEditableReducer', () => {
