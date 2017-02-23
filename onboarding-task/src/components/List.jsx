@@ -36,20 +36,24 @@ class List extends Component {
     this.setState({ items });
   }
 
+  _generateItems() {
+    return Object.keys(this.state.items).map((id, index) =>
+      <li className="list-group-item" key={id}>
+        <ListItem
+          item={this.state.items[id]}
+          index={index + 1}
+          onItemValueEdit={this._editItemValue}
+          onDelete={this._deleteItem}
+        />
+      </li>
+    );
+  }
+
   render() {
     return (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
-          {Object.keys(this.state.items).map((id, index) =>
-            <li className="list-group-item" key={id}>
-              <ListItem
-                item={this.state.items[id]}
-                index={index + 1}
-                onItemValueEdit={this._editItemValue}
-                onDelete={this._deleteItem}
-              />
-            </li>
-           )}
+          {this._generateItems()}
           <li className="list-group-item">
             <AddItem onAdd={this._addItem} />
           </li>
