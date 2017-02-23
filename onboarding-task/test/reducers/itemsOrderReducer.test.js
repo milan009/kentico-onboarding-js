@@ -5,21 +5,22 @@ import {
   DELETE_ITEM_FROM_LIST,
 } from '../../src/constants/actionTypes';
 import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
-import { createListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
+import { createListItemFactory, deleteListItem } from '../../src/actionCreators/actionCreators';
 
 describe('itemsOrderReducer ', () => {
   const emptyState = new Immutable.List();
   const nonemptyState = Immutable.List.of('test-id-1', 'test-id-2', 'test-id-3', 'test-id-4');
+  const createListItem = createListItemFactory(() => 'test-id-0');
 
   it('adds given id into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched and empty state is passed in', () => {
     const expectedState = Immutable.List.of('test-id-0');
-    const actualState = itemsOrderReducer(emptyState, createListItem(() => 'test-id-0', 'Testing...'));
+    const actualState = itemsOrderReducer(emptyState, createListItem('Testing...'));
     expect(actualState).toEqual(expectedState);
   });
 
   it('adds given id into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched and nonempty state is passed in', () => {
     const expectedState = nonemptyState.push('test-id-0');
-    const actualState = itemsOrderReducer(nonemptyState, createListItem(() => 'test-id-0', 'Testing...'));
+    const actualState = itemsOrderReducer(nonemptyState, createListItem('Testing...'));
     expect(actualState).toEqual(expectedState);
   });
 

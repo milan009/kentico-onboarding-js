@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import { ItemRecord } from '../../src/models/ItemRecord';
 import { itemsReducer } from '../../src/reducers/itemsReducer';
 import {
-  createListItem,
+  createListItemFactory,
   switchFormVisibilityForListItem,
   updateListItem,
   deleteListItem
@@ -23,14 +23,14 @@ describe('itemsReducer', () => {
   const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: true });
 
   it('adds new item into empty state when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
-    const newState = itemsReducer(emptyState, createListItem(() => id, 'test'));
+    const newState = itemsReducer(emptyState, createListItemFactory(() => id)('test'));
     const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
     expect(newState).toEqual(expectedState);
   });
 
   it('adds new item into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const newState = itemsReducer(prevState, createListItem(() => id2, 'Testing...'));
+    const newState = itemsReducer(prevState, createListItemFactory(() => id2)('Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...', formDisplayed: false }));
     expect(newState).toEqual(expectedState);
   });
