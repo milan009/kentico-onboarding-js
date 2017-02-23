@@ -9,7 +9,7 @@ class List extends Component {
   static displayName = 'List';
 
   static propTypes = {
-    items: ImmutablePropTypes.orderedMap.isRequired,
+    list: ImmutablePropTypes.orderedMap.isRequired,
     areEditable: ImmutablePropTypes.set.isRequired,
     addItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
@@ -42,7 +42,7 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <pre>
             <ul className="list-group">
-              {this.props.items.valueSeq().map((item, index) =>
+              {this.props.list.valueSeq().map((item, index) =>
                 <li className="list-group-item" key={item.id}>
                   {this._getItemToRender(item, index)}
                 </li>)

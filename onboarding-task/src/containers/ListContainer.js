@@ -5,7 +5,7 @@ import { List } from '../components/List.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.list,
+    list: state.list,
     areEditable: state.areEditable,
   };
 };
