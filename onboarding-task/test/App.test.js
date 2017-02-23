@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from '../src/App.jsx';
-import { listApp } from '../src/reducers/index.js';
+import { listApp } from '../src/reducers/listApp.js';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
