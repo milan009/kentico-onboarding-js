@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickHandler: () => switchFormVisibilityForListItem(ownProps.id),
+    onClickHandler: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
   };
 };
 
