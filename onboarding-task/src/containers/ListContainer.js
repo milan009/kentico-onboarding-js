@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const ItemList = connect(
+const ListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);
 
-export { ItemList };
+export { ListContainer };
