@@ -21,43 +21,30 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      formInputValue: this.props.item.text,
-    };
-
     this._onSubmit = this._onSubmit.bind(this);
     this._onFormDisplayedSwitch = this._onFormDisplayedSwitch.bind(this);
     this._onDeleteClick = this._onDeleteClick.bind(this);
-    this._onFormInputChange = this._onFormInputChange.bind(this);
   }
 
-  _onSubmit(event) {
-    event.preventDefault();
-    this.props.onFormSubmit(this.props.item.id, this.state.formInputValue);
+  _onSubmit(text) {
+    this.props.onFormSubmit(this.props.item.id, text);
   }
 
   _onFormDisplayedSwitch() {
     this.props.onFormDisplayedSwitch(this.props.item.id);
-
-    this.setState({ formInputValue: this.props.item.text });
   }
 
   _onDeleteClick() {
     this.props.onDeleteClick(this.props.item.id);
   }
 
-  _onFormInputChange(event) {
-    this.setState({ formInputValue: event.target.value });
-  }
-
   render() {
     return (this.props.item.formDisplayed)
       ? (<ListItemForm
-        inputValue={this.state.formInputValue}
+        inputValue={this.props.item.text}
         onFormSubmit={this._onSubmit}
         onFormCancelClick={this._onFormDisplayedSwitch}
         onFormDeleteClick={this._onDeleteClick}
-        onInputChange={this._onFormInputChange}
       />)
       : (<ListItemLabel
         text={this.props.item.text}
