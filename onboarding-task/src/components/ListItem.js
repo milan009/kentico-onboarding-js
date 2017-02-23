@@ -16,12 +16,9 @@ class ListItem extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      inputValue: this.props.item.value,
-      isBeingEdited: false };
+    this.state = { isBeingEdited: false };
 
     this._labelClick = this._labelClick.bind(this);
-    this._inputChange = this._inputChange.bind(this);
     this._cancelEdit = this._cancelEdit.bind(this);
     this._saveValue = this._saveValue.bind(this);
     this._deleteItem = this._deleteItem.bind(this);
@@ -31,18 +28,12 @@ class ListItem extends Component {
     this.setState({ isBeingEdited: true });
   }
 
-  _inputChange(event) {
-    this.setState({ inputValue: event.target.value });
-  }
-
   _cancelEdit() {
-    this.setState({
-      inputValue: this.props.item.value,
-      isBeingEdited: false });
+    this.setState({ isBeingEdited: false });
   }
 
-  _saveValue() {
-    this.props.onItemValueEdit(this.props.item.id, this.state.inputValue);
+  _saveValue(value) {
+    this.props.onItemValueEdit(this.props.item.id, value);
     this.setState({ isBeingEdited: false });
   }
 
@@ -51,16 +42,15 @@ class ListItem extends Component {
   }
 
   render() {
-    const value = this.state.inputValue;
+    const value = this.props.item.value;
     if (this.state.isBeingEdited) {
       return (
         <EditItem
-          value={this.state.inputValue}
+          value={value}
           index={this.props.index}
           onEdit={this._saveValue}
           onDelete={this._deleteItem}
           onCancel={this._cancelEdit}
-          onChange={this._inputChange}
         />);
     }
     return (

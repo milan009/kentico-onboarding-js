@@ -8,16 +8,31 @@ class EditItem extends Component {
     index: PropTypes.number.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired };
+    onCancel: PropTypes.func.isRequired };
+
+  constructor(props) {
+    super(props);
+    this.state = { inputValue: this.props.value };
+
+    this._inputChange = this._inputChange.bind(this);
+    this._saveValue = this._saveValue.bind(this);
+  }
+
+  _inputChange(event) {
+    this.setState({ inputValue: event.target.value });
+  }
+
+  _saveValue() {
+    this.props.onEdit(this.state.inputValue);
+  }
 
   render() {
     return (
       <div className="form-inline">
         <div className="form-group">
           {this.props.index}.
-          <input className="form-control" type="text" value={this.props.value} onChange={this.props.onChange} />
-          <button className="btn btn-primary" onClick={this.props.onEdit}>Save</button>
+          <input className="form-control" type="text" value={this.state.inputValue} onChange={this._inputChange} />
+          <button type="submit" className="btn btn-primary" onClick={this._saveValue}>Save</button>
           <button className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
           <button className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>
         </div>
