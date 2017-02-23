@@ -1,10 +1,10 @@
 import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
 
-const createListItem = (guid, text) => {
+const createListItem = (createGuid, text) => {
   return {
     type: ADD_ITEM_TO_LIST,
     text,
-    id: guid(),
+    id: createGuid(),
   };
 };
 
