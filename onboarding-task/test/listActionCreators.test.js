@@ -1,4 +1,4 @@
-import { addItemFunctionCreator, updateItem, deleteItem } from '../src/actions/itemActionCreators.js';
+import { addItemFunctionCreator, updateItem, deleteItem } from '../src/actions/listActionCreators.js';
 import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../src/actions/actionTypes.js';
 
 describe('action creators', () => {
