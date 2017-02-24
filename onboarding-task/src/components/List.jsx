@@ -20,13 +20,19 @@ class List extends Component {
     const newItem = {
       id: generateGuid(),
       value };
-    const items = { ...this.state.items, [newItem.id]: newItem };
+    const items = {
+      ...this.state.items,
+      [newItem.id]: newItem };
     this.setState({ items });
   }
 
   _editItemValue(id, value) {
-    const items = { ...this.state.items };
-    items[id].value = value;
+    const editedItem = {
+      id,
+      value };
+    const items = {
+      ...this.state.items,
+      [id]: editedItem };
     this.setState({ items });
   }
 
