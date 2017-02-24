@@ -1,11 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 
-class AddItem extends Component {
+interface IAddItemProps {
+  onAdd: (value: string) => void;
+}
+
+interface IAddItemState {
+  inputValue: string
+}
+
+class AddItem extends React.Component<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
-  static propTypes = { onAdd: PropTypes.func.isRequired };
+  static propTypes = { onAdd: React.PropTypes.func.isRequired };
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { inputValue: '' };
 
@@ -13,7 +21,7 @@ class AddItem extends Component {
     this._addItem = this._addItem.bind(this);
   }
 
-  _inputChange(event) {
+  _inputChange(event: any) {
     this.setState({ inputValue: event.target.value });
   }
 

@@ -1,20 +1,36 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 
 import EditItem from './EditItem';
 
-class ListItem extends Component {
+interface IItem {
+  id: string
+  value: string
+}
+
+interface IListItemProps {
+  item: IItem
+  index: number
+  onItemValueEdit: (id: string, value: string) => void;
+  onDelete: (deletedItemID: string) => void;
+}
+
+interface IListItemState {
+  isBeingEdited: boolean
+}
+
+class ListItem extends React.Component<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+    item: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+      value: React.PropTypes.string.isRequired,
     }).isRequired,
-    index: PropTypes.number.isRequired,
-    onItemValueEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired };
+    index: React.PropTypes.number.isRequired,
+    onItemValueEdit: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired };
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { isBeingEdited: false };
 
@@ -32,7 +48,7 @@ class ListItem extends Component {
     this.setState({ isBeingEdited: false });
   }
 
-  _saveValue(value) {
+  _saveValue(value: any) {
     this.props.onItemValueEdit(this.props.item.id, value);
     this.setState({ isBeingEdited: false });
   }

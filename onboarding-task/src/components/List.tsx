@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import ListItem from './ListItem';
 import AddItem from './AddItem';
 import { generateGuid } from '../utils/generateGuid';
 
-class List extends Component {
+interface IListProps {
+}
+
+interface IListState {
+  items: any
+}
+
+class List extends React.Component<IListProps, IListState> {
   static displayName = 'List';
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { items: {} };
 
@@ -16,7 +23,7 @@ class List extends Component {
     this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _addItem(value) {
+  _addItem(value: string) {
     const newItem = {
       id: generateGuid(),
       value };
@@ -24,13 +31,13 @@ class List extends Component {
     this.setState({ items });
   }
 
-  _editItemValue(id, value) {
+  _editItemValue(id: string, value: string) {
     const items = { ...this.state.items };
     items[id].value = value;
     this.setState({ items });
   }
 
-  _deleteItem(deletedItemID) {
+  _deleteItem(deletedItemID: string) {
     const items = { ...this.state.items };
     delete items[deletedItemID];
     this.setState({ items });
