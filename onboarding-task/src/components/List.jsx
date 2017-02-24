@@ -1,34 +1,65 @@
 import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
 
-import TsComponent from './TsComponent.tsx';
+import ListItem from './ListItem';
+import AddItem from './AddItem';
+import { generateGuid } from '../utils/generateGuid';
 
 class List extends Component {
+  static displayName = 'List';
+
+  constructor(props) {
+    super(props);
+    this.state = { items: {} };
+  }
+
+  _addItem = (value) => {
+    const newItem = {
+      id: generateGuid(),
+      value };
+    const items = {
+      ...this.state.items,
+      [newItem.id]: newItem };
+    this.setState({ items });
+  };
+
+  _editItemValue = (id, value) => {
+    const editedItem = {
+      id,
+      value };
+    const items = {
+      ...this.state.items,
+      [id]: editedItem };
+    this.setState({ items });
+  };
+
+  _deleteItem = (deletedItemID) => {
+    const items = { ...this.state.items };
+    delete items[deletedItemID];
+    this.setState({ items });
+  };
+
+  _renderListItems = () => {
+    return Object.keys(this.state.items).map((id, index) =>
+      <li className="list-group-item" key={id}>
+        <ListItem
+          item={this.state.items[id]}
+          index={index + 1}
+          onItemValueEdit={this._editItemValue}
+          onDelete={this._deleteItem}
+        />
+      </li>
+    );
+  };
+
   render() {
     return (
-      <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
-        </div>
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <ul className="list-group">
+          {this._renderListItems()}
+          <li className="list-group-item">
+            <AddItem onAdd={this._addItem} />
+          </li>
+        </ul>
       </div>
     );
   }
