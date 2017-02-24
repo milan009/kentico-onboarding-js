@@ -10,13 +10,9 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = { items: {} };
-
-    this._addItem = this._addItem.bind(this);
-    this._editItemValue = this._editItemValue.bind(this);
-    this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _addItem(value) {
+  _addItem = (value) => {
     const newItem = {
       id: generateGuid(),
       value };
@@ -24,9 +20,9 @@ class List extends Component {
       ...this.state.items,
       [newItem.id]: newItem };
     this.setState({ items });
-  }
+  };
 
-  _editItemValue(id, value) {
+  _editItemValue = (id, value) => {
     const editedItem = {
       id,
       value };
@@ -34,15 +30,15 @@ class List extends Component {
       ...this.state.items,
       [id]: editedItem };
     this.setState({ items });
-  }
+  };
 
-  _deleteItem(deletedItemID) {
+  _deleteItem = (deletedItemID) => {
     const items = { ...this.state.items };
     delete items[deletedItemID];
     this.setState({ items });
-  }
+  };
 
-  _renderListItems() {
+  _renderListItems = () => {
     return Object.keys(this.state.items).map((id, index) =>
       <li className="list-group-item" key={id}>
         <ListItem
@@ -53,7 +49,7 @@ class List extends Component {
         />
       </li>
     );
-  }
+  };
 
   render() {
     return (

@@ -8,19 +8,16 @@ class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = { inputValue: '' };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._addItem = this._addItem.bind(this);
   }
 
-  _inputChange(event) {
+  _inputChange = (event) => {
     this.setState({ inputValue: event.target.value });
-  }
+  };
 
-  _addItem() {
+  _addItem = () => {
     this.props.onAdd(this.state.inputValue);
     this.setState({ inputValue: '' });
-  }
+  };
 
   render() {
     const value = this.state.inputValue;

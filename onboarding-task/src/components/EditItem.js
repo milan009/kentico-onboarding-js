@@ -13,18 +13,15 @@ class EditItem extends Component {
   constructor(props) {
     super(props);
     this.state = { inputValue: this.props.value };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._saveValue = this._saveValue.bind(this);
   }
 
-  _inputChange(event) {
+  _inputChange = (event) => {
     this.setState({ inputValue: event.target.value });
-  }
+  };
 
-  _saveValue() {
+  _saveValue = () => {
     this.props.onEdit(this.state.inputValue);
-  }
+  };
 
   render() {
     return (

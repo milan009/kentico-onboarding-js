@@ -17,29 +17,24 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { isBeingEdited: false };
-
-    this._labelClick = this._labelClick.bind(this);
-    this._cancelEdit = this._cancelEdit.bind(this);
-    this._saveValue = this._saveValue.bind(this);
-    this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _labelClick() {
+  _labelClick = () => {
     this.setState({ isBeingEdited: true });
-  }
+  };
 
-  _cancelEdit() {
+  _cancelEdit = () => {
     this.setState({ isBeingEdited: false });
-  }
+  };
 
-  _saveValue(value) {
+  _saveValue = (value) => {
     this.props.onItemValueEdit(this.props.item.id, value);
     this.setState({ isBeingEdited: false });
-  }
+  };
 
-  _deleteItem() {
+  _deleteItem = () => {
     this.props.onDelete(this.props.item.id);
-  }
+  };
 
   render() {
     const value = this.props.item.value;
