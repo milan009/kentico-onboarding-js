@@ -36,7 +36,7 @@ class List extends Component {
     this.setState({ items });
   }
 
-  _generateItems() {
+  _renderListItems() {
     return Object.keys(this.state.items).map((id, index) =>
       <li className="list-group-item" key={id}>
         <ListItem
@@ -53,7 +53,7 @@ class List extends Component {
     return (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
-          {this._generateItems()}
+          {this._renderListItems()}
           <li className="list-group-item">
             <AddItem onAdd={this._addItem} />
           </li>
