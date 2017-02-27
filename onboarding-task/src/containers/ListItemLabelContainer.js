@@ -6,7 +6,7 @@ import ListItemLabel from '../components/ListItemLabel';
 const mapStateToProps = (state, ownProps) => {
   return {
     text: state.items.get(ownProps.id).text,
-    index: state.itemsOrder.indexOf(ownProps.id),
+    index: state.itemsOrder.indexOf(ownProps.id) + 1,
   };
 };
 
