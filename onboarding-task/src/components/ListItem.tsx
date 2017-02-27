@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import EditItem from './EditItem';
+import { EditItem } from './EditItem';
 
 interface IItem {
   id: string
@@ -18,7 +18,7 @@ interface IListItemState {
   isBeingEdited: boolean
 }
 
-class ListItem extends React.Component<IListItemProps, IListItemState> {
+class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = {
@@ -72,4 +72,4 @@ class ListItem extends React.Component<IListItemProps, IListItemState> {
   }
 }
 
-export default ListItem;
+export { ListItem };

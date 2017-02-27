@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import ListItem from './ListItem';
-import AddItem from './AddItem';
+import { ListItem } from './ListItem';
+import { AddItem } from './AddItem';
 import { generateGuid } from '../utils/generateGuid';
 
 interface IListProps {
@@ -11,7 +11,7 @@ interface IListState {
   items: any
 }
 
-class List extends React.Component<IListProps, IListState> {
+class List extends React.PureComponent<IListProps, IListState> {
   static displayName = 'List';
 
   constructor(props: any) {
@@ -72,4 +72,4 @@ class List extends React.Component<IListProps, IListState> {
   }
 }
 
-export default List;
+export { List };

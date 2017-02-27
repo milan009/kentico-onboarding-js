@@ -12,7 +12,7 @@ interface IEditItemState {
   inputValue: string
 }
 
-class EditItem extends React.Component<IEditItemProps, IEditItemState> {
+class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {
   static displayName = 'EditItem';
 
   static propTypes = {
@@ -50,4 +50,4 @@ class EditItem extends React.Component<IEditItemProps, IEditItemState> {
   }
 }
 
-export default EditItem;
+export { EditItem };

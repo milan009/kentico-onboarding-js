@@ -8,7 +8,7 @@ interface IAddItemState {
   inputValue: string
 }
 
-class AddItem extends React.Component<IAddItemProps, IAddItemState> {
+class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = { onAdd: React.PropTypes.func.isRequired };
@@ -40,4 +40,4 @@ class AddItem extends React.Component<IAddItemProps, IAddItemState> {
   }
 }
 
-export default AddItem;
+export { AddItem };
