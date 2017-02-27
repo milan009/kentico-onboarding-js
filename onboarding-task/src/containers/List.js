@@ -35,4 +35,4 @@ const ListContainer = connect(
   mapDispatchToProps,
 )(List);
 
-export { ListContainer };
+export { ListContainer as List };
