@@ -6,22 +6,18 @@ import * as actions from '../../src/actions/actionCreators';
 import * as types from '../../src/actions/actionTypes';
 
 describe('actionCreators', () => {
-  const text = 'New item'
+  const text = 'New item';
   it('should create action to add item', () => {
     const expectedAction = {
       type: types.ADD_ITEM,
       payload: {
-        guid: generateGuid(),
+        guid: '00000',
         isEdited: false,
         text,
       },
     };
-    const action = actions.addItem(text);
-
-    expect(action.type).toBe(expectedAction.type);
-    expect(action.payload.isEdited).toBe(expectedAction.payload.isEdited);
-    expect(action.payload.text).toBe(expectedAction.payload.text);
-    expect(action.payload.guid).not.toBe(null);
+    const fakeAddItemAction = actions.addItemFactory(() => '00000')(text);
+    expect(fakeAddItemAction).toEqual(expectedAction);
   });
 
   it('should create action for toggling edit mode', () => {
@@ -32,9 +28,7 @@ describe('actionCreators', () => {
       },
     };
     const action = actions.toggleEditMode('00000');
-
-    expect(action.type).toBe(expectedAction.type);
-    expect(action.payload.guid).toBe(expectedAction.payload.guid);
+    expect(action).toEqual(expectedAction);
   });
 
   it('should create action for deleting item', () => {
@@ -45,9 +39,7 @@ describe('actionCreators', () => {
       },
     };
     const action = actions.deleteItem('00000');
-
-    expect(action.type).toBe(expectedAction.type);
-    expect(action.payload.guid).toBe(expectedAction.payload.guid);
+    expect(action).toEqual(expectedAction);
   });
 
   it('should create action for updating item', () => {
@@ -58,10 +50,7 @@ describe('actionCreators', () => {
         text,
       },
     };
-    const action = actions.updateItem('00000', 'new text');
-
-    expect(action.type).toBe(expectedAction.type);
-    expect(action.payload.guid).toBe(expectedAction.payload.guid);
-    expect(action.payload.text).toBe('new text');
+    const action = actions.updateItem('00000', text);
+    expect(action).toEqual(expectedAction);
   });
 });

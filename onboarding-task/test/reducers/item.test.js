@@ -1,7 +1,7 @@
 /**
  * Created by IvanJ on 21.2.2017.
  */
-import item from '../../src/reducers/item';
+import { item } from '../../src/reducers/item';
 import { itemRecord } from '../../src/utils/itemRecord';
 import * as actions from '../../src/actions/actionCreators';
 
@@ -12,20 +12,22 @@ const initialState = itemRecord({
   isEdited: false,
 });
 
+const UNKNOWN_ACTION = 'unknown action';
+
 describe('item reducer', () => {
   it('should return the initial state', () => {
-    expect(item(initialState, {})).toEqual(initialState);
+    expect(item(initialState, UNKNOWN_ACTION)).toEqual(initialState);
   });
 
   it('should return default item record', () => {
-    expect(item(undefined, {})).toEqual(itemRecord({}));
+    expect(item(undefined, UNKNOWN_ACTION)).toEqual(itemRecord({}));
   });
 
   it('should handle ADD_ITEM action', () => {
-    const addItemAction = actions.addItem('new text');
+    const addItemAction = actions.addItemFactory(() => '00000')('new text');
     expect(item(initialState, addItemAction)).toEqual(itemRecord({
       text: 'new text',
-      guid: addItemAction.payload.guid,
+      guid: '00000',
       isEdited: false,
     }));
   });
@@ -35,7 +37,7 @@ describe('item reducer', () => {
 
     expect(item(initialState, toggleEditModeAction)).toEqual(itemRecord({
       text: 'Redux rocks!',
-      guid: toggleEditModeAction.payload.guid,
+      guid: '00000',
       isEdited: !initialState.isEdited,
     }));
   });
@@ -44,7 +46,7 @@ describe('item reducer', () => {
     const updateItemAction = actions.updateItem('00000', 'new text');
     expect(item(initialState, updateItemAction)).toEqual(itemRecord({
       text: 'new text',
-      guid: updateItemAction.payload.guid,
+      guid: '00000',
       isEdited: false,
     }));
   });
