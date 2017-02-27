@@ -16,19 +16,16 @@ class AddItem extends React.Component<IAddItemProps, IAddItemState> {
   constructor(props: any) {
     super(props);
     this.state = { inputValue: '' };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._addItem = this._addItem.bind(this);
   }
 
-  _inputChange(event: any) {
+  _inputChange = (event: any) => {
     this.setState({ inputValue: event.target.value });
-  }
+  };
 
-  _addItem() {
+  _addItem = () => {
     this.props.onAdd(this.state.inputValue);
     this.setState({ inputValue: '' });
-  }
+  };
 
   render() {
     const value = this.state.inputValue;

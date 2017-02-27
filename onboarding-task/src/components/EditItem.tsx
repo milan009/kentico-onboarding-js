@@ -25,18 +25,15 @@ class EditItem extends React.Component<IEditItemProps, IEditItemState> {
   constructor(props: any) {
     super(props);
     this.state = { inputValue: this.props.value };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._saveValue = this._saveValue.bind(this);
   }
 
-  _inputChange(event: any) {
+  _inputChange = (event: any) => {
     this.setState({ inputValue: event.target.value });
-  }
+  };
 
-  _saveValue() {
+  _saveValue = () => {
     this.props.onEdit(this.state.inputValue);
-  }
+  };
 
   render() {
     return (

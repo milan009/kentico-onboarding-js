@@ -17,33 +17,35 @@ class List extends React.Component<IListProps, IListState> {
   constructor(props: any) {
     super(props);
     this.state = { items: {} };
-
-    this._addItem = this._addItem.bind(this);
-    this._editItemValue = this._editItemValue.bind(this);
-    this._deleteItem = this._deleteItem.bind(this);
   }
 
-  _addItem(value: string) {
+  _addItem = (value: string) => {
     const newItem = {
       id: generateGuid(),
       value };
-    const items = { ...this.state.items, [newItem.id]: newItem };
+    const items = {
+      ...this.state.items,
+      [newItem.id]: newItem };
     this.setState({ items });
-  }
+  };
 
-  _editItemValue(id: string, value: string) {
-    const items = { ...this.state.items };
-    items[id].value = value;
+  _editItemValue = (id: string, value: string) => {
+    const editedItem = {
+      id,
+      value };
+    const items = {
+      ...this.state.items,
+      [id]: editedItem };
     this.setState({ items });
-  }
+  };
 
-  _deleteItem(deletedItemID: string) {
+  _deleteItem = (deletedItemID: string) => {
     const items = { ...this.state.items };
     delete items[deletedItemID];
     this.setState({ items });
-  }
+  };
 
-  _generateItems() {
+  _renderListItems = () => {
     return Object.keys(this.state.items).map((id, index) =>
       <li className="list-group-item" key={id}>
         <ListItem
@@ -54,13 +56,13 @@ class List extends React.Component<IListProps, IListState> {
         />
       </li>
     );
-  }
+  };
 
   render() {
     return (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
-          {this._generateItems()}
+          {this._renderListItems()}
           <li className="list-group-item">
             <AddItem onAdd={this._addItem} />
           </li>
