@@ -70,7 +70,7 @@ describe('itemsReducer', () => {
   it('does nothing when unknown action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
 
-    const nextState = itemsReducer(prevState, { type: 'UNKNOWN_ACTION', id });
+    const nextState = itemsReducer(prevState, { type: 'UNKNOWN_ACTION', payload: { id } });
 
     expect(nextState).toEqual(prevState);
   });

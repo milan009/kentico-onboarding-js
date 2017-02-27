@@ -5,9 +5,9 @@ import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionType
 const itemsOrderReducer = (prevState = new Immutable.List(), action) => {
   switch (action.type) {
     case ADD_ITEM_TO_LIST:
-      return prevState.push(action.id);
+      return prevState.push(action.payload.id);
     case DELETE_ITEM_FROM_LIST: {
-      const index = prevState.indexOf(action.id);
+      const index = prevState.indexOf(action.payload.id);
       return prevState.splice(index, 1);
     }
     default:
