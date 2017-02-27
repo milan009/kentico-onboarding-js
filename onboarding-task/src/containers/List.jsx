@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import List from '../components/List';
+import { List as ListComponent } from '../components/List';
 import { toggleEditMode, deleteItem, updateItem, addItem } from '../actions/actionCreators.js';
 
 const mapStateToProps = (state) => {
@@ -17,5 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
+
+export { List };
 

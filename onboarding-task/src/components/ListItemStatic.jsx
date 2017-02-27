@@ -32,4 +32,4 @@ class ListItemStatic extends Component {
   }
 }
 
-export default ListItemStatic;
+export { ListItemStatic };

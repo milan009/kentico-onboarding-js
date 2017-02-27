@@ -2,8 +2,8 @@ import './sticky-footer.css';
 import React, { Component } from 'react';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import List from './containers/List';
-import items from './reducers/items';
+import { List } from './containers/List';
+import { items } from './reducers/items';
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState';
 
@@ -52,4 +52,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export { App };

@@ -59,4 +59,4 @@ class ListItemEditable extends Component {
   }
 }
 
-export default ListItemEditable;
+export { ListItemEditable };

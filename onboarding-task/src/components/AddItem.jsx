@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { addItem as addItemAction } from '../actions/actionCreators.js';
 
 class AddItem extends Component {
   static displayName = 'AddItem';
@@ -42,9 +40,5 @@ class AddItem extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onItemAdd: (text) => dispatch(addItemAction(text)),
-  };
-};
-export default connect(undefined, mapDispatchToProps)(AddItem);
+export { AddItem };
+

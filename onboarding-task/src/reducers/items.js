@@ -3,9 +3,10 @@
  */
 import { ADD_ITEM, TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.js';
 import Immutable from 'immutable';
-import item from './item';
+import { item } from './item';
 
-const items = (state = Immutable.Map(), action) => {
+const map = Immutable.Map();
+const items = (state = map, action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return state.set(action.payload.guid, item(undefined, action));
@@ -23,4 +24,4 @@ const items = (state = Immutable.Map(), action) => {
   }
 };
 
-export default items;
+export { items };

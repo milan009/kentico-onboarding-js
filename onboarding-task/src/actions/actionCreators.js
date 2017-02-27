@@ -4,14 +4,22 @@
 import { generateGuid } from '../utils/generateGuid.js';
 import { ADD_ITEM, TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
 
-export const addItem = (text) => ({
+const addItem = (text, guidGenerator) => ({
   type: ADD_ITEM,
   payload: {
-    guid: generateGuid(),
+    guid: guidGenerator(),
     isEdited: false,
     text,
   },
 });
+
+export function addItemFactory(guidGenerator) {
+  return (text) => addItem(text, guidGenerator);
+}
+
+const addItemWithInjectedDependencies = addItemFactory(generateGuid);
+
+export { addItemWithInjectedDependencies as addItem };
 
 export const toggleEditMode = (guid) => ({
   type: TOGGLE_EDIT_MODE,

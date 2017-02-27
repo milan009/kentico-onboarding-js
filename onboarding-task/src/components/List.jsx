@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ListItemEditable from './ListItemEditable.jsx';
-import ListItemStatic from './ListItemStatic.jsx';
-import AddItem from './AddItem.jsx';
+import { ListItemEditable } from './ListItemEditable.jsx';
+import { ListItemStatic } from './ListItemStatic.jsx';
+import { AddItem } from './AddItem.jsx';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 
@@ -78,4 +78,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export { List };

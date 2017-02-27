@@ -26,4 +26,4 @@ const item = (state = itemRecord({}), action) => {
   }
 };
 
-export default item;
+export { item };
