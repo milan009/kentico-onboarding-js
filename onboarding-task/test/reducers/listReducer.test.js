@@ -13,37 +13,37 @@ describe('List reducer', () => {
   });
 
   it('should handle add item', () => {
-    let mockList = OrderedMap();
-    let testList = OrderedMap();
     const secondTestId = '70e9ad48-e190-4578-8939-f9afa5b51501';
     const addSecondItem = addItemFactory(() => secondTestId);
+    let expectedList = OrderedMap();
+    expectedList = expectedList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
+    expectedList = expectedList.set(secondTestId, Item({ id: secondTestId, text: 'second add test' }));
+    const listBefore = OrderedMap();
 
-    mockList = mockList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
-    testList = list(testList, addItem('first add test'));
-    expect(testList)
-      .toEqual(mockList);
+    let listAfter = list(listBefore, addItem('first add test'));
+    listAfter = list(listAfter, addSecondItem('second add test'));
 
-    mockList = mockList.set(secondTestId, Item({ id: secondTestId, text: 'second add test' }));
-    testList = list(testList, addSecondItem('second add test'));
-    expect(testList)
-      .toEqual(mockList);
+    expect(listAfter).toEqual(expectedList);
   });
 
   it('should handle delete item', () => {
-    const mockList = OrderedMap();
-    let testList = OrderedMap();
+    const expectedList = OrderedMap();
+    let listBefore = OrderedMap();
+    listBefore = listBefore.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
 
-    testList = testList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
-    expect(list(testList, deleteItem(firstTestId))).toEqual(mockList);
+    const listAfter = list(listBefore, deleteItem(firstTestId));
+
+    expect(listAfter).toEqual(expectedList);
   });
 
   it('should handle update item', () => {
-    let mockList = OrderedMap();
-    let testList = OrderedMap();
+    let expectedList = OrderedMap();
+    expectedList = expectedList.set(firstTestId, Item({ id: firstTestId, text: 'updated text' }));
+    let listBefore = OrderedMap();
+    listBefore = listBefore.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
 
-    mockList = mockList.set(firstTestId, Item({ id: firstTestId, text: 'updated text' }));
-    testList = testList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
+    const listAfter = list(listBefore, updateItem(firstTestId, 'updated text'));
 
-    expect(list(testList, updateItem(firstTestId, 'updated text'))).toEqual(mockList);
+    expect(listAfter).toEqual(expectedList);
   });
 });

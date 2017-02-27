@@ -10,14 +10,22 @@ describe('editedItemsReducer', () => {
   });
 
   it('should add item to editedItems set on START_EDIT_ITEM', () => {
-    let editedItemsMock = Set();
-    editedItemsMock = editedItemsMock.add(testId);
-    expect(editedItems(Set(), startEditItem(testId))).toEqual(editedItemsMock);
+    let expectedEditedItems = Set();
+    expectedEditedItems = expectedEditedItems.add(testId);
+    const editedItemsBefore = Set();
+
+    const editedItemsAfter = editedItems(editedItemsBefore, startEditItem(testId));
+
+    expect(editedItemsAfter).toEqual(expectedEditedItems);
   });
 
   it('should delete item in editedItems set on STOP_EDIT_ITEM', () => {
-    let editedItemsTestSet = Set();
-    editedItemsTestSet = editedItemsTestSet.add(testId);
-    expect(editedItems(editedItemsTestSet, stopEditItem(testId))).toEqual(Set());
+    const expectedEditedItems = Set();
+    let editedItemsBefore = Set();
+    editedItemsBefore = editedItemsBefore.add(testId);
+
+    const editedItemsAfter = editedItems(editedItemsBefore, stopEditItem(testId));
+
+    expect(editedItemsAfter).toEqual(expectedEditedItems);
   });
 });
