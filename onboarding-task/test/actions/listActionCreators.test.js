@@ -1,10 +1,11 @@
-import { addItemFunctionCreator, updateItem, deleteItem } from '../../src/actions/listActionCreators.js';
+import { updateItem, deleteItem } from '../../src/actions/listActionCreators.js';
+import { addItemFactory } from '../../src/actions/addItemFactory.js';
 import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../../src/actions/actionTypes.js';
 
 describe('action creators', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
   const testText = 'testText';
-  const addItem = addItemFunctionCreator(() => testId);
+  const addItem = addItemFactory(() => testId);
 
   it('returns add item action', () => {
     expect(addItem(testText)).toEqual({

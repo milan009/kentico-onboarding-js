@@ -1,20 +1,6 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
+import { DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
 import { generateId } from '../utils/idGenerator.js';
-
-// do not export this one
-function addItem(text, generateNewId) {
-  return {
-    type: ADD_ITEM,
-    payload: {
-      id: generateNewId(),
-      text,
-    },
-  };
-}
-
-function addItemFunctionCreator(idGenerator) {
-  return (text) => addItem(text, idGenerator);
-}
+import { addItemFactory } from './addItemFactory.js';
 
 function deleteItem(id) {
   return {
@@ -35,5 +21,5 @@ function updateItem(id, text) {
   };
 }
 
-const addItemWithDependencies = addItemFunctionCreator(generateId);
-export { addItemFunctionCreator, deleteItem, updateItem, addItemWithDependencies as addItem };
+const addItemWithDependencies = addItemFactory(generateId);
+export { deleteItem, updateItem, addItemWithDependencies as addItem };
