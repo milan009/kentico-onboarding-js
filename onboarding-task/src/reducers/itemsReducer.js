@@ -1,7 +1,6 @@
 import Immutable from 'immutable';
 
 import { UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM, ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionTypes';
-import guid from '../utils/guidHelper';
 import { ItemRecord } from '../models/ItemRecord';
 
 const itemsReducer = (prevState = new Immutable.Map(), action) => {
