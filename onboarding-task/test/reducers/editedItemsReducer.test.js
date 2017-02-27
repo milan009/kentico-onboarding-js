@@ -6,7 +6,12 @@ describe('editedItemsReducer', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
 
   it('should return initial state for undefined state', () => {
-    expect(editedItems(undefined, {})).toEqual(Set());
+    const expectedEditedItems = Set();
+    const editedItemsBefore = undefined;
+
+    const editedItemsAfter = editedItems(undefined, { type: 'NOT_DEFINED' });
+
+    expect(editedItemsAfter).toEqual(expectedEditedItems);
   });
 
   it('should add item to editedItems set on START_EDIT_ITEM', () => {

@@ -9,7 +9,12 @@ describe('List reducer', () => {
   const addItem = addItemFactory(() => firstTestId);
 
   it('should return initial state', () => {
-    expect(list(undefined, {})).toEqual(OrderedMap());
+    const expectedList = OrderedMap();
+    const listBefore = undefined;
+
+    const listAfter = list(listBefore, { type: 'NOT_DEFINED' });
+
+    expect(listAfter).toEqual(expectedList);
   });
 
   it('should handle add item', () => {
