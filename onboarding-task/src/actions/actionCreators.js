@@ -2,24 +2,10 @@
  * Created by IvanJ on 13.2.2017.
  */
 import { generateGuid } from '../utils/generateGuid.js';
-import { ADD_ITEM, TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
+import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
+import { addItemFactory } from './actionDependencies/addItemFactory';
 
-const addItem = (text, guidGenerator) => ({
-  type: ADD_ITEM,
-  payload: {
-    guid: guidGenerator(),
-    isEdited: false,
-    text,
-  },
-});
-
-export function addItemFactory(guidGenerator) {
-  return (text) => addItem(text, guidGenerator);
-}
-
-const addItemWithInjectedDependencies = addItemFactory(generateGuid);
-
-export { addItemWithInjectedDependencies as addItem };
+export const addItem = addItemFactory(generateGuid);
 
 export const toggleEditMode = (guid) => ({
   type: TOGGLE_EDIT_MODE,

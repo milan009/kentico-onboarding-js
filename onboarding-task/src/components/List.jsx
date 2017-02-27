@@ -45,7 +45,7 @@ class List extends Component {
     this.props.onToggleEditMode(guid);
   }
 
-  _getItemToRender(item, index) {
+  _getItemToRender(item) {
     return (item.get('isEdited'))
       ? (<ListItemEditable
         key={item.get('guid')}

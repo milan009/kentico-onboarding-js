@@ -5,6 +5,8 @@ import { items } from '../../src/reducers/items';
 import * as actions from '../../src/actions/actionCreators';
 import Immutable from 'immutable';
 import { itemRecord } from '../../src/utils/itemRecord';
+import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
+
 
 describe('items reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -16,7 +18,7 @@ describe('items reducer', () => {
     [secondItem.get('guid')]: secondItem,
     [thirdItem.get('guid')]: thirdItem,
   });
-  const addItemAction = actions.addItemFactory(() => '00000')('text');
+  const addItemAction = addItemFactory(() => '00000')('text');
   const toggleEditModeAction = actions.toggleEditMode('00000');
   const deleteItemAction = actions.deleteItem('00000');
   const updateItemAction = actions.updateItem('00000', 'new text');

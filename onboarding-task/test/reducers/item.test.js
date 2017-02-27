@@ -4,7 +4,7 @@
 import { item } from '../../src/reducers/item';
 import { itemRecord } from '../../src/utils/itemRecord';
 import * as actions from '../../src/actions/actionCreators';
-
+import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 const initialState = itemRecord({
   guid: '00000',
@@ -24,7 +24,7 @@ describe('item reducer', () => {
   });
 
   it('should handle ADD_ITEM action', () => {
-    const addItemAction = actions.addItemFactory(() => '00000')('new text');
+    const addItemAction = addItemFactory(() => '00000')('new text');
     expect(item(initialState, addItemAction)).toEqual(itemRecord({
       text: 'new text',
       guid: '00000',

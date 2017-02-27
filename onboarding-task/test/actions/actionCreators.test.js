@@ -4,6 +4,7 @@
 import { generateGuid } from '../../src/utils/generateGuid.js';
 import * as actions from '../../src/actions/actionCreators';
 import * as types from '../../src/actions/actionTypes';
+import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('actionCreators', () => {
   const text = 'New item';
@@ -16,7 +17,7 @@ describe('actionCreators', () => {
         text,
       },
     };
-    const fakeAddItemAction = actions.addItemFactory(() => '00000')(text);
+    const fakeAddItemAction = addItemFactory(() => '00000')(text);
     expect(fakeAddItemAction).toEqual(expectedAction);
   });
 
