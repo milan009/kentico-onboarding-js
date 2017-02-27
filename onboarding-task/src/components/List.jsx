@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ImmutableProptypes from 'react-immutable-proptypes';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import ListItem from './ListItem';
 import { CreateListItemContainer } from '../containers/CreateListItemContainer';
@@ -7,21 +7,21 @@ import { CreateListItemContainer } from '../containers/CreateListItemContainer';
 class List extends Component {
 
   static propTypes = {
-    items: ImmutableProptypes.mapOf(
-      ImmutableProptypes.recordOf({
+    items: ImmutablePropTypes.mapOf(
+      ImmutablePropTypes.recordOf({
         id: React.PropTypes.string.isRequired,
         text: React.PropTypes.string.isRequired,
         formDisplayed: React.PropTypes.bool.isRequired,
       }),
       React.PropTypes.string.isRequired
     ),
-    itemsOrder: ImmutableProptypes.listOf(
+    itemsOrder: ImmutablePropTypes.listOf(
       React.PropTypes.string.isRequired,
     ),
   };
 
   render() {
-    const listItems = this.props.itemsOrder.map((key, index) =>
+    const listItems = this.props.itemsOrder.map((key) =>
       <li key={key} className="list-group-item">
         <ListItem
           id={key}
