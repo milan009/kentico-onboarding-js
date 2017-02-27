@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ImmutableProptypes from 'react-immutable-proptypes';
 
 import ListItem from './ListItem';
-import CreateListItem from './CreateListItem';
+import { CreateListItemContainer } from '../containers/CreateListItemContainer';
 
 class List extends Component {
 
@@ -34,7 +34,7 @@ class List extends Component {
       <ul className="list-group">
         {listItems}
         <li key="CreateListItemKey" className="list-group-item">
-          <CreateListItem />
+          <CreateListItemContainer />
         </li>
       </ul>
     );
