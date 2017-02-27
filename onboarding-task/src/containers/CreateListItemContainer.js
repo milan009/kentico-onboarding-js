@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import {createListItemFactory} from '../actionCreators/actionCreators';
+import { createListItemFactory } from '../actionCreators/actionCreators';
 import CreateListItem from '../components/CreateListItem';
 import guid from '../utils/guidHelper';
 
