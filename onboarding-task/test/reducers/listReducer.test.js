@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
-import { list } from '../src/reducers/listReducer.js';
-import { addItemFunctionCreator, deleteItem, updateItem } from '../src/actions/listActionCreators.js';
-import { Item } from '../src/models/ItemModel.js';
+import { list } from '../../src/reducers/listReducer.js';
+import { addItemFunctionCreator, deleteItem, updateItem } from '../../src/actions/listActionCreators.js';
+import { Item } from '../../src/models/ItemModel.js';
 
 describe('List reducer', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';

@@ -1,6 +1,6 @@
 import { Set } from 'immutable';
-import { startEditItem, stopEditItem } from '../src/actions/areEditableActionCreators.js';
-import { areEditable } from '../src/reducers/areEditableReducer.js';
+import { startEditItem, stopEditItem } from '../../src/actions/areEditableActionCreators.js';
+import { areEditable } from '../../src/reducers/areEditableReducer.js';
 
 describe('areEditableReducer', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
