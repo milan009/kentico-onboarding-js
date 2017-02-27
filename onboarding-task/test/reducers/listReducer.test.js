@@ -15,9 +15,8 @@ describe('List reducer', () => {
   it('should handle add item', () => {
     const secondTestId = '70e9ad48-e190-4578-8939-f9afa5b51501';
     const addSecondItem = addItemFactory(() => secondTestId);
-    let expectedList = OrderedMap();
-    expectedList = expectedList.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
-    expectedList = expectedList.set(secondTestId, Item({ id: secondTestId, text: 'second add test' }));
+    const expectedList = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'first add test' }),
+      [secondTestId]: Item({ id: secondTestId, text: 'second add test' }) });
     const listBefore = OrderedMap();
 
     let listAfter = list(listBefore, addItem('first add test'));
@@ -28,8 +27,7 @@ describe('List reducer', () => {
 
   it('should handle delete item', () => {
     const expectedList = OrderedMap();
-    let listBefore = OrderedMap();
-    listBefore = listBefore.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
+    const listBefore = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'first add test' }) });
 
     const listAfter = list(listBefore, deleteItem(firstTestId));
 
@@ -37,10 +35,8 @@ describe('List reducer', () => {
   });
 
   it('should handle update item', () => {
-    let expectedList = OrderedMap();
-    expectedList = expectedList.set(firstTestId, Item({ id: firstTestId, text: 'updated text' }));
-    let listBefore = OrderedMap();
-    listBefore = listBefore.set(firstTestId, Item({ id: firstTestId, text: 'first add test' }));
+    const expectedList = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'updated text' }) });
+    const listBefore = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'first add test' })});
 
     const listAfter = list(listBefore, updateItem(firstTestId, 'updated text'));
 

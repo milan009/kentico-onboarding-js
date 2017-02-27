@@ -10,8 +10,7 @@ describe('editedItemsReducer', () => {
   });
 
   it('should add item to editedItems set on START_EDIT_ITEM', () => {
-    let expectedEditedItems = Set();
-    expectedEditedItems = expectedEditedItems.add(testId);
+    const expectedEditedItems = Set([testId]);
     const editedItemsBefore = Set();
 
     const editedItemsAfter = editedItems(editedItemsBefore, startEditItem(testId));
@@ -21,8 +20,7 @@ describe('editedItemsReducer', () => {
 
   it('should delete item in editedItems set on STOP_EDIT_ITEM', () => {
     const expectedEditedItems = Set();
-    let editedItemsBefore = Set();
-    editedItemsBefore = editedItemsBefore.add(testId);
+    const editedItemsBefore = Set([testId]);
 
     const editedItemsAfter = editedItems(editedItemsBefore, stopEditItem(testId));
 
