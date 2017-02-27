@@ -1,9 +1,14 @@
 import './sticky-footer.css';
 import React, { Component } from 'react';
-import List from './components/List';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { listReducer } from './reducers/listReducer';
+
+import { ListContainer } from './containers/ListContainer';
 
 class App extends Component {
   render() {
+    const store = createStore(listReducer);
     return (
       <div>
         <div className="container">
@@ -23,7 +28,9 @@ class App extends Component {
           </div>
 
           <section id="app-content">
-            <List />
+            <Provider store={store}>
+              <ListContainer />
+            </Provider>
           </section>
         </div>
         <footer className="footer">
