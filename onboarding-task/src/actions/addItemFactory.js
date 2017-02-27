@@ -11,7 +11,7 @@ function addItem(text, generateNewId) {
 }
 
 function addItemFactory(idGenerator) {
-  return (text) => addItem(text, idGenerator);
+  return text => addItem(text, idGenerator);
 }
 
 export { addItemFactory };

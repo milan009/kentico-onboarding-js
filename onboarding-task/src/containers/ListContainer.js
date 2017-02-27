@@ -3,28 +3,28 @@ import { addItem, deleteItem, updateItem } from '../actions/listActionCreators.j
 import { startEditItem, stopEditItem } from '../actions/areEditableActionCreators.js';
 import { List } from '../components/List.jsx';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     list: state.list,
     areEditable: state.areEditable,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    addItem: (text) => {
+    addItem: text => {
       dispatch(addItem(text));
     },
-    deleteItem: (id) => {
+    deleteItem: id => {
       dispatch(deleteItem(id));
     },
     updateItem: (id, text) => {
       dispatch(updateItem(id, text));
     },
-    startEditingItem: (id) => {
+    startEditingItem: id => {
       dispatch(startEditItem(id));
     },
-    stopEditingItem: (id) => {
+    stopEditingItem: id => {
       dispatch(stopEditItem(id));
     },
   };
