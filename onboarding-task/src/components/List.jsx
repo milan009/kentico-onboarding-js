@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { ListItem } from './ListItem.jsx';
+import { Item } from './Item.jsx';
 import { AddForm } from './AddForm';
 import { EditForm } from './EditForm';
 
@@ -33,7 +33,7 @@ class List extends PureComponent {
         onCancel={this.props.stopEditingItem}
       />);
     }
-    return <ListItem onListItemClick={this.props.startEditingItem} item={item} index={index} />;
+    return <Item onListItemClick={this.props.startEditingItem} item={item} index={index} />;
   }
 
   render() {

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { addItem, deleteItem, updateItem } from '../actions/listActionCreators.js';
+import { addItem, deleteItem, updateItem } from '../actions/itemsActionCreators.js';
 import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators.js';
 import { List } from '../components/List.jsx';
 
 const mapStateToProps = state => {
   return {
-    list: state.list,
+    list: state.items,
     editedItems: state.editedItems,
   };
 };

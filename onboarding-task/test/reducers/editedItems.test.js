@@ -1,6 +1,6 @@
 import { Set } from 'immutable';
 import { startEditItem, stopEditItem } from '../../src/actions/editedItemsActionCreators.js';
-import { editedItems } from '../../src/reducers/editedItemsReducer.js';
+import { editedItems } from '../../src/reducers/editedItems.js';
 
 describe('editedItemsReducer', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -9,7 +9,7 @@ describe('editedItemsReducer', () => {
     const expectedEditedItems = Set();
     const editedItemsBefore = undefined;
 
-    const editedItemsAfter = editedItems(undefined, { type: 'NOT_DEFINED' });
+    const editedItemsAfter = editedItems(editedItemsBefore, { type: 'NOT_DEFINED' });
 
     expect(editedItemsAfter).toEqual(expectedEditedItems);
   });

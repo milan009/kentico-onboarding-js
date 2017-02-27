@@ -1,8 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class ListItem extends PureComponent {
-  static displayName = 'ListItem';
+class Item extends PureComponent {
+  static displayName = 'Item';
 
   static propTypes = {
     item: ImmutablePropTypes.recordOf({
@@ -29,4 +29,4 @@ class ListItem extends PureComponent {
   }
 }
 
-export { ListItem };
+export { Item };

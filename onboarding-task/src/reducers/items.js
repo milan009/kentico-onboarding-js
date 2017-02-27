@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.js';
 
-const list = (state = OrderedMap(), action) => {
+const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ADD_ITEM:
       return state.set(action.payload.item.id, action.payload.item);
@@ -19,4 +19,4 @@ const list = (state = OrderedMap(), action) => {
   }
 };
 
-export { list };
+export { items };

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { list } from './listReducer.js';
-import { editedItems } from './editedItemsReducer.js';
+import { items } from './items.js';
+import { editedItems } from './editedItems.js';
 
 const listApp = combineReducers({
-  list,
+  items,
   editedItems,
 });
 
