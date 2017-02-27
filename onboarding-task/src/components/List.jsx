@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { ListItem } from './ListItem.jsx';
 import { AddForm } from './AddForm';
 import { EditForm } from './EditForm';
 
-class List extends Component {
+class List extends PureComponent {
   static displayName = 'List';
 
   static propTypes = {

@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class ListItem extends Component {
+class ListItem extends PureComponent {
   static displayName = 'ListItem';
 
   static propTypes = {
