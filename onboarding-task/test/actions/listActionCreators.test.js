@@ -1,6 +1,7 @@
 import { updateItem, deleteItem } from '../../src/actions/listActionCreators.js';
 import { addItemFactory } from '../../src/actions/addItemFactory.js';
 import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../../src/actions/actionTypes.js';
+import { Item } from '../../src/models/ItemModel.js';
 
 describe('listActionCreators', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -11,8 +12,7 @@ describe('listActionCreators', () => {
     expect(addItem(testText)).toEqual({
       type: ADD_ITEM,
       payload: {
-        text: testText,
-        id: testId,
+        item: Item({ id: testId, text: testText }),
       },
     });
   });

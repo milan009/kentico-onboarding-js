@@ -1,11 +1,11 @@
 import { ADD_ITEM } from './actionTypes.js';
+import { Item } from '../models/ItemModel.js';
 
 function addItem(text, generateNewId) {
   return {
     type: ADD_ITEM,
     payload: {
-      id: generateNewId(),
-      text,
+      item: Item({ id: generateNewId(), text }),
     },
   };
 }
