@@ -10,7 +10,7 @@ class List extends PureComponent {
 
   static propTypes = {
     list: ImmutablePropTypes.orderedMapOf(ImmutablePropTypes.record).isRequired,
-    areEditable: ImmutablePropTypes.set.isRequired,
+    areEditable: ImmutablePropTypes.setOf(PropTypes.string).isRequired,
     addItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     updateItem: PropTypes.func.isRequired,
