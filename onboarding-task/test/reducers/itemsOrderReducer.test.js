@@ -5,7 +5,8 @@ import {
   DELETE_ITEM_FROM_LIST,
 } from '../../src/constants/actionTypes';
 import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
-import { createListItemFactory, deleteListItem } from '../../src/actionCreators/actionCreators';
+import { deleteListItem } from '../../src/actionCreators/actionCreators';
+import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 
 describe('itemsOrderReducer ', () => {
   const emptyState = new Immutable.List();

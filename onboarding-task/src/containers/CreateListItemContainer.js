@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 
-import { createListItemFactory } from '../actionCreators/actionCreators';
+import { createListItem } from '../actionCreators/actionCreators';
 import CreateListItem from '../components/CreateListItem';
-import guid from '../utils/guidHelper';
-
-const createListItem = createListItemFactory(guid);
 
 const mapDispatchToProps = (dispatch) => {
   return {

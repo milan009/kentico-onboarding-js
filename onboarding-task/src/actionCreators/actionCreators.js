@@ -1,18 +1,8 @@
-import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
+import { DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
+import { createListItemFactory } from './createListItemFactory';
+import guid from '../utils/guidHelper';
 
-const createListItemFactory = (createGuid) => {
-  return createListItem.bind(null, createGuid);
-};
-
-const createListItem = (createGuid, text) => {
-  return {
-    type: ADD_ITEM_TO_LIST,
-    payload: {
-      text,
-      id: createGuid(),
-    },
-  };
-};
+const createListItem = createListItemFactory(guid);
 
 const switchFormVisibilityForListItem = (id) => {
   return {
@@ -42,4 +32,4 @@ const deleteListItem = (id) => {
   };
 };
 
-export { createListItemFactory, switchFormVisibilityForListItem, updateListItem, deleteListItem };
+export { createListItem, switchFormVisibilityForListItem, updateListItem, deleteListItem };

@@ -2,8 +2,8 @@ import Immutable from 'immutable';
 
 import { ItemRecord } from '../../src/models/ItemRecord';
 import { itemsReducer } from '../../src/reducers/itemsReducer';
+import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import {
-  createListItemFactory,
   switchFormVisibilityForListItem,
   updateListItem,
   deleteListItem
