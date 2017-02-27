@@ -1,7 +1,7 @@
-import { startEditItem, stopEditItem } from '../../src/actions/areEditableActionCreators.js';
+import { startEditItem, stopEditItem } from '../../src/actions/editedItemsActionCreators.js';
 import { START_EDIT_ITEM, STOP_EDIT_ITEM } from '../../src/actions/actionTypes.js';
 
-describe('editModeActionCreators', () => {
+describe('editedItemsActionCreators', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
 
   it('returns start edit item action', () => {

@@ -1,7 +1,7 @@
 import { Set } from 'immutable';
 import { START_EDIT_ITEM, STOP_EDIT_ITEM } from '../actions/actionTypes.js';
 
-const areEditable = (state = Set(), action) => {
+const editedItems = (state = Set(), action) => {
   switch (action.type) {
     case START_EDIT_ITEM:
       return state.add(action.payload.id);
@@ -14,4 +14,4 @@ const areEditable = (state = Set(), action) => {
   }
 };
 
-export { areEditable };
+export { editedItems };

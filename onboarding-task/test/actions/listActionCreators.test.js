@@ -2,7 +2,7 @@ import { updateItem, deleteItem } from '../../src/actions/listActionCreators.js'
 import { addItemFactory } from '../../src/actions/addItemFactory.js';
 import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../../src/actions/actionTypes.js';
 
-describe('action creators', () => {
+describe('listActionCreators', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
   const testText = 'testText';
   const addItem = addItemFactory(() => testId);
