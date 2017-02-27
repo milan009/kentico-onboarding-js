@@ -24,8 +24,7 @@ class List extends Component {
     const listItems = this.props.itemsOrder.map((key) =>
       <li key={key} className="list-group-item">
         <ListItem
-          id={key}
-          formDisplayed={this.props.items.get(key).formDisplayed}
+          item={this.props.items.get(key)}
         />
       </li>
     );

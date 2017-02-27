@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { ListItemFormContainer } from '../containers/ListItemFormContainer';
 import { ListItemLabelContainer } from '../containers/ListItemLabelContainer';
@@ -6,17 +7,20 @@ import { ListItemLabelContainer } from '../containers/ListItemLabelContainer';
 class ListItem extends Component {
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    formDisplayed: React.PropTypes.bool.isRequired,
+    item: ImmutablePropTypes.recordOf({
+      id: React.PropTypes.string.isRequired,
+      text: React.PropTypes.string.isRequired,
+      formDisplayed: React.PropTypes.bool.isRequired,
+    }),
   };
 
   render() {
-    return (this.props.formDisplayed)
+    return (this.props.item.formDisplayed)
       ? (<ListItemFormContainer
-        id={this.props.id}
+        id={this.props.item.id}
       />)
       : (<ListItemLabelContainer
-        id={this.props.id}
+        id={this.props.item.id}
       />);
   }
 }
