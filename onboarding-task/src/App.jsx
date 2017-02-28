@@ -1,14 +1,7 @@
 import './sticky-footer.css';
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { listReducer } from './reducers/listReducer';
-import createLogger from 'redux-logger';
 
 import { ListContainer } from './containers/ListContainer';
-
-const logger = createLogger();
-const store = createStore(listReducer, applyMiddleware(logger));
 
 class App extends Component {
   render() {
@@ -22,7 +15,8 @@ class App extends Component {
           <div className="jumbotron">
             <h1>JS onboarding</h1>
             <p className="lead">
-              We will implement simple task using <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
+              We will implement simple task using <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a>
+              and later move on to refactor our app to use <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
             </p>
             <p>You can find all the relevant info in git repository.</p>
             <p>
@@ -31,9 +25,7 @@ class App extends Component {
           </div>
 
           <section id="app-content">
-            <Provider store={store}>
-              <ListContainer />
-            </Provider>
+            <ListContainer />
           </section>
         </div>
         <footer className="footer">
