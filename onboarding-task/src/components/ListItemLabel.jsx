@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ListItemLabel = (props) =>
-  <div onClick={props.onClickHandler}>{props.index}. {props.text}</div>;
+const ListItemLabel = ({ text, index, onClickHandler }) =>
+  <div onClick={onClickHandler}>{index}. {text}</div>;
 
 ListItemLabel.propTypes = {
   text: React.PropTypes.string.isRequired,
