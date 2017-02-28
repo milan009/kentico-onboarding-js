@@ -6,13 +6,13 @@ import { createListItemFactory } from '../../src/actionCreators/createListItemFa
 import {
   switchFormVisibilityForListItem,
   updateListItem,
-  deleteListItem
+  deleteListItem,
 } from '../../src/actionCreators/actionCreators';
 import {
   CREATE_ITEM_IN_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
   UPDATE_TEXT_OF_ITEM,
-  DELETE_ITEM_FROM_LIST
+  DELETE_ITEM_FROM_LIST,
 } from '../../src/constants/actionTypes';
 
 describe('itemsReducer', () => {
@@ -35,16 +35,20 @@ describe('itemsReducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('switches formDisplayed value on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
-    const firstState = Immutable.Map.of(id, falseFormDisplayedRecord);
-    const firstExpectedState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const secondState = itemsReducer(firstState, switchFormVisibilityForListItem(id));
+  it('switches formDisplayed value from false to true on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
+    const prevState = Immutable.Map.of(id, falseFormDisplayedRecord);
+    const expectedState = Immutable.Map.of(id, trueFormDisplayedRecord);
+    const nextState = itemsReducer(prevState, switchFormVisibilityForListItem(id));
 
-    expect(secondState).toEqual(firstExpectedState);
+    expect(nextState).toEqual(expectedState);
+  });
 
-    const thirdState = itemsReducer(secondState, switchFormVisibilityForListItem(id));
+  it('switches formDisplayed value from true to false on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
+    const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
+    const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
+    const nextState = itemsReducer(prevState, switchFormVisibilityForListItem(id));
 
-    expect(thirdState).toEqual(firstState);
+    expect(nextState).toEqual(expectedState);
   });
 
   it('updates text of item with given id when ' + UPDATE_TEXT_OF_ITEM + ' action is dispatched', () => {
