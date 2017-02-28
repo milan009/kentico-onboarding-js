@@ -1,4 +1,8 @@
-import { DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
+import {
+  DELETE_ITEM_FROM_LIST,
+  UPDATE_TEXT_OF_ITEM,
+  SWITCH_FORM_VISIBILITY_FOR_ITEM,
+} from '../constants/actionTypes';
 import { createListItemFactory } from './createListItemFactory';
 import { createGuid } from '../utils/guidHelper';
 
