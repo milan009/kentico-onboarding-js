@@ -6,9 +6,10 @@ import { listReducer } from './reducers/listReducer';
 
 import { ListContainer } from './containers/ListContainer';
 
+const store = createStore(listReducer);
+
 class App extends Component {
   render() {
-    const store = createStore(listReducer);
     return (
       <div>
         <div className="container">
