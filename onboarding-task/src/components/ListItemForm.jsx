@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class ListItemForm extends Component {
+class ListItemForm extends PureComponent {
 
   static propTypes = {
     inputValue: React.PropTypes.string.isRequired,
