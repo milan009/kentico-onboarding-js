@@ -1,8 +1,6 @@
 import { CREATE_ITEM_IN_LIST } from '../constants/actionTypes';
 
-const createListItemFactory = (createGuid) => {
-  return createListItem.bind(null, createGuid);
-};
+const createListItemFactory = (createGuid) => (text) => createListItem(createGuid, text);
 
 const createListItem = (createGuid, text) => {
   return {
