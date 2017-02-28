@@ -1,7 +1,13 @@
 import Immutable from 'immutable';
 
-import { UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM, CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionTypes';
+import {
+  UPDATE_TEXT_OF_ITEM,
+  SWITCH_FORM_VISIBILITY_FOR_ITEM,
+  CREATE_ITEM_IN_LIST,
+  DELETE_ITEM_FROM_LIST,
+} from '../constants/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
+import { itemReducer } from './itemReducer';
 
 const itemsReducer = (prevState = new Immutable.Map(), action) => {
   switch (action.type) {
@@ -11,13 +17,11 @@ const itemsReducer = (prevState = new Immutable.Map(), action) => {
     }
     case UPDATE_TEXT_OF_ITEM: {
       const item = prevState.get(action.payload.id);
-      const updatedItem = item.merge({ text: action.payload.text });
-      return prevState.set(action.payload.id, updatedItem);
+      return prevState.set(action.payload.id, itemReducer(item, action));
     }
     case SWITCH_FORM_VISIBILITY_FOR_ITEM: {
       const item = prevState.get(action.payload.id);
-      const updatedItem = item.merge({ formDisplayed: !item.formDisplayed });
-      return prevState.set(action.payload.id, updatedItem);
+      return prevState.set(action.payload.id, itemReducer(item, action));
     }
     case DELETE_ITEM_FROM_LIST: {
       return prevState.delete(action.payload.id);
