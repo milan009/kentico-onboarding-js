@@ -50,4 +50,4 @@ class ListItemForm extends Component {
   }
 }
 
-export default ListItemForm;
+export { ListItemForm };

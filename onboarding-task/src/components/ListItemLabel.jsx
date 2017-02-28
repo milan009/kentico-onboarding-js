@@ -9,4 +9,4 @@ ListItemLabel.propTypes = {
   onClickHandler: React.PropTypes.func.isRequired,
 };
 
-export default ListItemLabel;
+export { ListItemLabel };

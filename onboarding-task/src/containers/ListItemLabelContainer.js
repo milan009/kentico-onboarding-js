@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
-import ListItemLabel from '../components/ListItemLabel';
+import { ListItemLabel } from '../components/ListItemLabel';
 
 const mapStateToProps = (state, ownProps) => {
   return {

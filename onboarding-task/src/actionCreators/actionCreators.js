@@ -1,6 +1,6 @@
 import { DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
 import { createListItemFactory } from './createListItemFactory';
-import guid from '../utils/guidHelper';
+import { guid } from '../utils/guidHelper';
 
 const createListItem = createListItemFactory(guid);
 

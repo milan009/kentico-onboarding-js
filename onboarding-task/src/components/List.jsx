@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import ListItem from './ListItem';
+import { ListItem } from './ListItem';
 import { CreateListItemContainer } from '../containers/CreateListItemContainer';
 
 class List extends Component {
@@ -40,4 +40,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export { List };

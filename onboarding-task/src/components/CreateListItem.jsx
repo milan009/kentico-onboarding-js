@@ -36,4 +36,4 @@ class CreateListItem extends Component {
   }
 }
 
-export default CreateListItem;
+export { CreateListItem };

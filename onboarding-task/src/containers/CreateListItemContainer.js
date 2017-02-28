@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { createListItem } from '../actionCreators/actionCreators';
-import CreateListItem from '../components/CreateListItem';
+import { CreateListItem } from '../components/CreateListItem';
 
 const mapDispatchToProps = (dispatch) => {
   return {
