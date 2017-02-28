@@ -2,9 +2,9 @@ import { DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_
 import { createListItemFactory } from './createListItemFactory';
 import { guid } from '../utils/guidHelper';
 
-const createListItem = createListItemFactory(guid);
+export const createListItem = createListItemFactory(guid);
 
-const switchFormVisibilityForListItem = (id) => {
+export const switchFormVisibilityForListItem = (id) => {
   return {
     type: SWITCH_FORM_VISIBILITY_FOR_ITEM,
     payload: {
@@ -13,7 +13,7 @@ const switchFormVisibilityForListItem = (id) => {
   };
 };
 
-const updateListItem = (id, text) => {
+export const updateListItem = (id, text) => {
   return {
     type: UPDATE_TEXT_OF_ITEM,
     payload: {
@@ -23,7 +23,7 @@ const updateListItem = (id, text) => {
   };
 };
 
-const deleteListItem = (id) => {
+export const deleteListItem = (id) => {
   return {
     type: DELETE_ITEM_FROM_LIST,
     payload: {
@@ -31,5 +31,3 @@ const deleteListItem = (id) => {
     },
   };
 };
-
-export { createListItem, switchFormVisibilityForListItem, updateListItem, deleteListItem };
