@@ -9,4 +9,4 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
-export { guid };
+export { guid as createGuid };

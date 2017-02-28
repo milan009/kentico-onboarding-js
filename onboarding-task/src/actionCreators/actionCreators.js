@@ -1,8 +1,8 @@
 import { DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
 import { createListItemFactory } from './createListItemFactory';
-import { guid } from '../utils/guidHelper';
+import { createGuid } from '../utils/guidHelper';
 
-export const createListItem = createListItemFactory(guid);
+export const createListItem = createListItemFactory(createGuid);
 
 export const switchFormVisibilityForListItem = (id) => {
   return {
