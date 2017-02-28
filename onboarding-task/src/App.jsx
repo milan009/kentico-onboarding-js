@@ -1,12 +1,14 @@
 import './sticky-footer.css';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { listReducer } from './reducers/listReducer';
+import createLogger from 'redux-logger';
 
 import { ListContainer } from './containers/ListContainer';
 
-const store = createStore(listReducer);
+const logger = createLogger();
+const store = createStore(listReducer, applyMiddleware(logger));
 
 class App extends Component {
   render() {
