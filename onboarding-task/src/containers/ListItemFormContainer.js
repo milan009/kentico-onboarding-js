@@ -5,7 +5,7 @@ import { ListItemForm } from '../components/ListItemForm';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    inputValue: state.items.get(ownProps.id).text,
+    inputValue: state.items.byId.get(ownProps.id).text,
   };
 };
 

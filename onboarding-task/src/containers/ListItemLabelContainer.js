@@ -5,8 +5,8 @@ import { ListItemLabel } from '../components/ListItemLabel';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    text: state.items.get(ownProps.id).text,
-    index: state.itemsOrder.indexOf(ownProps.id) + 1,
+    text: state.items.byId.get(ownProps.id).text,
+    index: state.items.orderedIds.indexOf(ownProps.id) + 1,
   };
 };
 

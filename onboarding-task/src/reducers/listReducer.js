@@ -4,8 +4,8 @@ import { itemsReducer } from './itemsReducer';
 import { itemsOrderReducer } from './itemsOrderReducer';
 
 const listReducer = combineReducers({
-  items: itemsReducer,
-  itemsOrder: itemsOrderReducer,
+  byId: itemsReducer,
+  orderedIds: itemsOrderReducer,
 });
 
 export { listReducer };

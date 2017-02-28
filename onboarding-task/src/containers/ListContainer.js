@@ -4,8 +4,8 @@ import { List } from '../components/List';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
-    itemsOrder: state.itemsOrder,
+    items: state.items.byId,
+    itemsOrder: state.items.orderedIds,
   };
 };
 
