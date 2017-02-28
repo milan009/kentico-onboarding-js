@@ -11,7 +11,7 @@ import {
 import {
   ADD_ITEM_TO_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
-  UPDATE_ITEM,
+  UPDATE_TEXT_OF_ITEM,
   DELETE_ITEM_FROM_LIST
 } from '../../src/constants/actionTypes';
 
@@ -47,7 +47,7 @@ describe('itemsReducer', () => {
     expect(thirdState).toEqual(firstState);
   });
 
-  it('updates text of item with given id when ' + UPDATE_ITEM + ' action is dispatched', () => {
+  it('updates text of item with given id when ' + UPDATE_TEXT_OF_ITEM + ' action is dispatched', () => {
     const expectedRecord = new ItemRecord({ id, text: 'test-2', formDisplayed: true });
 
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);

@@ -1,4 +1,4 @@
-import { DELETE_ITEM_FROM_LIST, UPDATE_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
+import { DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../constants/actionTypes';
 import { createListItemFactory } from './createListItemFactory';
 import { guid } from '../utils/guidHelper';
 
@@ -15,7 +15,7 @@ const switchFormVisibilityForListItem = (id) => {
 
 const updateListItem = (id, text) => {
   return {
-    type: UPDATE_ITEM,
+    type: UPDATE_TEXT_OF_ITEM,
     payload: {
       text,
       id,
