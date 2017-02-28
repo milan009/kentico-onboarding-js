@@ -1,11 +1,11 @@
 import Immutable from 'immutable';
 
-import { UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM, ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionTypes';
+import { UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM, CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST } from '../constants/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
 
 const itemsReducer = (prevState = new Immutable.Map(), action) => {
   switch (action.type) {
-    case ADD_ITEM_TO_LIST: {
+    case CREATE_ITEM_IN_LIST: {
       const newItem = new ItemRecord({ id: action.payload.id, text: action.payload.text, formDisplayed: false });
       return prevState.set(action.payload.id, newItem);
     }

@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_LIST } from '../constants/actionTypes';
+import { CREATE_ITEM_IN_LIST } from '../constants/actionTypes';
 
 const createListItemFactory = (createGuid) => {
   return createListItem.bind(null, createGuid);
@@ -6,7 +6,7 @@ const createListItemFactory = (createGuid) => {
 
 const createListItem = (createGuid, text) => {
   return {
-    type: ADD_ITEM_TO_LIST,
+    type: CREATE_ITEM_IN_LIST,
     payload: {
       text,
       id: createGuid(),

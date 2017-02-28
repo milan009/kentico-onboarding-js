@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import {
-  ADD_ITEM_TO_LIST,
+  CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
 } from '../../src/constants/actionTypes';
 import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
@@ -13,13 +13,13 @@ describe('itemsOrderReducer ', () => {
   const nonemptyState = Immutable.List.of('test-id-1', 'test-id-2', 'test-id-3', 'test-id-4');
   const createListItem = createListItemFactory(() => 'test-id-0');
 
-  it('adds given id into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched and empty state is passed in', () => {
+  it('adds given id into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched and empty state is passed in', () => {
     const expectedState = Immutable.List.of('test-id-0');
     const actualState = itemsOrderReducer(emptyState, createListItem('Testing...'));
     expect(actualState).toEqual(expectedState);
   });
 
-  it('adds given id into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched and nonempty state is passed in', () => {
+  it('adds given id into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched and nonempty state is passed in', () => {
     const expectedState = nonemptyState.push('test-id-0');
     const actualState = itemsOrderReducer(nonemptyState, createListItem('Testing...'));
     expect(actualState).toEqual(expectedState);

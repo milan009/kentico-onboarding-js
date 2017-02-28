@@ -9,7 +9,7 @@ import {
   deleteListItem
 } from '../../src/actionCreators/actionCreators';
 import {
-  ADD_ITEM_TO_LIST,
+  CREATE_ITEM_IN_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
   UPDATE_TEXT_OF_ITEM,
   DELETE_ITEM_FROM_LIST
@@ -22,13 +22,13 @@ describe('itemsReducer', () => {
   const falseFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: false });
   const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: true });
 
-  it('adds new item into empty state when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
+  it('adds new item into empty state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const newState = itemsReducer(emptyState, createListItemFactory(() => id)('test'));
     const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
     expect(newState).toEqual(expectedState);
   });
 
-  it('adds new item into state when ' + ADD_ITEM_TO_LIST + ' action is dispatched', () => {
+  it('adds new item into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
     const newState = itemsReducer(prevState, createListItemFactory(() => id2)('Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...', formDisplayed: false }));

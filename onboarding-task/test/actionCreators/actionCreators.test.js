@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_LIST, DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes';
+import { CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes';
 import { switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 
@@ -6,9 +6,9 @@ describe('action creators ', () => {
   const id = 'test-id';
   const text = 'Testing...';
 
-  it('createListItem creates ' + ADD_ITEM_TO_LIST + ' action', () => {
+  it('createListItem creates ' + CREATE_ITEM_IN_LIST + ' action', () => {
     const actualAction = createListItemFactory(() => id)(text);
-    const expectedAction = { type: ADD_ITEM_TO_LIST, payload: { text, id } };
+    const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
     expect(actualAction).toEqual(expectedAction);
   });
 
