@@ -25,6 +25,7 @@ describe('itemsReducer', () => {
   it('adds new item into empty state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const newState = itemsReducer(emptyState, createListItemFactory(() => id)('test'));
     const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
+
     expect(newState).toEqual(expectedState);
   });
 
@@ -32,6 +33,7 @@ describe('itemsReducer', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
     const newState = itemsReducer(prevState, createListItemFactory(() => id2)('Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...', formDisplayed: false }));
+
     expect(newState).toEqual(expectedState);
   });
 
@@ -55,9 +57,7 @@ describe('itemsReducer', () => {
     const expectedRecord = new ItemRecord({ id, text: 'test-2', formDisplayed: true });
 
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-
     const expectedState = Immutable.Map.of(id, expectedRecord);
-
     const nextState = itemsReducer(prevState, updateListItem(id, 'test-2'));
 
     expect(nextState).toEqual(expectedState);
@@ -65,7 +65,6 @@ describe('itemsReducer', () => {
 
   it('deletes item with given id when ' + DELETE_ITEM_FROM_LIST + ' action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-
     const nextState = itemsReducer(prevState, deleteListItem(id));
 
     expect(nextState).toEqual(emptyState);
@@ -73,7 +72,6 @@ describe('itemsReducer', () => {
 
   it('does nothing when unknown action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-
     const nextState = itemsReducer(prevState, { type: 'UNKNOWN_ACTION', payload: { id } });
 
     expect(nextState).toEqual(prevState);
