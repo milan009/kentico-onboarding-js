@@ -22,6 +22,7 @@ describe('item reducer', () => {
 
   it('should handle ADD_ITEM action', () => {
     const addItemAction = addItemFactory(() => '00000')('new text');
+
     expect(item(initialState, addItemAction)).toEqual(ItemRecord({
       text: 'new text',
       guid: '00000',
@@ -41,6 +42,7 @@ describe('item reducer', () => {
 
   it('should handle UPDATE_ITEM_TEXT action', () => {
     const updateItemAction = actions.updateItemText('00000', 'new text');
+
     expect(item(initialState, updateItemAction)).toEqual(ItemRecord({
       text: 'new text',
       guid: '00000',

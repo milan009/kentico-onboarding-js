@@ -35,21 +35,25 @@ describe('items reducer', () => {
       isEdited: false,
     });
     const expectedState = stateBefore.set('00000', addedItem);
+
     expect(items(stateBefore, addItemAction)).toEqual(expectedState);
   });
 
   it('should handle TOGGLE_EDIT_MODE action', () => {
     const expectedState = stateBefore.setIn(['00000', 'isEdited'], true);
+
     expect(items(stateBefore, toggleEditModeAction)).toEqual(expectedState);
   });
 
   it('should handle DELETE_ITEM action', () => {
     const expectedState = stateBefore.delete('00000');
+
     expect(items(stateBefore, deleteItemAction)).toEqual(expectedState);
   });
 
   it('should handle UPDATE_ITEM_TEXT action', () => {
     const expectedState = stateBefore.setIn(['00000', 'text'], 'new text');
+
     expect(items(stateBefore, updateItemAction)).toEqual(expectedState);
   });
 });

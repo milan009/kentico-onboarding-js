@@ -14,6 +14,7 @@ describe('actionCreators', () => {
       },
     };
     const fakeAddItemAction = addItemFactory(() => '00000')(text);
+
     expect(fakeAddItemAction).toEqual(expectedAction);
   });
 
@@ -25,6 +26,7 @@ describe('actionCreators', () => {
       },
     };
     const action = actions.toggleEditMode('00000');
+
     expect(action).toEqual(expectedAction);
   });
 
@@ -36,6 +38,7 @@ describe('actionCreators', () => {
       },
     };
     const action = actions.deleteItem('00000');
+
     expect(action).toEqual(expectedAction);
   });
 
@@ -48,6 +51,7 @@ describe('actionCreators', () => {
       },
     };
     const action = actions.updateItemText('00000', text);
+
     expect(action).toEqual(expectedAction);
   });
 });
