@@ -13,9 +13,9 @@ describe('actionCreators', () => {
         text,
       },
     };
-    const fakeAddItemAction = addItemFactory(() => '00000')(text);
+    const actualAction = addItemFactory(() => '00000')(text);
 
-    expect(fakeAddItemAction).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedAction);
   });
 
   it('should create action for toggling edit mode', () => {
@@ -25,10 +25,11 @@ describe('actionCreators', () => {
         guid: '00000',
       },
     };
-    const action = actions.toggleEditMode('00000');
+    const actualAction = actions.toggleEditMode('00000');
 
-    expect(action).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedAction);
   });
+
 
   it('should create action for deleting item', () => {
     const expectedAction = {
@@ -37,9 +38,9 @@ describe('actionCreators', () => {
         guid: '00000',
       },
     };
-    const action = actions.deleteItem('00000');
+    const actualAction = actions.deleteItem('00000');
 
-    expect(action).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedAction);
   });
 
   it('should create action for updating item', () => {
@@ -50,8 +51,8 @@ describe('actionCreators', () => {
         text,
       },
     };
-    const action = actions.updateItemText('00000', text);
+    const actualAction = actions.updateItemText('00000', text);
 
-    expect(action).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedAction);
   });
 });
