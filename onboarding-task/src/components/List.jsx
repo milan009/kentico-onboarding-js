@@ -10,7 +10,6 @@ class List extends PureComponent {
 
   static propTypes = {
     list: ImmutablePropTypes.orderedMapOf(ImmutablePropTypes.record).isRequired,
-    editedItems: ImmutablePropTypes.setOf(PropTypes.string).isRequired,
     addItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     updateItem: PropTypes.func.isRequired,
@@ -24,7 +23,7 @@ class List extends PureComponent {
   }
 
   _getItemToRender(item, index) {
-    if (this.props.editedItems.has(item.id)) {
+    if (item.isEdited) {
       return (<EditForm
         item={item}
         index={index}
