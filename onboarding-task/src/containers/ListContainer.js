@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import { List } from '../components/List';
+import { createListItem } from '../actionCreators/actionCreators';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,8 +10,15 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onListItemAdd: (text) => dispatch(createListItem(text)),
+  };
+};
+
 const ListContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(List);
 
 export { ListContainer };

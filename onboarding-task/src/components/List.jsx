@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { ListItem } from './ListItem';
-import { CreateListItemContainer } from '../containers/CreateListItemContainer';
+import { CreateListItem } from './CreateListItem';
 
 class List extends PureComponent {
 
@@ -18,6 +18,7 @@ class List extends PureComponent {
     itemsOrder: ImmutablePropTypes.listOf(
       React.PropTypes.string.isRequired,
     ),
+    onListItemAdd: React.PropTypes.func.isRequired,
   };
 
   render() {
@@ -33,7 +34,7 @@ class List extends PureComponent {
       <ul className="list-group">
         {listItems}
         <li key="CreateListItemKey" className="list-group-item">
-          <CreateListItemContainer />
+          <CreateListItem onListItemAdd={this.props.onListItemAdd} />
         </li>
       </ul>
     );
