@@ -1,9 +1,9 @@
 import { Record } from 'immutable';
 
-const Item = new Record({
+const ViewItem = new Record({
   id: undefined,
   text: '',
   isEdited: undefined,
 });
 
-export { Item };
+export { ViewItem };
