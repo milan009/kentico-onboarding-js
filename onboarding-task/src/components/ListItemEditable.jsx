@@ -16,7 +16,7 @@ class ListItemEditable extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: props.item.get('text') };
+    this.state = { text: props.item.text };
     this._onCancel = this._onCancel.bind(this);
     this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
@@ -24,15 +24,15 @@ class ListItemEditable extends Component {
   }
 
   _onCancel() {
-    this.props.onCancel(this.props.item.get('guid'));
+    this.props.onCancel(this.props.item.guid);
   }
 
   _onUpdate() {
-    this.props.onSave(this.props.item.get('guid'), this.state.text);
+    this.props.onSave(this.props.item.guid, this.state.text);
   }
 
   _onDelete() {
-    this.props.onDelete(this.props.item.get('guid'));
+    this.props.onDelete(this.props.item.guid);
   }
 
   _onInputChange(e) {

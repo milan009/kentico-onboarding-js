@@ -46,16 +46,16 @@ class List extends Component {
   }
 
   _getItemToRender(item) {
-    return (item.get('isEdited'))
+    return (item.isEdited)
       ? (<ListItemEditable
-        key={item.get('guid')}
+        key={item.guid}
         item={item}
         onDelete={this._deleteItem}
         onSave={this._saveItem}
         onCancel={this._toggleEditMode}
       />)
       : (<ListItemStatic
-        key={item.get('guid')}
+        key={item.guid}
         item={item}
         onClick={this._toggleEditMode}
       />);

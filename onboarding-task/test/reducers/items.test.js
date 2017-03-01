@@ -14,9 +14,9 @@ describe('items reducer', () => {
   const secondItem = itemRecord({ guid: '11111', text: 'soj', isEdited: false });
   const thirdItem = itemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
   const stateBefore = Immutable.Map({
-    [firstItem.get('guid')]: firstItem,
-    [secondItem.get('guid')]: secondItem,
-    [thirdItem.get('guid')]: thirdItem,
+    [firstItem.guid]: firstItem,
+    [secondItem.guid]: secondItem,
+    [thirdItem.guid]: thirdItem,
   });
   const addItemAction = addItemFactory(() => '00000')('text');
   const toggleEditModeAction = actions.toggleEditMode('00000');

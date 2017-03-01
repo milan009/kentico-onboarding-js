@@ -18,14 +18,14 @@ class ListItemStatic extends Component {
   }
 
   _onClick() {
-    this.props.onClick(this.props.item.get('guid'));
+    this.props.onClick(this.props.item.guid);
   }
 
   render() {
     return (
       <tr>
         <td>
-          <div onClick={this._onClick}>{this.props.item.get('text')}</div>
+          <div onClick={this._onClick}>{this.props.item.text}</div>
         </td>
       </tr>
     );

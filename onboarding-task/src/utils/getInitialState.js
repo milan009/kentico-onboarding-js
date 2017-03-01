@@ -12,9 +12,9 @@ function getInitialState() {
 
   const initState = {
     items: Immutable.Map({
-      [firstItem.get('guid')]: firstItem,
-      [secondItem.get('guid')]: secondItem,
-      [thirdItem.get('guid')]: thirdItem,
+      [firstItem.guid]: firstItem,
+      [secondItem.guid]: secondItem,
+      [thirdItem.guid]: thirdItem,
     }),
   };
   return initState;
