@@ -6,7 +6,7 @@ import { itemRecord } from '../../src/utils/itemRecord';
 import * as actions from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
-const initialState = itemRecord({
+const initialState = new itemRecord({
   guid: '00000',
   text: 'Redux rocks!',
   isEdited: false,

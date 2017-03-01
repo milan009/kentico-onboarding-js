@@ -10,9 +10,9 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 
 describe('items reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
-  const firstItem = itemRecord({ guid: '00000', text: 'serus', isEdited: false });
-  const secondItem = itemRecord({ guid: '11111', text: 'soj', isEdited: false });
-  const thirdItem = itemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
+  const firstItem = new itemRecord({ guid: '00000', text: 'serus', isEdited: false });
+  const secondItem = new itemRecord({ guid: '11111', text: 'soj', isEdited: false });
+  const thirdItem = new itemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
   const stateBefore = Immutable.Map({
     [firstItem.guid]: firstItem,
     [secondItem.guid]: secondItem,
@@ -33,7 +33,7 @@ describe('items reducer', () => {
   });
 
   it('should handle ADD_ITEM action', () => {
-    const addedItem = itemRecord({
+    const addedItem = new itemRecord({
       guid: '00000',
       text: 'text',
       isEdited: false,

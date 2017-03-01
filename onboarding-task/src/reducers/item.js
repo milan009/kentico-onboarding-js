@@ -7,7 +7,7 @@ import { itemRecord } from '../utils/itemRecord';
 const item = (state = itemRecord({}), action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      return itemRecord({
+      return new itemRecord({
         guid: action.payload.guid,
         text: action.payload.text,
         isEdited: false,
