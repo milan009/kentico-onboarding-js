@@ -39,8 +39,8 @@ describe('item reducer', () => {
     }));
   });
 
-  it('should handle UPDATE_ITEM action', () => {
-    const updateItemAction = actions.updateItem('00000', 'new text');
+  it('should handle UPDATE_ITEM_TEXT action', () => {
+    const updateItemAction = actions.updateItemText('00000', 'new text');
     expect(item(initialState, updateItemAction)).toEqual(ItemRecord({
       text: 'new text',
       guid: '00000',

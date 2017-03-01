@@ -1,4 +1,4 @@
-import { ADD_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM } from '../actions/actionTypes.js';
+import { ADD_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM_TEXT } from '../actions/actionTypes.js';
 import { ItemRecord } from '../utils/itemRecord';
 
 const item = (state = ItemRecord({}), action) => {
@@ -13,7 +13,7 @@ const item = (state = ItemRecord({}), action) => {
     case TOGGLE_EDIT_MODE: {
       return state.set('isEdited', !state.isEdited);
     }
-    case UPDATE_ITEM: {
+    case UPDATE_ITEM_TEXT: {
       return state.set('text', action.payload.text).set('isEdited', false);
     }
     default:

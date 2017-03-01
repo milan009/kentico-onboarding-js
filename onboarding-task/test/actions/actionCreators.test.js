@@ -41,13 +41,13 @@ describe('actionCreators', () => {
 
   it('should create action for updating item', () => {
     const expectedAction = {
-      type: types.UPDATE_ITEM,
+      type: types.UPDATE_ITEM_TEXT,
       payload: {
         guid: '00000',
         text,
       },
     };
-    const action = actions.updateItem('00000', text);
+    const action = actions.updateItemText('00000', text);
     expect(action).toEqual(expectedAction);
   });
 });

@@ -1,5 +1,5 @@
 import { generateGuid } from '../utils/generateGuid.js';
-import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
+import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM_TEXT } from './actionTypes.js';
 import { addItemFactory } from './actionDependencies/addItemFactory';
 
 export const addItem = addItemFactory(generateGuid);
@@ -18,8 +18,8 @@ export const deleteItem = (guid) => ({
   },
 });
 
-export const updateItem = (guid, text) => ({
-  type: UPDATE_ITEM,
+export const updateItemText = (guid, text) => ({
+  type: UPDATE_ITEM_TEXT,
   payload: {
     text,
     guid,

@@ -17,7 +17,7 @@ describe('items reducer', () => {
   const addItemAction = addItemFactory(() => '00000')('text');
   const toggleEditModeAction = actions.toggleEditMode('00000');
   const deleteItemAction = actions.deleteItem('00000');
-  const updateItemAction = actions.updateItem('00000', 'new text');
+  const updateItemAction = actions.updateItemText('00000', 'new text');
 
 
   it('should return the initial state if action is uknown or not provided', () => {
@@ -48,7 +48,7 @@ describe('items reducer', () => {
     expect(items(stateBefore, deleteItemAction)).toEqual(expectedState);
   });
 
-  it('should handle UPDATE_ITEM action', () => {
+  it('should handle UPDATE_ITEM_TEXT action', () => {
     const expectedState = stateBefore.setIn(['00000', 'text'], 'new text');
     expect(items(stateBefore, updateItemAction)).toEqual(expectedState);
   });
