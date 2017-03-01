@@ -1,6 +1,3 @@
-/**
- * Created by IvanJ on 21.2.2017.
- */
 import { items } from '../../src/reducers/items';
 import * as actions from '../../src/actions/actionCreators';
 import Immutable from 'immutable';

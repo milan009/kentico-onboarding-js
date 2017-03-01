@@ -1,6 +1,3 @@
-/**
- * Created by IvanJ on 21.2.2017.
- */
 import { item } from '../../src/reducers/item';
 import { itemRecord } from '../../src/utils/itemRecord';
 import * as actions from '../../src/actions/actionCreators';

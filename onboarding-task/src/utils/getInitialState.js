@@ -1,6 +1,3 @@
-/**
- * Created by IvanJ on 20.2.2017.
- */
 import Immutable from 'immutable';
 import { generateGuid } from './generateGuid';
 import { itemRecord } from './itemRecord';

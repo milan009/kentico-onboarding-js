@@ -1,6 +1,3 @@
-/**
- * Created by IvanJ on 21.2.2017.
- */
 import { ADD_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM } from '../actions/actionTypes.js';
 import { itemRecord } from '../utils/itemRecord';
 

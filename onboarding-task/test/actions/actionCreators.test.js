@@ -1,7 +1,3 @@
-/**
- * Created by IvanJ on 21.2.2017.
- */
-import { generateGuid } from '../../src/utils/generateGuid.js';
 import * as actions from '../../src/actions/actionCreators';
 import * as types from '../../src/actions/actionTypes';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';

@@ -1,6 +1,3 @@
-/**
- * Created by IvanJ on 13.2.2017.
- */
 import { generateGuid } from '../utils/generateGuid.js';
 import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM } from './actionTypes.js';
 import { addItemFactory } from './actionDependencies/addItemFactory';
