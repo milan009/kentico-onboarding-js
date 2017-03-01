@@ -14,6 +14,7 @@ class ListItemStatic extends Component {
 
   constructor(props) {
     super(props);
+
     this._onClick = this._onClick.bind(this);
   }
 

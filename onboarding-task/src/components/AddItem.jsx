@@ -9,6 +9,7 @@ class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = { text: '' };
+
     this._onInputChange = this._onInputChange.bind(this);
     this._createNewItem = this._createNewItem.bind(this);
   }

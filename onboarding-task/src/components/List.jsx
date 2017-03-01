@@ -23,6 +23,7 @@ class List extends Component {
 
   constructor(props) {
     super(props);
+
     this._deleteItem = this._deleteItem.bind(this);
     this._saveItem = this._saveItem.bind(this);
     this._toggleEditMode = this._toggleEditMode.bind(this);

@@ -17,6 +17,7 @@ class ListItemEditable extends Component {
   constructor(props) {
     super(props);
     this.state = { text: props.item.text };
+
     this._onCancel = this._onCancel.bind(this);
     this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
