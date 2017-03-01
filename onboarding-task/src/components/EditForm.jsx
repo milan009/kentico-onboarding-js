@@ -41,6 +41,7 @@ class EditForm extends PureComponent {
 
   _delete() {
     this.props.onDelete(this.props.item.id);
+    this.props.onCancel(this.props.item.id);
   }
 
   render() {
