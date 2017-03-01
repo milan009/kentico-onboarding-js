@@ -30,17 +30,19 @@ class ListItemForm extends PureComponent {
   }
 
   render() {
-    return (<form className="form-inline" onSubmit={this._onSubmit}>
-      <input
-        type="text"
-        className="form-control"
-        value={this.state.input}
-        onChange={this._onChange}
-      />
-      <button type="submit" className="btn btn-primary"> Change</button>
-      <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
-      <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
-    </form>);
+    return (
+      <form className="form-inline" onSubmit={this._onSubmit}>
+        <input
+          type="text"
+          className="form-control"
+          value={this.state.input}
+          onChange={this._onChange}
+        />
+        <button type="submit" className="btn btn-primary"> Change</button>
+        <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
+      </form>
+    );
   }
 }
 
