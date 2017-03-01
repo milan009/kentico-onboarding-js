@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { ListItemFormContainer } from '../containers/ListItemFormContainer';
 import { ListItemLabelContainer } from '../containers/ListItemLabelContainer';
@@ -7,7 +6,7 @@ import { ListItemLabelContainer } from '../containers/ListItemLabelContainer';
 class ListItem extends PureComponent {
 
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    item: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       formDisplayed: React.PropTypes.bool.isRequired,

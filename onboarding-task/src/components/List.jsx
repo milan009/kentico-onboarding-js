@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { ListItem } from './ListItem';
+import { ListItemContainer } from '../containers/ListItemContainer';
 import { CreateListItem } from './CreateListItem';
 
 class List extends PureComponent {
@@ -24,7 +24,7 @@ class List extends PureComponent {
   render() {
     const listItems = this.props.itemsOrder.map((key) =>
       <li key={key} className="list-group-item">
-        <ListItem
+        <ListItemContainer
           item={this.props.items.get(key)}
         />
       </li>

@@ -2,7 +2,6 @@ import Immutable from 'immutable';
 
 import {
   UPDATE_TEXT_OF_ITEM,
-  SWITCH_FORM_VISIBILITY_FOR_ITEM,
   CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
 } from '../constants/actionTypes';
@@ -16,10 +15,6 @@ const itemsReducer = (prevState = new Immutable.Map(), action) => {
       return prevState.set(action.payload.id, newItem);
     }
     case UPDATE_TEXT_OF_ITEM: {
-      const item = prevState.get(action.payload.id);
-      return prevState.set(action.payload.id, itemReducer(item, action));
-    }
-    case SWITCH_FORM_VISIBILITY_FOR_ITEM: {
       const item = prevState.get(action.payload.id);
       return prevState.set(action.payload.id, itemReducer(item, action));
     }
