@@ -14,7 +14,11 @@ const item = (state = ItemRecord({}), action) => {
       return state.set('isEdited', !state.isEdited);
     }
     case UPDATE_ITEM_TEXT: {
-      return state.set('text', action.payload.text).set('isEdited', false);
+      const newState = state.merge({
+        'text': action.payload.text,
+        'isEdited': false,
+      });
+      return newState;
     }
     default:
       return state;
