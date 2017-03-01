@@ -5,18 +5,18 @@ import { ListItemForm } from '../components/ListItemForm';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    inputValue: state.items.byId.get(ownProps.id).text,
+    inputValue: ownProps.item.text,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onFormSubmit: (text) => {
-      dispatch(updateListItem(ownProps.id, text));
-      dispatch(switchFormVisibilityForListItem(ownProps.id));
+      dispatch(updateListItem(ownProps.item.id, text));
+      dispatch(switchFormVisibilityForListItem(ownProps.item.id));
     },
-    onFormCancelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
-    onFormDeleteClick: () => dispatch(deleteListItem(ownProps.id)),
+    onFormCancelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.item.id)),
+    onFormDeleteClick: () => dispatch(deleteListItem(ownProps.item.id)),
   };
 };
 

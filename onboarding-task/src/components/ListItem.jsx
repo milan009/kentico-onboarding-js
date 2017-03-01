@@ -17,10 +17,10 @@ class ListItem extends PureComponent {
   render() {
     return (this.props.item.formDisplayed)
       ? (<ListItemFormContainer
-        id={this.props.item.id}
+        item={this.props.item}
       />)
       : (<ListItemLabelContainer
-        id={this.props.item.id}
+        item={this.props.item}
       />);
   }
 }

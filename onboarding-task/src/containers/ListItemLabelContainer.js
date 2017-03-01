@@ -5,14 +5,14 @@ import { ListItemLabel } from '../components/ListItemLabel';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    text: state.items.byId.get(ownProps.id).text,
-    index: state.items.orderedIds.indexOf(ownProps.id) + 1,
+    text: ownProps.item.text,
+    index: state.items.orderedIds.indexOf(ownProps.item.id) + 1,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
+    onClick: () => dispatch(switchFormVisibilityForListItem(ownProps.item.id)),
   };
 };
 
