@@ -1,8 +1,8 @@
 import { OrderedMap, Set } from 'immutable';
-import { itemSelector } from '../../src/selectors/itemSelector.js';
+import { getViewItems } from '../../src/selectors/getViewItems.js';
 import { Item } from '../../src/viewModels/Item.js';
 
-describe('itemSelector', () => {
+describe('getViewItems', () => {
   const testId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
   const testText = 'test text';
 
@@ -13,7 +13,7 @@ describe('itemSelector', () => {
       editedItems: Set([testId]),
     };
 
-    const selectorResult = itemSelector(initialState);
+    const selectorResult = getViewItems(initialState);
 
     expect(selectorResult).toEqual(expectedResult);
   });
@@ -25,7 +25,7 @@ describe('itemSelector', () => {
       editedItems: Set(),
     };
 
-    const selectorResult = itemSelector(initialState);
+    const selectorResult = getViewItems(initialState);
 
     expect(selectorResult).toEqual(expectedResult);
   });
