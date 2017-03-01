@@ -1,15 +1,14 @@
 import { items } from '../../src/reducers/items';
 import * as actions from '../../src/actions/actionCreators';
 import Immutable from 'immutable';
-import { itemRecord } from '../../src/utils/itemRecord';
+import { ItemRecord } from '../../src/utils/itemRecord';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
-
 
 describe('items reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
-  const firstItem = new itemRecord({ guid: '00000', text: 'serus', isEdited: false });
-  const secondItem = new itemRecord({ guid: '11111', text: 'soj', isEdited: false });
-  const thirdItem = new itemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
+  const firstItem = new ItemRecord({ guid: '00000', text: 'serus', isEdited: false });
+  const secondItem = new ItemRecord({ guid: '11111', text: 'soj', isEdited: false });
+  const thirdItem = new ItemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
   const stateBefore = Immutable.Map({
     [firstItem.guid]: firstItem,
     [secondItem.guid]: secondItem,
@@ -30,7 +29,7 @@ describe('items reducer', () => {
   });
 
   it('should handle ADD_ITEM action', () => {
-    const addedItem = new itemRecord({
+    const addedItem = new ItemRecord({
       guid: '00000',
       text: 'text',
       isEdited: false,

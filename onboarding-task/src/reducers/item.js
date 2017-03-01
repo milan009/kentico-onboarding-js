@@ -1,10 +1,10 @@
 import { ADD_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM } from '../actions/actionTypes.js';
-import { itemRecord } from '../utils/itemRecord';
+import { ItemRecord } from '../utils/itemRecord';
 
-const item = (state = itemRecord({}), action) => {
+const item = (state = ItemRecord({}), action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      return new itemRecord({
+      return new ItemRecord({
         guid: action.payload.guid,
         text: action.payload.text,
         isEdited: false,

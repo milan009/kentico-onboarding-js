@@ -1,9 +1,9 @@
 import { item } from '../../src/reducers/item';
-import { itemRecord } from '../../src/utils/itemRecord';
+import { ItemRecord } from '../../src/utils/itemRecord';
 import * as actions from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
-const initialState = new itemRecord({
+const initialState = new ItemRecord({
   guid: '00000',
   text: 'Redux rocks!',
   isEdited: false,
@@ -17,12 +17,12 @@ describe('item reducer', () => {
   });
 
   it('should return default item record', () => {
-    expect(item(undefined, UNKNOWN_ACTION)).toEqual(itemRecord({}));
+    expect(item(undefined, UNKNOWN_ACTION)).toEqual(ItemRecord({}));
   });
 
   it('should handle ADD_ITEM action', () => {
     const addItemAction = addItemFactory(() => '00000')('new text');
-    expect(item(initialState, addItemAction)).toEqual(itemRecord({
+    expect(item(initialState, addItemAction)).toEqual(ItemRecord({
       text: 'new text',
       guid: '00000',
       isEdited: false,
@@ -32,7 +32,7 @@ describe('item reducer', () => {
   it('should handle TOGGLE_EDIT_MODE action', () => {
     const toggleEditModeAction = actions.toggleEditMode('00000');
 
-    expect(item(initialState, toggleEditModeAction)).toEqual(itemRecord({
+    expect(item(initialState, toggleEditModeAction)).toEqual(ItemRecord({
       text: 'Redux rocks!',
       guid: '00000',
       isEdited: !initialState.isEdited,
@@ -41,7 +41,7 @@ describe('item reducer', () => {
 
   it('should handle UPDATE_ITEM action', () => {
     const updateItemAction = actions.updateItem('00000', 'new text');
-    expect(item(initialState, updateItemAction)).toEqual(itemRecord({
+    expect(item(initialState, updateItemAction)).toEqual(ItemRecord({
       text: 'new text',
       guid: '00000',
       isEdited: false,
