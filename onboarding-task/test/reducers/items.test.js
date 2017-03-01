@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { items } from '../../src/reducers/items.js';
 import { deleteItem, updateItem } from '../../src/actions/itemsActionCreators.js';
 import { addItemFactory } from '../../src/actions/addItemFactory.js';
-import { Item } from '../../src/models/ItemModel.js';
+import { Item } from '../../src/models/Item.js';
 
 describe('List reducer', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -41,7 +41,7 @@ describe('List reducer', () => {
 
   it('should handle update item', () => {
     const expectedItems = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'updated text' }) });
-    const itemsBefore = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'first add test' })});
+    const itemsBefore = OrderedMap({ [firstTestId]: Item({ id: firstTestId, text: 'first add test' }) });
 
     const itemsAfter = items(itemsBefore, updateItem(firstTestId, 'updated text'));
 

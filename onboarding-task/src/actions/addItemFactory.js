@@ -1,5 +1,5 @@
 import { ADD_ITEM } from './actionTypes.js';
-import { Item } from '../models/ItemModel.js';
+import { Item } from '../models/Item.js';
 
 function addItem(text, generateNewId) {
   return {
