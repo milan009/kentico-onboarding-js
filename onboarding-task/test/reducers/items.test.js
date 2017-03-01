@@ -21,11 +21,15 @@ describe('items reducer', () => {
 
 
   it('should return the initial state if action is uknown or not provided', () => {
-    expect(items(stateBefore, UNKNOWN_ACTION)).toEqual(stateBefore);
+    const actualState = items(stateBefore, UNKNOWN_ACTION);
+
+    expect(actualState).toEqual(stateBefore);
   });
 
   it('should return empty immutable map if no state is provided', () => {
-    expect(items(undefined, UNKNOWN_ACTION)).toEqual(Immutable.Map());
+    const actualState = items(undefined, UNKNOWN_ACTION);
+
+    expect(actualState).toEqual(Immutable.Map());
   });
 
   it('should handle ADD_ITEM action', () => {
@@ -35,26 +39,30 @@ describe('items reducer', () => {
       isEdited: false,
     });
     const expectedState = stateBefore.set('00000', addedItem);
+    const actualState = items(stateBefore, addItemAction);
 
-    expect(items(stateBefore, addItemAction)).toEqual(expectedState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle TOGGLE_EDIT_MODE action', () => {
     const expectedState = stateBefore.setIn(['00000', 'isEdited'], true);
+    const actualState = items(stateBefore, toggleEditModeAction);
 
-    expect(items(stateBefore, toggleEditModeAction)).toEqual(expectedState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle DELETE_ITEM action', () => {
     const expectedState = stateBefore.delete('00000');
+    const actualState = items(stateBefore, deleteItemAction);
 
-    expect(items(stateBefore, deleteItemAction)).toEqual(expectedState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle UPDATE_ITEM_TEXT action', () => {
     const expectedState = stateBefore.setIn(['00000', 'text'], 'new text');
+    const actualState = items(stateBefore, updateItemAction);
 
-    expect(items(stateBefore, updateItemAction)).toEqual(expectedState);
+    expect(actualState).toEqual(expectedState);
   });
 });
 
