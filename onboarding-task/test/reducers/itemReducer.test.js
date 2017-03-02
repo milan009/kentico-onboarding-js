@@ -14,25 +14,9 @@ describe('itemReducer ', () => {
   const text = 'Testing...';
 
   it(`returns item with updated text when ${UPDATE_TEXT_OF_ITEM} action is dispatched`, () => {
-    const prevState = new ItemRecord({ id, text, formDisplayed: true });
-    const expectedState = new ItemRecord({ id, text: 'test', formDisplayed: true });
+    const prevState = new ItemRecord({ id, text });
+    const expectedState = new ItemRecord({ id, text: 'test' });
     const nextState = itemReducer(prevState, updateListItem(id, 'test'));
-
-    expect(nextState).toEqual(expectedState);
-  });
-
-  it(`returns item with formDisplayed switched from true to false when ${SWITCH_FORM_VISIBILITY_FOR_ITEM} action is dispatched`, () => {
-    const prevState = new ItemRecord({ id, text, formDisplayed: true });
-    const expectedState = new ItemRecord({ id, text, formDisplayed: false });
-    const nextState = itemReducer(prevState, switchFormVisibilityForListItem(id));
-
-    expect(nextState).toEqual(expectedState);
-  });
-
-  it(`returns item with formDisplayed switched from false to true when ${SWITCH_FORM_VISIBILITY_FOR_ITEM} action is dispatched`, () => {
-    const prevState = new ItemRecord({ id, text, formDisplayed: false });
-    const expectedState = new ItemRecord({ id, text, formDisplayed: true });
-    const nextState = itemReducer(prevState, switchFormVisibilityForListItem(id));
 
     expect(nextState).toEqual(expectedState);
   });

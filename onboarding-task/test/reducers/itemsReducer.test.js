@@ -19,8 +19,8 @@ describe('itemsReducer', () => {
   const emptyState = new Immutable.Map();
   const id = 'test-id';
   const id2 = 'test-id-2';
-  const falseFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: false });
-  const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test', formDisplayed: true });
+  const falseFormDisplayedRecord = new ItemRecord({ id, text: 'test' });
+  const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test' });
 
   it('adds new item into empty state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const newState = itemsReducer(emptyState, createListItemFactory(() => id)('test'));
@@ -32,29 +32,13 @@ describe('itemsReducer', () => {
   it('adds new item into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
     const newState = itemsReducer(prevState, createListItemFactory(() => id2)('Testing...'));
-    const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...', formDisplayed: false }));
+    const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...' }));
 
     expect(newState).toEqual(expectedState);
   });
 
-  it('switches formDisplayed value from false to true on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
-    const prevState = Immutable.Map.of(id, falseFormDisplayedRecord);
-    const expectedState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const nextState = itemsReducer(prevState, switchFormVisibilityForListItem(id));
-
-    expect(nextState).toEqual(expectedState);
-  });
-
-  it('switches formDisplayed value from true to false on item with given id when ' + SWITCH_FORM_VISIBILITY_FOR_ITEM + 'action is dispatched', () => {
-    const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
-    const nextState = itemsReducer(prevState, switchFormVisibilityForListItem(id));
-
-    expect(nextState).toEqual(expectedState);
-  });
-
   it('updates text of item with given id when ' + UPDATE_TEXT_OF_ITEM + ' action is dispatched', () => {
-    const expectedRecord = new ItemRecord({ id, text: 'test-2', formDisplayed: true });
+    const expectedRecord = new ItemRecord({ id, text: 'test-2' });
 
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
     const expectedState = Immutable.Map.of(id, expectedRecord);
