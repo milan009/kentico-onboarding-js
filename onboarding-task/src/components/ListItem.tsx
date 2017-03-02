@@ -39,7 +39,7 @@ class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
     this.setState({ isBeingEdited: false });
   };
 
-  _saveValue = (value: any) => {
+  _saveValue = (value: string) => {
     this.props.onItemValueEdit(this.props.item.id, value);
     this.setState({ isBeingEdited: false });
   };

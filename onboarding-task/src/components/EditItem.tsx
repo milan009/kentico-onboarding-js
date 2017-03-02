@@ -3,7 +3,7 @@ import * as React from 'react';
 interface IEditItemProps {
   value: string;
   index: number;
-  onEdit: (value :any) => void;
+  onEdit: (value: string) => void;
   onDelete: () => void;
   onCancel: () => void;
 }

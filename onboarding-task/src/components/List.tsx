@@ -22,21 +22,25 @@ class List extends React.PureComponent<IListProps, IListState> {
 
   _addItem = (value: string) => {
     const newItem = {
-      id: generateGuid(),
-      value };
+        id: generateGuid(),
+        value
+      };
     const items = {
       ...this.state.items,
-      [newItem.id]: newItem };
+      [newItem.id]: newItem
+    };
     this.setState({ items });
   };
 
   _editItemValue = (id: string, value: string) => {
     const editedItem = {
-      id,
-      value };
+        id,
+        value
+      };
     const items = {
-      ...this.state.items,
-      [id]: editedItem };
+        ...this.state.items,
+        [id]: editedItem
+      };
     this.setState({ items });
   };
 
