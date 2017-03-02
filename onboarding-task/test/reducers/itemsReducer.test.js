@@ -23,15 +23,17 @@ describe('itemsReducer', () => {
   const trueFormDisplayedRecord = new ItemRecord({ id, text: 'test' });
 
   it('adds new item into empty state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
-    const newState = itemsReducer(emptyState, createListItemFactory(() => id)('test'));
+    const createListItem = createListItemFactory(() => id);
+    const newState = itemsReducer(emptyState, createListItem('test'));
     const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
 
     expect(newState).toEqual(expectedState);
   });
 
   it('adds new item into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
+    const createListItem = createListItemFactory(() => id2);
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const newState = itemsReducer(prevState, createListItemFactory(() => id2)('Testing...'));
+    const newState = itemsReducer(prevState, createListItem('Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...' }));
 
     expect(newState).toEqual(expectedState);
