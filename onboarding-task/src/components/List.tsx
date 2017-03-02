@@ -2,13 +2,14 @@ import * as React from 'react';
 
 import { ListItem } from './ListItem';
 import { AddItem } from './AddItem';
+import { IItems } from '../models/IItems';
 import { generateGuid } from '../utils/generateGuid';
 
 interface IListProps {
 }
 
 interface IListState {
-  items: any
+  items: IItems;
 }
 
 class List extends React.PureComponent<IListProps, IListState> {

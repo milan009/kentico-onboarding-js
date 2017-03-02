@@ -1,11 +1,7 @@
 import * as React from 'react';
 
 import { EditItem } from './EditItem';
-
-interface IItem {
-  id: string
-  value: string
-}
+import { IItem } from '../models/IItem';
 
 interface IListItemProps {
   item: IItem
