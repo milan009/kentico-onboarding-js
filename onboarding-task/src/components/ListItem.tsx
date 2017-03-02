@@ -30,7 +30,7 @@ class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
     onItemValueEdit: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired };
 
-  constructor(props: any) {
+  constructor(props: IListItemProps) {
     super(props);
     this.state = { isBeingEdited: false };
   }

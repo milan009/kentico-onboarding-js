@@ -13,7 +13,7 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
 
   static propTypes = { onAdd: React.PropTypes.func.isRequired };
 
-  constructor(props: any) {
+  constructor(props: IAddItemProps) {
     super(props);
     this.state = { inputValue: '' };
   }

@@ -14,7 +14,7 @@ interface IListState {
 class List extends React.PureComponent<IListProps, IListState> {
   static displayName = 'List';
 
-  constructor(props: any) {
+  constructor(props: IListProps) {
     super(props);
     this.state = { items: {} };
   }

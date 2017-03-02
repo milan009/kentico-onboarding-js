@@ -22,7 +22,7 @@ class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {
     onDelete: React.PropTypes.func.isRequired,
     onCancel: React.PropTypes.func.isRequired };
 
-  constructor(props: any) {
+  constructor(props: IEditItemProps) {
     super(props);
     this.state = { inputValue: this.props.value };
   }
