@@ -6,6 +6,7 @@ import { ListItemForm } from '../components/ListItemForm';
 const mapStateToProps = (state, ownProps) => {
   return {
     inputValue: ownProps.item.text,
+    index: ownProps.item.index,
   };
 };
 

@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.id;
   const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
   const item = state.items.byId.get(id);
-  const index = state.items.orderedIds.indexOf(id);
+  const index = state.items.orderedIds.indexOf(id) + 1;
   return memoizedListItemViewModel(item, formDisplayed, index);
 };
 

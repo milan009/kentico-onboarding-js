@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 class ListItemForm extends PureComponent {
 
   static propTypes = {
+    index: React.PropTypes.number.isRequired,
     inputValue: React.PropTypes.string.isRequired,
     onFormSubmit: React.PropTypes.func.isRequired,
     onFormCancelClick: React.PropTypes.func.isRequired,
@@ -32,7 +33,7 @@ class ListItemForm extends PureComponent {
   render() {
     return (
       <form className="form-inline" onSubmit={this._onSubmit}>
-        <input
+        {this.props.index}. <input
           type="text"
           className="form-control"
           value={this.state.input}
