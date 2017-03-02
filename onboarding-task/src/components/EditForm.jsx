@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class EditForm extends Component {
+class EditForm extends PureComponent {
   static displayName = 'EditForm';
 
   static propTypes = {
@@ -41,6 +41,7 @@ class EditForm extends Component {
 
   _delete() {
     this.props.onDelete(this.props.item.id);
+    this.props.onCancel(this.props.item.id);
   }
 
   render() {

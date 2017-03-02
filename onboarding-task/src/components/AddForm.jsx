@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class AddForm extends Component {
+class AddForm extends PureComponent {
   static displayName = 'AddForm';
 
   static propTypes = {
