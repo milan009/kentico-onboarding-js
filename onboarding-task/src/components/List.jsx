@@ -7,13 +7,6 @@ import { CreateListItem } from './CreateListItem';
 class List extends PureComponent {
 
   static propTypes = {
-    items: ImmutablePropTypes.mapOf(
-      ImmutablePropTypes.recordOf({
-        id: React.PropTypes.string.isRequired,
-        text: React.PropTypes.string.isRequired,
-      }),
-      React.PropTypes.string.isRequired
-    ),
     itemsOrder: ImmutablePropTypes.listOf(
       React.PropTypes.string.isRequired,
     ),
@@ -24,7 +17,7 @@ class List extends PureComponent {
     const listItems = this.props.itemsOrder.map((key) =>
       <li key={key} className="list-group-item">
         <ListItemContainer
-          item={this.props.items.get(key)}
+          id={key}
         />
       </li>
     );

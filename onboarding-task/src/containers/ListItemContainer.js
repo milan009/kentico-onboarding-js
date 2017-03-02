@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem';
 
 const mapStateToProps = (state, ownProps) => {
+  const item = state.items.byId.get(ownProps.id);
+  const formDisplayed = state.items.uiPropsById.get(item.id).formDisplayed;
   return {
-    item: { id: ownProps.item.id, text: ownProps.item.text, formDisplayed: state.items.uiPropsById.get(ownProps.item.id).formDisplayed },
+    item: { id: item.id, text: item.text, formDisplayed },
   };
 };
 

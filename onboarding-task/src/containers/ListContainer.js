@@ -5,7 +5,6 @@ import { createListItem } from '../actionCreators/actionCreators';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items.byId,
     itemsOrder: state.items.orderedIds,
   };
 };
