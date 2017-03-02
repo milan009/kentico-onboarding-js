@@ -10,6 +10,7 @@ class ListItem extends PureComponent {
       id: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       formDisplayed: React.PropTypes.bool.isRequired,
+      index: React.PropTypes.number.isRequired,
     }),
   };
 

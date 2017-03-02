@@ -3,9 +3,9 @@ import memoize from 'memoizee';
 
 import { ListItem } from '../components/ListItem';
 
-const getListItemViewModel = (item, formDisplayed) => {
+const getListItemViewModel = (item, formDisplayed, index) => {
   return {
-    item: { id: item.id, text: item.text, formDisplayed },
+    item: { id: item.id, text: item.text, formDisplayed, index },
   };
 };
 
@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.id;
   const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
   const item = state.items.byId.get(id);
-  return memoizedListItemViewModel(item, formDisplayed);
+  const index = state.items.orderedIds.indexOf(id);
+  return memoizedListItemViewModel(item, formDisplayed, index);
 };
 
 const ListItemContainer = connect(
