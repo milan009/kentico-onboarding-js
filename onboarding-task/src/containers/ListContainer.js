@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import memProfile from 'memoizee/profile';
 
 import { List } from '../components/List';
 import { createListItem } from '../actionCreators/actionCreators';
@@ -12,10 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onListItemAdd: (text) => {
-      console.log(memProfile.log());
-      dispatch(createListItem(text));
-    },
+    onListItemAdd: (text) => dispatch(createListItem(text)),
   };
 };
 
