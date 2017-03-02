@@ -1,5 +1,5 @@
 import memoize from 'memoizee';
-import { ViewItem } from '../viewModels/ViewItem.js';
+import { ViewItem } from '../viewModels/ViewItem.ts';
 
 const getViewItems = memoize((state) => {
   const editedItems = state.editedItems;
