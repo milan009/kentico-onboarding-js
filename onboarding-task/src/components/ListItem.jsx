@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { ListItemFormContainer } from '../containers/ListItemFormContainer';
-import { ListItemLabelContainer } from '../containers/ListItemLabelContainer';
+import { ListItemLabel } from './ListItemLabel';
 
 class ListItem extends PureComponent {
 
@@ -12,6 +12,7 @@ class ListItem extends PureComponent {
       formDisplayed: React.PropTypes.bool.isRequired,
       index: React.PropTypes.number.isRequired,
     }),
+    onLabelClick: React.PropTypes.func.isRequired,
   };
 
   render() {
@@ -19,8 +20,10 @@ class ListItem extends PureComponent {
       ? (<ListItemFormContainer
         item={this.props.item}
       />)
-      : (<ListItemLabelContainer
-        item={this.props.item}
+      : (<ListItemLabel
+        text={this.props.item.text}
+        index={this.props.item.index}
+        onClick={this.props.onLabelClick}
       />);
   }
 }

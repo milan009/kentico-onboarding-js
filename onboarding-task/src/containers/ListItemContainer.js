@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import memoize from 'memoizee';
 
 import { ListItem } from '../components/ListItem';
+import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
 
 const getListItemViewModel = (item, formDisplayed, index) => {
   return {
@@ -19,8 +20,15 @@ const mapStateToProps = (state, ownProps) => {
   return memoizedListItemViewModel(item, formDisplayed, index);
 };
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onLabelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
+  };
+};
+
 const ListItemContainer = connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(ListItem);
 
 export { ListItemContainer };
