@@ -11,7 +11,6 @@ class List extends PureComponent {
       ImmutablePropTypes.recordOf({
         id: React.PropTypes.string.isRequired,
         text: React.PropTypes.string.isRequired,
-        formDisplayed: React.PropTypes.bool.isRequired,
       }),
       React.PropTypes.string.isRequired
     ),
