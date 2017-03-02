@@ -3,7 +3,7 @@ import { Record } from 'immutable';
 const ViewItem = new Record({
   id: undefined,
   text: '',
-  isEdited: undefined,
+  isEdited: false,
 });
 
 export { ViewItem };
