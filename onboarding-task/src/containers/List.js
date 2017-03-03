@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { addItem, deleteItem, updateItem } from '../actions/itemsActionCreators.js';
-import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators.js';
+import { addItem, deleteItem, updateItem } from '../actions/itemsActionCreators.ts';
+import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators.ts';
 import { List } from '../components/List.jsx';
 import { getViewItems } from '../selectors/getViewItems.js';
 

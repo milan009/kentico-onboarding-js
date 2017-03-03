@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-import { startEditItem, stopEditItem } from '../../src/actions/editedItemsActionCreators.js';
+import { startEditItem, stopEditItem } from '../../src/actions/editedItemsActionCreators.ts';
 import { editedItems } from '../../src/reducers/editedItems.js';
 
 describe('editedItemsReducer', () => {

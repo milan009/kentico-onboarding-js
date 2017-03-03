@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-import { START_EDIT_ITEM, STOP_EDIT_ITEM } from '../actions/actionTypes.js';
+import { START_EDIT_ITEM, STOP_EDIT_ITEM } from '../actions/actionTypes.ts';
 
 const editedItems = (state = Set(), action) => {
   switch (action.type) {

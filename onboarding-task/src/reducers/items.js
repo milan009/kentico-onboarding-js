@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.ts';
 
 const items = (state = OrderedMap(), action) => {
   switch (action.type) {
