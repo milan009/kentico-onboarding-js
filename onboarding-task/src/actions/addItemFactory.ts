@@ -11,7 +11,7 @@ function addItem(text: string, generateNewId: Function): IAction {
   };
 }
 
-function addItemFactory(idGenerator: Function) {
+function addItemFactory(idGenerator: () => string) {
   return (text: string) => addItem(text, idGenerator);
 }
 

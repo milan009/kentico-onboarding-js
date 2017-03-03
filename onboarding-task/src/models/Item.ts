@@ -1,12 +1,12 @@
 import { Record } from 'immutable';
 
 interface IItem {
-  id?: string;
+  id: string;
   text: string;
 }
 
 const defaultValues: IItem = {
-  id: undefined,
+  id: '',
   text: '',
 };
 

@@ -1,13 +1,13 @@
 import { Record } from 'immutable';
 
 interface IViewItem {
-  id?: string;
+  id: string;
   text: string;
   isEdited: boolean;
 }
 
 const defaultValues: IViewItem = {
-  id: undefined,
+  id: '',
   text: '',
   isEdited: false,
 };

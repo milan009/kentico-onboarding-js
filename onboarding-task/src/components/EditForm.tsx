@@ -1,21 +1,34 @@
-import React, { PureComponent, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as React from 'react';
+const ImmutablePropTypes = require('react-immutable-proptypes');
+import {IViewItem} from '../viewModels/ViewItem';
 
-class EditForm extends PureComponent {
+interface IEditFormProps {
+  item: IViewItem;
+  index: number;
+  onSave: (id: string, text: string) => void;
+  onDelete: (id: string) => void;
+  onCancel: (id: string) => void;
+}
+
+interface IEditFormState {
+  editInput: string;
+}
+
+class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
   static displayName = 'EditForm';
 
   static propTypes = {
     item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string,
-      text: PropTypes.string,
+      id: React.PropTypes.string,
+      text: React.PropTypes.string,
     }).isRequired,
-    index: PropTypes.number.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    index: React.PropTypes.number.isRequired,
+    onSave: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IEditFormProps) {
     super(props);
     this.state = {
       editInput: props.item.text,
@@ -26,7 +39,7 @@ class EditForm extends PureComponent {
     this._cancel = this._cancel.bind(this);
   }
 
-  _handleEditInputChange(event) {
+  _handleEditInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ editInput: event.target.value });
   }
 
