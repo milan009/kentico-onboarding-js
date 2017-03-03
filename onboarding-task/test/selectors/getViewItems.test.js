@@ -1,5 +1,5 @@
 import { OrderedMap, Set } from 'immutable';
-import { getViewItems } from '../../src/selectors/getViewItems.js';
+import { getViewItems } from '../../src/selectors/getViewItems.ts';
 import { ViewItem } from '../../src/viewModels/ViewItem.ts';
 
 describe('getViewItems', () => {
