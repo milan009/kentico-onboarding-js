@@ -1,4 +1,4 @@
-import { ADD_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM_TEXT } from '../actions/actionTypes.js';
+import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes.js';
 import { ItemRecord } from '../utils/itemRecord';
 
 const item = (state = ItemRecord({}), action) => {
@@ -7,18 +7,10 @@ const item = (state = ItemRecord({}), action) => {
       return new ItemRecord({
         guid: action.payload.guid,
         text: action.payload.text,
-        isEdited: false,
       });
-    }
-    case TOGGLE_EDIT_MODE: {
-      return state.set('isEdited', !state.isEdited);
     }
     case UPDATE_ITEM_TEXT: {
-      const newState = state.merge({
-        'text': action.payload.text,
-        'isEdited': false,
-      });
-      return newState;
+      return state.set('text', action.payload.text);
     }
     default:
       return state;

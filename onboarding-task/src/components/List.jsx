@@ -4,17 +4,16 @@ import { ListItemStatic } from './ListItemStatic.jsx';
 import { AddItem } from './AddItem.jsx';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-
 class List extends Component {
   static displayName = 'List';
   static propTypes = {
-    items: ImmutablePropTypes.mapOf(
+    itemsById: ImmutablePropTypes.listOf(
       ImmutablePropTypes.recordOf({
         guid: React.PropTypes.string.isRequired,
         text: React.PropTypes.string.isRequired,
-        isEdited: React.PropTypes.bool.isRequired,
       }),
     ),
+
     onToggleEditMode: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -63,7 +62,7 @@ class List extends Component {
   }
 
   render() {
-    const items = this.props.items.valueSeq();
+    const items = this.props.itemsById.valueSeq();
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">

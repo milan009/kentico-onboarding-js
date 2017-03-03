@@ -3,12 +3,17 @@ import React, { Component } from 'react';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { List } from './containers/List';
-import { items } from './reducers/items';
+import { itemsById } from './reducers/itemsById';
+import { itemsFlags } from './reducers/itemsFlags';
+import { itemsOrder } from './reducers/itemsOrder';
+
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState';
 
 const rootReducer = combineReducers({
-  items,
+  itemsById,
+  itemsFlags,
+  itemsOrder,
 });
 const logger = createLogger();
 const initialState = getInitialState();

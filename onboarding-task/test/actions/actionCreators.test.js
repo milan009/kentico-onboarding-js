@@ -9,7 +9,6 @@ describe('actionCreators', () => {
       type: types.ADD_ITEM,
       payload: {
         guid: '00000',
-        isEdited: false,
         text,
       },
     };

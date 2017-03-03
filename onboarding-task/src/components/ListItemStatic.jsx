@@ -7,7 +7,6 @@ class ListItemStatic extends Component {
     item: ImmutablePropTypes.recordOf({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
-      isEdited: React.PropTypes.bool.isRequired,
     }),
     onClick: PropTypes.func.isRequired,
   };

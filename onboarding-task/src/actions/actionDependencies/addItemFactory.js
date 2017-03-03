@@ -4,7 +4,6 @@ const addItem = (text, generateGuid) => ({
   type: ADD_ITEM,
   payload: {
     guid: generateGuid(),
-    isEdited: false,
     text,
   },
 });

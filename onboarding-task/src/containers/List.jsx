@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import { List as ListComponent } from '../components/List';
 import { toggleEditMode, deleteItem, updateItemText, addItem } from '../actions/actionCreators.js';
+import { selectViewItems } from '../selectors/selectViewItems';
 
 const mapStateToProps = (state) => {
+  const items = selectViewItems(state);
   return {
-    items: state.items,
+    itemsById: items,
   };
 };
 

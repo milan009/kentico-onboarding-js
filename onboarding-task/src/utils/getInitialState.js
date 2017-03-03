@@ -3,16 +3,22 @@ import { generateGuid } from './generateGuid';
 import { ItemRecord } from './itemRecord';
 
 function getInitialState() {
-  const firstItem = new ItemRecord({ guid: generateGuid(), text: 'serus', isEdited: false });
-  const secondItem = new ItemRecord({ guid: generateGuid(), text: 'soj', isEdited: false });
-  const thirdItem = new ItemRecord({ guid: generateGuid(), text: 'nazdar', isEdited: false });
+  const firstItem = new ItemRecord({ guid: generateGuid(), text: 'serus' });
+  const secondItem = new ItemRecord({ guid: generateGuid(), text: 'soj' });
+  const thirdItem = new ItemRecord({ guid: generateGuid(), text: 'nazdar' });
 
   const initState = {
-    items: Immutable.Map({
+    itemsById: Immutable.Map({
       [firstItem.guid]: firstItem,
       [secondItem.guid]: secondItem,
       [thirdItem.guid]: thirdItem,
     }),
+    itemsFlags: Immutable.Map({
+      [firstItem.guid]: { isEdited: false },
+      [secondItem.guid]: { isEdited: false },
+      [thirdItem.guid]: { isEdited: false },
+    }),
+    itemsOrder: Immutable.List([firstItem.guid, secondItem.guid, thirdItem.guid]),
   };
   return initState;
 }
