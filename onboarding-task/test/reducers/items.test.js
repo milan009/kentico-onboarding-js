@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { items } from '../../src/reducers/items.js';
+import { items } from '../../src/reducers/items.ts';
 import { deleteItem, updateItem } from '../../src/actions/itemsActionCreators.ts';
 import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { Item } from '../../src/models/Item.ts';

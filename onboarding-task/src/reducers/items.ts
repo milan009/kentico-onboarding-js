@@ -1,7 +1,8 @@
 import { OrderedMap } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes.ts';
+import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes';
+import { IAction } from '../actions/IAction';
 
-const items = (state = OrderedMap(), action) => {
+const items = (state = OrderedMap(), action: IAction) => {
   switch (action.type) {
     case ADD_ITEM:
       return state.set(action.payload.item.id, action.payload.item);

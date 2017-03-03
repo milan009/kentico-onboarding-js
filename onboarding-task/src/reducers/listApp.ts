@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { items } from './items.js';
-import { editedItems } from './editedItems.js';
+import { items } from './items';
+import { editedItems } from './editedItems';
 
 const listApp = combineReducers({
   items,

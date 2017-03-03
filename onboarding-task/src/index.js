@@ -5,7 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import createLogger from 'redux-logger';
 
 import App from './App.jsx';
-import { listApp } from './reducers/listApp.js';
+import { listApp } from './reducers/listApp.ts';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
