@@ -5,9 +5,7 @@ import { ListItem } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
 
 const getListItemViewModel = (item, formDisplayed, index) => {
-  return {
-    item: { id: item.id, text: item.text, formDisplayed, index },
-  };
+  return { id: item.id, text: item.text, formDisplayed, index };
 };
 
 const memoizedListItemViewModel = memoize(getListItemViewModel);
@@ -17,7 +15,9 @@ const mapStateToProps = (state, ownProps) => {
   const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
   const item = state.items.byId.get(id);
   const index = state.items.orderedIds.indexOf(id) + 1;
-  return memoizedListItemViewModel(item, formDisplayed, index);
+  return {
+    item: memoizedListItemViewModel(item, formDisplayed, index),
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
