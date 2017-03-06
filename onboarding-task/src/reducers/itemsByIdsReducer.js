@@ -5,13 +5,12 @@ import {
   CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
 } from '../constants/actionTypes';
-import { ItemRecord } from '../models/ItemRecord';
 import { itemReducer } from './itemReducer';
 
 const itemsByIdsReducer = (prevState = new Immutable.Map(), action) => {
   switch (action.type) {
     case CREATE_ITEM_IN_LIST: {
-      const newItem = new ItemRecord({ id: action.payload.id, text: action.payload.text, formDisplayed: false });
+      const newItem = itemReducer(undefined, action);
       return prevState.set(action.payload.id, newItem);
     }
     case UPDATE_TEXT_OF_ITEM: {
