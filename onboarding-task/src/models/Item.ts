@@ -1,8 +1,8 @@
 import { Record } from 'immutable';
 
 interface IItem {
-  id: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 }
 
 const defaultValues: IItem = {
@@ -11,8 +11,8 @@ const defaultValues: IItem = {
 };
 
 class Item extends Record(defaultValues) implements IItem {
-  id: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 }
 
 export { Item, IItem };
