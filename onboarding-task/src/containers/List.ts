@@ -5,8 +5,8 @@ import { addItem, deleteItem, updateItem } from '../actions/itemsActionCreators'
 import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators';
 import { List } from '../components/List';
 import { getViewItems } from '../selectors/getViewItems';
-import {IAppState} from '../stores/IAppState';
-import {IAction} from '../actions/IAction';
+import { IAppState } from '../stores/IAppState';
+import { IAction } from '../actions/IAction';
 
 const mapStateToProps = (state: IAppState) => {
   return {
@@ -16,21 +16,11 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
   return {
-    addItem: (text: string) => {
-      dispatch(addItem(text));
-    },
-    deleteItem: (id: string) => {
-      dispatch(deleteItem(id));
-    },
-    updateItem: (id: string, text: string) => {
-      dispatch(updateItem(id, text));
-    },
-    startEditingItem: (id: string) => {
-      dispatch(startEditItem(id));
-    },
-    stopEditingItem: (id: string) => {
-      dispatch(stopEditItem(id));
-    },
+    addItem: (text: string) => dispatch(addItem(text)),
+    deleteItem: (id: string) => dispatch(deleteItem(id)),
+    updateItem: (id: string, text: string) => dispatch(updateItem(id, text)),
+    startEditingItem: (id: string) => dispatch(startEditItem(id)),
+    stopEditingItem: (id: string) => dispatch(stopEditItem(id)),
   };
 };
 
