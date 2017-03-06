@@ -1,15 +1,15 @@
 import Immutable from 'immutable';
 
 import { itemsUiPropsReducer } from '../../src/reducers/itemsUiPropsReducer';
-import { UIPropsRecord } from '../../src/models/UIPropsRecord';
+import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
 import { CREATE_ITEM_IN_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, DELETE_ITEM_FROM_LIST } from '../../src/constants/actionTypes';
 
 describe('uiPropsReducer ', () => {
   const id = 'test-id';
-  const falseRecord = new UIPropsRecord({ formDisplayed: false });
-  const trueRecord = new UIPropsRecord({ formDisplayed: true });
+  const falseRecord = new ItemUiPropsRecord({ formDisplayed: false });
+  const trueRecord = new ItemUiPropsRecord({ formDisplayed: true });
   const emptyState = new Immutable.Map();
   const oneItemFalseState = emptyState.set(id, falseRecord);
   const oneItemTrueState = emptyState.set(id, trueRecord);
