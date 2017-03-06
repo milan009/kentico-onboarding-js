@@ -3,11 +3,7 @@ import {
   CREATE_ITEM_IN_LIST,
 } from '../../constants/actionTypes';
 import { ItemRecord } from '../../models/ItemRecord';
-
-interface IAction {
-  type: string;
-  payload: { id: string; text?: string; };
-}
+import { IAction } from '../../interfaces/IAction';
 
 const itemReducer = (prevState = new ItemRecord(), action: IAction) => {
   switch (action.type) {

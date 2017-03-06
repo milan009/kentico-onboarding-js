@@ -7,11 +7,7 @@ import {
 } from '../../constants/actionTypes';
 import { itemReducer } from './itemReducer';
 import {ItemRecord} from '../../models/ItemRecord';
-
-interface IAction {
-  type: string;
-  payload: { id: string; text?: string; };
-}
+import { IAction } from '../../interfaces/IAction';
 
 interface IItemRecord extends ItemRecord {
   id: string;
