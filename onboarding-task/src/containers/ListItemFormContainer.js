@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { updateListItem, switchFormVisibilityForListItem, deleteListItem } from '../actionCreators/actionCreators';
+import { updateListItem, switchFormVisibilityForListItem, deleteListItem } from '../actionCreators/actionCreators.ts';
 import { ListItemForm } from '../components/ListItemForm';
 
 const mapStateToProps = (state, ownProps) => {

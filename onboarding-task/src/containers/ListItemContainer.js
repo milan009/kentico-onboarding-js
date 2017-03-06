@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import memoize from 'memoizee';
 
 import { ListItem } from '../components/ListItem';
-import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
+import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators.ts';
 
 const getListItemViewModel = (item, formDisplayed, index) => {
   return { id: item.id, text: item.text, formDisplayed, index };
