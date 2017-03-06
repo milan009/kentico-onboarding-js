@@ -1,12 +1,18 @@
 import { connect } from 'react-redux';
 import { ListItem as ListItemComponent } from '../components/ListItem';
 import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCreators.js';
-import { selectViewItem } from '../selectors/selectViewItems';
+import memoize from 'memoizee';
+import { ViewItemRecord } from '../utils/itemRecord';
 
+
+const selectViewItem = memoize((itemData, itemFlags) => new ViewItemRecord({ guid: itemData.guid, text: itemData.text, isEdited: itemFlags.isEdited }));
 
 const mapStateToProps = (state, ownProps) => {
+  const itemData = state.itemsById.get(ownProps.guid);
+  const itemFlags = state.itemsFlags.get(ownProps.guid);
+
   return {
-    item: selectViewItem(state, ownProps.guid),
+    item: selectViewItem(itemData, itemFlags),
   };
 };
 
