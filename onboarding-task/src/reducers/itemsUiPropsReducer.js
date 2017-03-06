@@ -12,9 +12,8 @@ const itemsUiPropsReducer = (prevState = Immutable.Map(), action) => {
     case CREATE_ITEM_IN_LIST:
       return prevState.set(action.payload.id, new ItemUiPropsRecord());
     case SWITCH_FORM_VISIBILITY_FOR_ITEM: {
-      const oldUIProps = prevState.get(action.payload.id);
-      const newUIProps = oldUIProps.merge(new ItemUiPropsRecord({ formDisplayed: !oldUIProps.formDisplayed }));
-      return prevState.set(action.payload.id, newUIProps);
+      const nextFormDisplayed = !prevState.get(action.payload.id).formDisplayed;
+      return prevState.setIn([action.payload.id, 'formDisplayed'], nextFormDisplayed);
     }
     case DELETE_ITEM_FROM_LIST:
       return prevState.delete(action.payload.id);
