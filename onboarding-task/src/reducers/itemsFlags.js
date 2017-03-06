@@ -5,7 +5,7 @@ const map = Immutable.Map();
 const itemsFlags = (state = map, action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      return state.set(action.payload.guid, false);
+      return state.set(action.payload.guid, { isEdited: false });
     }
     case DELETE_ITEM: {
       return state.delete(action.payload.guid);

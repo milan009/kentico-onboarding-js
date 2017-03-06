@@ -8,7 +8,7 @@ class ListItemStatic extends Component {
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }),
-    onClick: PropTypes.func.isRequired,
+    onToggleEditMode: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,7 +18,7 @@ class ListItemStatic extends Component {
   }
 
   _onClick() {
-    this.props.onClick(this.props.item.guid);
+    this.props.onToggleEditMode(this.props.item.guid);
   }
 
   render() {

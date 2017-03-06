@@ -8,9 +8,9 @@ class ListItemEditable extends Component {
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }),
+    onUpdateText: PropTypes.func.isRequired,
+    onToggleEditMode: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,17 +18,17 @@ class ListItemEditable extends Component {
     this.state = { text: props.item.text };
 
     this._onCancel = this._onCancel.bind(this);
-    this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
+    this._onDelete = this._onDelete.bind(this);
   }
 
   _onCancel() {
-    this.props.onCancel(this.props.item.guid);
+    this.props.onToggleEditMode(this.props.item.guid);
   }
 
   _onUpdate() {
-    this.props.onSave(this.props.item.guid, this.state.text);
+    this.props.onUpdateText(this.props.item.guid, this.state.text);
   }
 
   _onDelete() {

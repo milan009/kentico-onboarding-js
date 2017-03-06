@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
 import { List as ListComponent } from '../components/List';
-import { toggleEditMode, deleteItem, updateItemText, addItem } from '../actions/actionCreators.js';
-import { selectViewItems } from '../selectors/selectViewItems';
+import { addItem } from '../actions/actionCreators.js';
 
 const mapStateToProps = (state) => {
-  const items = selectViewItems(state);
   return {
-    itemsById: items,
+    itemsOrder: state.itemsOrder,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onToggleEditMode: (guid) => dispatch(toggleEditMode(guid)),
-    onDelete: (guid) => dispatch(deleteItem(guid)),
-    onUpdate: (guid, text) => dispatch(updateItemText(guid, text)),
     onAddItem: (text) => dispatch(addItem(text)),
   };
 };

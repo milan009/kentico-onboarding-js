@@ -5,4 +5,10 @@ const ItemRecord = Immutable.Record({
   text: 'default Item',
 });
 
-export { ItemRecord };
+const ViewItemRecord = Immutable.Record({
+  guid: '0000000000',
+  text: 'default Item',
+  isEdited: false,
+});
+
+export { ItemRecord, ViewItemRecord };

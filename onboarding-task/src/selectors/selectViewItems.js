@@ -1,12 +1,10 @@
 import memoize from 'memoizee';
+import { ViewItemRecord } from '../utils/itemRecord';
 
-const selectViewItems = memoize((state) => {
-  const items = state.itemsOrder.map((item) => {
-    const itemData = state.itemsById.get(item);
-    const itemFlags = state.itemsFlags.get(item);
-    return Object.assign(itemData, itemFlags);
-  });
-  return items;
+const selectViewItem = memoize((state, guid) => {
+  const itemData = state.itemsById.get(guid);
+  const itemFlags = state.itemsFlags.get(guid);
+  return new ViewItemRecord({ guid: itemData.guid, text: itemData.text, isEdited: itemFlags.isEdited });
 });
 
-export { selectViewItems };
+export { selectViewItem };

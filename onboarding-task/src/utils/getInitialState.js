@@ -14,7 +14,7 @@ function getInitialState() {
       [thirdItem.guid]: thirdItem,
     }),
     itemsFlags: Immutable.Map({
-      [firstItem.guid]: { isEdited: false },
+      [firstItem.guid]: { isEdited: true },
       [secondItem.guid]: { isEdited: false },
       [thirdItem.guid]: { isEdited: false },
     }),
