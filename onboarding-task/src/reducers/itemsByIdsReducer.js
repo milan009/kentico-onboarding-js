@@ -8,7 +8,7 @@ import {
 import { ItemRecord } from '../models/ItemRecord';
 import { itemReducer } from './itemReducer';
 
-const itemsReducer = (prevState = new Immutable.Map(), action) => {
+const itemsByIdsReducer = (prevState = new Immutable.Map(), action) => {
   switch (action.type) {
     case CREATE_ITEM_IN_LIST: {
       const newItem = new ItemRecord({ id: action.payload.id, text: action.payload.text, formDisplayed: false });
@@ -26,4 +26,4 @@ const itemsReducer = (prevState = new Immutable.Map(), action) => {
   }
 };
 
-export { itemsReducer };
+export { itemsByIdsReducer };

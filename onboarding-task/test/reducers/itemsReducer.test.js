@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import { ItemRecord } from '../../src/models/ItemRecord';
-import { itemsReducer } from '../../src/reducers/itemsReducer';
+import { itemsByIdsReducer } from '../../src/reducers/itemsByIdsReducer';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import {
   switchFormVisibilityForListItem,
@@ -24,7 +24,7 @@ describe('itemsReducer', () => {
 
   it('adds new item into empty state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const createListItem = createListItemFactory(() => id);
-    const newState = itemsReducer(emptyState, createListItem('test'));
+    const newState = itemsByIdsReducer(emptyState, createListItem('test'));
     const expectedState = Immutable.Map.of(id, falseFormDisplayedRecord);
 
     expect(newState).toEqual(expectedState);
@@ -33,7 +33,7 @@ describe('itemsReducer', () => {
   it('adds new item into state when ' + CREATE_ITEM_IN_LIST + ' action is dispatched', () => {
     const createListItem = createListItemFactory(() => id2);
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const newState = itemsReducer(prevState, createListItem('Testing...'));
+    const newState = itemsByIdsReducer(prevState, createListItem('Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...' }));
 
     expect(newState).toEqual(expectedState);
@@ -44,27 +44,27 @@ describe('itemsReducer', () => {
 
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
     const expectedState = Immutable.Map.of(id, expectedRecord);
-    const nextState = itemsReducer(prevState, updateListItem(id, 'test-2'));
+    const nextState = itemsByIdsReducer(prevState, updateListItem(id, 'test-2'));
 
     expect(nextState).toEqual(expectedState);
   });
 
   it('deletes item with given id when ' + DELETE_ITEM_FROM_LIST + ' action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const nextState = itemsReducer(prevState, deleteListItem(id));
+    const nextState = itemsByIdsReducer(prevState, deleteListItem(id));
 
     expect(nextState).toEqual(emptyState);
   });
 
   it('does nothing when unknown action is dispatched', () => {
     const prevState = Immutable.Map.of(id, trueFormDisplayedRecord);
-    const nextState = itemsReducer(prevState, { type: 'UNKNOWN_ACTION', payload: { id } });
+    const nextState = itemsByIdsReducer(prevState, { type: 'UNKNOWN_ACTION', payload: { id } });
 
     expect(nextState).toEqual(prevState);
   });
 
   it('returns default state when undefined state is passed in', () => {
-    const nextState = itemsReducer(undefined, {});
+    const nextState = itemsByIdsReducer(undefined, {});
 
     expect(nextState).toEqual(emptyState);
   });
