@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
   };
 };
 
-const ListContainer = connect(
+const ListContainer: React.ComponentClass<undefined> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);
