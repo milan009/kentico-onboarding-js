@@ -7,7 +7,7 @@ import {
   DELETE_ITEM_FROM_LIST,
 } from '../constants/actionTypes';
 
-const uiPropsReducer = (prevState = Immutable.Map(), action) => {
+const itemsUiPropsReducer = (prevState = Immutable.Map(), action) => {
   switch (action.type) {
     case CREATE_ITEM_IN_LIST:
       return prevState.set(action.payload.id, new UIPropsRecord());
@@ -23,4 +23,4 @@ const uiPropsReducer = (prevState = Immutable.Map(), action) => {
   }
 };
 
-export { uiPropsReducer };
+export { itemsUiPropsReducer };

@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import { itemsByIdsReducer } from './itemsByIdsReducer';
 import { itemsOrderReducer } from './itemsOrderReducer';
-import { uiPropsReducer } from './uiPropsReducer';
+import { itemsUiPropsReducer } from './itemsUiPropsReducer';
 
 const itemsReducer = combineReducers({
   byId: itemsByIdsReducer,
   orderedIds: itemsOrderReducer,
-  uiPropsById: uiPropsReducer,
+  uiPropsById: itemsUiPropsReducer,
 });
 
 export { itemsReducer };
