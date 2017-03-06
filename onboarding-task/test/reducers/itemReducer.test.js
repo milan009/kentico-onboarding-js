@@ -1,4 +1,4 @@
-import { ItemRecord } from '../../src/models/ItemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord.ts';
 import { itemReducer } from '../../src/reducers/itemsReducers/itemReducer';
 import {
   updateListItem,
