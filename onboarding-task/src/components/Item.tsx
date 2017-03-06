@@ -1,11 +1,15 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
-import {IViewItem} from '../viewModels/ViewItem';
+import { IViewItem } from '../viewModels/ViewItem';
+import { EditForm } from './EditForm';
 
 interface IItemProps {
   item: IViewItem;
   index: number;
-  onListItemClick: (id: string) => void;
+  deleteItem: (id: string) => void;
+  updateItem: (id: string, text: string) => void;
+  startEditingItem: (id: string) => void;
+  stopEditingItem: (id: string) => void;
 }
 
 class Item extends React.PureComponent<IItemProps, undefined> {
@@ -15,24 +19,42 @@ class Item extends React.PureComponent<IItemProps, undefined> {
     item: ImmutablePropTypes.recordOf({
       id: React.PropTypes.string,
       text: React.PropTypes.string,
+      isEdited: React.PropTypes.bool
     }).isRequired,
     index: React.PropTypes.number.isRequired,
-    onListItemClick: React.PropTypes.func.isRequired,
+    deleteItem: React.PropTypes.func.isRequired,
+    updateItem: React.PropTypes.func.isRequired,
+    startEditingItem: React.PropTypes.func.isRequired,
+    stopEditingItem: React.PropTypes.func.isRequired,
   };
 
   constructor(props: IItemProps) {
     super(props);
     this._startEditing = this._startEditing.bind(this);
+    this._getItemToRender = this._getItemToRender.bind(this);
   }
 
   _startEditing() {
-    this.props.onListItemClick(this.props.item.id);
+    this.props.startEditingItem(this.props.item.id);
+  }
+
+  _getItemToRender(item: IViewItem, index: number) {
+    if (item.isEdited) {
+      return (<EditForm
+        item={item}
+        index={index}
+        onSave={this.props.updateItem}
+        onDelete={this.props.deleteItem}
+        onCancel={this.props.stopEditingItem}
+      />);
+    }
+    return <div onClick={this._startEditing}>{`${index + 1}. ${this.props.item.text}`}</div>;
   }
 
   render() {
-    return (
-      <div onClick={this._startEditing}>{`${this.props.index + 1}. ${this.props.item.text}`}</div>
-    );
+    return (<li className="list-group-item">
+      {this._getItemToRender(this.props.item, this.props.index)}
+    </li>);
   }
 }
 

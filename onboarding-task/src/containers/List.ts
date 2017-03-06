@@ -1,8 +1,7 @@
 const { connect } = require('react-redux');
-import {Dispatch} from 'redux';
+import { Dispatch } from 'redux';
 
-import { addItem, deleteItem, updateItem } from '../actions/itemsActionCreators';
-import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators';
+import { addItem} from '../actions/itemsActionCreators';
 import { List } from '../components/List';
 import { getViewItems } from '../selectors/getViewItems';
 import { IAppState } from '../stores/IAppState';
@@ -17,10 +16,6 @@ const mapStateToProps = (state: IAppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
   return {
     addItem: (text: string) => dispatch(addItem(text)),
-    deleteItem: (id: string) => dispatch(deleteItem(id)),
-    updateItem: (id: string, text: string) => dispatch(updateItem(id, text)),
-    startEditingItem: (id: string) => dispatch(startEditItem(id)),
-    stopEditingItem: (id: string) => dispatch(stopEditItem(id)),
   };
 };
 
