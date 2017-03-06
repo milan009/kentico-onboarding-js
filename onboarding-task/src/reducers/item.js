@@ -1,7 +1,7 @@
 import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes.js';
 import { ItemRecord } from '../utils/itemRecord';
 
-const item = (state = ItemRecord({}), action) => {
+const item = (state = new ItemRecord({}), action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return new ItemRecord({

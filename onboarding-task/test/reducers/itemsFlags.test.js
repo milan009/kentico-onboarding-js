@@ -5,7 +5,6 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 
 describe('itemsFlags reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
-
   const firstItem = { isEdited: false };
   const secondItem = { isEdited: true };
   const thirdItem = { isEdited: false };
@@ -14,12 +13,10 @@ describe('itemsFlags reducer', () => {
     '11111': secondItem,
     '22222': thirdItem,
   });
-
   const addItemAction = addItemFactory(() => '12345')('text');
   const deleteItemAction = actions.deleteItem('00000');
   const toggleEditModeAction = actions.toggleEditMode('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
-
 
   it('should return empty list if action is uknown or not provided', () => {
     const actualState = itemsFlags(stateBefore, UNKNOWN_ACTION);
@@ -60,7 +57,5 @@ describe('itemsFlags reducer', () => {
 
     expect(actualState).toEqual(expectedState);
   });
-
-
 });
 

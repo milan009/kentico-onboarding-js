@@ -21,7 +21,7 @@ describe('item reducer', () => {
   it('should return default item record', () => {
     const actualState = item(undefined, UNKNOWN_ACTION);
 
-    expect(actualState).toEqual(ItemRecord({}));
+    expect(actualState).toEqual(new ItemRecord({}));
   });
 
   it('should handle ADD_ITEM action', () => {

@@ -15,7 +15,6 @@ describe('itemsById reducer', () => {
     [thirdItem.guid]: thirdItem,
   });
   const addItemAction = addItemFactory(() => '00000')('text');
-  const toggleEditModeAction = actions.toggleEditMode('00000');
   const deleteItemAction = actions.deleteItem('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
 
@@ -42,8 +41,6 @@ describe('itemsById reducer', () => {
 
     expect(actualState).toEqual(expectedState);
   });
-
-
 
   it('should handle DELETE_ITEM action', () => {
     const expectedState = stateBefore.delete('00000');
