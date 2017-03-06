@@ -4,7 +4,7 @@ import {
   UPDATE_TEXT_OF_ITEM,
   CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
 import { itemReducer } from './itemReducer';
 
 const itemsByIdsReducer = (prevState = new Immutable.Map(), action) => {

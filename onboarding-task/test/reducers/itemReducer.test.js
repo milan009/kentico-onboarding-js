@@ -1,5 +1,5 @@
 import { ItemRecord } from '../../src/models/ItemRecord';
-import { itemReducer } from '../../src/reducers/itemReducer';
+import { itemReducer } from '../../src/reducers/itemsReducers/itemReducer';
 import {
   updateListItem,
 } from '../../src/actionCreators/actionCreators';

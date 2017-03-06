@@ -1,11 +1,11 @@
 import Immutable from 'immutable';
 
-import { ItemUiPropsRecord } from '../models/ItemUiPropsRecord';
+import { ItemUiPropsRecord } from '../../models/ItemUiPropsRecord';
 import {
   CREATE_ITEM_IN_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
   DELETE_ITEM_FROM_LIST,
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
 
 const itemsUiPropsReducer = (prevState = Immutable.Map(), action) => {
   switch (action.type) {

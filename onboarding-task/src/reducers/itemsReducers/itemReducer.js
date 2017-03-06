@@ -1,8 +1,8 @@
 import {
   UPDATE_TEXT_OF_ITEM,
   CREATE_ITEM_IN_LIST,
-} from '../constants/actionTypes';
-import { ItemRecord } from '../models/ItemRecord';
+} from '../../constants/actionTypes';
+import { ItemRecord } from '../../models/ItemRecord';
 
 const itemReducer = (prevState = new ItemRecord(), action) => {
   switch (action.type) {

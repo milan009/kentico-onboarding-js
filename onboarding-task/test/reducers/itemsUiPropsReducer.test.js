@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import { itemsUiPropsReducer } from '../../src/reducers/itemsUiPropsReducer';
+import { itemsUiPropsReducer } from '../../src/reducers/itemsReducers/itemsUiPropsReducer';
 import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators';

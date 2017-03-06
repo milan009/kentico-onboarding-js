@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import { ItemRecord } from '../../src/models/ItemRecord';
-import { itemsByIdsReducer } from '../../src/reducers/itemsByIdsReducer';
+import { itemsByIdsReducer } from '../../src/reducers/itemsReducers/itemsByIdsReducer';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import {
   switchFormVisibilityForListItem,
