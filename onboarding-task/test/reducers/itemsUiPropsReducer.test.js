@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import { itemsUiPropsReducer } from '../../src/reducers/itemsReducers/itemsUiPropsReducer';
-import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord';
+import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord.ts';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
 import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators';
 import { CREATE_ITEM_IN_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, DELETE_ITEM_FROM_LIST } from '../../src/constants/actionTypes';
