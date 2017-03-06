@@ -8,7 +8,7 @@ import {
 } from '../../constants/actionTypes';
 import { IAction } from '../../interfaces/IAction';
 
-const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), action: IAction) => {
+const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), action: IAction): Map<string, ItemUiPropsRecord> => {
   switch (action.type) {
     case CREATE_ITEM_IN_LIST:
       return prevState.set(action.payload.id, new ItemUiPropsRecord());
