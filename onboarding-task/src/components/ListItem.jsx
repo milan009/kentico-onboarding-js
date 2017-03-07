@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
-import { ListItemFormContainer } from '../containers/ListItemFormContainer';
-import { ListItemLabel } from './ListItemLabel';
+import { ListItemFormContainer } from '../containers/ListItemFormContainer.js';
+import { ListItemLabel } from './ListItemLabel.jsx';
 
 class ListItem extends PureComponent {
 

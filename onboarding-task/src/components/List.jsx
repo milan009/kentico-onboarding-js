@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { ListItemContainer } from '../containers/ListItemContainer';
-import { CreateListItem } from './CreateListItem';
+import { CreateListItem } from './CreateListItem.tsx';
 
 class List extends PureComponent {
 
