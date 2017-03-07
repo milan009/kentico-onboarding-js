@@ -15,7 +15,7 @@ import {
   DELETE_ITEM_FROM_LIST,
 } from '../../src/constants/actionTypes.ts';
 
-describe('itemsReducer', () => {
+describe('itemsByIdsReducer', () => {
   const emptyState = new Immutable.Map();
   const id = 'test-id';
   const id2 = 'test-id-2';
