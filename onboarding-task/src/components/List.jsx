@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListItem } from '../containers/ListItem';
 
-import { AddItem } from './AddItem.jsx';
+import { AddItem } from './AddItem.tsx';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class List extends Component {
@@ -29,7 +29,7 @@ class List extends Component {
           <table className="table table-bordered">
             <tbody>
               {items.map((guid, index) =>
-                <ListItem guid={guid} key={guid} index={index} />
+                <ListItem guid={guid} key={guid} index={index + 1} />
               )}
               <AddItem onItemAdd={this._addItem} />
             </tbody>

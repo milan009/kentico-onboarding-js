@@ -4,21 +4,21 @@ import { addItemFactory } from './actionDependencies/addItemFactory';
 
 export const addItem = addItemFactory(generateGuid);
 
-export const toggleEditMode = (guid: string) => ({
+export const toggleEditMode = (guid: string) : IItemAction => ({
   type: TOGGLE_EDIT_MODE,
   payload: {
     guid,
   },
 });
 
-export const deleteItem = (guid: string) => ({
+export const deleteItem = (guid: string) : IItemAction => ({
   type: DELETE_ITEM,
   payload: {
     guid,
   },
 });
 
-export const updateItemText = (guid: string, text: string) => ({
+export const updateItemText = (guid: string, text: string) : IItemAction => ({
   type: UPDATE_ITEM_TEXT,
   payload: {
     text,

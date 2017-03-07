@@ -1,7 +1,7 @@
-import { item } from '../../src/reducers/item';
+import { item } from '../../src/reducers/item.ts';
 import { ItemRecord } from '../../src/utils/itemRecord';
-import * as actions from '../../src/actions/actionCreators';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
+import * as actions from '../../src/actions/actionCreators.ts';
+import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory.ts';
 
 const initialState = new ItemRecord({
   guid: '00000',

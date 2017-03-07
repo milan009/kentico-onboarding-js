@@ -31,7 +31,7 @@ describe('itemsFlags reducer', () => {
   });
 
   it('should handle ADD_ITEM action', () => {
-    const expectedState = stateBefore.set('12345', false);
+    const expectedState = stateBefore.set('12345', { isEdited: false });
     const actualState = itemsFlags(stateBefore, addItemAction);
 
     expect(actualState).toEqual(expectedState);

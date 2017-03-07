@@ -1,4 +1,5 @@
 import { ADD_ITEM } from '../actionTypes';
+import {IItemAction} from "../actionCreators";
 
 const addItem = (text: string, generateGuid: Function) => ({
   type: ADD_ITEM,
@@ -9,5 +10,5 @@ const addItem = (text: string, generateGuid: Function) => ({
 });
 
 export function addItemFactory(generateGuid: Function) {
-  return (text: string) => addItem(text, generateGuid);
+  return (text: string): IItemAction => addItem(text, generateGuid);
 }

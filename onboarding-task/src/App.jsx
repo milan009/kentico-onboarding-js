@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { List } from './containers/List';
 import { itemsById } from './reducers/itemsById.ts';
 import { itemsFlags } from './reducers/itemsFlags.ts';
-import { itemsOrder } from './reducers/itemsOrder';
+import { itemsOrder } from './reducers/itemsOrder.ts';
 
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState';
