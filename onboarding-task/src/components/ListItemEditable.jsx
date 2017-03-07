@@ -1,34 +1,38 @@
 import React, { Component, PropTypes } from 'react';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
-    item: PropTypes.instanceOf(Immutable.Map).isRequired,
+    item: ImmutablePropTypes.recordOf({
+      guid: React.PropTypes.string.isRequired,
+      text: React.PropTypes.string.isRequired,
+    }),
+    onUpdateText: PropTypes.func.isRequired,
+    onToggleEditMode: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.state = { text: props.item.get('text') };
+    this.state = { text: props.item.text };
+
     this._onCancel = this._onCancel.bind(this);
-    this._onDelete = this._onDelete.bind(this);
     this._onUpdate = this._onUpdate.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
+    this._onDelete = this._onDelete.bind(this);
   }
 
   _onCancel() {
-    this.props.onCancel(this.props.item.get('guid'));
+    this.props.onToggleEditMode(this.props.item.guid);
   }
 
   _onUpdate() {
-    this.props.onSave(this.props.item.get('guid'), this.state.text);
+    this.props.onUpdateText(this.props.item.guid, this.state.text);
   }
 
   _onDelete() {
-    this.props.onDelete(this.props.item.get('guid'));
+    this.props.onDelete(this.props.item.guid);
   }
 
   _onInputChange(e) {
@@ -55,4 +59,4 @@ class ListItemEditable extends Component {
   }
 }
 
-export default ListItemEditable;
+export { ListItemEditable };

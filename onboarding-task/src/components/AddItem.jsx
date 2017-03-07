@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
-class NewItem extends Component {
-  static displayName = 'NewItem';
+class AddItem extends Component {
+  static displayName = 'AddItem';
   static propTypes = {
-    addItem: PropTypes.func.isRequired,
+    onItemAdd: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = { text: '' };
+
     this._onInputChange = this._onInputChange.bind(this);
     this._createNewItem = this._createNewItem.bind(this);
   }
@@ -18,7 +19,7 @@ class NewItem extends Component {
   }
 
   _createNewItem() {
-    this.props.addItem(this.state.text);
+    this.props.onItemAdd(this.state.text);
     this.setState({ text: '' });
   }
 
@@ -40,4 +41,5 @@ class NewItem extends Component {
   }
 }
 
-export default NewItem;
+export { AddItem };
+
