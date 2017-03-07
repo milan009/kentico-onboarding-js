@@ -1,25 +1,50 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-const ListItemForm = (props) => (
-  <form className="form-inline" onSubmit={props.onFormSubmit}>
-    <input
-      className="form-control"
-      value={props.inputValue}
-      onChange={props.onInputChange}
-    />
-    <button type="submit" className="btn btn-primary"> Change</button>
-    <button type="button" className="btn btn-default" onClick={props.onFormCancelClick}> Cancel</button>
-    <button type="button" className="btn btn-danger" onClick={props.onFormDeleteClick}> Delete</button>
-  </form>
-);
+class ListItemForm extends PureComponent {
 
+  static propTypes = {
+    index: React.PropTypes.number.isRequired,
+    inputValue: React.PropTypes.string.isRequired,
+    onFormSubmit: React.PropTypes.func.isRequired,
+    onFormCancelClick: React.PropTypes.func.isRequired,
+    onFormDeleteClick: React.PropTypes.func.isRequired,
+  };
 
-ListItemForm.propTypes = {
-  inputValue: React.PropTypes.string.isRequired,
-  onFormSubmit: React.PropTypes.func.isRequired,
-  onFormCancelClick: React.PropTypes.func.isRequired,
-  onFormDeleteClick: React.PropTypes.func.isRequired,
-  onInputChange: React.PropTypes.func.isRequired,
-};
+  constructor(props) {
+    super(props);
 
-export default ListItemForm;
+    this.state = {
+      input: props.inputValue,
+    };
+
+    this._onChange = this._onChange.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
+  }
+
+  _onChange(event) {
+    this.setState({ input: event.target.value });
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    this.props.onFormSubmit(this.state.input);
+  }
+
+  render() {
+    return (
+      <form className="form-inline" onSubmit={this._onSubmit}>
+        {this.props.index}. <input
+          type="text"
+          className="form-control"
+          value={this.state.input}
+          onChange={this._onChange}
+        />
+        <button type="submit" className="btn btn-primary"> Change</button>
+        <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
+      </form>
+    );
+  }
+}
+
+export { ListItemForm };

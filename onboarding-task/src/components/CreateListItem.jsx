@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class CreateListItem extends Component {
+class CreateListItem extends PureComponent {
 
   static propTypes = {
     onListItemAdd: React.PropTypes.func.isRequired,
@@ -36,4 +36,4 @@ class CreateListItem extends Component {
   }
 }
 
-export default CreateListItem;
+export { CreateListItem };
