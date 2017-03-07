@@ -54,6 +54,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "@types/memoizee": "^0.4.0",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
     "@types/react-redux": "^4.4.37",
