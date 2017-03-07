@@ -14,12 +14,13 @@ You won't be added as a contributor to this repository. You have to fork it to o
 3. In git bash:
  - `git clone http://github.com/your-login/kentico-onboarding-js` -- will init a local repo tracking your forked origin
  - `cd kentico-onboarding-js` -- changes directory to cloned repo
- - `git remote add --track master upstream git://github.com/suzii/kentico-onboarding-js` -- adds the original repository you forked from as a remote named 'upstream' so that you can receive updates by merging from it
- - `git fetch upstream` -- receive latest code
+ - `git remote add upstream git://github.com/suzii/kentico-onboarding-js` -- adds the original repository you forked from as a remote named 'upstream' so that you can receive updates by merging from it
+ - `git fetch upstream` -- receive latest code from the upstream's mater 
  - `git merge upstream/master` -- merge it to your own master
- - you now have the latest upstream code in your local master branch
- - `git checkout -b develop` -- creates and checkouts new branch named `develop` where you can continously work on the assignment. You should keep this branch one-to-one with the upstream repository branch `solutions/yourlogin`
- - `git checkout -b features/task-1` -- crates and checkouts new branch named `features/task-1` based on develop. Commit all your progress on Task 1 to this branch.
+ - You now have the latest upstream code in your local master branch
+ - `git checkout -b develop upstream/solutions/<your-login>` -- creates and checkouts new branch named `develop` where you can continuously work on the assignment.
+ - You should keep this branch one-to-one with the upstream repository branch `solutions/<your-login>;` 
+ - `git checkout -b feature/task-0` -- crates and checkouts new branch named `feature/task-0` based on `develop`. Commit all your progress on Task 0 to this branch.
  - Try to keep your `master` up to date with `upstream/master` and propagate the changes to all your branches.
  
 ### Pull Requests (PR)
@@ -57,10 +58,14 @@ ESlint and TSlint are already set-up for you, so you will see all the errors and
  - JavaScript file names are `lowerCamelCase`
  - one React component per file, name is `UpperCamelCase`, and has `.jsx` extension
  - use `'single quotes'` instead of `"double quotes"`
- - more Draft-specific coding rules are specified in https://kentico.atlassian.net/wiki/display/KA/04b+-+JS+Draft+Conventions+--+DRAFT
+ - more Draft-specific coding rules are specified in https://kentico.atlassian.net/wiki/display/KC/Javascript+and+Typescript+Conventions
 
 ## Task 0
-In order to update your upstream solutions branch with the changes that might have happend on upstream master: After cloning the repository, create `develop` and then `feature/task-0` branch. Submit new Pull request to your solutions branch from task-0 branch.
+Update your upstream solutions branch with the changes that might have happened on upstream master: After cloning your repository, create `develop` and then `feature/task-0` branch (as described above).
+Merge your `master` branch - that already includes all changes from `upstream/master` - into task-0 branch and submit new Pull request to your solutions branch from task-0 branch.
+
+When your pull request gets merged into `upstream/solutions/<your-login>`, fetch new commits and merge them into your `develop` branch. Preferably use `--no-ff` option to enforce a merge commit, so it is easy to spot in the `develop` branch where a task starts and ends.
+You can then delete the `feature/task-0` branch and create a new one for the following task (`feature/task-1`).
 
 ## Task 1
 According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
@@ -81,7 +86,7 @@ Refactor the application to use ReduxJS.
  - Create **`actionTypes.js`** where you describe all possible actions (as string constants) that can modify state of the app (e.g: "ITEM_CREATED").
  - Create **action creators** (helper functions) for all the action types you defined.
  - Move all the state of top level component (`List.jsx`) to Redux store (state in Redux is described by reducers; use reducer composition if possible).
-  - Write jasmine **unit tests** for your Redux logic (used TDD to write tests for actionCreators and reducers combined).
+  - Write jest **unit tests** for your Redux logic (used TDD to write tests for actionCreators and reducers combined).
   - Implement **reducers** that react to dispatched actions and change the state accordingly.
  - In index.js:
   - Create instance of Redux store, pass root reducer and use logging middleware.
@@ -89,7 +94,8 @@ Refactor the application to use ReduxJS.
  - Refactor `List.jsx` so that it receives the app state from Redux store as its props and passes it down to its child components. (`connect()` + `mapStateToProps()`)
  - Child components should dispatch actions that describe changes of the application. (`connect()` + `mapDispatchToProps()`)
 
-**IMPORTANT:** preserve Immutability!
+**IMPORTANT:** preserve Immutability in store state!
+(Any view models you will need no not have to be instances of Immutable, just use POJO.)
 
 ## [optional] Task 4
-Rewrite the app to Typescript.
+In this task you will use TypeScript to make you app strongly typed. Mainly introduce interfaces for all Models and ViewModels in your app. Use them in reducers. Create a simple interface for action with payload of type `any` and use it for all actions. Pick one component and rewrite it entirely to TypeScript - have a look at Draft coding conventions on wiki to get an idea how to start. Tests remain written in JS.
