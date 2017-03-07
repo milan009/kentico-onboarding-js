@@ -1,16 +1,22 @@
-import React, { PureComponent } from 'react';
+import React = require('react');
 
-class ListItemForm extends PureComponent {
+interface IListItemFormProps {
+  index: number;
+  inputValue: string;
+  onFormSubmit: (input: string) => void;
+  onFormCancelClick: () => void;
+  onFormDeleteClick: () => void;
+}
 
-  static propTypes = {
-    index: React.PropTypes.number.isRequired,
-    inputValue: React.PropTypes.string.isRequired,
-    onFormSubmit: React.PropTypes.func.isRequired,
-    onFormCancelClick: React.PropTypes.func.isRequired,
-    onFormDeleteClick: React.PropTypes.func.isRequired,
-  };
+interface IListItemFormState {
+  input: string;
+}
 
-  constructor(props) {
+class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemFormState> {
+
+  static displayName = 'ListItemForm';
+
+  constructor(props: IListItemFormProps) {
     super(props);
 
     this.state = {
@@ -21,11 +27,11 @@ class ListItemForm extends PureComponent {
     this._onSubmit = this._onSubmit.bind(this);
   }
 
-  _onChange(event) {
+  _onChange(event: any) {
     this.setState({ input: event.target.value });
   }
 
-  _onSubmit(event) {
+  _onSubmit(event: any) {
     event.preventDefault();
     this.props.onFormSubmit(this.state.input);
   }
