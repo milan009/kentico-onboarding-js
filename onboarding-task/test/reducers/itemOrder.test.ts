@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 import { itemOrder } from '../../src/reducers/itemOrder.ts';
-import { ITEM_ORDER_PUSH, ITEM_ORDER_DELETE } from '../../src/actions/actionTypes';
+import { itemOrderPush, itemOrderDelete } from '../../src/actions/itemOrderActionCreators.ts';
 
 describe('itemOrder', () => {
   it('should return initial state', () => {
@@ -16,7 +16,7 @@ describe('itemOrder', () => {
     const expectedItemOrder = List(['uuid1', 'uuid2']);
     const itemOrderBefore = List(['uuid1']);
 
-    const itemOrderAfter = itemOrder(itemOrderBefore, { type: ITEM_ORDER_PUSH, payload: { id: 'uuid2'} });
+    const itemOrderAfter = itemOrder(itemOrderBefore, itemOrderPush('uuid2'));
 
     expect(itemOrderAfter).toEqual(expectedItemOrder);
   });
@@ -25,7 +25,7 @@ describe('itemOrder', () => {
     const expectedItemOrder = List(['uuid1', 'uuid3']);
     const itemOrderBefore = List(['uuid1', 'uuid2', 'uuid3']);
 
-    const itemOrderAfter = itemOrder(itemOrderBefore, { type: ITEM_ORDER_DELETE, payload: { id: 'uuid2'} });
+    const itemOrderAfter = itemOrder(itemOrderBefore, itemOrderDelete('uuid2'));
 
     expect(itemOrderAfter).toEqual(expectedItemOrder);
   });
