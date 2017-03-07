@@ -14,7 +14,7 @@ describe('itemReducer ', () => {
   const text = 'Testing...';
 
   it(`returns new ItemRecord when ${CREATE_ITEM_IN_LIST} action is dispatched`, () => {
-    const expectedState = new ItemRecord({ id, text, formDisplayed: false });
+    const expectedState = new ItemRecord({ id, text });
     const createListItem = createListItemFactory(() => id);
     const nextState = itemReducer(undefined, createListItem(text));
 
@@ -30,7 +30,7 @@ describe('itemReducer ', () => {
   });
 
   it('does nothing when unknown action is dispatched', () => {
-    const prevState = new ItemRecord({ id, text, formDisplayed: true });
+    const prevState = new ItemRecord({ id, text });
     const nextState = itemReducer(prevState, { type: 'UNKNOWN_ACTION', payload: { id } });
 
     expect(nextState).toEqual(prevState);
