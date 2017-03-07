@@ -28,7 +28,9 @@ class List extends Component {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <table className="table table-bordered">
             <tbody>
-            {items.map((guid) => <ListItem guid={guid} key={guid} />)}
+              {items.map((guid, index) =>
+                <ListItem guid={guid} key={guid} index={index} />
+              )}
               <AddItem onItemAdd={this._addItem} />
             </tbody>
           </table>

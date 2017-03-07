@@ -8,6 +8,7 @@ class ListItemStatic extends Component {
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }),
+    index: PropTypes.number.isRequired,
     onToggleEditMode: PropTypes.func.isRequired,
   };
 
@@ -25,7 +26,7 @@ class ListItemStatic extends Component {
     return (
       <tr>
         <td>
-          <div onClick={this._onClick}>{this.props.item.text}</div>
+          <div onClick={this._onClick}>{this.props.index}. {this.props.item.text}</div>
         </td>
       </tr>
     );

@@ -1,5 +1,6 @@
-import { ADD_ITEM, DELETE_ITEM } from '../actions/actionTypes.js';
-import Immutable from 'immutable';
+import { ADD_ITEM, DELETE_ITEM } from '../actions/actionTypes.ts';
+import * as Immutable from 'immutable';
+
 
 const list = Immutable.List();
 const itemsOrder = (state = list, action) => {

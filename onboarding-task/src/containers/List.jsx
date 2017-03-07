@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { List as ListComponent } from '../components/List';
-import { addItem } from '../actions/actionCreators.js';
+import { addItem } from '../actions/actionCreators.ts';
 
 const mapStateToProps = (state) => {
   return {

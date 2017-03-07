@@ -11,6 +11,7 @@ class ListItem extends Component {
       text: React.PropTypes.string.isRequired,
       isEdited: React.PropTypes.bool.isRequired,
     }),
+    index: PropTypes.number.isRequired,
     onToggleEditMode: PropTypes.func.isRequired,
     onUpdateText: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -45,11 +46,13 @@ class ListItem extends Component {
         onUpdateText={this._saveItem}
         onToggleEditMode={this._toggleEditMode}
         onDelete={this._onDelete}
+        index={this.props.index}
       />)
       : (<ListItemStatic
         key={item.guid}
         item={item}
         onToggleEditMode={this._toggleEditMode}
+        index={this.props.index}
       />);
   }
 }
