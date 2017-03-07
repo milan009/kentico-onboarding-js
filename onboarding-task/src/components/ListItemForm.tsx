@@ -1,11 +1,13 @@
 import React = require('react');
 
+import { IAction } from '../interfaces/IAction';
+
 interface IListItemFormProps {
   index: number;
   inputValue: string;
-  onFormSubmit: (input: string) => void;
-  onFormCancelClick: () => void;
-  onFormDeleteClick: () => void;
+  onFormSubmit: (input: string) => IAction;
+  onFormCancelClick: () => IAction;
+  onFormDeleteClick: () => IAction;
 }
 
 interface IListItemFormState {

@@ -56,6 +56,8 @@
   "dependencies": {
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
+    "@types/react-redux": "^4.4.37",
+    "@types/redux": "^3.6.0",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "memoizee": "^0.4.3",
