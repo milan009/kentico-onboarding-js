@@ -1,7 +1,7 @@
-import { IItem } from './IItem';
+import { Item } from './IItem';
 
 interface IItems {
-  [id: string]: IItem;
+  [id: string]: Item;
 }
 
 export { IItems };

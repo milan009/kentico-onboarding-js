@@ -1,15 +1,17 @@
 import * as React from 'react';
+import * as Immutable from 'immutable';
 
 import { ListItem } from './ListItem';
 import { AddItem } from './AddItem';
-import { IItems } from '../models/IItems';
 import { generateGuid } from '../utils/generateGuid';
+import { Item } from '../models/IItem';
 
 interface IListProps {
 }
 
 interface IListState {
-  items: IItems;
+  items: Immutable.Map<string,Item> ;
+  itemsOrder: Immutable.List<string>;
 }
 
 class List extends React.PureComponent<IListProps, IListState> {
@@ -17,44 +19,35 @@ class List extends React.PureComponent<IListProps, IListState> {
 
   constructor(props: IListProps) {
     super(props);
-    this.state = { items: {} };
+    this.state = { items: Immutable.Map<string,Item>(), itemsOrder: Immutable.List<string>() };
   }
 
   _addItem = (value: string) => {
-    const newItem = {
+    const newItem: Item = new Item({
         id: generateGuid(),
         value
-      };
-    const items = {
-      ...this.state.items,
-      [newItem.id]: newItem
-    };
-    this.setState({ items });
+      });
+    this.setState({ items: this.state.items.set(newItem.id, newItem), itemsOrder: this.state.itemsOrder.push(newItem.id) });
   };
 
   _editItemValue = (id: string, value: string) => {
-    const editedItem = {
-        id,
-        value
-      };
-    const items = {
-        ...this.state.items,
-        [id]: editedItem
-      };
-    this.setState({ items });
+    const editedItem = new Item({
+      id,
+      value
+    });
+    this.setState({ items: this.state.items.update(id, () => editedItem) })
   };
 
   _deleteItem = (deletedItemID: string) => {
-    const items = { ...this.state.items };
-    delete items[deletedItemID];
-    this.setState({ items });
+    const itemIndex = this.state.itemsOrder.indexOf(deletedItemID);
+    this.setState({ items: this.state.items.delete(deletedItemID), itemsOrder: this.state.itemsOrder.delete(itemIndex)});
   };
 
   _renderListItems = () => {
-    return Object.keys(this.state.items).map((id, index) =>
+    return this.state.itemsOrder.map((id: string, index: number) =>
       <li className="list-group-item" key={id}>
         <ListItem
-          item={this.state.items[id]}
+          item={this.state.items.get(id)}
           index={index + 1}
           onItemValueEdit={this._editItemValue}
           onDelete={this._deleteItem}
