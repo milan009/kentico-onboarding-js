@@ -2,7 +2,7 @@ import './sticky-footer.css';
 import React, { Component } from 'react';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { List } from './containers/List';
+import { List } from './containers/List.tsx';
 import { itemsById } from './reducers/itemsById.ts';
 import { itemsFlags } from './reducers/itemsFlags.ts';
 import { itemsOrder } from './reducers/itemsOrder.ts';
