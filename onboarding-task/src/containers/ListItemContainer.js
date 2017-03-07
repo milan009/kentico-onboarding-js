@@ -31,4 +31,4 @@ const ListItemContainer = connect(
   mapDispatchToProps,
 )(ListItem);
 
-export { ListItemContainer };
+export { ListItemContainer, memoizedListItemViewModel as getMemoizedListItemViewModel };
