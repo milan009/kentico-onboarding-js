@@ -7,9 +7,9 @@ interface ITsComponentProps {
 class TsComponent extends React.Component<ITsComponentProps, undefined> {
   render() {
     return (
-      <h1 style={{color: 'red'}}>
-        Hello from <b>{this.props.name}</b> TypeScript TypeScript component.
-      </h1>
+      <h3 className="text-danger" title="https://lingojam.com/FancyTextGenerator">
+        Ⓗⓔⓛⓛⓞ ⓕⓡⓞⓜ <b>{this.props.name}</b> [̲̅T][̲̅y][̲̅p][̲̅e][̲̅S][̲̅c][̲̅r][̲̅i][̲̅p][̲̅t] ⓒⓞⓜⓟⓞⓝⓔⓝⓣ
+      </h3>
     );
   }
 }
