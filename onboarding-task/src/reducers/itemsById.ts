@@ -1,10 +1,11 @@
 import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { item } from './item';
-import { IItemAction } from '../actions/actionCreators';
+import { IItemAction } from '../interfaces/IItemAction';
 import { Map } from 'immutable';
+import { IItemRecord } from '../interfaces/IItem';
 
-const map: Map<any, any> = Map();
-const itemsById = (state: Map<any, any> = map, action: IItemAction) => {
+const map: Map<string, IItemRecord> = Map<string, IItemRecord>();
+function itemsById (state: Map<string, IItemRecord> = map, action: IItemAction): Map<string, IItemRecord> {
   switch (action.type) {
     case ADD_ITEM:
       return state.set(action.payload.guid, item(undefined, action));
@@ -15,6 +16,6 @@ const itemsById = (state: Map<any, any> = map, action: IItemAction) => {
       return state.delete(action.payload.guid);
     default: return state;
   }
-};
+}
 
 export { itemsById };

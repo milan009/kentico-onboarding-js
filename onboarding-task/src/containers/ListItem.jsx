@@ -4,19 +4,19 @@ import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCre
 import memoize from 'memoizee';
 import { ViewItemRecord } from '../utils/itemRecord';
 
-export const viewItem = (itemData, itemFlags) => new ViewItemRecord({
+export const selectViewItem = (itemData, itemFlags) => new ViewItemRecord({
   guid: itemData.guid,
   text: itemData.text,
   isEdited: itemFlags.isEdited,
 });
-const selectViewItem = memoize(viewItem);
+const memoizedSelectViewItem = memoize(selectViewItem);
 
 const mapStateToProps = (state, ownProps) => {
   const itemData = state.itemsById.get(ownProps.guid);
   const itemFlags = state.itemsFlags.get(ownProps.guid);
 
   return {
-    item: selectViewItem(itemData, itemFlags),
+    item: memoizedSelectViewItem(itemData, itemFlags),
   };
 };
 

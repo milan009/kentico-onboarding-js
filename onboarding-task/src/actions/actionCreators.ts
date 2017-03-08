@@ -1,6 +1,7 @@
 import { generateGuid } from '../utils/generateGuid.js';
 import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM_TEXT } from './actionTypes';
 import { addItemFactory } from './actionDependencies/addItemFactory';
+import { IItemAction } from '../interfaces/IItemAction';
 
 export const addItem = addItemFactory(generateGuid);
 
@@ -26,12 +27,3 @@ export const updateItemText = (guid: string, text: string) : IItemAction => ({
   },
 });
 
-export interface IItemAction {
-  type: string;
-  payload?: IPayload | any;
-
-}
-
-export interface IPayload {
-  guid?: string;
-}

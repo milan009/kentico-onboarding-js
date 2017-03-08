@@ -1,8 +1,9 @@
 import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { ItemRecord } from '../utils/itemRecord';
-import { IItemAction } from '../actions/actionCreators';
+import { IItemAction } from '../interfaces/IItemAction';
+import { IItemRecord } from '../interfaces/IItem';
 
-const item: Function = (state = new ItemRecord({}), action: IItemAction) => {
+function item (state = new ItemRecord({}), action: IItemAction): IItemRecord {
   switch (action.type) {
     case ADD_ITEM:
       return new ItemRecord({
@@ -14,6 +15,6 @@ const item: Function = (state = new ItemRecord({}), action: IItemAction) => {
     default:
       return state;
   }
-};
+}
 
 export { item };

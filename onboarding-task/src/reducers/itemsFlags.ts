@@ -1,10 +1,11 @@
 import { ADD_ITEM, DELETE_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import * as Immutable from 'immutable';
-import { IItemAction } from '../actions/actionCreators';
+import { IItemAction } from '../interfaces/IItemAction';
 import { Map } from 'immutable';
+import { IItemFlags } from '../interfaces/IItemFlags';
 
-const map: Map<any, any> = Immutable.Map();
-const itemsFlags = (state: Map<string, any> = map, action: IItemAction) => {
+const map: Map<string, IItemFlags> = Immutable.Map<string, IItemFlags>();
+function itemsFlags (state: Map<string, IItemFlags> = map, action: IItemAction): Map<string, IItemFlags> {
   switch (action.type) {
     case ADD_ITEM:
       return state.set(action.payload.guid, { isEdited: false });
@@ -16,8 +17,6 @@ const itemsFlags = (state: Map<string, any> = map, action: IItemAction) => {
     default:
       return state;
   }
-};
-
-
+}
 
 export { itemsFlags };
