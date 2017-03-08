@@ -12,10 +12,7 @@ interface IListItemProps {
   onViewChange: (index: number) => void;
 }
 
-interface IListItemState {
-}
-
-class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
+class ListItem extends React.PureComponent<IListItemProps, undefined> {
   static displayName = 'ListItem';
 
   static propTypes = {
@@ -31,13 +28,13 @@ class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
     super(props);
   }
 
-  _changeView = () => {
+  _toggleViewMode = () => {
     this.props.onViewChange(this.props.index);
   };
 
   _saveValue = (value: string) => {
     this.props.onItemValueEdit(this.props.item.id, value);
-    this._changeView();
+    this._toggleViewMode();
   };
 
   _deleteItem = () => {
@@ -53,11 +50,11 @@ class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
           index={this.props.index}
           onEdit={this._saveValue}
           onDelete={this._deleteItem}
-          onCancel={this._changeView}
+          onCancel={this._toggleViewMode}
         />);
     }
     return (
-      <div onClick={this._changeView}>
+      <div onClick={this._toggleViewMode}>
         {this.props.index + 1}. {value}
       </div>
     );
