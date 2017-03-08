@@ -1,4 +1,4 @@
-import {IItemAction} from '../interfaces/IItemAction';
+import { IItemAction } from '../interfaces/IItemAction';
 const { connect } = require('react-redux');
 import { List as ListComponent } from '../components/List';
 import { addItem } from '../actions/actionCreators';
