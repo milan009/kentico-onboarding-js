@@ -1,3 +1,4 @@
+import {IItemAction} from '../interfaces/IItemAction';
 const { connect } = require('react-redux');
 import { List as ListComponent } from '../components/List';
 import { addItem } from '../actions/actionCreators';
@@ -9,7 +10,7 @@ const mapStateToProps = (state: IListState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: (itemAction: IItemAction) => IItemAction) => {
   return {
     onAddItem: (text: string) => dispatch(addItem(text)),
   };
