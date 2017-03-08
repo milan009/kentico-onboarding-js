@@ -20,7 +20,7 @@ type DispatchType = (action: IAction) => IAction;
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: IOwnProps) => {
   return {
-    onFormSubmit: (text: any) => {
+    onFormSubmit: (text: string) => {
       dispatch(updateListItem(ownProps.item.id, text));
       dispatch(switchFormVisibilityForListItem(ownProps.item.id));
     },
