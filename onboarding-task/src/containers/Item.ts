@@ -1,16 +1,23 @@
-import {IViewItem} from '../viewModels/ViewItem';
 const { connect } = require('react-redux');
-import { Item } from '../components/Item';
 import { Dispatch } from 'redux';
 
+import { IAppState } from '../stores/IAppState';
+import { Item } from '../components/Item';
 import { deleteItem, updateItem } from '../actions/itemsActionCreators';
 import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators';
 import { IAction } from '../actions/IAction';
+import { selectViewItem } from '../selectors/selectViewItem';
 
 interface IItemContainerProps {
-  item: IViewItem;
+  id: string;
   index: number;
 }
+
+const mapStateToProps = (state: IAppState, ownProps: IItemContainerProps) => {
+  return {
+    item: selectViewItem(state, ownProps.id),
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
   return {
@@ -22,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
 };
 
 const ItemContainer: React.ComponentClass<IItemContainerProps> = connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(Item);
 

@@ -3,13 +3,12 @@ import { Dispatch } from 'redux';
 
 import { addItem} from '../actions/itemsActionCreators';
 import { List } from '../components/List';
-import { getViewItems } from '../selectors/getViewItems';
 import { IAppState } from '../stores/IAppState';
 import { IAction } from '../actions/IAction';
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    list: getViewItems(state),
+    list: state.itemOrder,
   };
 };
 
