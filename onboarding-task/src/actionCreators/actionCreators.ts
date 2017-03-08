@@ -5,20 +5,11 @@ import {
 } from '../constants/actionTypes';
 import { createListItemFactory } from './createListItemFactory';
 import { createGuid } from '../utils/guidHelper';
-
-interface IActionWithIdAndText {
-  type: string;
-  payload: { id: string; text: string };
-}
-
-interface IActionWithId {
-  type: string;
-  payload: { id: string };
-}
+import { IAction } from '../interfaces/IAction';
 
 export const createListItem = createListItemFactory(createGuid);
 
-export const switchFormVisibilityForListItem = (id: string): IActionWithId => {
+export const switchFormVisibilityForListItem = (id: string): IAction => {
   return {
     type: SWITCH_FORM_VISIBILITY_FOR_ITEM,
     payload: {
@@ -27,7 +18,7 @@ export const switchFormVisibilityForListItem = (id: string): IActionWithId => {
   };
 };
 
-export const updateListItem = (id: string, text: string): IActionWithIdAndText => {
+export const updateListItem = (id: string, text: string): IAction => {
   return {
     type: UPDATE_TEXT_OF_ITEM,
     payload: {
@@ -37,7 +28,7 @@ export const updateListItem = (id: string, text: string): IActionWithIdAndText =
   };
 };
 
-export const deleteListItem = (id: string): IActionWithId => {
+export const deleteListItem = (id: string): IAction => {
   return {
     type: DELETE_ITEM_FROM_LIST,
     payload: {

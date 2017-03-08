@@ -1,15 +1,9 @@
 import { CREATE_ITEM_IN_LIST } from '../constants/actionTypes';
+import { IAction } from '../interfaces/IAction';
 
-interface ICreateListItemAction {
-  type: string;
-  payload: { text: string; id: string };
-}
+type ICreateGuid = () => string;
 
-interface ICreateGuid {
-  (): string;
-}
-
-const createListItem = (createGuid: ICreateGuid, text: string): ICreateListItemAction => {
+const createListItem = (createGuid: ICreateGuid, text: string): IAction => {
   return {
     type: CREATE_ITEM_IN_LIST,
     payload: {
