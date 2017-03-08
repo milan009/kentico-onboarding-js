@@ -8,9 +8,7 @@ interface IState {
   items: IItems;
 }
 
-interface IRootReducer {
-  (state: IState, action: IAction): IState;
-}
+type IRootReducer = (state: IState, action: IAction) => IState;
 
 const rootReducer: IRootReducer = combineReducers({
   items: itemsReducer,

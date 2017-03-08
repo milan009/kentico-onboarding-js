@@ -6,9 +6,7 @@ import { itemsUiPropsReducer } from './itemsUiPropsReducer';
 import { IItems } from '../../interfaces/IItems';
 import { IAction } from '../../interfaces/IAction';
 
-interface IItemsReducer {
-  (itemsState: IItems, action: IAction): IItems;
-}
+type IItemsReducer = (itemsState: IItems, action: IAction) => IItems;
 
 const itemsReducer: IItemsReducer = combineReducers({
   byId: itemsByIdsReducer,
