@@ -1,13 +1,7 @@
-import { List as ImmutableList, Map } from 'immutable';
 const { connect } = require('react-redux');
 import { List as ListComponent } from '../components/List';
 import { addItem } from '../actions/actionCreators';
-
-interface IListState {
- itemsOrder: ImmutableList<string>;
- itemsFlags: Map<string, any>;
- itemsById: Map<string, any>;
-}
+import { IListState } from '../interfaces/IListState';
 
 const mapStateToProps = (state: IListState) => {
   return {

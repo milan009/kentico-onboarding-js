@@ -1,7 +1,7 @@
 import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { ItemRecord } from '../utils/itemRecord';
 import { IItemAction } from '../interfaces/IItemAction';
-import { IItemRecord } from '../interfaces/IItem';
+import { IItemRecord } from '../interfaces/IItemRecord';
 
 function item (state = new ItemRecord({}), action: IItemAction): IItemRecord {
   switch (action.type) {
