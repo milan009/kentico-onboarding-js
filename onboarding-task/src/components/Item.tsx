@@ -5,7 +5,6 @@ import { EditForm } from './EditForm';
 
 interface IItemProps {
   item: IViewItem;
-  index: number;
   deleteItem: (id: string) => void;
   updateItem: (id: string, text: string) => void;
   startEditingItem: (id: string) => void;
@@ -19,9 +18,9 @@ class Item extends React.PureComponent<IItemProps, undefined> {
     item: ImmutablePropTypes.recordOf({
       id: React.PropTypes.string,
       text: React.PropTypes.string,
-      isEdited: React.PropTypes.bool
+      isEdited: React.PropTypes.bool,
+      index: React.PropTypes.number,
     }).isRequired,
-    index: React.PropTypes.number.isRequired,
     deleteItem: React.PropTypes.func.isRequired,
     updateItem: React.PropTypes.func.isRequired,
     startEditingItem: React.PropTypes.func.isRequired,
@@ -38,22 +37,21 @@ class Item extends React.PureComponent<IItemProps, undefined> {
     this.props.startEditingItem(this.props.item.id);
   }
 
-  _getItemToRender(item: IViewItem, index: number) {
+  _getItemToRender(item: IViewItem) {
     if (item.isEdited) {
       return (<EditForm
         item={item}
-        index={index}
         onSave={this.props.updateItem}
         onDelete={this.props.deleteItem}
         onCancel={this.props.stopEditingItem}
       />);
     }
-    return <div onClick={this._startEditing}>{`${index + 1}. ${this.props.item.text}`}</div>;
+    return <div onClick={this._startEditing}>{`${this.props.item.index}. ${this.props.item.text}`}</div>;
   }
 
   render() {
     return (<li className="list-group-item">
-      {this._getItemToRender(this.props.item, this.props.index)}
+      {this._getItemToRender(this.props.item)}
     </li>);
   }
 }

@@ -7,25 +7,25 @@ describe('selectViewItem', () => {
   const testText = 'test text';
 
   it('should return true flag if item is edited', () => {
-    const expectedResult = new ViewItem({ id: testId, text: testText, isEdited: true });
+    const expectedResult = new ViewItem({ id: testId, text: testText, isEdited: true, index: 1 });
     const initialState = {
       items: OrderedMap({ [testId]: new ViewItem({ id: testId, text: testText }) }),
       editedItems: Set([testId]),
     };
 
-    const selectorResult = selectViewItem(initialState, testId);
+    const selectorResult = selectViewItem(initialState, testId, 0);
 
     expect(selectorResult).toEqual(expectedResult);
   });
 
   it('should return false flag if item is not edited', () => {
-    const expectedResult = new ViewItem({ id: testId, text: testText, isEdited: false });
+    const expectedResult = new ViewItem({ id: testId, text: testText, isEdited: false, index: 1 });
     const initialState = {
       items: OrderedMap({ [testId]: new ViewItem({ id: testId, text: testText }) }),
       editedItems: Set(),
     };
 
-    const selectorResult = selectViewItem(initialState, testId);
+    const selectorResult = selectViewItem(initialState, testId, 0);
 
     expect(selectorResult).toEqual(expectedResult);
   });

@@ -15,7 +15,7 @@ interface IItemContainerProps {
 
 const mapStateToProps = (state: IAppState, ownProps: IItemContainerProps) => {
   return {
-    item: selectViewItem(state, ownProps.id),
+    item: selectViewItem(state, ownProps.id, ownProps.index),
   };
 };
 

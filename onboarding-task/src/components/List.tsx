@@ -14,7 +14,7 @@ class List extends React.PureComponent<IListProps, undefined> {
   static displayName = 'List';
 
   static propTypes = {
-    list: ImmutablePropTypes.orderedSet.isRequired,
+    list: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,
     addItem: React.PropTypes.func.isRequired,
   };
 

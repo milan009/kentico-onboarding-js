@@ -4,7 +4,6 @@ import {IViewItem} from '../viewModels/ViewItem';
 
 interface IEditFormProps {
   item: IViewItem;
-  index: number;
   onSave: (id: string, text: string) => void;
   onDelete: (id: string) => void;
   onCancel: (id: string) => void;
@@ -21,8 +20,8 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
     item: ImmutablePropTypes.recordOf({
       id: React.PropTypes.string,
       text: React.PropTypes.string,
+      index: React.PropTypes.number,
     }).isRequired,
-    index: React.PropTypes.number.isRequired,
     onSave: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     onCancel: React.PropTypes.func.isRequired,
@@ -60,7 +59,7 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
   render() {
     return (
       <form className="form-inline">
-        <label>{`${this.props.index + 1}. `}</label>
+        <label>{`${this.props.item.index}. `}</label>
         <input
           type="text"
           className="form-control"
