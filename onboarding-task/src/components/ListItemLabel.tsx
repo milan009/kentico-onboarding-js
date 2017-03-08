@@ -2,9 +2,13 @@ import React = require('react');
 
 import { IAction } from '../interfaces/IAction';
 
-type onClickType = () => IAction;
+interface ListItemLabelProps {
+  text: string;
+  index: number;
+  onClick: () => IAction;
+}
 
-const ListItemLabel = ({ text, index, onClick }: { text: string; index: number; onClick: onClickType }) =>
+const ListItemLabel = ({ text, index, onClick }: ListItemLabelProps) =>
   <div onClick={onClick}>{index}. {text}</div>;
 
 export { ListItemLabel };
