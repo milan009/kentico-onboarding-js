@@ -1,47 +1,43 @@
 import * as React from 'react';
 
 import { EditItem } from './EditItem';
-import { IItem } from '../models/IItem';
+import { Item } from '../models/IItem';
 
 interface IListItemProps {
-  item: IItem
+  item: Item
   index: number
+  isBeingEdited: boolean;
   onItemValueEdit: (id: string, value: string) => void;
   onDelete: (deletedItemID: string) => void;
+  onViewChange: (index: number) => void;
 }
 
 interface IListItemState {
-  isBeingEdited: boolean
 }
 
 class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
+    item: React.PropTypes.instanceOf(Item).isRequired,
     index: React.PropTypes.number.isRequired,
+    isBeingEdited: React.PropTypes.bool.isRequired,
     onItemValueEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired };
+    onDelete: React.PropTypes.func.isRequired,
+    onViewChange: React.PropTypes.func.isRequired,
+  };
 
   constructor(props: IListItemProps) {
     super(props);
-    this.state = { isBeingEdited: false };
   }
 
-  _labelClick = () => {
-    this.setState({ isBeingEdited: true });
-  };
-
-  _cancelEdit = () => {
-    this.setState({ isBeingEdited: false });
+  _changeView = () => {
+    this.props.onViewChange(this.props.index);
   };
 
   _saveValue = (value: string) => {
     this.props.onItemValueEdit(this.props.item.id, value);
-    this.setState({ isBeingEdited: false });
+    this._changeView();
   };
 
   _deleteItem = () => {
@@ -49,20 +45,20 @@ class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   };
 
   render() {
-    const value = this.props.item.value;
-    if (this.state.isBeingEdited) {
+    const value: string = this.props.item.value;
+    if (this.props.isBeingEdited) {
       return (
         <EditItem
           value={value}
           index={this.props.index}
           onEdit={this._saveValue}
           onDelete={this._deleteItem}
-          onCancel={this._cancelEdit}
+          onCancel={this._changeView}
         />);
     }
     return (
-      <div onClick={this._labelClick}>
-        {this.props.index}. {value}
+      <div onClick={this._changeView}>
+        {this.props.index + 1}. {value}
       </div>
     );
   }
