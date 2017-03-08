@@ -1,4 +1,4 @@
-import {List as ImmutableList, Map} from "immutable";
+import { List as ImmutableList, Map } from 'immutable';
 const { connect } = require('react-redux');
 import { List as ListComponent } from '../components/List';
 import { addItem } from '../actions/actionCreators';

@@ -28,7 +28,7 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   }
 
   _createNewItem() {
-    if(this.state.text !== '') {
+    if (this.state.text !== '') {
       this.props.onItemAdd(this.state.text);
     }
     this.setState({ text: '' });

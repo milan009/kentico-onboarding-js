@@ -1,6 +1,6 @@
 import { itemsById } from '../../src/reducers/itemsById';
 import * as actions from '../../src/actions/actionCreators';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import { ItemRecord } from '../../src/utils/itemRecord';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 

@@ -1,6 +1,6 @@
 import { itemsFlags } from '../../src/reducers/itemsFlags';
+import * as Immutable from 'immutable';
 import * as actions from '../../src/actions/actionCreators';
-import Immutable from 'immutable';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsFlags reducer', () => {
