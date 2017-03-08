@@ -6,8 +6,9 @@ import { switchFormVisibilityForListItem } from '../actionCreators/actionCreator
 import { ItemRecord } from '../models/ItemRecord';
 import { IAction } from '../interfaces/IAction';
 import { IAppState } from '../interfaces/IAppState';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number) => {
+const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number): IItemViewModel => {
   return { id: item.id, text: item.text, formDisplayed, index };
 };
 

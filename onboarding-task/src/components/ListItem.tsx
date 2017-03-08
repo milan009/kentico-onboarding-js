@@ -3,14 +3,10 @@ import React =  require('react');
 import { ListItemFormContainer } from '../containers/ListItemFormContainer';
 import { ListItemLabel } from './ListItemLabel';
 import { IAction } from '../interfaces/IAction';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
 interface IListItemProps {
-  item: {
-    id: string;
-    text: string;
-    formDisplayed: boolean;
-    index: number;
-  };
+  item: IItemViewModel;
   onLabelClick: () => IAction;
 }
 
