@@ -4,8 +4,8 @@ import { EditItem } from './EditItem';
 import { Item } from '../models/IItem';
 
 interface IListItemProps {
-  item: Item
-  index: number
+  item: Item;
+  index: number;
   isBeingEdited: boolean;
   onItemValueEdit: (id: string, value: string) => void;
   onDelete: (deletedItemID: string) => void;

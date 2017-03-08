@@ -9,7 +9,7 @@ interface IEditItemProps {
 }
 
 interface IEditItemState {
-  inputValue: string
+  inputValue: string;
 }
 
 class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {

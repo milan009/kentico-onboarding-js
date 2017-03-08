@@ -5,7 +5,7 @@ interface IAddItemProps {
 }
 
 interface IAddItemState {
-  inputValue: string
+  inputValue: string;
 }
 
 class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {

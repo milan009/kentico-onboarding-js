@@ -10,7 +10,7 @@ interface IListProps {
 }
 
 interface IListState {
-  items: Immutable.Map<string,Item> ;
+  items: Immutable.Map<string,Item>;
   itemsOrder: Immutable.List<string>;
   itemsBeingEdited: Immutable.List<boolean>;
 }
