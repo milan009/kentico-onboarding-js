@@ -7,9 +7,11 @@ const itemsOrderReducer = (prevState = List<string>(), action: IAction): List<st
   switch (action.type) {
     case CREATE_ITEM_IN_LIST:
       return prevState.push(action.payload.id);
+
     case DELETE_ITEM_FROM_LIST:
       const index = prevState.indexOf(action.payload.id);
       return prevState.splice(index, 1) as List<string>;
+
     default:
       return prevState;
   }

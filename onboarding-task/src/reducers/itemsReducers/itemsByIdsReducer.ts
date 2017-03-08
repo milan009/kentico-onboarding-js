@@ -14,11 +14,14 @@ const itemsByIdsReducer = (prevState = Map<string, ItemRecord>(), action: IActio
     case CREATE_ITEM_IN_LIST:
       const newItem = itemReducer(undefined, action);
       return prevState.set(action.payload.id, newItem);
+
     case UPDATE_TEXT_OF_ITEM:
       const item = prevState.get(action.payload.id);
       return prevState.set(action.payload.id, itemReducer(item, action));
+
     case DELETE_ITEM_FROM_LIST:
       return prevState.delete(action.payload.id);
+
     default:
       return prevState;
   }
