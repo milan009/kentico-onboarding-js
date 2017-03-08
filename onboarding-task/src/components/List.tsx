@@ -5,6 +5,7 @@ import { ListItem } from './ListItem';
 import { AddItem } from './AddItem';
 import { generateGuid } from '../utils/generateGuid';
 import { Item } from '../models/IItem';
+import { ItemFlags } from '../models/IItemFlags';
 
 interface IListProps {
 }
@@ -12,7 +13,7 @@ interface IListProps {
 interface IListState {
   items: Immutable.Map<string,Item>;
   itemsOrder: Immutable.List<string>;
-  itemsBeingEdited: Immutable.List<boolean>;
+  itemsDisplayFlags: Immutable.Map<string, ItemFlags>;
 }
 
 class List extends React.PureComponent<IListProps, IListState> {
@@ -23,7 +24,7 @@ class List extends React.PureComponent<IListProps, IListState> {
     this.state = {
       items: Immutable.Map<string,Item>(),
       itemsOrder: Immutable.List<string>(),
-      itemsBeingEdited: Immutable.List<boolean>()
+      itemsDisplayFlags: Immutable.Map<string, ItemFlags>()
     };
   }
 
@@ -32,22 +33,23 @@ class List extends React.PureComponent<IListProps, IListState> {
       id: generateGuid(),
       value
     });
+    const itemFlags = new ItemFlags({
+      editMode: false
+    });
 
     this.setState({
       items: this.state.items.set(newItem.id, newItem),
       itemsOrder: this.state.itemsOrder.push(newItem.id),
-      itemsBeingEdited: this.state.itemsBeingEdited.push(false)
+      itemsDisplayFlags: this.state.itemsDisplayFlags.set(newItem.id, itemFlags)
     });
   };
 
   _editItemValue = (id: string, value: string) => {
-    const index = this.state.itemsOrder.indexOf(id);
-    const itemToEdit = this.state.items.get(id);
-    const newItem = itemToEdit.set('value', value) as Item;
+    const newItemFlags = this.state.itemsDisplayFlags.setIn([id, 'editMode'], false) as ItemFlags;
 
     this.setState({
-      items: this.state.items.set(id, newItem),
-      itemsBeingEdited: this.state.itemsBeingEdited.set(index, false)
+      items: this.state.items.setIn([id, 'value'], value),
+      itemsDisplayFlags: this.state.itemsDisplayFlags.set(id, newItemFlags)
     })
   };
 
@@ -57,15 +59,16 @@ class List extends React.PureComponent<IListProps, IListState> {
     this.setState({
       items: this.state.items.delete(deletedItemId),
       itemsOrder: this.state.itemsOrder.delete(itemIndex),
-      itemsBeingEdited: this.state.itemsBeingEdited.delete(itemIndex)
+      itemsDisplayFlags: this.state.itemsDisplayFlags.delete(deletedItemId)
     });
   };
 
-  _toggleItemViewMode = (index: number) => {
-    const newValue: boolean = !this.state.itemsBeingEdited.get(index);
-    const newItemsBeingEdited = this.state.itemsBeingEdited.set(index, newValue);
+  _toggleItemViewMode = (id: string) => {
+    const newFlag = !this.state.itemsDisplayFlags.get(id).editMode;
 
-    this.setState({ itemsBeingEdited: newItemsBeingEdited });
+    const newItemsDisplayFlags = this.state.itemsDisplayFlags.setIn([id, 'editMode'], newFlag);
+
+    this.setState({ itemsDisplayFlags: newItemsDisplayFlags });
   };
 
   _renderListItems = () => {
@@ -74,7 +77,7 @@ class List extends React.PureComponent<IListProps, IListState> {
         <ListItem
           item={this.state.items.get(id)}
           index={index}
-          isBeingEdited={this.state.itemsBeingEdited.get(index)}
+          isInEditMode={this.state.itemsDisplayFlags.get(id).editMode}
           onItemValueEdit={this._editItemValue}
           onDelete={this._deleteItem}
           onViewChange={this._toggleItemViewMode}

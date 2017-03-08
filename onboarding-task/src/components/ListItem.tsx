@@ -6,10 +6,10 @@ import { Item } from '../models/IItem';
 interface IListItemProps {
   item: Item;
   index: number;
-  isBeingEdited: boolean;
+  isInEditMode: boolean;
   onItemValueEdit: (id: string, value: string) => void;
   onDelete: (deletedItemID: string) => void;
-  onViewChange: (index: number) => void;
+  onViewChange: (id: string) => void;
 }
 
 class ListItem extends React.PureComponent<IListItemProps, undefined> {
@@ -18,7 +18,7 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
   static propTypes = {
     item: React.PropTypes.instanceOf(Item).isRequired,
     index: React.PropTypes.number.isRequired,
-    isBeingEdited: React.PropTypes.bool.isRequired,
+    isInEditMode: React.PropTypes.bool.isRequired,
     onItemValueEdit: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     onViewChange: React.PropTypes.func.isRequired,
@@ -29,7 +29,7 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
   }
 
   _toggleViewMode = () => {
-    this.props.onViewChange(this.props.index);
+    this.props.onViewChange(this.props.item.id);
   };
 
   _saveValue = (value: string) => {
@@ -43,7 +43,7 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
 
   render() {
     const value: string = this.props.item.value;
-    if (this.props.isBeingEdited) {
+    if (this.props.isInEditMode) {
       return (
         <EditItem
           value={value}
