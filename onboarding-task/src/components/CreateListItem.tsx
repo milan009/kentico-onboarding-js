@@ -1,12 +1,18 @@
-import React, { PureComponent } from 'react';
+import React = require('react');
 
-class CreateListItem extends PureComponent {
+interface ICreateListItemProps {
+  onListItemAdd: (input: string) => void;
+}
 
-  static propTypes = {
-    onListItemAdd: React.PropTypes.func.isRequired,
-  };
+interface ICreateListItemState {
+  input: string;
+}
 
-  constructor(props) {
+class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateListItemState> {
+
+  static displayName = 'CreateListItem';
+
+  constructor(props: ICreateListItemProps) {
     super(props);
 
     this.state = { input: '' };
@@ -15,11 +21,11 @@ class CreateListItem extends PureComponent {
     this._onSubmit = this._onSubmit.bind(this);
   }
 
-  _onInputChange(event) {
+  _onInputChange(event: any) {
     this.setState({ input: event.target.value });
   }
 
-  _onSubmit(event) {
+  _onSubmit(event: any) {
     event.preventDefault();
     this.props.onListItemAdd(this.state.input);
 

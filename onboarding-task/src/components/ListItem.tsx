@@ -1,19 +1,18 @@
-import React, { PureComponent } from 'react';
+import React =  require('react');
 
 import { ListItemFormContainer } from '../containers/ListItemFormContainer';
 import { ListItemLabel } from './ListItemLabel';
+import { IAction } from '../interfaces/IAction';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-class ListItem extends PureComponent {
+interface IListItemProps {
+  item: IItemViewModel;
+  onLabelClick: () => IAction;
+}
 
-  static propTypes = {
-    item: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      text: React.PropTypes.string.isRequired,
-      formDisplayed: React.PropTypes.bool.isRequired,
-      index: React.PropTypes.number.isRequired,
-    }),
-    onLabelClick: React.PropTypes.func.isRequired,
-  };
+class ListItem extends React.PureComponent<IListItemProps, undefined> {
+
+  static displayName = 'ListItem';
 
   render() {
     return (this.props.item.formDisplayed)

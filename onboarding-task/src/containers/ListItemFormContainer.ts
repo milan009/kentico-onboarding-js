@@ -2,17 +2,25 @@ import { connect } from 'react-redux';
 
 import { updateListItem, switchFormVisibilityForListItem, deleteListItem } from '../actionCreators/actionCreators';
 import { ListItemForm } from '../components/ListItemForm';
+import { IAppState } from '../interfaces/IAppState';
+import { IAction } from '../interfaces/IAction';
 
-const mapStateToProps = (state, ownProps) => {
+interface IOwnProps {
+  item: { id: string; text: string; formDisplayed: boolean; index: number; };
+}
+
+const mapStateToProps = (_state: IAppState, ownProps: IOwnProps) => {
   return {
     inputValue: ownProps.item.text,
     index: ownProps.item.index,
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+type DispatchType = (action: IAction) => IAction;
+
+const mapDispatchToProps = (dispatch: DispatchType, ownProps: IOwnProps) => {
   return {
-    onFormSubmit: (text) => {
+    onFormSubmit: (text: string) => {
       dispatch(updateListItem(ownProps.item.id, text));
       dispatch(switchFormVisibilityForListItem(ownProps.item.id));
     },

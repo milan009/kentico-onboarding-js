@@ -2,16 +2,20 @@ import { connect } from 'react-redux';
 
 import { List } from '../components/List';
 import { createListItem } from '../actionCreators/actionCreators';
+import { IAction } from '../interfaces/IAction';
+import { IAppState } from '../interfaces/IAppState';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: IAppState) => {
   return {
     itemsOrder: state.items.orderedIds,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+type dispatchType = (action: IAction) => IAction;
+
+const mapDispatchToProps = (dispatch: dispatchType) => {
   return {
-    onListItemAdd: (text) => dispatch(createListItem(text)),
+    onListItemAdd: (text: string) => dispatch(createListItem(text)),
   };
 };
 

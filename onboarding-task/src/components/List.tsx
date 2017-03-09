@@ -1,23 +1,24 @@
-import React, { PureComponent } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import React = require('react');
+import { List as ImmutableList } from 'immutable';
 
 import { ListItemContainer } from '../containers/ListItemContainer';
 import { CreateListItem } from './CreateListItem';
+import { IAction } from '../interfaces/IAction';
 
-class List extends PureComponent {
+interface IListProps {
+  itemsOrder: ImmutableList<string>;
+  onListItemAdd: (text: string) => IAction;
+}
 
-  static propTypes = {
-    itemsOrder: ImmutablePropTypes.listOf(
-      React.PropTypes.string.isRequired,
-    ),
-    onListItemAdd: React.PropTypes.func.isRequired,
-  };
+class List extends React.PureComponent<IListProps, undefined> {
+
+  static displayName = 'List';
 
   render() {
     const listItems = this.props.itemsOrder.map((key) =>
       <li key={key} className="list-group-item">
         <ListItemContainer
-          id={key}
+          id={key as string}
         />
       </li>
     );

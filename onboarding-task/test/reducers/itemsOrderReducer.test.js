@@ -3,10 +3,10 @@ import Immutable from 'immutable';
 import {
   CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
-} from '../../src/constants/actionTypes';
-import { itemsOrderReducer } from '../../src/reducers/itemsReducers/itemsOrderReducer';
-import { deleteListItem } from '../../src/actionCreators/actionCreators';
-import { createListItemFactory } from '../../src/actionCreators/createListItemFactory';
+} from '../../src/constants/actionTypes.ts';
+import { itemsOrderReducer } from '../../src/reducers/itemsReducers/itemsOrderReducer.ts';
+import { deleteListItem } from '../../src/actionCreators/actionCreators.ts';
+import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
 
 describe('itemsOrderReducer ', () => {
   const emptyState = new Immutable.List();

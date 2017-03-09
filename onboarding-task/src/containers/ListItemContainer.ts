@@ -1,16 +1,24 @@
 import { connect } from 'react-redux';
-import memoize from 'memoizee';
+import memoize = require('memoizee');
 
 import { ListItem } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
+import { ItemRecord } from '../models/ItemRecord';
+import { IAction } from '../interfaces/IAction';
+import { IAppState } from '../interfaces/IAppState';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-const getListItemViewModel = (item, formDisplayed, index) => {
+const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number): IItemViewModel => {
   return { id: item.id, text: item.text, formDisplayed, index };
 };
 
 const memoizedListItemViewModel = memoize(getListItemViewModel);
 
-const mapStateToProps = (state, ownProps) => {
+interface IOwnProps {
+  id: string;
+}
+
+const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
   const id = ownProps.id;
   const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
   const item = state.items.byId.get(id);
@@ -20,7 +28,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+type dispatchType = (action: IAction) => IAction;
+
+const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps) => {
   return {
     onLabelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
   };
@@ -31,4 +41,4 @@ const ListItemContainer = connect(
   mapDispatchToProps,
 )(ListItem);
 
-export { ListItemContainer };
+export { ListItemContainer, memoizedListItemViewModel as getMemoizedListItemViewModel };
