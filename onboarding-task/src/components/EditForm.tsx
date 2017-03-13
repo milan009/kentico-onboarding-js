@@ -44,7 +44,6 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
 
   _save() {
     this.props.onSave(this.props.item.id, this.state.editInput);
-    this.props.onCancel(this.props.item.id);
   }
 
   _cancel() {
@@ -53,7 +52,6 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
 
   _delete() {
     this.props.onDelete(this.props.item.id);
-    this.props.onCancel(this.props.item.id);
   }
 
   render() {
