@@ -7,4 +7,5 @@ export interface IItems {
   byId: Map<string, ItemRecord>;
   orderedIds: List<string>;
   uiPropsById: Map<string, ItemUiPropsRecord>;
+  isFetching: boolean;
 }
