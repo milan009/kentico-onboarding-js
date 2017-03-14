@@ -60,6 +60,13 @@ describe('uiPropsReducer ', () => {
     expect(nextState).toEqual(expectedState);
   });
 
+  it(`returns empty state when no items are fetched and ${FETCH_ITEMS_SUCCESS} action is dispatched`, () => {
+    const expectedState = new Immutable.Map();
+    const actualState = itemsUiPropsReducer(oneItemFalseState, fetchItemsSuccess([]));
+
+    expect(actualState).toEqual(expectedState);
+  });
+
   it(`returns empty uiProp for every fetched item when ${FETCH_ITEMS_SUCCESS} action is dispatched`, () => {
     const prevState = oneItemFalseState;
     const expectedState = Immutable.Map.of(id, new ItemUiPropsRecord(), 'id-2', new ItemUiPropsRecord());
