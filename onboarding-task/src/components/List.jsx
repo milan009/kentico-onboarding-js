@@ -7,7 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 class List extends Component {
   static displayName = 'List';
   static propTypes = {
-    itemsOrder: ImmutablePropTypes.list.isRequired,
+    itemsOrder: ImmutablePropTypes.orderedSet.isRequired,
     onAddItem: PropTypes.func.isRequired,
   };
 
@@ -22,7 +22,7 @@ class List extends Component {
   }
 
   render() {
-    const items = this.props.itemsOrder;
+    const items = this.props.itemsOrder.valueSeq();
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
