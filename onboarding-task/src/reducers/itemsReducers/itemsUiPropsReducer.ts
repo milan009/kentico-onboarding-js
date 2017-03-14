@@ -8,11 +8,7 @@ import {
   FETCH_ITEMS_SUCCESS,
 } from '../../constants/actionTypes';
 import { IAction } from '../../interfaces/IAction';
-
-interface FetchedItem {
-  id: string;
-  text: string;
-}
+import { IFetchedItem } from '../../interfaces/IFetchedItem';
 
 const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), action: IAction): Map<string, ItemUiPropsRecord> => {
   switch (action.type) {
@@ -28,7 +24,7 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
 
     case FETCH_ITEMS_SUCCESS:
       let newState = Map<string, ItemUiPropsRecord>();
-      action.payload.response.forEach((item: FetchedItem) => {
+      action.payload.response.forEach((item: IFetchedItem) => {
         newState = newState.set(item.id, new ItemUiPropsRecord());
       });
       return newState;
