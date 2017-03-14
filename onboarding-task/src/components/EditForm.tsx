@@ -4,9 +4,9 @@ import {IViewItem} from '../viewModels/ViewItem';
 
 interface IEditFormProps {
   item: IViewItem;
-  onSave: (id: string, text: string) => void;
-  onDelete: (id: string) => void;
-  onCancel: (id: string) => void;
+  onSave: (text: string) => void;
+  onDelete: () => void;
+  onCancel: () => void;
 }
 
 interface IEditFormState {
@@ -18,7 +18,6 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
 
   static propTypes = {
     item: ImmutablePropTypes.recordOf({
-      id: React.PropTypes.string,
       text: React.PropTypes.string,
       index: React.PropTypes.number,
     }).isRequired,
@@ -34,8 +33,6 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
     };
     this._handleEditInputChange = this._handleEditInputChange.bind(this);
     this._save = this._save.bind(this);
-    this._delete = this._delete.bind(this);
-    this._cancel = this._cancel.bind(this);
   }
 
   _handleEditInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -43,15 +40,7 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
   }
 
   _save() {
-    this.props.onSave(this.props.item.id, this.state.editInput);
-  }
-
-  _cancel() {
-    this.props.onCancel(this.props.item.id);
-  }
-
-  _delete() {
-    this.props.onDelete(this.props.item.id);
+    this.props.onSave(this.state.editInput);
   }
 
   render() {
@@ -65,8 +54,8 @@ class EditForm extends React.PureComponent<IEditFormProps, IEditFormState> {
           onChange={this._handleEditInputChange}
         />
         <button type="button" className="btn btn-primary" onClick={this._save}>Save</button>
-        <button type="button" className="btn btn-default" onClick={this._cancel} >Cancel</button>
-        <button type="button" className="btn btn-danger" onClick={this._delete}>Delete</button>
+        <button type="button" className="btn btn-default" onClick={this.props.onCancel} >Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>
       </form>
     );
   }

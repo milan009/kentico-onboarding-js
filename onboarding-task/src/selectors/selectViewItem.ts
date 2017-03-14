@@ -5,7 +5,7 @@ import { IAppState } from '../stores/IAppState';
 const selectViewItem = memoize((state: IAppState, id: string, zeroBasedIndex: number) => {
   const item = state.items.get(id);
 
-  return new ViewItem({ id: item.id,
+  return new ViewItem({
     text: item.text,
     isEdited: state.editedItems.has(id),
     index: zeroBasedIndex + 1,

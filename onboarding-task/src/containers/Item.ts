@@ -19,12 +19,12 @@ const mapStateToProps = (state: IAppState, ownProps: IItemContainerProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IItemContainerProps) => {
   return {
-    deleteItem: (id: string) => dispatch(deleteItem(id)),
-    updateItem: (id: string, text: string) => dispatch(updateItem(id, text)),
-    startEditingItem: (id: string) => dispatch(startEditItem(id)),
-    stopEditingItem: (id: string) => dispatch(stopEditItem(id)),
+    deleteItem: () => dispatch(deleteItem(ownProps.id)),
+    updateItem: (text: string) => dispatch(updateItem(ownProps.id, text)),
+    startEditingItem: () => dispatch(startEditItem(ownProps.id)),
+    stopEditingItem: () => dispatch(stopEditItem(ownProps.id)),
   };
 };
 
