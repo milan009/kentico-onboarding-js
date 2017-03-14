@@ -25,7 +25,7 @@ describe('itemsById reducer', () => {
     expect(actualState).toEqual(stateBefore);
   });
 
-  it('should return empty immutable map if no state is provided', () => {
+  it('should return empty immutable emptyItemsById if no state is provided', () => {
     const actualState = itemsById(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.Map());

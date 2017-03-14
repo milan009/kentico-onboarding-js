@@ -6,7 +6,7 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 describe('itemsOrder reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
 
-  const stateBefore = Immutable.List(['00000', '11111', '22222']);
+  const stateBefore = Immutable.OrderedSet(['00000', '11111', '22222']);
 
   const addItemAction = addItemFactory(() => '12345')('text');
   const deleteItemAction = actions.deleteItem('00000');
@@ -21,18 +21,18 @@ describe('itemsOrder reducer', () => {
   it('should return empty immutable list if no state is provided', () => {
     const actualState = itemsOrder(undefined, UNKNOWN_ACTION);
 
-    expect(actualState).toEqual(Immutable.List());
+    expect(actualState).toEqual(Immutable.OrderedSet());
   });
 
   it('should handle ADD_ITEM action', () => {
-    const expectedState = stateBefore.push('12345');
+    const expectedState = stateBefore.add('12345');
     const actualState = itemsOrder(stateBefore, addItemAction);
 
     expect(actualState).toEqual(expectedState);
   });
 
   it('should handle DELETE_ITEM action', () => {
-    const expectedState = Immutable.List(['11111', '22222']);
+    const expectedState = Immutable.OrderedSet(['11111', '22222']);
     const actualState = itemsOrder(stateBefore, deleteItemAction);
 
     expect(actualState).toEqual(expectedState);

@@ -18,7 +18,7 @@ function getInitialState() {
       [secondItem.guid]: { isEdited: false },
       [thirdItem.guid]: { isEdited: false },
     }),
-    itemsOrder: Immutable.List([firstItem.guid, secondItem.guid, thirdItem.guid]),
+    itemsOrder: Immutable.OrderedSet([firstItem.guid, secondItem.guid, thirdItem.guid]),
   };
   return initState;
 }
