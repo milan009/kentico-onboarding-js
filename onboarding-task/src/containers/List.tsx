@@ -1,8 +1,17 @@
-import { IItemAction } from '../interfaces/IItemAction';
+import { IItemAction } from '../reducers/item';
 const { connect } = require('react-redux');
 import { List as ListComponent } from '../components/List';
+import * as Immutable from 'immutable';
+import { IItemFlags } from '../reducers/itemsFlags';
+import { IItemRecord } from '../reducers/item';
+import {Dispatch} from 'react-redux';
 import { addItem } from '../actions/actionCreators';
-import { IListState } from '../interfaces/IListState';
+
+interface IListState {
+  itemsOrder: Immutable.OrderedSet<string>;
+  itemsFlags: Immutable.Map<string, IItemFlags>;
+  itemsById: Immutable.Map<string, IItemRecord>;
+}
 
 const mapStateToProps = (state: IListState) => {
   return {
@@ -10,7 +19,7 @@ const mapStateToProps = (state: IListState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: (itemAction: IItemAction) => IItemAction) => {
+const mapDispatchToProps = (dispatch: Dispatch<(itemAction: IItemAction) => IItemAction> ) => {
   return {
     onAddItem: (text: string) => dispatch(addItem(text)),
   };
@@ -18,5 +27,5 @@ const mapDispatchToProps = (dispatch: (itemAction: IItemAction) => IItemAction) 
 
 const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
 
-export { List };
+export { List, IListState };
 
