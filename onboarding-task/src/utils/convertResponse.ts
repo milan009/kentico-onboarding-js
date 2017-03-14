@@ -8,7 +8,7 @@ interface FetchedItem {
   text: string;
 }
 
-const convertGetAllResponseResponse = (response: FetchedItem[]) => {
+const convertGetAllResponse = (response: FetchedItem[]) => {
   const result = {
     byId: Map(),
     orderedIds: List(),
@@ -25,4 +25,4 @@ const convertGetAllResponseResponse = (response: FetchedItem[]) => {
   return result;
 };
 
-export { convertGetAllResponseResponse };
+export { convertGetAllResponse };

@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import { ItemRecord } from '../src/models/ItemRecord.ts';
-import { convertGetAllResponseResponse } from '../src/utils/convertResponse.ts';
+import { convertGetAllResponse } from '../src/utils/convertResponse.ts';
 import { ItemUiPropsRecord } from '../src/models/ItemUiPropsRecord.ts';
 
 describe('convertResponse ', () => {
@@ -16,7 +16,7 @@ describe('convertResponse ', () => {
       uiPropsById: new Immutable.Map(),
       isFetching: false,
     };
-    const actual = convertGetAllResponseResponse([]);
+    const actual = convertGetAllResponse([]);
 
     expect(actual).toEqual(expected);
   });
@@ -28,7 +28,7 @@ describe('convertResponse ', () => {
       uiPropsById: Immutable.Map.of(item1.id, new ItemUiPropsRecord(), item2.id, new ItemUiPropsRecord()),
       isFetching: false,
     };
-    const actual = convertGetAllResponseResponse([item1, item2]);
+    const actual = convertGetAllResponse([item1, item2]);
 
     expect(actual).toEqual(expected);
   });

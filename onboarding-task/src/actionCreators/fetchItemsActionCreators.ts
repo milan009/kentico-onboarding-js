@@ -4,7 +4,7 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
 } from '../constants/actionTypes';
-import { convertGetAllResponseResponse } from '../utils/convertResponse';
+import { convertGetAllResponse } from '../utils/convertResponse';
 
 const fetchItemsRequest = (): IAction => {
   return {
@@ -44,7 +44,7 @@ const fetchItems = () => {
 
     return fetch('/api/Items')
       .then((response: Response) => response.json())
-      .then((json: FetchedItem[]) => convertGetAllResponseResponse(json))
+      .then((json: FetchedItem[]) => convertGetAllResponse(json))
       .catch((response: Response) => dispatch(fetchItemsFailure(response.text())));
   };
 };
