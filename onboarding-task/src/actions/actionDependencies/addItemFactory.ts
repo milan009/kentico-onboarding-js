@@ -1,5 +1,5 @@
 import { ADD_ITEM } from '../actionTypes';
-import { IItemAction } from '../../interfaces/IItemAction';
+import { IItemAction } from '../../reducers/item';
 
 const addItem = (text: string, generateGuid: () => string ): IItemAction => ({
   type: ADD_ITEM,

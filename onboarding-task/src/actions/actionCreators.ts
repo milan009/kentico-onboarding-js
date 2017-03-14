@@ -1,7 +1,7 @@
 import { generateGuid } from '../utils/generateGuid.js';
 import { TOGGLE_EDIT_MODE, DELETE_ITEM, UPDATE_ITEM_TEXT } from './actionTypes';
 import { addItemFactory } from './actionDependencies/addItemFactory';
-import { IItemAction } from '../interfaces/IItemAction';
+import { IItemAction } from '../reducers/item';
 
 export const addItem = addItemFactory(generateGuid);
 
