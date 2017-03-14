@@ -6,6 +6,7 @@
   "devDependencies": {
     "@types/jest": "^18.1.1",
     "@types/node": "^7.0.0",
+    "@types/promise": "^7.1.30",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
     "@types/whatwg-fetch": "0.0.33",
