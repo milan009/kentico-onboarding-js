@@ -4,7 +4,7 @@ import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCre
 import memoize from 'memoizee';
 import { ViewItemRecord } from '../utils/itemRecord';
 
-export const selectViewItem = (itemData, itemFlags) => new ViewItemRecord({
+const selectViewItem = (itemData, itemFlags) => new ViewItemRecord({
   guid: itemData.guid,
   text: itemData.text,
   isEdited: itemFlags.isEdited,
@@ -30,5 +30,5 @@ const mapDispatchToProps = (dispatch) => {
 
 const ListItem = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);
 
-export { ListItem };
+export { ListItem, selectViewItem };
 
