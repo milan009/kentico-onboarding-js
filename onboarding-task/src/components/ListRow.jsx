@@ -4,26 +4,27 @@ class ListRow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onItemClick = this.onItemClick.bind(this.props.index);
+    this.onItemClick = this.onItemClick.bind(this);
   }
 
-  onItemClick(index) {
-    this.props.onRowClick(index);
+  onItemClick(event) {
+    this.props.onItemClick(this.props.item.id);
+    event.preventDefault();
   }
 
   render() {
     return (
       <a href="#" className="list-group-item" onClick={this.onItemClick}>
-        {this.props.index}. <span>{this.props.value}</span>
+        {this.props.children}<span>{this.props.item.text}</span>
       </a>
     );
   }
 }
 
 ListRow.propTypes = {
-  value: React.PropTypes.string,
-  index: React.PropTypes.number.isRequired,
-  onRowClick: React.PropTypes.func.isRequired,
+  item: React.PropTypes.object.isRequired,
+  onItemClick: React.PropTypes.func.isRequired,
+  children: React.PropTypes.node,
 };
 
 export default ListRow;

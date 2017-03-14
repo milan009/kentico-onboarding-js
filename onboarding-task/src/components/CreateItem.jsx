@@ -8,16 +8,16 @@ class CreateItem extends React.Component {
       text: '',
       error: '',
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleEditText = this._handleEditText.bind(this);
   }
 
-  handleChange(event) {
+  _handleEditText(event) {
     this.setState({ text: event.target.value });
   }
 
-  handleSubmit(event) {
-    if (this.props.onItemAdded(this.state.text)) {
+  _handleSubmit(event) {
+    if (this.props.onItemAdd(this.state.text)) {
       this.setState({ text: '' });
     }
     else {
@@ -28,20 +28,16 @@ class CreateItem extends React.Component {
 
   render() {
     return (
-      <div className="list-group-item form-inline">
-        <form onSubmit={this.handleSubmit} className="form-group">
-          <div className="form-group">
-            <input type="text" className="form-control" value={this.state.text} onChange={this.handleChange} />
-            <input type="submit" className="btn btn-default" value="Add" />
-            <br />
-            <span style={{ color: 'red' }}>{this.state.error}</span>
-          </div>
-        </form>
-      </div>
+      <form onSubmit={this._handleSubmit} className="form-inline">
+        <input type="text" className="form-control" value={this.state.text} onChange={this._handleEditText} />
+        <input type="submit" className="btn btn-default" value="Add" />
+        <br />
+        <span style={{ color: 'red' }}>{this.state.error}</span>
+      </form>
     );
   }
 }
 
-CreateItem.propTypes = { onItemAdded: React.PropTypes.func };
+CreateItem.propTypes = { onItemAdd: React.PropTypes.func };
 
 export default CreateItem;
