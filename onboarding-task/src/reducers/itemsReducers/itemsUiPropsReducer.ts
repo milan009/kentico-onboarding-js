@@ -5,8 +5,14 @@ import {
   CREATE_ITEM_IN_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
   DELETE_ITEM_FROM_LIST,
+  FETCH_ITEMS_SUCCESS,
 } from '../../constants/actionTypes';
 import { IAction } from '../../interfaces/IAction';
+
+interface FetchedItem {
+  id: string;
+  text: string;
+}
 
 const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), action: IAction): Map<string, ItemUiPropsRecord> => {
   switch (action.type) {
@@ -19,6 +25,13 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
 
     case DELETE_ITEM_FROM_LIST:
       return prevState.delete(action.payload.id);
+
+    case FETCH_ITEMS_SUCCESS:
+      let newState = Map<string, ItemUiPropsRecord>();
+      action.payload.response.forEach((item: FetchedItem) => {
+        newState = newState.set(item.id, new ItemUiPropsRecord());
+      });
+      return newState;
 
     default:
       return prevState;
