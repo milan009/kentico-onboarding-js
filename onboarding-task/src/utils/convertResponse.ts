@@ -1,6 +1,7 @@
 import { Map, List } from 'immutable';
 
 import { ItemRecord } from '../models/ItemRecord';
+import { ItemUiPropsRecord } from '../models/ItemUiPropsRecord';
 
 interface FetchedItem {
   id: string;
@@ -18,7 +19,7 @@ const convertGetAllResponseResponse = (response: FetchedItem[]) => {
     const itemRecord = new ItemRecord({ id: response[i].id, text: response[i].text });
     result.byId = result.byId.set(response[i].id, itemRecord);
     result.orderedIds = result.orderedIds.push(response[i].id);
-    result.uiPropsById = result.uiPropsById.set(response[i].id, {});
+    result.uiPropsById = result.uiPropsById.set(response[i].id, new ItemUiPropsRecord());
   }
 
   return result;
