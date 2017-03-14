@@ -4,7 +4,7 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
 } from '../constants/actionTypes';
-import { convertGetAllResponse } from '../utils/convertResponse';
+import { fetchItemsFactory } from './fetchItemsFactories';
 
 const fetchItemsRequest = (): IAction => {
   return {
@@ -13,7 +13,13 @@ const fetchItemsRequest = (): IAction => {
   };
 };
 
-const fetchItemsSuccess = (response: string): IAction => {
+
+interface FetchedItem {
+  id: string;
+  text: string;
+}
+
+const fetchItemsSuccess = (response: FetchedItem[]): IAction => {
   return {
     type: FETCH_ITEMS_SUCCESS,
     payload: {
@@ -31,22 +37,6 @@ const fetchItemsFailure = (response: string): IAction => {
   };
 };
 
-type dispatchType = (action: IAction) => IAction;
-
-interface FetchedItem {
-  id: string;
-  text: string;
-}
-
-const fetchItems = () => {
-  return (dispatch: dispatchType) => {
-    dispatch(fetchItemsRequest());
-
-    return fetch('/api/Items')
-      .then((response: Response) => response.json())
-      .then((json: FetchedItem[]) => convertGetAllResponse(json))
-      .catch((response: Response) => dispatch(fetchItemsFailure(response.text())));
-  };
-};
+const fetchItems = fetchItemsFactory(fetch);
 
 export { fetchItemsRequest, fetchItemsFailure, fetchItemsSuccess, fetchItems };
