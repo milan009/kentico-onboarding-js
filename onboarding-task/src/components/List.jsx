@@ -31,14 +31,12 @@ class List extends Component {
     if (!text.match(/\S/)) {
       return false;
     }
-    const items = this.state.items;
     const id = generateUUID();
-    items.set(id, {
+    this._setItemFromState(id, {
       id,
       text,
       editing: false,
     });
-    this.setState({ items });
     return true;
   }
 
@@ -53,29 +51,31 @@ class List extends Component {
     if (!text.match(/\S/)) {
       return false;
     }
-    const items = this.state.items;
-    const item = items.get(id);
-    item.text = text;
-    item.editing = false;
-    items.set(id, item);
-    this.setState({ items });
+    this._setItemFromState(id, {
+      text,
+      editing: false,
+    });
     return true;
   }
 
   _onItemCancel(id) {
-    const items = this.state.items;
-    const item = items.get(id);
-    item.editing = false;
-    items.set(id, item);
-    this.setState({ items });
+    this._setItemFromState(id, { editing: false });
   }
 
   _onItemClick(id) {
-    const listItems = this.state.items;
-    const item = listItems.get(id);
-    item.editing = true;
-    listItems.set(id, item);
-    this.setState({ items: listItems });
+    this._setItemFromState(id, { editing: true });
+  }
+
+  _setItemFromState(id, values) {
+    const items = this.state.items;
+    const item = items.get(id) || {};
+    const newItem = {
+      ...item,
+      ...values,
+    };
+
+    items.set(id, newItem);
+    this.setState({ items });
   }
 
   _getEditRow(index, item) {
