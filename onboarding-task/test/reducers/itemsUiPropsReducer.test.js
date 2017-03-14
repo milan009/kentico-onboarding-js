@@ -4,7 +4,13 @@ import { itemsUiPropsReducer } from '../../src/reducers/itemsReducers/itemsUiPro
 import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord.ts';
 import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
 import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators.ts';
-import { CREATE_ITEM_IN_LIST, SWITCH_FORM_VISIBILITY_FOR_ITEM, DELETE_ITEM_FROM_LIST } from '../../src/constants/actionTypes.ts';
+import {
+  CREATE_ITEM_IN_LIST,
+  SWITCH_FORM_VISIBILITY_FOR_ITEM,
+  DELETE_ITEM_FROM_LIST,
+  FETCH_ITEMS_SUCCESS,
+} from '../../src/constants/actionTypes.ts';
+import { fetchItemsSuccess } from '../../src/actionCreators/fetchItemsActionCreators.ts';
 
 describe('uiPropsReducer ', () => {
   const id = 'test-id';
@@ -52,6 +58,15 @@ describe('uiPropsReducer ', () => {
     const nextState = itemsUiPropsReducer(prevState, deleteListItem(id));
 
     expect(nextState).toEqual(expectedState);
+  });
+
+  it(`returns empty uiProp for every fetched item when ${FETCH_ITEMS_SUCCESS} action is dispatched`, () => {
+    const prevState = oneItemFalseState;
+    const expectedState = Immutable.Map.of(id, new ItemUiPropsRecord(), 'id-2', new ItemUiPropsRecord());
+    const fakeResponse = [{ id, text: 'text' }, { id: 'id-2', text: 'test' }];
+    const actual = itemsUiPropsReducer(prevState, fetchItemsSuccess(fakeResponse));
+
+    expect(actual).toEqual(expectedState);
   });
 
   it('returns prevState when unknown action is dispatched', () => {
