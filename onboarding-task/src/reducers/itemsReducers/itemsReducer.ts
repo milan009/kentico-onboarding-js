@@ -11,7 +11,7 @@ type IItemsReducer = (itemsState: IItems, action: IAction) => IItems;
 
 const isFetchingReducer = (_: boolean, action: IAction) => action.type === FETCH_ITEMS_REQUEST;
 
-const errorReducer = (_: string, action: IAction) => action.type === FETCH_ITEMS_FAILURE ? action.payload.error : undefined;
+const errorReducer = (_: string, action: IAction) => action.type === FETCH_ITEMS_FAILURE ? action.payload.error : '';
 
 const itemsReducer: IItemsReducer = combineReducers({
   byId: itemsByIdsReducer,

@@ -1,10 +1,10 @@
-import {IAction} from '../interfaces/IAction';
+import { IAction } from '../interfaces/IAction';
 import { fetchItemsRequest, fetchItemsSuccess, fetchItemsFailure} from './fetchItemsActionCreators';
-import { IThenable } from 'promise';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 import { dispatchType } from '../utils/dispatchType';
+require('isomorphic-fetch');
 
-type fetchType = (path: string, parameters?: any) => IThenable<Response>;
+type fetchType = (path: string, parameters?: any) => Promise<Response>;
 
 const fetchItems = (fetchParam: fetchType) => {
   return (dispatch: dispatchType) => {
@@ -13,7 +13,8 @@ const fetchItems = (fetchParam: fetchType) => {
     return fetchParam('/api/Items')
       .then<IFetchedItem[]>((response: Response) => response.json())
       .then<IAction>((json: IFetchedItem[]) => dispatch(fetchItemsSuccess(json)))
-      .catch<IAction>((response: Response) => dispatch(fetchItemsFailure(response.text())));
+      .catch<string>((response: Response) => response.text())
+      .then<IAction>((text: string) => dispatch(fetchItemsFailure(text)));
   };
 };
 
