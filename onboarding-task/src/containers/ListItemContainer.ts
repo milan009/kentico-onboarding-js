@@ -4,9 +4,9 @@ import memoize = require('memoizee');
 import { ListItem } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
 import { ItemRecord } from '../models/ItemRecord';
-import { IAction } from '../interfaces/IAction';
 import { IAppState } from '../interfaces/IAppState';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { dispatchType } from '../utils/dispatchType';
 
 const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number): IItemViewModel => {
   return { id: item.id, text: item.text, formDisplayed, index };
@@ -27,8 +27,6 @@ const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
     item: memoizedListItemViewModel(item, formDisplayed, index),
   };
 };
-
-type dispatchType = (action: IAction) => IAction;
 
 const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps) => {
   return {

@@ -2,8 +2,7 @@ import {IAction} from '../interfaces/IAction';
 import { fetchItemsRequest, fetchItemsSuccess, fetchItemsFailure} from './fetchItemsActionCreators';
 import { IThenable } from 'promise';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
-
-type dispatchType = (action: IAction) => IAction;
+import { dispatchType } from '../utils/dispatchType';
 
 type fetchType = (path: string, parameters?: any) => IThenable<Response>;
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateListItem, switchFormVisibilityForListItem, deleteListItem } from '../actionCreators/actionCreators';
 import { ListItemForm } from '../components/ListItemForm';
 import { IAppState } from '../interfaces/IAppState';
-import { IAction } from '../interfaces/IAction';
+import { dispatchType } from '../utils/dispatchType';
 
 interface IOwnProps {
   item: { id: string; text: string; formDisplayed: boolean; index: number; };
@@ -16,9 +16,7 @@ const mapStateToProps = (_state: IAppState, ownProps: IOwnProps) => {
   };
 };
 
-type DispatchType = (action: IAction) => IAction;
-
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: IOwnProps) => {
+const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps) => {
   return {
     onFormSubmit: (text: string) => {
       dispatch(updateListItem(ownProps.item.id, text));
