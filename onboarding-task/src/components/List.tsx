@@ -42,11 +42,11 @@ class List extends React.PureComponent<undefined, IListState> {
   };
 
   _editItemValue = (id: string, value: string) => {
-    const newItemFlags = this.state.itemsDisplayFlags.setIn([id, 'editMode'], false) as ItemFlags;
+    const newItemsDisplayFlags = this.state.itemsDisplayFlags.setIn([id, 'editMode'], false);
 
     this.setState({
       items: this.state.items.setIn([id, 'value'], value),
-      itemsDisplayFlags: this.state.itemsDisplayFlags.set(id, newItemFlags)
+      itemsDisplayFlags: newItemsDisplayFlags
     })
   };
 
