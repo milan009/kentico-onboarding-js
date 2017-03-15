@@ -1,13 +1,14 @@
 import * as Immutable from 'immutable';
 import { generateGuid } from './generateGuid';
 import { ItemRecord } from './itemRecord';
+import {IListState} from "../containers/List";
 
-function getInitialState() {
+function getInitialState(): IListState {
   const firstItem = new ItemRecord({ guid: generateGuid(), text: 'serus' });
   const secondItem = new ItemRecord({ guid: generateGuid(), text: 'soj' });
   const thirdItem = new ItemRecord({ guid: generateGuid(), text: 'nazdar' });
 
-  const initState = {
+  const initState: IListState = {
     itemsById: Immutable.Map({
       [firstItem.guid]: firstItem,
       [secondItem.guid]: secondItem,

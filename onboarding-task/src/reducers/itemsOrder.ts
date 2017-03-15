@@ -1,5 +1,5 @@
 import { ADD_ITEM, DELETE_ITEM } from '../actions/actionTypes';
-import { IItemAction } from './item';
+import { IItemAction } from '../actions/IItemAction';
 import { OrderedSet } from 'immutable';
 
 const emptyItemsOrder = OrderedSet<string>();

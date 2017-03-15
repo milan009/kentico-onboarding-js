@@ -23,8 +23,8 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     this._createNewItem = this._createNewItem.bind(this);
   }
 
-  _onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ text: e.target.value });
+  _onInputChange(e: React.SyntheticEvent<HTMLInputElement>) {
+    this.setState({ text: e.currentTarget.value });
   }
 
   _createNewItem() {

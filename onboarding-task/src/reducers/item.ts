@@ -1,17 +1,8 @@
 import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { ItemRecord } from '../utils/itemRecord';
+import {IItemAction} from "../actions/IItemAction";
 
-export interface IItemAction {
-  type: string;
-  payload: any;
-}
-
-export interface IItemRecord {
-  guid: string;
-  text: string;
-}
-
-function item (state = new ItemRecord({}), action: IItemAction): IItemRecord {
+function item (state = new ItemRecord({}), action: IItemAction): ItemRecord {
   switch (action.type) {
     case ADD_ITEM:
       return new ItemRecord({
@@ -20,7 +11,7 @@ function item (state = new ItemRecord({}), action: IItemAction): IItemRecord {
       });
 
     case UPDATE_ITEM_TEXT:
-      return state.set('text', action.payload.text);
+      return state.set('text', action.payload.text) as ItemRecord;
 
     default:
       return state;

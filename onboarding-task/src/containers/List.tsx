@@ -1,16 +1,16 @@
-import { IItemAction } from '../reducers/item';
-const { connect } = require('react-redux');
-import { List as ListComponent } from '../components/List';
+import { connect } from 'react-redux';
+import { List } from '../components/List';
 import * as Immutable from 'immutable';
 import { IItemFlags } from '../reducers/itemsFlags';
-import { IItemRecord } from '../reducers/item';
-import {Dispatch} from 'react-redux';
+import { IItemRecord } from '../utils/itemRecord';
 import { addItem } from '../actions/actionCreators';
+import { Dispatch } from '../actions/Dispatch';
+
 
 interface IListState {
-  itemsOrder: Immutable.OrderedSet<string>;
-  itemsFlags: Immutable.Map<string, IItemFlags>;
   itemsById: Immutable.Map<string, IItemRecord>;
+  itemsFlags: Immutable.Map<string, IItemFlags>;
+  itemsOrder: Immutable.OrderedSet<string>;
 }
 
 const mapStateToProps = (state: IListState) => {
@@ -19,13 +19,13 @@ const mapStateToProps = (state: IListState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<(itemAction: IItemAction) => IItemAction> ) => {
+const mapDispatchToProps = (dispatch: Dispatch ) => {
   return {
     onAddItem: (text: string) => dispatch(addItem(text)),
   };
 };
 
-const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
+const ListContainer = connect(mapStateToProps, mapDispatchToProps)(List);
 
-export { List, IListState };
+export { ListContainer as List, IListState };
 

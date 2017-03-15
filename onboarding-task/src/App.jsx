@@ -8,7 +8,7 @@ import { itemsFlags } from './reducers/itemsFlags.ts';
 import { itemsOrder } from './reducers/itemsOrder.ts';
 
 import createLogger from 'redux-logger';
-import { getInitialState } from './utils/getInitialState';
+import { getInitialState } from './utils/getInitialState.ts';
 
 const rootReducer = combineReducers({
   itemsById,

@@ -1,6 +1,6 @@
 import { ADD_ITEM, DELETE_ITEM, TOGGLE_EDIT_MODE, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import * as Immutable from 'immutable';
-import { IItemAction } from './item';
+import { IItemAction } from '../actions/IItemAction';
 import { Map } from 'immutable';
 
 export interface IItemFlags {
