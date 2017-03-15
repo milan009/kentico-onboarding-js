@@ -1,56 +1,62 @@
-import React from 'react';
+import React, {
+  PureComponent,
+  PropTypes,
+} from 'react';
 
-class ListRowEdit extends React.Component {
+class ListRowEdit extends PureComponent {
+  static displayName = 'ListRowEdit';
+  static propTypes = {
+    index: PropTypes.number.isRequired,
+    item: PropTypes.object.isRequired,
+    onItemUpdate: PropTypes.func.isRequired,
+    onItemDelete: PropTypes.func.isRequired,
+    onItemCancel: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
-    this.state = { text: props.item.text };
-
-    this._onItemUpdate = this._onItemUpdate.bind(this);
-    this._onItemDelete = this._onItemDelete.bind(this);
-    this._onItemCancel = this._onItemCancel.bind(this);
-    this._onTextChange = this._onTextChange.bind(this);
+    this.state = {
+      text: props.item.text,
+    };
   }
 
-  _onTextChange(event) {
-    this.setState({ text: event.target.value });
-  }
+  _onTextChange = (event) => {
+    this.setState({
+      text: event.target.value,
+    });
+  };
 
-  _onItemUpdate(event) {
+  _onItemUpdate = (event) => {
+    event.preventDefault();
+    if (!this.state.text.match(/\S/)) {
+      return;
+    }
     this.props.onItemUpdate(this.props.item.id, this.state.text);
-    event.preventDefault();
-  }
+  };
 
-  _onItemDelete(event) {
+  _onItemDelete = (event) => {
+    event.preventDefault();
     this.props.onItemDelete(this.props.item.id);
-    event.preventDefault();
-  }
+  };
 
-  _onItemCancel(event) {
-    this.props.onItemCancel(this.props.item.id);
+  _onItemCancel = (event) => {
     event.preventDefault();
-  }
+    this.props.onItemCancel(this.props.item.id);
+  };
 
   render() {
     return (
       <div className="list-group-item">
         <div className="form-inline">
-          {this.props.children}
-          <input type="text" className="form-control" defaultValue={this.state.text} onChange={this._onTextChange} />
-          <input type="button" className="btn btn-primary" value="Save" onClick={this._onItemUpdate} />
-          <input type="button" className="btn btn-default" value="Cancel" onClick={this._onItemCancel} />
-          <input type="button" className="btn btn-danger" value="Delete" onClick={this._onItemDelete} />
+          <span>{this.props.index}. </span>
+          <input type="text" className="form-control" defaultValue={this.state.text} onChange={this._onTextChange} required />
+          <button type="button" className="btn btn-primary" onClick={this._onItemUpdate}>Save</button>
+          <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>
+          <button type="button" className="btn btn-danger" onClick={this._onItemDelete}>Delete</button>
         </div>
       </div>
     );
   }
 }
 
-ListRowEdit.propTypes = {
-  item: React.PropTypes.object,
-  children: React.PropTypes.node,
-  onItemUpdate: React.PropTypes.func,
-  onItemDelete: React.PropTypes.func,
-  onItemCancel: React.PropTypes.func,
-};
-
-export default ListRowEdit;
+export { ListRowEdit };

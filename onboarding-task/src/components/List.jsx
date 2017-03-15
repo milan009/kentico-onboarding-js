@@ -1,110 +1,67 @@
 import React, { Component } from 'react';
 
 import TsComponent from './TsComponent.tsx';
-import ListRowEdit from './ListRowEdit.jsx';
-import ListRow from './ListRow.jsx';
-import CreateItem from './CreateItem.jsx';
+import { CreateItem } from './CreateItem.jsx';
+import { ListRow } from './ListRow.jsx';
 
-function generateUUID() {
-  let d = new Date().getTime();
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-  });
-}
+import { _generateUUID } from '../utils/helperMethods.js';
 
 class List extends Component {
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
     this.state = { items: new Map() };
-
-    this._onItemAdd = this._onItemAdd.bind(this);
-    this._onItemUpdate = this._onItemUpdate.bind(this);
-    this._onItemDelete = this._onItemDelete.bind(this);
-    this._onItemCancel = this._onItemCancel.bind(this);
-    this._onItemClick = this._onItemClick.bind(this);
   }
 
-  _onItemAdd(text) {
-    // move inside ListRow??
-    if (!text.match(/\S/)) {
-      return false;
-    }
-    const id = generateUUID();
-    this._setItemFromState(id, {
+  _onItemAdd = (text) => {
+    const id = _generateUUID();
+    const items = this.state.items;
+    const item = {
       id,
       text,
       editing: false,
-    });
-    return true;
-  }
+    };
+    items.set(id, item);
+    this.setState({ items });
+  };
 
-  _onItemDelete(id) {
+  _onItemDelete = (id) => {
     const items = this.state.items;
     items.delete(id);
     this.setState({ items });
-  }
+  };
 
-  _onItemUpdate(id, text) {
-    // move inside ListRow??
-    if (!text.match(/\S/)) {
-      return false;
-    }
-    this._setItemFromState(id, {
+  _onItemUpdate =(id, text) => {
+    this._updateItemFromState(id, {
       text,
       editing: false,
     });
-    return true;
-  }
+  };
 
-  _onItemCancel(id) {
-    this._setItemFromState(id, { editing: false });
-  }
+  _onItemCancel = (id) => {
+    this._updateItemFromState(id, { editing: false });
+  };
 
-  _onItemClick(id) {
-    this._setItemFromState(id, { editing: true });
-  }
+  _onItemClick = (id) => {
+    this._updateItemFromState(id, { editing: true });
+  };
 
-  _setItemFromState(id, values) {
+  _updateItemFromState =(id, values) => {
     const items = this.state.items;
     const item = items.get(id) || {};
     const newItem = {
       ...item,
       ...values,
     };
-
     items.set(id, newItem);
     this.setState({ items });
-  }
-
-  _getEditRow(index, item) {
-    return (
-      <ListRowEdit key={item.id} onItemUpdate={this._onItemUpdate} onItemCancel={this._onItemCancel} onItemDelete={this._onItemDelete} item={item}>
-        <span>{index}. </span>
-      </ListRowEdit>
-    );
-  }
-
-  _getRow(index, item) {
-    return (
-      <ListRow key={item.id} item={item} onItemClick={this._onItemClick}>
-        <span>{index}. </span>
-      </ListRow>
-    );
-  }
+  };
 
   render() {
-    const listItems = [...this.state.items.values()].map((item, i) => {
-      let retVal = null;
-      if (item.editing) {
-        retVal = this._getEditRow(i + 1, item);
-      }
-      else {
-        retVal = this._getRow(i + 1, item);
-      }
-      return retVal;
-    });
+    const listItems = [...this.state.items.values()].map((item, i) =>
+      <ListRow key={item.id} index={i + 1} item={item} onItemClick={this._onItemClick} onItemUpdate={this._onItemUpdate} onItemDelete={this._onItemDelete} onItemCancel={this._onItemCancel} />
+    );
 
     return (
       <div className="row">
@@ -129,4 +86,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export { List };

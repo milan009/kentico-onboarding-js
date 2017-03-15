@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class CreateItem extends React.Component {
+class CreateItem extends PureComponent {
+  static displayName = 'CreateItem';
+  static propTypes = {
+    onItemAdd: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -8,36 +13,39 @@ class CreateItem extends React.Component {
       text: '',
       error: '',
     };
-    this._handleSubmit = this._handleSubmit.bind(this);
-    this._handleEditText = this._handleEditText.bind(this);
   }
 
-  _handleEditText(event) {
-    this.setState({ text: event.target.value });
-  }
+  _handleEditText = (event) => {
+    this.setState({
+      text: event.target.value,
+    });
+  };
 
-  _handleSubmit(event) {
-    if (this.props.onItemAdd(this.state.text)) {
-      this.setState({ text: '' });
-    }
-    else {
-      this.setState({ error: 'Enter non-empty value!' });
-    }
+  _handleSubmit = (event) => {
     event.preventDefault();
-  }
+    const text = this.state.text;
+    if (!text.match(/\S/)) {
+      this.setState({
+        error: 'Enter non-empty value!',
+      });
+      return;
+    }
+    this.props.onItemAdd(text);
+    this.setState({
+      text: '',
+    });
+  };
 
   render() {
     return (
       <form onSubmit={this._handleSubmit} className="form-inline">
         <input type="text" className="form-control" value={this.state.text} onChange={this._handleEditText} />
-        <input type="submit" className="btn btn-default" value="Add" />
+        <button type="submit" className="btn btn-default"> Add</button>
         <br />
-        <span style={{ color: 'red' }}>{this.state.error}</span>
+        <span className="text-danger">{this.state.error}</span>
       </form>
     );
   }
 }
 
-CreateItem.propTypes = { onItemAdd: React.PropTypes.func };
-
-export default CreateItem;
+export { CreateItem };

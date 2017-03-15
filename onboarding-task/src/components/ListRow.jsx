@@ -1,30 +1,28 @@
-import React from 'react';
+import React, { PureComponent, PropTypes } from 'react';
+import { ListRowDisplay } from './ListRowDisplay.jsx';
+import { ListRowEdit } from './ListRowEdit';
 
-class ListRow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onItemClick = this.onItemClick.bind(this);
-  }
-
-  onItemClick(event) {
-    this.props.onItemClick(this.props.item.id);
-    event.preventDefault();
-  }
+class ListRow extends PureComponent {
+  static displayName = 'ListRow';
+  static propTypes = {
+    index: PropTypes.number.isRequired,
+    item: PropTypes.object.isRequired,
+    onItemClick: PropTypes.func.isRequired,
+    onItemUpdate: PropTypes.func.isRequired,
+    onItemDelete: PropTypes.func.isRequired,
+    onItemCancel: PropTypes.func.isRequired,
+  };
 
   render() {
-    return (
-      <a href="#" className="list-group-item" onClick={this.onItemClick}>
-        {this.props.children}<span>{this.props.item.text}</span>
-      </a>
-    );
+    let row = null;
+    if (this.props.item.editing) {
+      row = <ListRowEdit index={this.props.index} item={this.props.item} onItemUpdate={this.props.onItemUpdate} onItemDelete={this.props.onItemDelete} onItemCancel={this.props.onItemCancel} />;
+    }
+    else {
+      row = <ListRowDisplay index={this.props.index} item={this.props.item} onItemClick={this.props.onItemClick} />;
+    }
+    return row;
   }
 }
 
-ListRow.propTypes = {
-  item: React.PropTypes.object.isRequired,
-  onItemClick: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node,
-};
-
-export default ListRow;
+export { ListRow };
