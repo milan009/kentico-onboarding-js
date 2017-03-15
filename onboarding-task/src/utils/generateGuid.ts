@@ -1,4 +1,4 @@
-function generateGuid() {
+function generateGuid(): string {
   let d = new Date().getTime();
   if (window.performance && typeof window.performance.now === 'function') {
     d += performance.now(); // use high-precision timer if available

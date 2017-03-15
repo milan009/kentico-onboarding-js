@@ -1,21 +1,33 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 
-class EditItem extends Component {
+interface IEditItemProps {
+  value: string;
+  index: number;
+  onEdit: (value: string) => void;
+  onDelete: () => void;
+  onCancel: () => void;
+}
+
+interface IEditItemState {
+  inputValue: string;
+}
+
+class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {
   static displayName = 'EditItem';
 
   static propTypes = {
-    value: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired };
+    value: React.PropTypes.string.isRequired,
+    index: React.PropTypes.number.isRequired,
+    onEdit: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired };
 
-  constructor(props) {
+  constructor(props: IEditItemProps) {
     super(props);
     this.state = { inputValue: this.props.value };
   }
 
-  _inputChange = (event) => {
+  _inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ inputValue: event.target.value });
   };
 
@@ -38,4 +50,4 @@ class EditItem extends Component {
   }
 }
 
-export default EditItem;
+export { EditItem };

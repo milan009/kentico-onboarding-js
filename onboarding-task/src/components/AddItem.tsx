@@ -1,16 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 
-class AddItem extends Component {
+interface IAddItemProps {
+  onAdd: (value: string) => void;
+}
+
+interface IAddItemState {
+  inputValue: string;
+}
+
+class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
-  static propTypes = { onAdd: PropTypes.func.isRequired };
+  static propTypes = { onAdd: React.PropTypes.func.isRequired };
 
-  constructor(props) {
+  constructor(props: IAddItemProps) {
     super(props);
     this.state = { inputValue: '' };
   }
 
-  _inputChange = (event) => {
+  _inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ inputValue: event.target.value });
   };
 
@@ -32,4 +40,4 @@ class AddItem extends Component {
   }
 }
 
-export default AddItem;
+export { AddItem };
