@@ -1,0 +1,18 @@
+import { ADD_ITEM } from './actionTypes';
+import { Item } from '../models/Item';
+import { IAction } from './IAction';
+
+function addItem(text: string, generateNewId: () => string): IAction {
+  return {
+    type: ADD_ITEM,
+    payload: {
+      item: new Item({ id: generateNewId(), text }),
+    },
+  };
+}
+
+function addItemFactory(idGenerator: () => string) {
+  return (text: string) => addItem(text, idGenerator);
+}
+
+export { addItemFactory };

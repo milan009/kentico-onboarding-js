@@ -1,8 +1,9 @@
-import './sticky-footer.css';
-import React, { PureComponent } from 'react';
-import { List } from './containers/List.js';
+import * as React from 'react';
 
-class App extends PureComponent {
+import './sticky-footer.css';
+import { List } from './containers/List';
+
+class App extends React.PureComponent<undefined, undefined> {
   render() {
     return (
       <div>
@@ -14,7 +15,9 @@ class App extends PureComponent {
           <div className="jumbotron">
             <h1>JS onboarding</h1>
             <p className="lead">
-              We will implement simple task using <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
+              We will implement simple task using
+              <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a>
+              and later move on to refactor our app to use <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
             </p>
             <p>You can find all the relevant info in git repository.</p>
             <p>

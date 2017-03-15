@@ -1,13 +1,21 @@
-import React, { PureComponent, PropTypes } from 'react';
+import * as React from 'react';
 
-class AddForm extends PureComponent {
+interface IAddFormProps {
+  onAdd: (text: string) => void;
+}
+
+interface IAddFormState {
+  textInput: string;
+}
+
+class AddForm extends React.PureComponent<IAddFormProps, IAddFormState> {
   static displayName = 'AddForm';
 
   static propTypes = {
-    onAdd: PropTypes.func.isRequired,
+    onAdd: React.PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IAddFormProps) {
     super(props);
     this.state = {
       textInput: '',
@@ -16,7 +24,7 @@ class AddForm extends PureComponent {
     this._add = this._add.bind(this);
   }
 
-  _handleTextInputChange(event) {
+  _handleTextInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ textInput: event.target.value });
   }
 

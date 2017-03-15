@@ -1,4 +1,4 @@
-import { generateId } from '../../src/utils/idGenerator.js';
+import { generateId } from '../../src/utils/idGenerator.ts';
 
 describe('id Generator', () => {
   it('should return id in specific format', () => {
