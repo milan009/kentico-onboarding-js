@@ -1,6 +1,6 @@
-import * as actions from '../../src/actions/actionCreators';
-import * as types from '../../src/actions/actionTypes';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
+import * as actions from '../../src/actions/actionCreators.ts';
+import * as types from '../../src/actions/actionTypes.ts';
+import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory.ts';
 
 describe('actionCreators', () => {
   const text = 'New item';

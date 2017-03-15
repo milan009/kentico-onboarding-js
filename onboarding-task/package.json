@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/jest": "^18.1.1",
+    "@types/memoizee": "^0.4.0",
     "@types/node": "^7.0.0",
+    "@types/react": "^15.0.0",
+    "@types/react-dom": "^0.14.20",
+    "@types/react-redux": "^4.4.37",
+    "@types/redux": "^3.6.0",
     "autoprefixer": "6.5.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "babel-core": "6.17.0",
     "babel-eslint": "7.1.1",
-    "babel-jest": "17.0.2",
+    "babel-jest": "^19.0.0",
     "babel-loader": "6.2.7",
     "babel-preset-react-app": "^2.0.1",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -31,7 +37,7 @@
     "gzip-size": "3.0.0",
     "html-webpack-plugin": "2.24.0",
     "http-proxy-middleware": "0.17.2",
-    "jest": "17.0.2",
+    "jest": "^19.0.2",
     "json-loader": "0.5.4",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
@@ -51,8 +57,6 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
-    "@types/react": "^15.0.0",
-    "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "memoizee": "^0.4.3",
@@ -61,32 +65,41 @@
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
-    "redux-logger": "^2.8.1"
+    "redux-logger": "^2.8.1",
+    "ts-jest": "^19.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom --no-cache"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "src/**/*.{js,jsx,ts,tsx}"
     ],
     "setupFiles": [
       "<rootDir>\\config\\polyfills.js"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>[/\\\\](build|docs|node_modules)[/\\\\]"
+      "<rootDir>[/\\\\](build|docs|node_modules|dist)[/\\\\]"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>\\node_modules\\ts-jest\\preprocessor.js",
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>\\config\\jest\\cssTransform.js",
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>\\config\\jest\\fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "testRegex": "\\.(test)\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"

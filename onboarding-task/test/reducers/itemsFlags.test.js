@@ -1,6 +1,6 @@
 import { itemsFlags } from '../../src/reducers/itemsFlags';
+import * as Immutable from 'immutable';
 import * as actions from '../../src/actions/actionCreators';
-import Immutable from 'immutable';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsFlags reducer', () => {
@@ -31,7 +31,7 @@ describe('itemsFlags reducer', () => {
   });
 
   it('should handle ADD_ITEM action', () => {
-    const expectedState = stateBefore.set('12345', false);
+    const expectedState = stateBefore.set('12345', { isEdited: false });
     const actualState = itemsFlags(stateBefore, addItemAction);
 
     expect(actualState).toEqual(expectedState);

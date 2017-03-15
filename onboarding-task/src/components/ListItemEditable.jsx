@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItemEditable extends Component {
   static displayName = 'ListItemEditable';
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    item: React.PropTypes.shape({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }),
+    index: PropTypes.number.isRequired,
     onUpdateText: PropTypes.func.isRequired,
     onToggleEditMode: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -45,7 +45,7 @@ class ListItemEditable extends Component {
         <td>
           <div className="form-inline">
             <div className="form-group">
-              <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
+              {this.props.index}. <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
             </div>
             <div className="form-group">
               <button className="btn btn-primary" onClick={this._onUpdate}>Save</button>

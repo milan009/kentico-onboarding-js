@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListItemStatic extends Component {
   static displayName = 'ListItemStatic';
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    item: React.PropTypes.shape({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }),
+    index: PropTypes.number.isRequired,
     onToggleEditMode: PropTypes.func.isRequired,
   };
 
@@ -25,7 +25,7 @@ class ListItemStatic extends Component {
     return (
       <tr>
         <td>
-          <div onClick={this._onClick}>{this.props.item.text}</div>
+          <div onClick={this._onClick}>{this.props.index}. {this.props.item.text}</div>
         </td>
       </tr>
     );

@@ -2,13 +2,13 @@ import './sticky-footer.css';
 import React, { Component } from 'react';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { List } from './containers/List';
-import { itemsById } from './reducers/itemsById';
-import { itemsFlags } from './reducers/itemsFlags';
-import { itemsOrder } from './reducers/itemsOrder';
+import { List } from './containers/List.tsx';
+import { itemsById } from './reducers/itemsById.ts';
+import { itemsFlags } from './reducers/itemsFlags.ts';
+import { itemsOrder } from './reducers/itemsOrder.ts';
 
 import createLogger from 'redux-logger';
-import { getInitialState } from './utils/getInitialState';
+import { getInitialState } from './utils/getInitialState.ts';
 
 const rootReducer = combineReducers({
   itemsById,

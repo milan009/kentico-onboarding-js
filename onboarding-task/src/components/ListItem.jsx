@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import { ListItemEditable } from './ListItemEditable.jsx';
 import { ListItemStatic } from './ListItemStatic.jsx';
 
 class ListItem extends Component {
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    item: React.PropTypes.shape({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       isEdited: React.PropTypes.bool.isRequired,
     }),
+    index: PropTypes.number.isRequired,
     onToggleEditMode: PropTypes.func.isRequired,
     onUpdateText: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -45,11 +44,13 @@ class ListItem extends Component {
         onUpdateText={this._saveItem}
         onToggleEditMode={this._toggleEditMode}
         onDelete={this._onDelete}
+        index={this.props.index}
       />)
       : (<ListItemStatic
         key={item.guid}
         item={item}
         onToggleEditMode={this._toggleEditMode}
+        index={this.props.index}
       />);
   }
 }

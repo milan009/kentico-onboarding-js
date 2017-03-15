@@ -1,7 +1,7 @@
 import { itemsById } from '../../src/reducers/itemsById';
 import * as actions from '../../src/actions/actionCreators';
-import Immutable from 'immutable';
-import { ItemRecord } from '../../src/utils/itemRecord';
+import * as Immutable from 'immutable';
+import { ItemRecord } from '../../src/models/ItemRecord';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsById reducer', () => {
@@ -25,7 +25,7 @@ describe('itemsById reducer', () => {
     expect(actualState).toEqual(stateBefore);
   });
 
-  it('should return empty immutable map if no state is provided', () => {
+  it('should return empty immutable emptyItemsById if no state is provided', () => {
     const actualState = itemsById(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.Map());
