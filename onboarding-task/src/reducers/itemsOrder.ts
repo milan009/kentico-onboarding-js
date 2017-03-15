@@ -2,7 +2,7 @@ import { OrderedSet } from 'immutable';
 import { ADD_ITEM, DELETE_ITEM } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
 
-const itemOrder = (state = OrderedSet(), action: IAction) => {
+const itemsOrder = (state = OrderedSet(), action: IAction) => {
   switch (action.type) {
     case ADD_ITEM:
       return state.add(action.payload.item.id);
@@ -15,4 +15,4 @@ const itemOrder = (state = OrderedSet(), action: IAction) => {
   }
 };
 
-export { itemOrder };
+export { itemsOrder };

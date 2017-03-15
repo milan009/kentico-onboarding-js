@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import { items } from './items';
 import { editedItems } from './editedItems';
-import { itemOrder } from './itemOrder';
+import { itemsOrder } from './itemsOrder';
 
 const listApp = combineReducers({
   items,
   editedItems,
-  itemOrder,
+  itemsOrder,
 });
 
 export { listApp };

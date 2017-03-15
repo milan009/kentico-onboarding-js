@@ -4,7 +4,7 @@ import { IItem } from '../models/Item';
 interface IAppState {
   items: OrderedMap<string, IItem>;
   editedItems: Set<string>;
-  itemOrder: OrderedSet<string>;
+  itemsOrder: OrderedSet<string>;
 }
 
 export {IAppState}
