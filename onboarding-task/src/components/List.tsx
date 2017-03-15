@@ -7,19 +7,16 @@ import { generateGuid } from '../utils/generateGuid';
 import { Item } from '../models/IItem';
 import { ItemFlags } from '../models/IItemFlags';
 
-interface IListProps {
-}
-
 interface IListState {
   items: Immutable.Map<string,Item>;
   itemsOrder: Immutable.List<string>;
   itemsDisplayFlags: Immutable.Map<string, ItemFlags>;
 }
 
-class List extends React.PureComponent<IListProps, IListState> {
+class List extends React.PureComponent<undefined, IListState> {
   static displayName = 'List';
 
-  constructor(props: IListProps) {
+  constructor(props: undefined) {
     super(props);
     this.state = {
       items: Immutable.Map<string,Item>(),
