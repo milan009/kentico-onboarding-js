@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 import * as Immutable from 'immutable';
 import { IItemFlags } from '../reducers/itemsFlags';
-import { IItemRecord } from '../utils/itemRecord';
+import { IItemRecord } from '../models/ItemRecord';
 import { addItem } from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
 

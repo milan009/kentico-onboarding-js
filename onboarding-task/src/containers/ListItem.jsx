@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import { ListItem as ListItemComponent } from '../components/ListItem';
 import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCreators.ts';
 import memoize from 'memoizee';
-import { ViewItemRecord } from '../utils/itemRecord.ts';
 
-const selectViewItem = (itemData, itemFlags) => new ViewItemRecord({
+const selectViewItem = (itemData, itemFlags) => ({
   guid: itemData.guid,
   text: itemData.text,
   isEdited: itemFlags.isEdited,

@@ -1,5 +1,5 @@
 import { item } from '../../src/reducers/item.ts';
-import { ItemRecord } from '../../src/utils/itemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord';
 import * as actions from '../../src/actions/actionCreators.ts';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory.ts';
 

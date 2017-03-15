@@ -1,7 +1,7 @@
 import { itemsById } from '../../src/reducers/itemsById';
 import * as actions from '../../src/actions/actionCreators';
 import * as Immutable from 'immutable';
-import { ItemRecord } from '../../src/utils/itemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsById reducer', () => {

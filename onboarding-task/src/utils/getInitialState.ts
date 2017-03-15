@@ -1,6 +1,6 @@
 import * as Immutable from 'immutable';
 import { generateGuid } from './generateGuid';
-import { ItemRecord } from './itemRecord';
+import { ItemRecord } from '../models/ItemRecord';
 import {IListState} from "../containers/List";
 
 function getInitialState(): IListState {

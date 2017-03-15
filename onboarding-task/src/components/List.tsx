@@ -35,7 +35,7 @@ class List extends React.PureComponent<IListProps, undefined> {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <table className="table table-bordered">
             <tbody>
-              {items.map((guid: string, index: number) =>
+              {items.map((guid, index) =>
                 <ListItem guid={guid} key={guid} index={index + 1} />
               )}
               <AddItem onItemAdd={this._addItem} />

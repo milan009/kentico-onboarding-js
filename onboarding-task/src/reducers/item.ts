@@ -1,5 +1,5 @@
 import { ADD_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
-import { ItemRecord } from '../utils/itemRecord';
+import { ItemRecord } from '../models/ItemRecord';
 import {IItemAction} from "../actions/IItemAction";
 
 function item (state = new ItemRecord({}), action: IItemAction): ItemRecord {

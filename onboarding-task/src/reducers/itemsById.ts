@@ -2,7 +2,7 @@ import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes'
 import { item } from './item';
 import { IItemAction } from '../actions/IItemAction';
 import { Map } from 'immutable';
-import {ItemRecord} from "../utils/itemRecord";
+import {ItemRecord} from '../models/ItemRecord';
 
 const emptyItemsById = Map<string, ItemRecord>();
 function itemsById (state = emptyItemsById, action: IItemAction): Map<string, ItemRecord> {

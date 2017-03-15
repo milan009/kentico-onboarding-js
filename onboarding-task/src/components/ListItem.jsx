@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ListItemEditable } from './ListItemEditable.jsx';
 import { ListItemStatic } from './ListItemStatic.jsx';
 
 class ListItem extends Component {
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    item: React.PropTypes.shape({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
       isEdited: React.PropTypes.bool.isRequired,
