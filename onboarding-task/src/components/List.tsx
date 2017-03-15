@@ -3,8 +3,8 @@ import { PropTypes } from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ListItem } from '../containers/ListItem';
 import { AddItem } from './AddItem';
-import {Set} from "immutable";
-import {IItemAction} from "../actions/IItemAction";
+import {Set} from 'immutable';
+import {IItemAction} from '../actions/IItemAction';
 
 interface IListProps {
   itemsOrder: Set<string>;

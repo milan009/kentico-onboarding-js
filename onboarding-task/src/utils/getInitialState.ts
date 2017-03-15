@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 import { generateGuid } from './generateGuid';
 import { ItemRecord } from '../models/ItemRecord';
-import {IListState} from "../containers/List";
+import {IListState} from '../containers/List';
 
 function getInitialState(): IListState {
   const firstItem = new ItemRecord({ guid: generateGuid(), text: 'serus' });

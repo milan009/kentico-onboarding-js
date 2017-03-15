@@ -1,6 +1,6 @@
 import { itemsOrder } from '../../src/reducers/itemsOrder';
 import * as actions from '../../src/actions/actionCreators';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsOrder reducer', () => {
