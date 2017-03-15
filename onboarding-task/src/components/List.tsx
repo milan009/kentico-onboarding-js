@@ -9,7 +9,7 @@ import { ItemFlags } from '../models/IItemFlags';
 
 interface IListState {
   items: Immutable.Map<string,Item>;
-  itemsOrder: Immutable.List<string>;
+  itemsOrder: Immutable.OrderedSet<string>;
   itemsDisplayFlags: Immutable.Map<string, ItemFlags>;
 }
 
@@ -20,7 +20,7 @@ class List extends React.PureComponent<undefined, IListState> {
     super(props);
     this.state = {
       items: Immutable.Map<string,Item>(),
-      itemsOrder: Immutable.List<string>(),
+      itemsOrder: Immutable.OrderedSet<string>(),
       itemsDisplayFlags: Immutable.Map<string, ItemFlags>()
     };
   }
@@ -36,7 +36,7 @@ class List extends React.PureComponent<undefined, IListState> {
 
     this.setState({
       items: this.state.items.set(newItem.id, newItem),
-      itemsOrder: this.state.itemsOrder.push(newItem.id),
+      itemsOrder: this.state.itemsOrder.add(newItem.id),
       itemsDisplayFlags: this.state.itemsDisplayFlags.set(newItem.id, itemFlags)
     });
   };
@@ -51,11 +51,9 @@ class List extends React.PureComponent<undefined, IListState> {
   };
 
   _deleteItem = (deletedItemId: string) => {
-    const itemIndex = this.state.itemsOrder.indexOf(deletedItemId);
-
     this.setState({
       items: this.state.items.delete(deletedItemId),
-      itemsOrder: this.state.itemsOrder.delete(itemIndex),
+      itemsOrder: this.state.itemsOrder.delete(deletedItemId),
       itemsDisplayFlags: this.state.itemsDisplayFlags.delete(deletedItemId)
     });
   };
@@ -69,7 +67,7 @@ class List extends React.PureComponent<undefined, IListState> {
   };
 
   _renderListItems = () => {
-    return this.state.itemsOrder.map((id: string, index: number) =>
+    return this.state.itemsOrder.toIndexedSeq().map((id: string, index: number) =>
       <li className="list-group-item" key={id}>
         <ListItem
           item={this.state.items.get(id)}
