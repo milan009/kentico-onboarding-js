@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { EditItem } from './EditItem';
 import { Item } from '../models/IItem';
+import { ViewItem } from './ViewItem';
 
 interface IListItemProps {
   item: Item;
@@ -54,9 +55,11 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
         />);
     }
     return (
-      <div onClick={this._toggleViewMode}>
-        {this.props.index}. {value}
-      </div>
+        <ViewItem
+          value={value}
+          index={this.props.index}
+          onClick={this._toggleViewMode}
+        />
     );
   }
 }
