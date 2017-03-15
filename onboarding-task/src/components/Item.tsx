@@ -49,9 +49,7 @@ class Item extends React.PureComponent<IItemProps, undefined> {
 
   render() {
     return (
-      <li className="list-group-item">
-        {this._getItemToRender(this.props.item)}
-      </li>
+        this._getItemToRender(this.props.item)
     );
   }
 }

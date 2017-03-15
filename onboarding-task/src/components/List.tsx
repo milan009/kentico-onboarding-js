@@ -25,8 +25,10 @@ class List extends React.PureComponent<IListProps, undefined> {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ul className="list-group">
             {this.props.itemIds.valueSeq().map((id: string, index: number) =>
-              <Item index={index} id={id} key={id} />)
-            }
+              <li className="list-group-item" key={id}>
+                <Item index={index} id={id} />
+              </li>
+            )}
             <li className="list-group-item">
               <AddForm onAdd={this.props.addItem} />
             </li>
