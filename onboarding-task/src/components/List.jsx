@@ -4,7 +4,7 @@ import TsComponent from './TsComponent.tsx';
 import { CreateItem } from './CreateItem.jsx';
 import { ListRow } from './ListRow.jsx';
 
-import { _generateUUID } from '../utils/helperMethods.js';
+import { generateUuid } from '../utils/idGenerator.js';
 
 class List extends Component {
   static displayName = 'List';
@@ -15,7 +15,7 @@ class List extends Component {
   }
 
   _onItemAdd = (text) => {
-    const id = _generateUUID();
+    const id = generateUuid();
     const items = this.state.items;
     const item = {
       id,
@@ -23,6 +23,7 @@ class List extends Component {
       editing: false,
     };
     items.set(id, item);
+
     this.setState({ items });
   };
 
@@ -32,7 +33,7 @@ class List extends Component {
     this.setState({ items });
   };
 
-  _onItemUpdate =(id, text) => {
+  _onItemUpdate = (id, text) => {
     this._updateItemFromState(id, {
       text,
       editing: false,
@@ -47,7 +48,7 @@ class List extends Component {
     this._updateItemFromState(id, { editing: true });
   };
 
-  _updateItemFromState =(id, values) => {
+  _updateItemFromState = (id, values) => {
     const items = this.state.items;
     const item = items.get(id) || {};
     const newItem = {
@@ -55,12 +56,22 @@ class List extends Component {
       ...values,
     };
     items.set(id, newItem);
+
     this.setState({ items });
   };
 
   render() {
     const listItems = [...this.state.items.values()].map((item, i) =>
-      <ListRow key={item.id} index={i + 1} item={item} onItemClick={this._onItemClick} onItemUpdate={this._onItemUpdate} onItemDelete={this._onItemDelete} onItemCancel={this._onItemCancel} />
+      <div key={item.id} className="list-group-item item-custom">
+        <ListRow
+          index={i + 1}
+          item={item}
+          onItemClick={this._onItemClick}
+          onItemUpdate={this._onItemUpdate}
+          onItemDelete={this._onItemDelete}
+          onItemCancel={this._onItemCancel}
+        />
+      </div>
     );
 
     return (

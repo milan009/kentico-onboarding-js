@@ -18,9 +18,9 @@ class ListRowDisplay extends PureComponent {
 
   render() {
     return (
-      <a href="#" className="list-group-item" onClick={this._onItemClick}>
-        {this.props.index}. {this.props.children}<span>{this.props.item.text}</span>
-      </a>
+      <div className="item-active" onClick={this._onItemClick}>
+        {this.props.index}. <span>{this.props.item.text}</span>
+      </div>
     );
   }
 }

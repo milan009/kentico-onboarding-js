@@ -1,4 +1,7 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, {
+  PureComponent,
+  PropTypes,
+} from 'react';
 import { ListRowDisplay } from './ListRowDisplay.jsx';
 import { ListRowEdit } from './ListRowEdit';
 
@@ -14,14 +17,24 @@ class ListRow extends PureComponent {
   };
 
   render() {
-    let row = null;
     if (this.props.item.editing) {
-      row = <ListRowEdit index={this.props.index} item={this.props.item} onItemUpdate={this.props.onItemUpdate} onItemDelete={this.props.onItemDelete} onItemCancel={this.props.onItemCancel} />;
+      return (
+        <ListRowEdit
+          index={this.props.index}
+          item={this.props.item}
+          onItemUpdate={this.props.onItemUpdate}
+          onItemDelete={this.props.onItemDelete}
+          onItemCancel={this.props.onItemCancel}
+        />
+      );
     }
-    else {
-      row = <ListRowDisplay index={this.props.index} item={this.props.item} onItemClick={this.props.onItemClick} />;
-    }
-    return row;
+    return (
+      <ListRowDisplay
+        index={this.props.index}
+        item={this.props.item}
+        onItemClick={this.props.onItemClick}
+      />
+    );
   }
 }
 

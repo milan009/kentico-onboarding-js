@@ -1,4 +1,4 @@
-function _generateUUID() {
+function generateUuid() {
   let d = new Date().getTime();
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     const r = (d + Math.random() * 16) % 16 | 0;
@@ -7,4 +7,4 @@ function _generateUUID() {
   });
 }
 
-export { _generateUUID };
+export { generateUuid };
