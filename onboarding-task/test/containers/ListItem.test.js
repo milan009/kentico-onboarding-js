@@ -1,5 +1,5 @@
 import { selectViewItem } from '../../src/containers/ListItem.jsx';
-import { ViewItemRecord } from '../../src/utils/itemRecord.js';
+import { ViewItemRecord } from '../../src/utils/itemRecord.ts';
 
 describe('list item container', () => {
   it('should return valid view item record', () => {
