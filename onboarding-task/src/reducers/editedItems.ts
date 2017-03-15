@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-import {START_EDIT_ITEM, STOP_EDIT_ITEM, DELETE_ITEM, UPDATE_ITEM} from '../actions/actionTypes';
+import { START_EDIT_ITEM, STOP_EDIT_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
 
 const editedItems = (state = Set(), action: IAction) => {

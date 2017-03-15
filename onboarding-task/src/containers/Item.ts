@@ -1,11 +1,9 @@
-const { connect } = require('react-redux');
-import { Dispatch } from 'redux';
-
+import { connect } from 'react-redux';
+import { Dispatch } from '../stores/Dispatch';
 import { IAppState } from '../stores/IAppState';
 import { Item } from '../components/Item';
 import { deleteItem, updateItem } from '../actions/itemsActionCreators';
 import { startEditItem, stopEditItem } from '../actions/editedItemsActionCreators';
-import { IAction } from '../actions/IAction';
 import { selectViewItem } from '../selectors/selectViewItem';
 
 interface IItemContainerProps {
@@ -19,7 +17,7 @@ const mapStateToProps = (state: IAppState, ownProps: IItemContainerProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IItemContainerProps) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IItemContainerProps) => {
   return {
     deleteItem: () => dispatch(deleteItem(ownProps.id)),
     updateItem: (text: string) => dispatch(updateItem(ownProps.id, text)),

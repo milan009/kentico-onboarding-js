@@ -1,10 +1,8 @@
-const { connect } = require('react-redux');
-import { Dispatch } from 'redux';
-
+import { connect } from 'react-redux';
+import { Dispatch } from '../stores/Dispatch';
 import { addItem} from '../actions/itemsActionCreators';
 import { List } from '../components/List';
 import { IAppState } from '../stores/IAppState';
-import { IAction } from '../actions/IAction';
 
 const mapStateToProps = (state: IAppState) => {
   return {
@@ -12,13 +10,13 @@ const mapStateToProps = (state: IAppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addItem: (text: string) => dispatch(addItem(text)),
   };
 };
 
-const ListContainer: React.ComponentClass<undefined> = connect(
+const ListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);

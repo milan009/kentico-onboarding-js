@@ -2,13 +2,14 @@ import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { IViewItem } from '../viewModels/ViewItem';
 import { EditForm } from './EditForm';
+import { IAction } from '../actions/IAction';
 
 interface IItemProps {
   item: IViewItem;
-  deleteItem: () => void;
-  updateItem: (text: string) => void;
-  startEditingItem: () => void;
-  stopEditingItem: () => void;
+  deleteItem: () => IAction;
+  updateItem: (text: string) => IAction;
+  startEditingItem: () => IAction;
+  stopEditingItem: () => IAction;
 }
 
 class Item extends React.PureComponent<IItemProps, undefined> {
@@ -33,20 +34,24 @@ class Item extends React.PureComponent<IItemProps, undefined> {
 
   _getItemToRender(item: IViewItem) {
     if (item.isEdited) {
-      return (<EditForm
-        item={item}
-        onSave={this.props.updateItem}
-        onDelete={this.props.deleteItem}
-        onCancel={this.props.stopEditingItem}
-      />);
+      return (
+        <EditForm
+          item={item}
+          onSave={this.props.updateItem}
+          onDelete={this.props.deleteItem}
+          onCancel={this.props.stopEditingItem}
+        />
+      );
     }
     return <div onClick={this.props.startEditingItem}>{`${this.props.item.index}. ${this.props.item.text}`}</div>;
   }
 
   render() {
-    return (<li className="list-group-item">
-      {this._getItemToRender(this.props.item)}
-    </li>);
+    return (
+      <li className="list-group-item">
+        {this._getItemToRender(this.props.item)}
+      </li>
+    );
   }
 }
 

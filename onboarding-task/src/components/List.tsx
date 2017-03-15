@@ -4,10 +4,11 @@ import { OrderedSet } from 'immutable';
 
 import { Item } from '../containers/Item';
 import { AddForm } from './AddForm';
+import {IAction} from '../actions/IAction';
 
 interface IListProps {
   list: OrderedSet<string>;
-  addItem: (text: string) => void;
+  addItem: (text: string) => IAction;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
