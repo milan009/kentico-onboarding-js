@@ -15,4 +15,4 @@ class Item extends Record(defaultValues) implements IItem {
   readonly value: string;
 }
 
-export { Item, IItem };
+export { Item };

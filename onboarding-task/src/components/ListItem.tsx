@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { EditItem } from './EditItem';
-import { Item } from '../models/IItem';
+import { Item } from '../models/Item';
 import { ViewItem } from './ViewItem';
 
 interface IListItemProps {

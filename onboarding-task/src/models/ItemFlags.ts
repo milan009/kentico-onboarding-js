@@ -12,4 +12,4 @@ class ItemFlags extends Record(defaultValues) implements IItemFlags {
   readonly editMode: boolean;
 }
 
-export { ItemFlags, IItemFlags };
+export { ItemFlags };

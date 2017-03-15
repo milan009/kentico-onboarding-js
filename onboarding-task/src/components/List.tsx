@@ -4,8 +4,8 @@ import * as Immutable from 'immutable';
 import { ListItem } from './ListItem';
 import { AddItem } from './AddItem';
 import { generateGuid } from '../utils/generateGuid';
-import { Item } from '../models/IItem';
-import { ItemFlags } from '../models/IItemFlags';
+import { Item } from '../models/Item';
+import { ItemFlags } from '../models/ItemFlags';
 
 interface IListState {
   items: Immutable.Map<string,Item>;
