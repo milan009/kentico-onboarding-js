@@ -6,7 +6,7 @@ import { IAppState } from '../stores/IAppState';
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    list: state.itemOrder,
+    itemIds: state.itemOrder,
   };
 };
 
