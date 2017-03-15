@@ -3,6 +3,7 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import { IViewItem } from '../viewModels/ViewItem';
 import { EditForm } from './EditForm';
 import { IAction } from '../actions/IAction';
+import { ItemDetail } from './ItemDetail';
 
 interface IItemProps {
   item: IViewItem;
@@ -43,7 +44,7 @@ class Item extends React.PureComponent<IItemProps, undefined> {
         />
       );
     }
-    return <div onClick={this.props.startEditingItem}>{`${this.props.item.index}. ${this.props.item.text}`}</div>;
+    return <ItemDetail startEditingItem={this.props.startEditingItem} index={item.index} text={item.text} />;
   }
 
   render() {
