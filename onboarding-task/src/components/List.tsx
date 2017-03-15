@@ -67,11 +67,11 @@ class List extends React.PureComponent<undefined, IListState> {
   };
 
   _renderListItems = () => {
-    return this.state.itemsOrder.toIndexedSeq().map((id: string, index: number) =>
+    return this.state.itemsOrder.toIndexedSeq().map((id: string, zeroBasedIndex: number) =>
       <li className="list-group-item" key={id}>
         <ListItem
           item={this.state.items.get(id)}
-          index={index}
+          index={zeroBasedIndex + 1}
           isInEditMode={this.state.itemsDisplayFlags.get(id).editMode}
           onItemValueEdit={this._editItemValue}
           onDelete={this._deleteItem}

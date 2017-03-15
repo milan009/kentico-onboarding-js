@@ -39,7 +39,7 @@ class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {
     return (
       <div className="form-inline">
         <div className="form-group">
-          {this.props.index + 1}.
+          {this.props.index}.
           <input className="form-control" type="text" value={this.state.inputValue} onChange={this._inputChange} />
           <button type="submit" className="btn btn-primary" onClick={this._saveValue}>Save</button>
           <button className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>

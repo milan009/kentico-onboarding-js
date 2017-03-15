@@ -55,7 +55,7 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
     }
     return (
       <div onClick={this._toggleViewMode}>
-        {this.props.index + 1}. {value}
+        {this.props.index}. {value}
       </div>
     );
   }
