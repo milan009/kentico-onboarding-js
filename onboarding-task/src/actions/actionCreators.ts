@@ -1,17 +1,19 @@
-const ITEM_CREATED = (value: string) => {
+import {ITEM_CREATED, ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
+
+const createItem = (value: string) => {
   return { type: ITEM_CREATED, value }
 };
 
-const ITEM_DELETED = (id: string) => {
+const deleteItem = (id: string) => {
   return { type: ITEM_DELETED, id }
 };
 
-const ITEM_EDITED = (id: string, newValue: string) => {
-  return { type: ITEM_EDITED, id, newValue }
+const editItem = (id: string, value: string) => {
+  return { type: ITEM_EDITED, id, value }
 };
 
-const ITEM_EDIT_MODE_TOGGLE = (id: string, newValue: string) => {
-  return { type: ITEM_EDIT_MODE_TOGGLE, id, newValue }
+const toggleItemViewMode = (id: string) => {
+  return { type: ITEM_VIEW_MODE_TOGGLED, id: id }
 };
 
-export { ITEM_CREATED, ITEM_DELETED, ITEM_EDITED, ITEM_EDIT_MODE_TOGGLE };
+export { createItem, deleteItem, editItem, toggleItemViewMode };
