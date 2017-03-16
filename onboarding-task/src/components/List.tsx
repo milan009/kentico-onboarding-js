@@ -30,7 +30,7 @@ class List extends React.PureComponent<IListProps, undefined> {
       //     <CreateListItem onListItemAdd={this.props.onListItemAdd} />
       //   </li>
       // </ul>
-      <div className="circ">
+      <div className="angryLoaderMain">
         <div className="load">Loading...</div>
         <div className="hands"></div>
         <div className="body"></div>
