@@ -10,6 +10,7 @@ const mapStateToProps = (state: IAppState) => {
   return {
     itemsOrder: state.items.orderedIds,
     isFetching: state.items.isFetching,
+    error: state.items.error,
   };
 };
 

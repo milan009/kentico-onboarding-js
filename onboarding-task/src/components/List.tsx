@@ -8,6 +8,7 @@ import { IAction } from '../interfaces/IAction';
 interface IListProps {
   itemsOrder: ImmutableList<string>;
   isFetching: boolean;
+  error: string;
   onListItemAdd: (text: string) => IAction;
   onListMount: () => IAction;
 }
@@ -41,13 +42,23 @@ class List extends React.PureComponent<IListProps, undefined> {
         </li>
       );
 
+      const error = this.props.error && this.props.error !== ''
+        ? (<div className="alert alert-danger" role="alert">
+          <strong>Error!</strong> {this.props.error}
+        </div> )
+        : '';
+
       return (
-        <ul className="list-group">
-          {listItems}
-          <li key="CreateListItemKey" className="list-group-item">
-            <CreateListItem onListItemAdd={this.props.onListItemAdd}/>
-          </li>
-        </ul>
+        <div>
+          {error}
+          <ul className="list-group">
+
+            {listItems}
+            <li key="CreateListItemKey" className="list-group-item">
+              <CreateListItem onListItemAdd={this.props.onListItemAdd}/>
+            </li>
+          </ul>
+        </div>
       );
     }
   }
