@@ -3,6 +3,7 @@ import React, {
   PropTypes,
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
+import { Input } from './Input.jsx';
 
 class CreateItem extends PureComponent {
   static displayName = 'CreateItem';
@@ -15,11 +16,11 @@ class CreateItem extends PureComponent {
 
     this.state = {
       text: '',
-      error: '',
+      isAddDisabled: true,
     };
   }
 
-  _handleEditText = (event) => {
+  _onTextChange = (event) => {
     this.setState({
       text: event.target.value,
     });
@@ -28,34 +29,24 @@ class CreateItem extends PureComponent {
   _handleSubmit = (event) => {
     event.preventDefault();
     const text = this.state.text;
-
-    const validation = validateItemText(text);
-    if (validation.errors) {
-      this.setState({
-        error: validation.message,
-      });
-      return;
-    }
-
     this.props.onItemAdd(text);
+
     this.setState({
       text: '',
-      error: '',
+    });
+  };
+
+  _onValidityChange = (isValid) => {
+    this.setState({
+      isAddDisabled: !isValid,
     });
   };
 
   render() {
     return (
       <form onSubmit={this._handleSubmit} className="form-inline">
-        <input type="text" className="form-control" value={this.state.text} onChange={this._handleEditText} />
-        <button type="submit" className="btn btn-default"> Add</button>
-        {this.state.error &&
-          <div>
-            <br />
-            <span className="text-danger">{this.state.error}</span>
-          </div>
-        }
-
+        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onInvalid={this._onValidityChange} />
+        <button type="submit" className="btn btn-default" disabled={this.state.isAddDisabled}>Add</button>
       </form>
     );
   }

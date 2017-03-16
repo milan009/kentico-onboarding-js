@@ -1,11 +1,13 @@
 function validateItemText(text) {  // might be part of validateItem() later, if other params are added
+  const error = {
+    isValid: true,
+    messages: [],
+  };
   if (!text.match(/\S/)) {
-    return {
-      errors: true,
-      message: 'Enter non-empty text',
-    };
+    error.isValid = false;
+    error.messages = [...error.messages, 'Item text should not be empty'];
   }
-  return { errors: false };
+  return error;
 }
 
 export { validateItemText };

@@ -3,6 +3,7 @@ import React, {
   PropTypes,
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
+import { Input } from './Input.jsx';
 
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
@@ -18,20 +19,19 @@ class ListRowEdit extends PureComponent {
     super(props);
     this.state = {
       text: props.item.text,
+      isSaveDisabled: false,
     };
   }
 
   _onTextChange = (event) => {
     this.setState({
       text: event.target.value,
+      isSaveDisabled: false,
     });
   };
 
   _onItemUpdate = (event) => {
     event.preventDefault();
-    if (validateItemText(this.state.text).errors) {
-      return;
-    }
     this.props.onItemUpdate(this.props.item.id, this.state.text);
   };
 
@@ -45,12 +45,19 @@ class ListRowEdit extends PureComponent {
     this.props.onItemCancel(this.props.item.id);
   };
 
+  _onInvalid = (event) => {
+    this.setState({
+      text: event.target.value,
+      isSaveDisabled: true,
+    });
+  };
+
   render() {
     return (
       <div className="form-inline">
         <span>{this.props.index}. </span>
-        <input type="text" className="form-control" defaultValue={this.state.text} onChange={this._onTextChange} required />
-        <button type="button" className="btn btn-primary" onClick={this._onItemUpdate}>Save</button>
+        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onInvalid={this._onInvalid} />
+        <button type="button" className="btn btn-primary" onClick={this._onItemUpdate} disabled={this.state.isSaveDisabled}>Save</button>
         <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this._onItemDelete}>Delete</button>
       </div>
