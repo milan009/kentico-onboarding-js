@@ -55,7 +55,10 @@
     "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
