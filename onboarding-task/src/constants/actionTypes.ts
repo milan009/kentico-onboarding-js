@@ -11,3 +11,7 @@ export const FETCH_ITEMS_REQUEST: string = 'FETCH_ITEMS_REQUEST';
 export const FETCH_ITEMS_SUCCESS: string = 'FETCH_ITEMS_SUCCESS';
 
 export const FETCH_ITEMS_FAILURE: string = 'FETCH_ITEMS_FAILURE';
+
+export const SEND_ITEM_SUCCESS: string = 'SEND_ITEM_SUCCESS';
+
+export const SEND_ITEM_FAILURE: string = 'SEND_ITEM_FAILURE';

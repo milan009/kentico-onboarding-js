@@ -9,4 +9,5 @@ export interface IItems {
   uiPropsById: Map<string, ItemUiPropsRecord>;
   isFetching: boolean;
   error?: string;
+  successMessage: string;
 }
