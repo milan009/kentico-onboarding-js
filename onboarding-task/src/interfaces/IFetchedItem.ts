@@ -1,4 +1,4 @@
 export interface IFetchedItem {
-  id: string;
-  text: string;
+  Id: string;
+  Value: string;
 }

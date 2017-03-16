@@ -25,7 +25,7 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
     case FETCH_ITEMS_SUCCESS:
       let newState = Map<string, ItemUiPropsRecord>();
       action.payload.response.forEach((item: IFetchedItem) => {
-        newState = newState.set(item.id, new ItemUiPropsRecord());
+        newState = newState.set(item.Id, new ItemUiPropsRecord());
       });
       return newState;
 
