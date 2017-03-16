@@ -2,6 +2,7 @@ import { IAction } from '../interfaces/IAction';
 import { fetchItemsRequest, fetchItemsSuccess, fetchItemsFailure} from './fetchItemsActionCreators';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 import { dispatchType } from '../utils/dispatchType';
+import TsPromise from 'ts-promise';
 require('isomorphic-fetch');
 
 type fetchType = (path: string, parameters?: any) => Promise<Response>;
@@ -11,10 +12,9 @@ const fetchItems = (fetchParam: fetchType) => {
     dispatch(fetchItemsRequest());
 
     return fetchParam('/api/Items')
-      .then<IFetchedItem[]>((response: Response) => response.json())
+      .then<IFetchedItem[] | string>((response: Response) => response.ok ? response.json() : TsPromise.reject(new Error(response.statusText)))
       .then<IAction>((json: IFetchedItem[]) => dispatch(fetchItemsSuccess(json)))
-      .catch<string>((response: Response) => response.text())
-      .then<IAction>((text: string) => dispatch(fetchItemsFailure(text)));
+      .catch<IAction>((error: Error) => dispatch(fetchItemsFailure(error.message)));
   };
 };
 
