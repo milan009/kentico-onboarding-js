@@ -1,7 +1,9 @@
+import * as fetch from 'isomorphic-fetch';
 import { DELETE_ITEM, UPDATE_ITEM } from './actionTypes';
 import { generateId } from '../utils/idGenerator';
 import { addItemFactory } from './addItemFactory';
 import { IAction } from './IAction';
+import { fetchItemsFactory } from './fetchItemsFactory';
 
 function deleteItem(id: string): IAction {
   return {
@@ -22,5 +24,6 @@ function updateItem(id: string, text: string): IAction {
   };
 }
 
+const fetchItemsWithDependecies = fetchItemsFactory(fetch, 'temporary url')
 const addItemWithDependencies = addItemFactory(generateId);
-export { deleteItem, updateItem, addItemWithDependencies as addItem };
+export { deleteItem, updateItem, addItemWithDependencies as addItem, fetchItemsWithDependecies as fetchItems };
