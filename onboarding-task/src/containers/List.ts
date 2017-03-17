@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-const ListContainer = connect(
+const ListContainer: React.ComponentClass<{}> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);
