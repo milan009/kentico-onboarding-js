@@ -9,6 +9,7 @@ interface IListProps {
   itemsOrder: ImmutableList<string>;
   isFetching: boolean;
   error: string;
+  successMessage: string;
   onListItemAdd: (text: string) => IAction;
   onListMount: () => IAction;
 }
@@ -48,9 +49,16 @@ class List extends React.PureComponent<IListProps, undefined> {
         </div> )
         : '';
 
+      const successMessage = this.props.successMessage && this.props.successMessage !== ''
+        ? (<div className="alert alert-success" role="alert">
+          <strong>Success!</strong> {this.props.successMessage}
+        </div> )
+        : '';
+
       return (
         <div>
           {error}
+          {successMessage}
           <ul className="list-group">
 
             {listItems}

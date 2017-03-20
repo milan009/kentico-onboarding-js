@@ -11,6 +11,7 @@ const mapStateToProps = (state: IAppState) => {
     itemsOrder: state.items.orderedIds,
     isFetching: state.items.isFetching,
     error: state.items.error,
+    successMessage: state.items.successMessage,
   };
 };
 
