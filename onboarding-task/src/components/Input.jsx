@@ -5,9 +5,10 @@ import React, {
 import ReactTooltip from 'react-tooltip';
 import { generateUuid } from '../utils/idGenerator.js';
 import classNames from 'classnames';
+import { List } from 'immutable';
 
 function ErrorsTooltip(props) {
-  if (!props.errors.length) {
+  if (!props.errors.size) {
     return <noscript />;
   }
 
@@ -28,7 +29,7 @@ function ErrorsTooltip(props) {
 
 ErrorsTooltip.propTypes = {
   inputId: PropTypes.string.isRequired,
-  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  errors: PropTypes.instanceOf(List).isRequired,
 };
 
 class Input extends PureComponent {
@@ -41,7 +42,7 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { errors: [] };
+    this.state = { errors: List() };
 
     // Unique id required by ReactTooltip to be bound by other element
     this.tooltipId = generateUuid();
@@ -51,7 +52,7 @@ class Input extends PureComponent {
     const validation = this.props.validate(event.target.value);
     this.props.onChange(event.target.value, validation.isValid);
 
-    this.setState({ errors: validation.messages });
+    this.setState({ errors: List(validation.messages) });
   };
 
   _getStyles = (hasErrors, isEmpty) => {
@@ -71,7 +72,7 @@ class Input extends PureComponent {
   };
 
   render() {
-    const styles = this._getStyles(this.state.errors.length, !this.props.value);
+    const styles = this._getStyles(this.state.errors.size, !this.props.value);
 
     return (
       <div className={styles.groupStyle}>
