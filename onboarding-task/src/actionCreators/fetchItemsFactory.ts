@@ -11,7 +11,7 @@ const fetchItems = (fetchParam: fetchType) => {
   return (dispatch: dispatchType) => {
     dispatch(fetchItemsRequest());
 
-    return fetchParam('/api/Items')
+    return fetchParam('/api/v1/Items')
       .then<IFetchedItem[] | string>((response: Response) => response.ok ? response.json() : TsPromise.reject(new Error(response.statusText)))
       .then<IAction>((json: IFetchedItem[]) => dispatch(fetchItemsSuccess(json)))
       .catch<IAction>((error: Error) => dispatch(fetchItemsFailure(error.message)));

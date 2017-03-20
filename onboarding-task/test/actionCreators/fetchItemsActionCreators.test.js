@@ -47,7 +47,7 @@ describe('fetchItems ', () => {
   ];
 
   const fakeFetch = (path) => {
-    return path === '/api/Items'
+    return path === '/api/v1/Items'
       ? Promise.resolve({ json: () => Promise.resolve(getAllItemsResponse), ok: true })
       : Promise.reject();
   };

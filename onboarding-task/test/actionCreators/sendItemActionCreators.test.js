@@ -34,7 +34,7 @@ describe('sendItemActionCreators ', () => {
 describe('sendItem ', () => {
   const fakeSuccessResponse = { Id: 'id', Value: 'text' };
   const fakeFetch = (path) => {
-    return path === '/api/Items'
+    return path === '/api/v1/Items'
       ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })
       : Promise.reject();
   };
