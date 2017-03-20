@@ -20,9 +20,10 @@ class CreateItem extends PureComponent {
     };
   }
 
-  _onTextChange = (event) => {
+  _onTextChange = (value, isValid) => {
     this.setState({
-      text: event.target.value,
+      text: value,
+      isAddDisabled: !isValid,
     });
   };
 
@@ -36,16 +37,10 @@ class CreateItem extends PureComponent {
     });
   };
 
-  _onValidityChange = (isValid) => {
-    this.setState({
-      isAddDisabled: !isValid,
-    });
-  };
-
   render() {
     return (
       <form onSubmit={this._handleSubmit} className="form-inline">
-        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onValidityChange={this._onValidityChange} />
+        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} />
         <button type="submit" className="btn btn-default" disabled={this.state.isAddDisabled}>Add</button>
       </form>
     );

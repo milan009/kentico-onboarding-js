@@ -37,7 +37,6 @@ class Input extends PureComponent {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     validate: PropTypes.func.isRequired,
-    onValidityChange: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -49,9 +48,8 @@ class Input extends PureComponent {
   }
 
   _onChange = (event) => {
-    this.props.onChange(event);
     const validation = this.props.validate(event.target.value);
-    this.props.onValidityChange(validation.isValid);
+    this.props.onChange(event.target.value, validation.isValid);
 
     this.setState({ errors: validation.messages });
   };
