@@ -31,7 +31,6 @@ describe('sendItemActionCreators ', () => {
 
 describe('sendItem ', () => {
   const fakeSuccessResponse = [{ Id: 'id', Value: 'text' }];
-  const successMessage = `Item ${fakeSuccessResponse.Value} was successfully uploaded.`;
   const fakeFetch = (path) => {
     return path === '/api/Items'
       ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })
@@ -44,17 +43,17 @@ describe('sendItem ', () => {
     sendItemActionCreator()(mockDispatch).then(() => done());
   });
 
-  it('dispatches fetchItemsSuccess with parsed response as argument when fetchParam returns Promise that resolves', (done) => {
+  it('dispatches sendItemSuccess with parsed response as argument when response.ok', (done) => {
     const mockDispatch = jest.fn(action => action);
     sendItemActionCreator()(mockDispatch).then(() => {
       const actualDispatchedAction = mockDispatch.mock.calls[0][0];
 
-      expect(actualDispatchedAction).toEqual(sendItemSuccess(successMessage));
+      expect(actualDispatchedAction).toEqual(sendItemSuccess(fakeSuccessResponse));
       done();
     });
   });
 
-  it('dispatches fetchItemsFailure with error message from the server as argument when fetchParam returns Promise that rejects', (done) => {
+  it('dispatches sendItemFailure with error message from the server as argument when !response.ok', (done) => {
     const mockDispatch = jest.fn(action => action);
     const errorMessage = 'error Test';
     const fakeFetchWithError = () => {

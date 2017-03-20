@@ -71,7 +71,7 @@ describe('fetchItems ', () => {
     fetchItemsActionCreator()(mockDispatch).then(() => done());
   });
 
-  it('dispatches fetchItemsSuccess with parsed response as argument when fetchParam returns Promise that resolves', (done) => {
+  it('dispatches fetchItemsSuccess with parsed response as argument when response.ok', (done) => {
     const mockDispatch = jest.fn(action => action);
     fetchItemsActionCreator()(mockDispatch).then(() => {
       const actualDispatchedAction = mockDispatch.mock.calls[1][0];
@@ -81,7 +81,7 @@ describe('fetchItems ', () => {
     });
   });
 
-  it('dispatches fetchItemsFailure with error message from the server as argument when fetchParam returns Promise that rejects', (done) => {
+  it('dispatches fetchItemsFailure with error message from the server as argument when !response.ok', (done) => {
     const mockDispatch = jest.fn(action => action);
     const errorMessage = 'error Test';
     const fakeFetchWithError = () => {
