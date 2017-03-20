@@ -45,7 +45,7 @@ class CreateItem extends PureComponent {
   render() {
     return (
       <form onSubmit={this._handleSubmit} className="form-inline">
-        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onInvalid={this._onValidityChange} />
+        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onValidityChange={this._onValidityChange} />
         <button type="submit" className="btn btn-default" disabled={this.state.isAddDisabled}>Add</button>
       </form>
     );

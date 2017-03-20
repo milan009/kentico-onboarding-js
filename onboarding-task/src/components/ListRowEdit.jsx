@@ -26,7 +26,6 @@ class ListRowEdit extends PureComponent {
   _onTextChange = (event) => {
     this.setState({
       text: event.target.value,
-      isSaveDisabled: false,
     });
   };
 
@@ -45,10 +44,9 @@ class ListRowEdit extends PureComponent {
     this.props.onItemCancel(this.props.item.id);
   };
 
-  _onInvalid = (event) => {
+  _onValidityChange = (isValid) => {
     this.setState({
-      text: event.target.value,
-      isSaveDisabled: true,
+      isSaveDisabled: !isValid,
     });
   };
 
@@ -56,7 +54,7 @@ class ListRowEdit extends PureComponent {
     return (
       <div className="form-inline">
         <span>{this.props.index}. </span>
-        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onInvalid={this._onInvalid} />
+        <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} onValidityChange={this._onValidityChange} />
         <button type="button" className="btn btn-primary" onClick={this._onItemUpdate} disabled={this.state.isSaveDisabled}>Save</button>
         <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this._onItemDelete}>Delete</button>
