@@ -1,6 +1,6 @@
 import { CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes.ts';
 import { switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../../src/actionCreators/actionCreators.ts';
-import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
+import { createListItemFactory, createListItemWithDispatchFactory } from '../../src/actionCreators/createListItemFactory.ts';
 
 describe('action creators ', () => {
   const id = 'test-id';
@@ -11,6 +11,17 @@ describe('action creators ', () => {
     const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
 
     expect(actualAction).toEqual(expectedAction);
+  });
+
+  it(`createListItem creates ${CREATE_ITEM_IN_LIST} action and calls dispatch parameter when given`, () => {
+    const fakeDispatch = jest.fn(action => action);
+    const fakeSendItem = jest.fn(action => action);
+    const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
+    const actualAction = createListItemWithDispatchFactory(fakeDispatch, () => id, fakeSendItem)(text);
+
+    expect(actualAction).toEqual(expectedAction);
+    expect(fakeDispatch.mock.calls.length).toEqual(1);
+    expect(fakeSendItem.mock.calls.length).toEqual(1);
   });
 
   it(`switchFormVisibilityForListItem creates ${SWITCH_FORM_VISIBILITY_FOR_ITEM} action`, () => {
