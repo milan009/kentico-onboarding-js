@@ -42,6 +42,9 @@ class Input extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { errors: [] };
+
+    // Unique id required by ReactTooltip to be bound by other element
+    this.tooltipId = generateUuid();
   }
 
   _onChange = (event) => {
@@ -69,16 +72,13 @@ class Input extends PureComponent {
   };
 
   render() {
-    // ReactTooltip needs to be bound to unique value
-    const id = generateUuid();
-
     const styles = this._getStyles(this.state.errors.length, this.props.value);
 
     return (
       <div className={styles.groupClass}>
-        <input className="form-control" value={this.props.value} onChange={this._onChange} data-tip data-for={id} />
+        <input className="form-control" value={this.props.value} onChange={this._onChange} data-tip data-for={this.tooltipId} />
         <span className={styles.glyphicon} />
-        <ErrorsTooltip inputId={id} errors={this.state.errors} />
+        <ErrorsTooltip inputId={this.tooltipId} errors={this.state.errors} />
       </div>
     );
   }
