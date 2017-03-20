@@ -98,10 +98,25 @@ Refactor the application to use ReduxJS.
 (Any view models you will need no not have to be instances of Immutable, just use POJO.)
 
 ## Task 4
-In this task you will use TypeScript to make you app strongly typed. Mainly introduce interfaces for all Models and ViewModels in your app. Use them in reducers. Create a simple interface for action with payload of type `any` and use it for all actions. Pick one component and rewrite it entirely to TypeScript - have a look at Draft coding conventions on wiki to get an idea how to start. Tests remain written in JS.
+In this task you will use TypeScript to make you app strongly typed. Mainly introduce interfaces for all Models and ViewModels in your app. Use them in reducers. Create a simple interface for action with payload of type `any` and use it for all actions. Pick one component and rewrite it entirely to TypeScript - have a look at [Draft coding conventions](https://kentico.atlassian.net/wiki/display/KC/Javascript+and+Typescript+Conventions) on wiki to get an idea how to start. Tests remain written in JS.
 
 Make sure you install type definitions for 3rd pardty libraries you are already using in your app (e.g. redux, react-redux, immutable, memoizee...). To do that, run this for each library:
 ```
 npm install --save-dev @types/redux
 ```
 Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+## Taks 5
+What kind of app it would be without the server side, right? Customer hitting F5 and then getting mad about loosing all his items is not a happy customer. Have a look at [06 - CS Onboarding task](https://kentico.atlassian.net/wiki/display/KA/06+-+CS+Onboarding+task) and implement at least Tasks 0 and 1 before you move on to connect your frontend to new your brand new shiny REST API.
+
+**!! IMPORTANT !!**
+Do not forget to tell the client app to [proxy your requests to the server](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development).
+
+**Requirements:**
+- show a loader ("točič") until items are asynchronously provided after application start
+- show an error message when loading fails/timeouts
+- only amend the way (list of) existing items are retrieved and a new item is added (for now)
+- stick with the Redux data flow design, read about [async actions](http://redux.js.org/docs/advanced/AsyncActions.html)
+- make sure you use [`redux-thunk`](https://github.com/gaearon/redux-thunk) middleware
+- do not forget about dependency injection and tests (see sample tests for inspiration)
+- [optional] if you have time left in the sprint, you can implement delete + update funcitonality (DELETE and PUT requests to server) as well
