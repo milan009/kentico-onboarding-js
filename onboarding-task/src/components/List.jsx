@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import TsComponent from './TsComponent.tsx';
 import { CreateItem } from './CreateItem.jsx';
@@ -8,7 +8,7 @@ import { Map } from 'immutable';
 import { generateUuid } from '../utils/idGenerator.js';
 import { Item } from './Item';
 
-class List extends Component {
+class List extends PureComponent {
   static displayName = 'List';
 
   constructor(props) {
@@ -55,7 +55,7 @@ class List extends Component {
         <div key={item.id} className="list-group-item item-custom">
           <ListRow
             index={i + 1}
-            item={item.toObject()}
+            item={item}
             onItemClick={this._onItemClick}
             onItemUpdate={this._onItemUpdate}
             onItemDelete={this._onItemDelete}

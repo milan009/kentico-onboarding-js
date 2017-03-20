@@ -4,12 +4,13 @@ import React, {
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
 import { Input } from './Input.jsx';
+import { Item } from './Item.js';
 
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired,
+    item: PropTypes.instanceOf(Item).isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,
     onItemCancel: PropTypes.func.isRequired,

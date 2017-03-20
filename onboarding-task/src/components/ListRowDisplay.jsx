@@ -2,12 +2,13 @@ import React, {
   PureComponent,
   PropTypes,
 } from 'react';
+import { Item } from './Item.js';
 
 class ListRowDisplay extends PureComponent {
   static displayName = 'ListRowDisplay';
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired,
+    item: PropTypes.instanceOf(Item).isRequired,
     onItemClick: PropTypes.func.isRequired,
   };
 
