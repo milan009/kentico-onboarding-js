@@ -4,6 +4,7 @@ import {
   SEND_ITEM_SUCCESS,
 } from '../constants/actionTypes';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
+import { sendItemFactory } from './sendItemFactory';
 
 const sendItemSuccess = (response: IFetchedItem): IAction => {
   return {
@@ -23,4 +24,6 @@ const sendItemFailure = (response: string): IAction => {
   };
 };
 
-export { sendItemFailure, sendItemSuccess };
+const sendItem = sendItemFactory(fetch);
+
+export { sendItemFailure, sendItemSuccess, sendItem };
