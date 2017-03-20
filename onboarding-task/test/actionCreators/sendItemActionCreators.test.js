@@ -1,17 +1,19 @@
 import { sendItemSuccess, sendItemFailure } from '../../src/actionCreators/sendItemActionCreators.ts';
 import { SEND_ITEM_SUCCESS, SEND_ITEM_FAILURE } from '../../src/constants/actionTypes.ts';
+import { sendItemFactory } from '../../src/actionCreators/sendItemFactory.ts';
 
 describe('sendItemActionCreators ', () => {
   const fakeResponse = 'This is fake response.';
+  const moreAccurateResponse = { Id: 'id', Value: 'text' };
 
-  it(`returns action with response in payload and type ${SEND_ITEM_SUCCESS}`, () => {
+  it(`returns action with correct response in payload and type ${SEND_ITEM_SUCCESS}`, () => {
     const expectedAction = {
       type: SEND_ITEM_SUCCESS,
       payload: {
-        response: fakeResponse,
+        response: `Item ${moreAccurateResponse.Value} was successfully uploaded.`,
       },
     };
-    const actualAction = sendItemSuccess(fakeResponse);
+    const actualAction = sendItemSuccess(moreAccurateResponse);
 
     expect(actualAction).toEqual(expectedAction);
   });
@@ -30,7 +32,7 @@ describe('sendItemActionCreators ', () => {
 });
 
 describe('sendItem ', () => {
-  const fakeSuccessResponse = [{ Id: 'id', Value: 'text' }];
+  const fakeSuccessResponse = { Id: 'id', Value: 'text' };
   const fakeFetch = (path) => {
     return path === '/api/Items'
       ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })
@@ -40,12 +42,12 @@ describe('sendItem ', () => {
 
   it('calls fetchParam with correct path', (done) => {
     const mockDispatch = action => action;
-    sendItemActionCreator()(mockDispatch).then(() => done());
+    sendItemActionCreator(fakeSuccessResponse)(mockDispatch).then(() => done());
   });
 
   it('dispatches sendItemSuccess with parsed response as argument when response.ok', (done) => {
     const mockDispatch = jest.fn(action => action);
-    sendItemActionCreator()(mockDispatch).then(() => {
+    sendItemActionCreator(fakeSuccessResponse)(mockDispatch).then(() => {
       const actualDispatchedAction = mockDispatch.mock.calls[0][0];
 
       expect(actualDispatchedAction).toEqual(sendItemSuccess(fakeSuccessResponse));
