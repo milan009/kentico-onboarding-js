@@ -1,11 +1,11 @@
+import TsPromise from 'ts-promise';
+require('isomorphic-fetch');
+
 import { IAction } from '../interfaces/IAction';
 import { fetchItemsRequest, fetchItemsSuccess, fetchItemsFailure} from './fetchItemsActionCreators';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 import { dispatchType } from '../utils/dispatchType';
-import TsPromise from 'ts-promise';
-require('isomorphic-fetch');
-
-type fetchType = (path: string, parameters?: any) => Promise<Response>;
+import { fetchType } from '../utils/fetchType';
 
 const fetchItems = (fetchParam: fetchType) => {
   return (dispatch: dispatchType) => {
