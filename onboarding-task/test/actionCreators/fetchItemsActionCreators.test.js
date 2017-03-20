@@ -48,7 +48,7 @@ describe('fetchItems ', () => {
 
   const fakeFetch = (path) => {
     return path === '/api/Items'
-      ? Promise.resolve({ json: () => Promise.resolve(getAllItemsResponse) })
+      ? Promise.resolve({ json: () => Promise.resolve(getAllItemsResponse), ok: true })
       : Promise.reject();
   };
   const fetchItemsActionCreator = fetchItemsFactory(fakeFetch);
@@ -85,7 +85,7 @@ describe('fetchItems ', () => {
     const mockDispatch = jest.fn(action => action);
     const errorMessage = 'error Test';
     const fakeFetchWithError = () => {
-      return Promise.reject({ text: () => errorMessage });
+      return Promise.resolve({ statusText: errorMessage, ok: false });
     };
     const fetchItemsActionCreatorWithError = fetchItemsFactory(fakeFetchWithError);
     fetchItemsActionCreatorWithError()(mockDispatch).then(() => {
