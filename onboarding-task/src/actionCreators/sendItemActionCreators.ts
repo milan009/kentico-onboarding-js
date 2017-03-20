@@ -3,12 +3,13 @@ import {
   SEND_ITEM_FAILURE,
   SEND_ITEM_SUCCESS,
 } from '../constants/actionTypes';
+import { IFetchedItem } from '../interfaces/IFetchedItem';
 
-const sendItemSuccess = (response: string): IAction => {
+const sendItemSuccess = (response: IFetchedItem): IAction => {
   return {
     type: SEND_ITEM_SUCCESS,
     payload: {
-      response: response,
+      response: `Item ${response.Value} was successfully uploaded.`,
     },
   };
 };
