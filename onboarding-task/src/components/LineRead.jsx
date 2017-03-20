@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 const LineTextPropTypes = {
   id: React.PropTypes.string.isRequired,
@@ -7,16 +7,11 @@ const LineTextPropTypes = {
   onDoubleClick: React.PropTypes.func,
 };
 
-class LineText extends Component {
-  constructor(props) {
-    super(props);
-
-    this._handleDoubleClick = this._handleDoubleClick.bind(this);
-  }
-
-  _handleDoubleClick() {
+class LineText extends PureComponent {
+  _handleDoubleClick = () => {
     this.props.onDoubleClick(this.props.id);
-  }
+  };
+
   render() {
     return (
       <li className="list-group-item" onDoubleClick={this._handleDoubleClick} >

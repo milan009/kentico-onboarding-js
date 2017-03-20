@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const LineTextPropTypes = {
+const LineEditPropTypes = {
   id: React.PropTypes.string.isRequired,
   number: React.PropTypes.number.isRequired,
   text: React.PropTypes.string.isRequired,
@@ -8,7 +8,6 @@ const LineTextPropTypes = {
   onCancel: React.PropTypes.func.isRequired,
   onDelete: React.PropTypes.func.isRequired,
 };
-
 
 class LineEdit extends Component {
   constructor(props) {
@@ -22,33 +21,37 @@ class LineEdit extends Component {
     this.setState({ text: event.target.value });
   };
 
-  _handleOnSave = () => {
-    this.props.onSave({ id: this.props.id, text: this.state.text });
+  _handleOnSave = (event) => {
+    this.props.onSave({
+      id: this.props.id,
+      text: this.state.text,
+    });
   };
 
-  _handleOnDelete = () => {
+  _handleOnDelete = (event) => {
     this.props.onDelete(this.props.id);
   };
 
-  _handleOnCancel = () => {
+  _handleOnCancel = (event) => {
     this.props.onCancel(this.props.id);
   };
 
   render() {
     return (
-      <li>
-        <span>{this.props.number}. </span>
-        <input className="" value={this.state.text} onChange={this._handleOnChange} />
-        <span>
-          <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
-          <button type="button" className="btn btn-default" onClick={this._handleOnCancel}>Cancel</button>
-          <button type="button" className="btn btn-danger" onClick={this._handleOnDelete}>Delete</button>
+      <li className="list-group-item">
+        <span className="form-inline">{this.props.number}.
+          <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
+          <span>
+            <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
+            <button type="button" className="btn btn-default" onClick={this._handleOnCancel}>Cancel</button>
+            <button type="button" className="btn btn-danger" onClick={this._handleOnDelete}>Delete</button>
+          </span>
         </span>
       </li>
     );
   }
 }
 
-LineEdit.propTypes = LineTextPropTypes;
+LineEdit.propTypes = LineEditPropTypes;
 
 export default LineEdit;

@@ -11,23 +11,21 @@ class AddLine extends Component {
     this.state = {
       text: '',
     };
-    this._handleChange = this._handleChange.bind(this);
-    this._handleClickAdd = this._handleClickAdd.bind(this);
   }
 
-  _handleChange(event) {
+  _handleChange = (event) => {
     this.setState({ text: event.target.value });
-  }
+  };
 
-  _handleClickAdd() {
+  _handleClickAdd = () => {
     this.props.onAdd(this.state.text);
     this.setState({ text: '' });
-  }
+  };
 
   render() {
     return (
-      <li className="list-group-item">
-        <input onChange={this._handleChange} value={this.state.text} />
+      <li className="list-group-item form-inline">
+        <input className="form-control" onChange={this._handleChange} value={this.state.text} />
         <button type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
       </li>
     );
