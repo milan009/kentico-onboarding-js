@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { generateUuid } from '../utils/idGenerator.js';
+import classNames from 'classnames';
 
 function ErrorsTooltip(props) {
   if (!props.errors.length) {
@@ -56,28 +57,28 @@ class Input extends PureComponent {
   };
 
   _getStyles = (hasErrors, isEmpty) => {
-    const style = {
-      groupClass: 'form-group has-feedback',
-      glyphicon: 'form-control-feedback',
+    const groupStyle = classNames('form-group', 'has-feedback', {
+      'has-error': hasErrors,
+      'has-success': !hasErrors && !isEmpty,
+    });
+
+    const glyphiconStyle = classNames('form-control-feedback', {
+      'glyphicon glyphicon-remove': hasErrors,
+      'glyphicon glyphicon-ok': !hasErrors && !isEmpty,
+    });
+    return {
+      groupStyle,
+      glyphiconStyle,
     };
-    if (hasErrors) {
-      style.groupClass += ' has-error';
-      style.glyphicon += ' glyphicon glyphicon-remove';
-    }
-    if (isEmpty) {
-      style.groupClass += ' has-success';
-      style.glyphicon += ' glyphicon glyphicon-ok';
-    }
-    return style;
   };
 
   render() {
-    const styles = this._getStyles(this.state.errors.length, this.props.value);
+    const styles = this._getStyles(this.state.errors.length, !this.props.value);
 
     return (
-      <div className={styles.groupClass}>
+      <div className={styles.groupStyle}>
         <input className="form-control" value={this.props.value} onChange={this._onChange} data-tip data-for={this.tooltipId} />
-        <span className={styles.glyphicon} />
+        <span className={styles.glyphiconStyle} />
         <ErrorsTooltip inputId={this.tooltipId} errors={this.state.errors} />
       </div>
     );
