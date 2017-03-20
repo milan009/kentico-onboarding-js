@@ -8,7 +8,7 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
 } from '../../src/constants/actionTypes.ts';
-import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactories.ts';
+import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory.ts';
 
 describe('fetchItemsActionCreators ', () => {
   it(`${fetchItemsRequest} returns correct ${FETCH_ITEMS_REQUEST} action`, () => {

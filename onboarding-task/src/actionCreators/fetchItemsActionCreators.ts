@@ -4,7 +4,7 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
 } from '../constants/actionTypes';
-import { fetchItemsFactory } from './fetchItemsFactories';
+import { fetchItemsFactory } from './fetchItemsFactory';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 
 const fetchItemsRequest = (): IAction => {
