@@ -1,21 +1,120 @@
 import React, { Component } from 'react';
 import assignment from './../../../assignment.gif';
+// import Line from './Line.jsx';
+import AddLine from './AddLine.jsx';
+import LineEdit from './LineEdit.jsx';
+import LineRead from './LineRead.jsx';
+// import { createGuid } from '../GuidHelper.js';
 
 class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lines: [],
+      lineTexts: [],
     };
-    this.handleAddLine = this.handleAddLine.bind(this);
+    this._handleAddLine = this._handleAddLine.bind(this);
+    this._renderLines = this._renderLines.bind(this);
+    this._handleDeleteLine = this._handleDeleteLine.bind(this);
+    this._handleDoubleClick = this._handleDoubleClick.bind(this);
+    this._handleClickSave = this._handleClickSave.bind(this);
+    this._handleClickCancel = this._handleClickCancel.bind(this);
   }
-  handleAddLine(event) {
-    this.setState({ lines: event.target });
-    let data = this.state.data;
-    const id = this.generateId().toString();
-    const complete = 'false';
-    data = data.concat([{ id, event, complete }]);
-    this.setState({ data });
+  _handleAddLine(text) {
+    let lineTexts = this.state.lineTexts.slice();
+    const newText = text;
+    const newId = createGuid();
+    const newIsEdited = false;
+    lineTexts = lineTexts.concat([{ id: newId, text: newText, isEdited: newIsEdited }]);
+    this.setState({ lineTexts });
+  }
+
+  _handleDeleteLine(lineId) {
+    const lineTexts = this.state.lineTexts.slice();
+    console.log('id: ' + lineId);
+    const updatedLineTexts = lineTexts.filter((line) => line.id !== lineId);
+    this.setState({ lineTexts: updatedLineTexts });
+  }
+
+  _handleDoubleClick(id) {
+    const items = this.state.lineTexts;
+
+    const clickedItem = this.state.lineTexts.find((lineText) => lineText.id === id);
+    const indexOfClickedItem = this.state.lineTexts.indexOf(clickedItem);
+    const updatedItem = Object.assign({}, clickedItem, { isEdited: true });
+    const updatedItems = items.slice();
+    updatedItems[indexOfClickedItem] = updatedItem;
+    this.setState({ lineTexts: updatedItems });
+  }
+  // TODO: reuse for safe
+  _handleChange(event) {
+    const id = event.id;
+    const text = event.text;
+    const items = this.state.lineTexts;
+
+    const clickedItem = this.state.lineTexts.find((lineText) => lineText.id === id);
+    const indexOfClickedItem = this.state.lineTexts.indexOf(clickedItem);
+
+    const updatedItem = Object.assign({}, clickedItem, { text });
+    const updatedItems = items.slice();
+    updatedItems[indexOfClickedItem] = updatedItem;
+    this.setState({ lineTexts: updatedItems });
+    console.log('handleChange: ', id);
+  }
+
+  _handleClickSave(item) {
+    const items = this.state.lineTexts;
+    const id = item.id;
+    const text = item.text;
+
+    const clickedItem = this.state.lineTexts.find((lineText) => lineText.id === id);
+    const indexOfClickedItem = this.state.lineTexts.indexOf(clickedItem);
+
+    const updatedItem = Object.assign({}, clickedItem, { isEdited: false, text });
+    const updatedItems = items.slice();
+    updatedItems[indexOfClickedItem] = updatedItem;
+    this.setState({ lineTexts: updatedItems });
+  }
+
+  _handleClickCancel(id) {
+    const items = this.state.lineTexts;
+    const item = items.find((i) => i.id === id);
+
+    const updatedItem = Object.assign({}, item, { isEdited: false });
+    const indexOfItem = items.indexOf(item);
+    const updatedArray = items.slice();
+    updatedArray[indexOfItem] = updatedItem;
+
+    this.setState({ lineTexts: updatedArray });
+  }
+
+  _renderLines() {
+    const items = this.state.lineTexts.map((line, index) => (
+      line.isEdited
+        ? <LineEdit
+          id={line.id}
+          key={line.id}
+          text={line.text}
+          number={(index + 1)}
+          onSave={this._handleClickSave}
+          onCancel={this._handleClickCancel}
+          onDelete={this._handleDeleteLine}
+        />
+        : <LineRead
+          id={line.id}
+          key={line.id}
+          text={line.text}
+          number={(index + 1)}
+          onDoubleClick={this._handleDoubleClick}
+        />
+      )
+    );
+
+    return (
+      <ul id="todo-list" className="list-group">
+        {items}
+        <AddLine onAdd={this._handleAddLine} />
+      </ul>
+    );
   }
 
   render() {
@@ -32,13 +131,7 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
               {/* // TODO: implement the list here :) */}
-            <ul id="todo-list" className="list-group">
-              <Line />
-              <li className="list-group-item">
-                <input />
-                <button type="button" className="btn btn-default" onClick={this.handleAddLine}>Add</button>
-              </li>
-            </ul>
+              {this._renderLines()}
           </div>
         </div>
       </div>
@@ -46,131 +139,7 @@ class List extends Component {
   }
 }
 
-class Line extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEdited: false,
-      text: 'superb',
-      prevText: 'superb',
-      number: props.number,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClickSave = this.handleClickSave.bind(this);
-    this.handleClickCancel = this.handleClickCancel.bind(this);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
-  }
-  handleChange(event) {
-    this.setState({ text: event.target.value });
-  }
-  handleClickSave(event) {
-    this.setState(
-      {
-        isEdited: false,
-        prevText: this.state.text,
-      }
-    );
-  }
-  handleClickCancel(event) {
-    this.setState(
-      {
-        isEdited: false,
-        text: this.state.prevText,
-      }
-    );
-  }
-
-  handleDoubleClick(event) {
-    this.setState(
-      {
-        isEdited: true,
-      }
-    );
-  }
-
-  render() {
-    return (
-      <li className="list-group-item" onDoubleClick={this.handleDoubleClick} >
-        <span> {this.state.number} </span>
-        <LineText isEdited={this.state.isEdited} text={this.state.text} onChange={this.handleChange} />
-        {this.state.isEdited === true ?
-          <span>
-            <button type="button" className="btn btn-primary" onClick={this.handleClickSave} >Save</button>
-            <button type="button" className="btn btn-default" onClick={this.handleClickCancel} >Cancel</button>
-            <button type="button" className="btn btn-danger">Delete</button>
-          </span> : null}
-      </li>
-    );
-  }
-}
-
-Line.propTypes = {
-  number: React.PropTypes.number.isRequired,
-};
-
-function LineText(props) {
-  const isEdited = props.isEdited;
-  if (isEdited) {
-    return (
-      <input className="" value={props.text} onChange={props.onChange} />
-    );
-  }
-  return <span onDoubleClick={props.onDoubleClick}> {props.text} </span>;
-}
-
-LineText.propTypes = {
-  isEdited: React.PropTypes.bool.isRequired,
-  text: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.isRequired,
-  onDoubleClick: React.PropTypes.isRequired,
-};
-
-
-/* function LineText(props) {
- const isEdited = props.isEdited;
- let type = isEdited ? 'input' : 'text';
- return <input type={type}> Make coffee </input>;
- } */
-
-/*
-class Line extends Component {
-  render() {
-      let aline = null;
-      <li className="list-group-item">
-        this.id
-        if(isClicked) {
-          return <TodoInput />
-      } else {
-          return <TodoText text=this.text />
-      }
-
-      </li>
-  }
-}
-
-function TodoText(props){
-  return(
-    <p>props.text;</p>
-  );
-}
-
-function TodoInput(props){
-  return(
-    <input />
-    <button type="button" className="btn btn-default btn-primary">
-    Save
-    </button>
-    <button type="button" className="btn btn-default">
-    Cancel
-    </button>
-    <button type="button" className="btn btn-default btn-danger">
-    Delete
-    </button>
-  );
-}
-*/
-
-function guid() {
+function createGuid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
