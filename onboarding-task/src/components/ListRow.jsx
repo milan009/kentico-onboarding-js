@@ -2,6 +2,7 @@ import React, {
   PureComponent,
   PropTypes,
 } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ListRowDisplay } from './ListRowDisplay.jsx';
 import { ListRowEdit } from './ListRowEdit';
 
@@ -9,7 +10,11 @@ class ListRow extends PureComponent {
   static displayName = 'ListRow';
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired,
+    item: ImmutablePropTypes.recordOf({
+      id: PropTypes.string,
+      text: PropTypes.string,
+      editing: PropTypes.bool,
+    }).isRequired,
     onItemClick: PropTypes.func.isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,
