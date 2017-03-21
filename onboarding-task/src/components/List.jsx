@@ -34,8 +34,10 @@ class List extends PureComponent {
   };
 
   _onItemUpdate = (id, text) => {
-    const items = this.state.items.setIn([id, 'text'], text)
-                                  .setIn([id, 'editing'], false);
+    const items = this.state.items.mergeIn([id], {
+      text,
+      editing: false,
+    });
     this.setState({ items });
   };
 
