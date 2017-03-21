@@ -2,24 +2,23 @@ import React, { PureComponent, PropTypes } from 'react';
 
 class LineRead extends PureComponent {
   static propTypes = {
-    id: PropTypes.string.isRequired,
+    line: PropTypes.object.isRequired,
     number: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    onDoubleClick: PropTypes.func,
+    onDoubleClick: PropTypes.func.isRequired,
   };
 
   static displayName = 'LineRead';
 
   _handleDoubleClick = () => {
-    this.props.onDoubleClick(this.props.id);
+    this.props.onDoubleClick(this.props.line.id);
   };
 
   render() {
     return (
-      <li className="list-group-item" onDoubleClick={this._handleDoubleClick} >
+      <div onDoubleClick={this._handleDoubleClick} >
         <span>{this.props.number}. </span>
-        {this.props.text}
-      </li>
+        {this.props.line.text}
+      </div>
     );
   }
 }

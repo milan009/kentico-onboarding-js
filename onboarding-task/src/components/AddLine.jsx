@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 class AddLine extends Component {
   static propTypes = {
-    text: PropTypes.string,
     onAdd: PropTypes.func.isRequired,
   };
 
@@ -26,10 +25,10 @@ class AddLine extends Component {
 
   render() {
     return (
-      <li className="list-group-item form-inline">
+      <div className="form-inline">
         <input className="form-control" onChange={this._handleChange} value={this.state.text} />
         <button type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
-      </li>
+      </div>
     );
   }
 }
