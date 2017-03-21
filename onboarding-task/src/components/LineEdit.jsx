@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-
-const LineEditPropTypes = {
-  id: React.PropTypes.string.isRequired,
-  number: React.PropTypes.number.isRequired,
-  text: React.PropTypes.string.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onCancel: React.PropTypes.func.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-};
+import React, { Component, PropTypes } from 'react';
 
 class LineEdit extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
+
+  static displayName = 'LineEdit';
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,18 +23,18 @@ class LineEdit extends Component {
     this.setState({ text: event.target.value });
   };
 
-  _handleOnSave = (event) => {
+  _handleOnSave = () => {
     this.props.onSave({
       id: this.props.id,
       text: this.state.text,
     });
   };
 
-  _handleOnDelete = (event) => {
+  _handleOnDelete = () => {
     this.props.onDelete(this.props.id);
   };
 
-  _handleOnCancel = (event) => {
+  _handleOnCancel = () => {
     this.props.onCancel(this.props.id);
   };
 
@@ -52,6 +54,4 @@ class LineEdit extends Component {
   }
 }
 
-LineEdit.propTypes = LineEditPropTypes;
-
-export default LineEdit;
+export { LineEdit };

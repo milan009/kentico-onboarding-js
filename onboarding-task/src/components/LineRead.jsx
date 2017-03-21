@@ -1,13 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-const LineTextPropTypes = {
-  id: React.PropTypes.string.isRequired,
-  number: React.PropTypes.number.isRequired,
-  text: React.PropTypes.string.isRequired,
-  onDoubleClick: React.PropTypes.func,
-};
+class LineRead extends PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    onDoubleClick: PropTypes.func,
+  };
 
-class LineText extends PureComponent {
+  static displayName = 'LineRead';
+
   _handleDoubleClick = () => {
     this.props.onDoubleClick(this.props.id);
   };
@@ -21,6 +23,5 @@ class LineText extends PureComponent {
     );
   }
 }
-LineText.propTypes = LineTextPropTypes;
 
-export default LineText;
+export { LineRead };

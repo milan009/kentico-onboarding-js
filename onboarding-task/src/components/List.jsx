@@ -1,91 +1,91 @@
 import React, { Component } from 'react';
-import AddLine from './AddLine.jsx';
-import LineEdit from './LineEdit.jsx';
-import LineRead from './LineRead.jsx';
-import createGuid from '../GuidHelper.js';
+import { AddLine } from './AddLine.jsx';
+import { LineEdit } from './LineEdit.jsx';
+import { LineRead } from './LineRead.jsx';
+import { createGuid } from '../GuidHelper.js';
 
 class List extends Component {
+
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
     this.state = {
-      lineTexts: [],
+      rows: [],
     };
   }
 
   _handleAddLine = (text) => {
-    const editedLines = this.state.lineTexts
+    const lines = this.state.rows;
+    const editedLines = lines
       .concat([{
         id: createGuid(),
         text,
         isEdited: false,
       }]);
 
-    this.setState({ lineTexts: editedLines });
+    this.setState({ rows: editedLines });
   };
 
   _handleDeleteLine = (lineId) => {
+    const rows = this.state.rows;
+    const editedRows = rows
+      .slice()
+      .filter((line) => line.id !== lineId);
+
     this.setState(
-      {
-        lineTexts: this.state.lineTexts
-          .slice()
-          .filter((line) => line.id !== lineId),
-      }
+      { rows: editedRows }
     );
   };
 
   _handleDoubleClick = (id) => {
-    const clickedItem = this.state.lineTexts
-      .find(
-        (lineText) => lineText.id === id
-      );
-    const indexOfClickedItem = this.state.lineTexts
+    const rows = this.state.rows;
+    const clickedItem = rows
+      .find((row) => row.id === id);
+    const indexOfClickedItem = this.state.rows
       .indexOf(clickedItem);
-    const updatedItems = this.state.lineTexts.slice();
-    updatedItems[indexOfClickedItem] = Object
-      .assign(
-        {}, clickedItem, { isEdited: true }
-      );
+    const updatedItems = this.state.rows.slice();
+    const updatedItem = Object
+      .assign({}, clickedItem, { isEdited: true });
 
-    this.setState({ lineTexts: updatedItems });
+    updatedItems[indexOfClickedItem] = updatedItem;
+
+    this.setState({ rows: updatedItems });
   };
 
   _handleClickSave = (item) => {
-    const clickedItem = this.state.lineTexts
+    const rows = this.state.rows;
+    const clickedItem = rows
       .find(
-        (lineText) => lineText.id === item.id
+        (row) => row.id === item.id
       );
-    const indexOfClickedItem = this.state.lineTexts
+    const indexOfClickedItem = rows
       .indexOf(clickedItem);
-    const updatedItems = this.state.lineTexts.slice();
-    updatedItems[indexOfClickedItem] = Object
-      .assign(
-        {}, clickedItem, { isEdited: false, text: item.text }
-      );
+    const updatedItems = rows.slice();
+    const updatedItem = Object
+      .assign({}, clickedItem, { isEdited: false, text: item.text });
+    updatedItems[indexOfClickedItem] = updatedItem;
 
-    this.setState({ lineTexts: updatedItems });
+    this.setState({ rows: updatedItems });
   };
 
   _handleClickCancel = (id) => {
-    const items = this.state.lineTexts;
+    const items = this.state.rows;
     const item = items.find((i) => i.id === id);
     const updatedItem = Object
-      .assign(
-        {}, item, { isEdited: false }
-      );
+      .assign({}, item, { isEdited: false });
     const updatedItems = items.slice();
     updatedItems[items.indexOf(item)] = updatedItem;
 
     this.setState(
-      {
-        lineTexts: updatedItems,
-      }
+      { rows: updatedItems }
     );
   };
 
-  _renderLines = () => {
-    const items = this.state.lineTexts.map((line, index) => (
-      line.isEdited
-        ? <LineEdit
+  _renderLine = (line, index) => {
+    if (line.isEdited) {
+      return (
+        <LineEdit
           id={line.id}
           key={line.id}
           text={line.text}
@@ -94,25 +94,25 @@ class List extends Component {
           onCancel={this._handleClickCancel}
           onDelete={this._handleDeleteLine}
         />
-        : <LineRead
-          id={line.id}
-          key={line.id}
-          text={line.text}
-          number={(index + 1)}
-          onDoubleClick={this._handleDoubleClick}
-        />
-      )
-    );
-
+      );
+    }
     return (
-      <ul id="todo-list" className="list-group">
-        {items}
-        <AddLine onAdd={this._handleAddLine} />
-      </ul>
+      <LineRead
+        id={line.id}
+        key={line.id}
+        text={line.text}
+        number={(index + 1)}
+        onDoubleClick={this._handleDoubleClick}
+      />
     );
   };
 
   render() {
+    const rows = this.state.rows;
+    const renderedRows = rows.map((line, index) => (
+
+      this._renderLine(line, index)
+    ));
     return (
       <div className="row">
         <div className="row">
@@ -123,7 +123,10 @@ class List extends Component {
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            {this._renderLines()}
+            <ul id="todo-list" className="list-group">
+              {renderedRows}
+              <AddLine onAdd={this._handleAddLine} />
+            </ul>
           </div>
         </div>
       </div>
@@ -131,4 +134,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export { List };

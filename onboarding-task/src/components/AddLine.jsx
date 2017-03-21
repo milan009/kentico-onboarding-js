@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-
-const AddLinePropTypes = {
-  text: React.PropTypes.string,
-  onAdd: React.PropTypes.func.isRequired,
-};
+import React, { Component, PropTypes } from 'react';
 
 class AddLine extends Component {
+  static propTypes = {
+    text: PropTypes.string,
+    onAdd: PropTypes.func.isRequired,
+  };
+
+  static displayName = 'AddLine';
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +34,4 @@ class AddLine extends Component {
   }
 }
 
-AddLine.propTypes = AddLinePropTypes;
-
-export default AddLine;
+export { AddLine };
