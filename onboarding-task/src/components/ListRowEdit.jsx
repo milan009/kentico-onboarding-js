@@ -4,13 +4,17 @@ import React, {
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
 import { Input } from './Input.jsx';
-import { Item } from './Item.js';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.instanceOf(Item).isRequired,
+    item: ImmutablePropTypes.recordOf({
+      id: PropTypes.string,
+      text: PropTypes.string,
+      editing: PropTypes.bool,
+    }).isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,
     onItemCancel: PropTypes.func.isRequired,

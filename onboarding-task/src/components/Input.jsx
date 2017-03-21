@@ -3,9 +3,11 @@ import React, {
   PropTypes,
 } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { generateUuid } from '../utils/idGenerator.js';
 import classNames from 'classnames';
 import { List } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
+import { generateUuid } from '../utils/idGenerator.js';
 
 function ErrorsTooltip(props) {
   if (!props.errors.size) {
@@ -29,7 +31,7 @@ function ErrorsTooltip(props) {
 
 ErrorsTooltip.propTypes = {
   inputId: PropTypes.string.isRequired,
-  errors: PropTypes.instanceOf(List).isRequired,
+  errors: ImmutablePropTypes.listOf(PropTypes.string),
 };
 
 class Input extends PureComponent {
