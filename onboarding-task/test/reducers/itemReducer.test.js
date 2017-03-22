@@ -60,5 +60,4 @@ describe('itemReducer:', () => {
 
     expect(result.editing).toBe(!state.editing);
   });
-
 });

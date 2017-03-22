@@ -34,6 +34,7 @@ class CreateItem extends PureComponent {
 
     this.setState({
       text: '',
+      isAddDisabled: true,
     });
   };
 
