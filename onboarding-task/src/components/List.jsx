@@ -17,6 +17,7 @@ class List extends Component {
   _handleAddLine = (text) => {
     const lines = this.state.lines;
     const id = createGuid();
+
     const newItem = Map({ [id]: Map({ text, isEdited: false }) });
     const editedLines = lines.merge(newItem);
 
@@ -25,6 +26,7 @@ class List extends Component {
 
   _handleDeleteLine = (lineId) => {
     const rows = this.state.lines;
+
     const editedRows = rows.delete(lineId);
 
     this.setState({ lines: editedRows });
@@ -32,10 +34,8 @@ class List extends Component {
 
   _handleDoubleClick = (id) => {
     const rows = this.state.lines;
-    const clickedItem = rows.get(id);
 
-    const updatedItem = clickedItem.set('isEdited', true);
-    const updatedItems = rows.merge({ [id]: updatedItem });
+    const updatedItems = rows.setIn([id, 'isEdited'], true);
 
     this.setState({ lines: updatedItems });
   };
@@ -52,10 +52,8 @@ class List extends Component {
 
   _handleClickCancel = (id) => {
     const rows = this.state.lines;
-    const clickedItem = rows.get(id);
 
-    const updatedItem = clickedItem.set('isEdited', false);
-    const updatedItems = rows.merge({ [id]: updatedItem });
+    const updatedItems = rows.setIn([id, 'isEdited'], false);
 
     this.setState({ lines: updatedItems });
   };
