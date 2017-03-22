@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 class LineEdit extends Component {
   static propTypes = {
     line: PropTypes.object.isRequired,
-    number: PropTypes.number.isRequired,
+    prefixedNumber: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -40,7 +40,7 @@ class LineEdit extends Component {
   render() {
     return (
       <div>
-        <span className="form-inline">{this.props.number}.
+        <span className="form-inline">{this.props.prefixedNumber}.
           <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
