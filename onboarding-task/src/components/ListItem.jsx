@@ -15,24 +15,23 @@ class ListItem extends PureComponent {
   };
 
   _renderLineItem = (line, index) => {
-    if (line.isEdited) {
+    if (line.row.get('isEdited')) {
       return (
         <LineEdit
           key={line.id}
           line={line}
-          index={(index + 1)}
+          index={(index)}
           onSave={this.props.onSave}
           onCancel={this.props.onCancel}
           onDelete={this.props.onDelete}
         />
       );
     }
-
     return (
       <LineRead
         key={line.id}
         line={line}
-        index={(index + 1)}
+        index={(index)}
         onDoubleClick={this.props.onDoubleClick}
       />
     );

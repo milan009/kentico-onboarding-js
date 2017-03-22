@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
+import { Map } from 'immutable';
 import { createGuid } from '../GuidHelper.js';
 
 class List extends Component {
@@ -9,71 +10,65 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lines: [],
+      lines: new Map(),
     };
   }
 
   _handleAddLine = (text) => {
     const lines = this.state.lines;
-    const newItem = { id: createGuid(), text, isEdited: false };
-    const editedLines = lines.concat([newItem]);
+    const id = createGuid();
+    const newItem = Map({ [id]: Map({ text, isEdited: false }) });
+    const editedLines = lines.merge(newItem);
 
     this.setState({ lines: editedLines });
   };
 
   _handleDeleteLine = (lineId) => {
     const rows = this.state.lines;
-    const editedRows = rows.slice().filter((line) => line.id !== lineId);
+    const editedRows = rows.delete(lineId);
 
     this.setState({ lines: editedRows });
   };
 
   _handleDoubleClick = (id) => {
     const rows = this.state.lines;
-    const clickedItem = rows.find((row) => row.id === id);
-    const indexOfClickedItem = rows.indexOf(clickedItem);
+    const clickedItem = rows.get(id);
 
-    const updatedItem = Object.assign({}, clickedItem, { isEdited: true });
-    const updatedItems = rows.slice();
-    updatedItems[indexOfClickedItem] = updatedItem;
+    const updatedItem = clickedItem.set('isEdited', true);
+    const updatedItems = rows.merge({ [id]: updatedItem });
 
     this.setState({ lines: updatedItems });
   };
 
   _handleClickSave = (item) => {
     const rows = this.state.lines;
-    const clickedItem = rows.find((row) => row.id === item.id);
-    const indexOfClickedItem = rows.indexOf(clickedItem);
+    const itemId = item.id;
 
-    const updatedItem = Object.assign({}, clickedItem, {
-      isEdited: false,
-      text: item.text,
-    });
-    const updatedItems = rows.slice();
-    updatedItems[indexOfClickedItem] = updatedItem;
+    const updatedItem = Map({ 'isEdited': false, 'text': [item.text] });
+    const updatedItems = rows.merge({ [itemId]: updatedItem });
 
     this.setState({ lines: updatedItems });
   };
 
   _handleClickCancel = (id) => {
-    const items = this.state.lines;
-    const item = items.find((i) => i.id === id);
-    const updatedItem = Object.assign({}, item, { isEdited: false });
+    const rows = this.state.lines;
+    const clickedItem = rows.get(id);
 
-    const updatedItems = items.slice();
-    updatedItems[items.indexOf(item)] = updatedItem;
+    const updatedItem = clickedItem.set('isEdited', false);
+    const updatedItems = rows.merge({ [id]: updatedItem });
 
     this.setState({ lines: updatedItems });
   };
 
   render() {
     const rows = this.state.lines;
-    const renderedRows = rows.map((row, index) => (
+    let index = 1;
+    const renderedRows = rows.map((row, id) => (
       <li className="list-group-item">
         <ListItem
-          key={row.id}
-          line={row}
-          index={index}
+          key={id}
+          line={{ id, row }}
+          index={index++}
           onSave={this._handleClickSave}
           onCancel={this._handleClickCancel}
           onDelete={this._handleDeleteLine}

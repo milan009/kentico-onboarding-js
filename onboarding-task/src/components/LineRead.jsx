@@ -17,7 +17,7 @@ class LineRead extends PureComponent {
     return (
       <div onDoubleClick={this._handleDoubleClick} >
         <span>{this.props.index}. </span>
-        {this.props.line.text}
+        {this.props.line.row.get('text')}
       </div>
     );
   }

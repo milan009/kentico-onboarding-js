@@ -14,7 +14,7 @@ class LineEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.line.text,
+      text: this.props.line.row.get('text'),
     };
   }
 
