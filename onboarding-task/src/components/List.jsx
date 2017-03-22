@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import TsComponent from './TsComponent.tsx';
 import { CreateItem } from './CreateItem.jsx';
 import { ListRow } from './ListRow.jsx';
+import { Map } from 'immutable';
 
 import { generateUuid } from '../utils/idGenerator.js';
+import { Item } from './Item';
 
-class List extends Component {
+class List extends PureComponent {
   static displayName = 'List';
 
   constructor(props) {
@@ -16,63 +18,54 @@ class List extends Component {
 
   _onItemAdd = (text) => {
     const id = generateUuid();
-    const items = this.state.items;
-    const item = {
+    const item = new Item({
       id,
       text,
       editing: false,
-    };
-    items.set(id, item);
+    });
+    const items = this.state.items.set(id, item);
 
     this.setState({ items });
   };
 
   _onItemDelete = (id) => {
-    const items = this.state.items;
-    items.delete(id);
+    const items = this.state.items.delete(id);
     this.setState({ items });
   };
 
   _onItemUpdate = (id, text) => {
-    this._updateItemFromState(id, {
+    const items = this.state.items.mergeIn([id], {
       text,
       editing: false,
     });
+    this.setState({ items });
   };
 
   _onItemCancel = (id) => {
-    this._updateItemFromState(id, { editing: false });
+    const items = this.state.items.setIn([id, 'editing'], false);
+    this.setState({ items });
   };
 
   _onItemClick = (id) => {
-    this._updateItemFromState(id, { editing: true });
-  };
-
-  _updateItemFromState = (id, values) => {
-    const items = this.state.items;
-    const item = items.get(id) || {};
-    const newItem = {
-      ...item,
-      ...values,
-    };
-    items.set(id, newItem);
-
+    const items = this.state.items.setIn([id, 'editing'], true);
     this.setState({ items });
   };
 
   render() {
-    const listItems = [...this.state.items.values()].map((item, i) =>
-      <div key={item.id} className="list-group-item item-custom">
-        <ListRow
-          index={i + 1}
-          item={item}
-          onItemClick={this._onItemClick}
-          onItemUpdate={this._onItemUpdate}
-          onItemDelete={this._onItemDelete}
-          onItemCancel={this._onItemCancel}
-        />
-      </div>
-    );
+    const listItems = this.state.items.valueSeq().map((item, i) => {
+      return (
+        <div key={item.id} className="list-group-item item-custom">
+          <ListRow
+            index={i + 1}
+            item={item}
+            onItemClick={this._onItemClick}
+            onItemUpdate={this._onItemUpdate}
+            onItemDelete={this._onItemDelete}
+            onItemCancel={this._onItemCancel}
+          />
+        </div>
+      );
+    });
 
     return (
       <div className="row">
