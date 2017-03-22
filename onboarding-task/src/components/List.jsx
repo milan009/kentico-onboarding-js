@@ -74,7 +74,7 @@ class List extends Component {
         <ListItem
           key={row.id}
           line={row}
-          orderNumber={index}
+          index={index}
           onSave={this._handleClickSave}
           onCancel={this._handleClickCancel}
           onDelete={this._handleDeleteLine}

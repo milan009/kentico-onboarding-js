@@ -5,7 +5,7 @@ class LineRead extends PureComponent {
 
   static propTypes = {
     line: PropTypes.object.isRequired,
-    prefixedNumber: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
     onDoubleClick: PropTypes.func.isRequired,
   };
 
@@ -16,7 +16,7 @@ class LineRead extends PureComponent {
   render() {
     return (
       <div onDoubleClick={this._handleDoubleClick} >
-        <span>{this.props.prefixedNumber}. </span>
+        <span>{this.props.index}. </span>
         {this.props.line.text}
       </div>
     );

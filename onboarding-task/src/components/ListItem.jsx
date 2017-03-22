@@ -7,19 +7,20 @@ class ListItem extends PureComponent {
 
   static propTypes = {
     line: PropTypes.object,
-    orderNumber: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onDoubleClick: PropTypes.func.isRequired,
   };
 
-  _renderLineItem = (line, orderNumber) => {
+  _renderLineItem = (line, index) => {
     if (line.isEdited) {
       return (
         <LineEdit
+          key={line.id}
           line={line}
-          prefixedNumber={(orderNumber + 1)}
+          index={(index + 1)}
           onSave={this.props.onSave}
           onCancel={this.props.onCancel}
           onDelete={this.props.onDelete}
@@ -29,8 +30,9 @@ class ListItem extends PureComponent {
 
     return (
       <LineRead
+        key={line.id}
         line={line}
-        prefixedNumber={(orderNumber + 1)}
+        index={(index + 1)}
         onDoubleClick={this.props.onDoubleClick}
       />
     );
@@ -38,7 +40,7 @@ class ListItem extends PureComponent {
 
   render() {
     return (
-      this._renderLineItem(this.props.line, this.props.orderNumber)
+      this._renderLineItem(this.props.line, this.props.index)
     );
   }
 }
