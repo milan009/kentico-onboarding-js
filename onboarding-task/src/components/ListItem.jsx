@@ -26,6 +26,7 @@ class ListItem extends PureComponent {
         />
       );
     }
+
     return (
       <LineRead
         line={line}

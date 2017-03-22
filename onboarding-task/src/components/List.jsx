@@ -15,7 +15,11 @@ class List extends Component {
 
   _handleAddLine = (text) => {
     const lines = this.state.lines;
-    const newItem = { id: createGuid(), text, isEdited: false };
+    const newItem = {
+      id: createGuid(),
+      text,
+      isEdited: false,
+    };
     const editedLines = lines.concat([newItem]);
 
     this.setState({ lines: editedLines });
@@ -45,7 +49,10 @@ class List extends Component {
     const clickedItem = rows.find((row) => row.id === item.id);
     const indexOfClickedItem = rows.indexOf(clickedItem);
 
-    const updatedItem = Object.assign({}, clickedItem, { isEdited: false, text: item.text });
+    const updatedItem = Object.assign({}, clickedItem, {
+      isEdited: false,
+      text: item.text,
+    });
     const updatedItems = rows.slice();
     updatedItems[indexOfClickedItem] = updatedItem;
 
@@ -66,7 +73,7 @@ class List extends Component {
   render() {
     const rows = this.state.lines;
     const renderedRows = rows.map((row, index) => (
-      <li className="list-group-item" >
+      <li className="list-group-item">
         <ListItem
           key={row.id}
           line={row}
@@ -78,6 +85,7 @@ class List extends Component {
         />
       </li>
     ));
+
     return (
       <div className="row">
         <div className="row">
@@ -90,7 +98,7 @@ class List extends Component {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul id="todo-list" className="list-group">
               {renderedRows}
-              <li className="list-group-item" >
+              <li className="list-group-item">
                 <AddLine onAdd={this._handleAddLine} />
               </li>
             </ul>
