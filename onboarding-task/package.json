@@ -59,7 +59,10 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-immutable-proptypes": "^2.1.0",
+    "react-redux": "^5.0.3",
     "react-tooltip": "^3.2.7",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.10.1",
     "ts-jest": "^19.0.0"
   },
   "scripts": {

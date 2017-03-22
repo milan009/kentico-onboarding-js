@@ -30,6 +30,7 @@ class List extends PureComponent {
 
   _onItemDelete = (id) => {
     const items = this.state.items.delete(id);
+
     this.setState({ items });
   };
 
@@ -38,16 +39,19 @@ class List extends PureComponent {
       text,
       editing: false,
     });
+
     this.setState({ items });
   };
 
   _onItemCancel = (id) => {
     const items = this.state.items.setIn([id, 'editing'], false);
+
     this.setState({ items });
   };
 
   _onItemClick = (id) => {
     const items = this.state.items.setIn([id, 'editing'], true);
+
     this.setState({ items });
   };
 
