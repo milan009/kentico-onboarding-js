@@ -4,32 +4,31 @@ import { ListItem } from './ListItem.jsx';
 import { createGuid } from '../GuidHelper.js';
 
 class List extends Component {
-
   static displayName = 'List';
 
   constructor(props) {
     super(props);
     this.state = {
-      rows: [],
+      lines: [],
     };
   }
 
   _handleAddLine = (text) => {
-    const lines = this.state.rows;
+    const lines = this.state.lines;
     const editedLines = lines.concat([{ id: createGuid(), text, isEdited: false }]);
 
-    this.setState({ rows: editedLines });
+    this.setState({ lines: editedLines });
   };
 
   _handleDeleteLine = (lineId) => {
-    const rows = this.state.rows;
+    const rows = this.state.lines;
     const editedRows = rows.slice().filter((line) => line.id !== lineId);
 
-    this.setState({ rows: editedRows });
+    this.setState({ lines: editedRows });
   };
 
   _handleDoubleClick = (id) => {
-    const rows = this.state.rows;
+    const rows = this.state.lines;
     const clickedItem = rows.find((row) => row.id === id);
     const indexOfClickedItem = rows.indexOf(clickedItem);
 
@@ -37,11 +36,11 @@ class List extends Component {
     const updatedItems = rows.slice();
     updatedItems[indexOfClickedItem] = updatedItem;
 
-    this.setState({ rows: updatedItems });
+    this.setState({ lines: updatedItems });
   };
 
   _handleClickSave = (item) => {
-    const rows = this.state.rows;
+    const rows = this.state.lines;
     const clickedItem = rows.find((row) => row.id === item.id);
     const indexOfClickedItem = rows.indexOf(clickedItem);
 
@@ -49,28 +48,28 @@ class List extends Component {
     const updatedItems = rows.slice();
     updatedItems[indexOfClickedItem] = updatedItem;
 
-    this.setState({ rows: updatedItems });
+    this.setState({ lines: updatedItems });
   };
 
   _handleClickCancel = (id) => {
-    const items = this.state.rows;
+    const items = this.state.lines;
     const item = items.find((i) => i.id === id);
     const updatedItem = Object.assign({}, item, { isEdited: false });
 
     const updatedItems = items.slice();
     updatedItems[items.indexOf(item)] = updatedItem;
 
-    this.setState({ rows: updatedItems });
+    this.setState({ lines: updatedItems });
   };
 
   render() {
-    const rows = this.state.rows;
+    const rows = this.state.lines;
     const renderedRows = rows.map((row, index) => (
       <li className="list-group-item" >
         <ListItem
           key={row.id}
           line={row}
-          number={index}
+          numberOfItem={index}
           onSave={this._handleClickSave}
           onCancel={this._handleClickCancel}
           onDelete={this._handleDeleteLine}

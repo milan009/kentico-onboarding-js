@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
 class AddLine extends Component {
+  static displayName = 'AddLine';
+
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
-
-  static displayName = 'AddLine';
 
   constructor(props) {
     super(props);

@@ -3,15 +3,16 @@ import { LineEdit } from './LineEdit.jsx';
 import { LineRead } from './LineRead.jsx';
 
 class ListItem extends PureComponent {
+  static displayName = 'ListItem';
+
   static propTypes = {
     line: PropTypes.object,
-    number: PropTypes.number.isRequired,
+    numberOfItem: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onDoubleClick: PropTypes.func.isRequired,
   };
-  static displayName = 'ListItem';
 
   _renderLineItem = (line, number) => {
     if (line.isEdited) {
@@ -36,7 +37,7 @@ class ListItem extends PureComponent {
 
   render() {
     return (
-      this._renderLineItem(this.props.line, this.props.number)
+      this._renderLineItem(this.props.line, this.props.numberOfItem)
     );
   }
 }
