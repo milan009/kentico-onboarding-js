@@ -1,21 +1,13 @@
 import {
-  ITEM_CREATE,
   ITEM_DELETE,
   ITEM_UPDATE,
   ITEM_TOGGLE_EDIT,
-} from './actionCreators';
+} from './actionTypes';
 
 import { generateUuid } from '../utils/idGenerator.js';
+import { createItemFactory } from './itemCreateFactory.js';
 
-export const createItem = (text) => {
-  return {
-    type: ITEM_CREATE,
-    value: {
-      id: generateUuid(),
-      text,
-    },
-  };
-};
+export const createItem = createItemFactory(generateUuid);
 
 export const updateItem = (id, text) => {
   return {
