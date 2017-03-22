@@ -15,7 +15,8 @@ class List extends Component {
 
   _handleAddLine = (text) => {
     const lines = this.state.lines;
-    const editedLines = lines.concat([{ id: createGuid(), text, isEdited: false }]);
+    const newItem = { id: createGuid(), text, isEdited: false };
+    const editedLines = lines.concat([newItem]);
 
     this.setState({ lines: editedLines });
   };
