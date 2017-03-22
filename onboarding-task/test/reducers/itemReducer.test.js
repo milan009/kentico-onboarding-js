@@ -4,7 +4,7 @@ import {
   toggleEditItem,
 } from '../../src/actions/actionCreators.js';
 import { createItemFactory } from '../../src/actions/itemCreateFactory.js';
-import { Item } from '../../src/components/Item.js';
+import { Item } from '../../src/models/Item.js';
 import { itemReducer } from '../../src/reducers/itemReducer.js';
 
 describe('itemReducer:', () => {

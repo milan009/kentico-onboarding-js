@@ -3,7 +3,7 @@ import {
   ITEM_UPDATE,
   ITEM_TOGGLE_EDIT,
 } from '../actions/actionTypes.js';
-import { Item } from '../components/Item.js';
+import { Item } from '../models/Item.js';
 
 const itemReducer = (prevState = new Item(), action) => {
   switch (action.type) {

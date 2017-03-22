@@ -6,7 +6,7 @@ import { ListRow } from './ListRow.jsx';
 import { Map } from 'immutable';
 
 import { generateUuid } from '../utils/idGenerator.js';
-import { Item } from './Item';
+import { Item } from '../models/Item';
 
 class List extends PureComponent {
   static displayName = 'List';
