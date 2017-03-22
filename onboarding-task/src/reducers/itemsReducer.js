@@ -20,8 +20,9 @@ const itemsReducer = (prevState = Map(), action) => {
     case ITEM_DELETE:
       return prevState.delete(action.value.id);
     case ITEM_TOGGLE_EDIT: {
-      const prevEdit = prevState.getIn([action.value.id, 'editing']);
-      return prevState.setIn([action.value.id, 'editing'], !prevEdit);
+      // change locally using getIn/setIn??
+      const toggledId = itemReducer(prevState.get(action.value.id), action);
+      return prevState.set(action.value.id, toggledId);
     }
     default:
       return prevState;
