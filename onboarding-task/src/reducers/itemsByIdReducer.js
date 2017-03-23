@@ -19,10 +19,6 @@ const itemsByIdReducer = (state = Map(), action) => {
     }
     case ITEM_DELETE:
       return state.delete(action.payload.id);
-    case ITEM_TOGGLE_EDIT: {
-      const toggledItem = itemReducer(state.get(action.payload.id), action);
-      return state.set(action.payload.id, toggledItem);
-    }
     default:
       return state;
   }
