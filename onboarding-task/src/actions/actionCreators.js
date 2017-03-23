@@ -12,7 +12,7 @@ export const createItem = createItemFactory(generateUuid);
 export const updateItem = (id, text) => {
   return {
     type: ITEM_UPDATE,
-    value: {
+    payload: {
       id,
       text,
     },
@@ -22,7 +22,7 @@ export const updateItem = (id, text) => {
 export const deleteItem = (id) => {
   return {
     type: ITEM_DELETE,
-    value: {
+    payload: {
       id,
     },
   };
@@ -31,7 +31,7 @@ export const deleteItem = (id) => {
 export const toggleEditItem = (id) => {
   return {
     type: ITEM_TOGGLE_EDIT,
-    value: {
+    payload: {
       id,
     },
   };

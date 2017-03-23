@@ -5,7 +5,7 @@ import {
 const createItem = (idGenerator, text) => {
   return {
     type: ITEM_CREATE,
-    value: {
+    payload: {
       id: idGenerator(),
       text,
     },

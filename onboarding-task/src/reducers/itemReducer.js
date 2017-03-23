@@ -9,11 +9,11 @@ const itemReducer = (prevState = new Item(), action) => {
   switch (action.type) {
     case ITEM_CREATE:
       return new Item({
-        id: action.value.id,
-        text: action.value.text,
+        id: action.payload.id,
+        text: action.payload.text,
       });
     case ITEM_UPDATE:
-      return prevState.merge({ text: action.value.text });
+      return prevState.merge({ text: action.payload.text });
     case ITEM_TOGGLE_EDIT:
       return prevState.merge({ editing: !prevState.editing });
     default:
