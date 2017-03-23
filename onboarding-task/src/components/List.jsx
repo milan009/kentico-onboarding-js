@@ -25,10 +25,38 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
-              // TODO: implement the list here :)
+              {/* TODO: implement the list here :)*/ }
+              <ListItem />
             </pre>
           </div>
         </div>
+      </div>
+    );
+  }
+}
+
+class ListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'Placeholder',
+      added: false,
+    };
+    this.changeAddState = this.changeAddState.bind(this);
+  }
+  changeAddState() {
+    this.setState({ added: true });
+  }
+
+  render() {
+    let alreadyAdded = this.state.added;
+    return (
+      <div>
+        <textarea>{this.state.text}</textarea>
+        <button hidden={alreadyAdded} onClick={this.changeAddState}>Add</button>
+        <button hidden={!alreadyAdded}>Save</button>
+        <button hidden={!alreadyAdded}>Cancel</button>
+        <button hidden={!alreadyAdded}>Delete</button>
       </div>
     );
   }
