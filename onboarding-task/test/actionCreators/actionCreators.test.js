@@ -19,7 +19,7 @@ describe('actionCreators:', () => {
   it(`createItem returns action ${ITEM_CREATE}`, () => {
     const expected = {
       type: ITEM_CREATE,
-      value: {
+      payload: {
         id,
         text,
       },
@@ -27,13 +27,13 @@ describe('actionCreators:', () => {
     const result = createItem(text);
 
     expect(result.type).toBe(expected.type);
-    expect(result.value.text).toBe(expected.value.text);
+    expect(result.payload.text).toBe(expected.payload.text);
   });
 
   it(`createItemFactory returns action ${ITEM_CREATE} and generate id using idGenerator`, () => {
     const expected = {
       type: ITEM_CREATE,
-      value: {
+      payload: {
         id,
         text,
       },
@@ -46,7 +46,7 @@ describe('actionCreators:', () => {
   it(`updateItem returns action ${ITEM_UPDATE}`, () => {
     const expected = {
       type: ITEM_UPDATE,
-      value: {
+      payload: {
         id,
         text,
       },
@@ -59,7 +59,7 @@ describe('actionCreators:', () => {
   it(`deleteItem returns action ${ITEM_DELETE}`, () => {
     const expected = {
       type: ITEM_DELETE,
-      value: {
+      payload: {
         id,
       },
     };
@@ -71,7 +71,7 @@ describe('actionCreators:', () => {
   it(`toggleEditItem returns action ${ITEM_TOGGLE_EDIT}`, () => {
     const expected = {
       type: ITEM_TOGGLE_EDIT,
-      value: {
+      payload: {
         id,
       },
     };

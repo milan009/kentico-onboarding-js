@@ -23,7 +23,7 @@ describe('itemReducer:', () => {
 
   it('returns default item for undefined state', () => {
     const expectedState = new Item();
-    const resultState = itemReducer(undefined, {});
+    const resultState = itemReducer(undefined, { type: 'unknown' });
 
     expect(resultState).toEqual(expectedState);
   });
