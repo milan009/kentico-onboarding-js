@@ -5,7 +5,7 @@ import {
 } from '../actions/actionTypes.js';
 import { Item } from '../models/Item.js';
 
-const itemReducer = (prevState = new Item(), action) => {
+const itemReducer = (state = new Item(), action) => {
   switch (action.type) {
     case ITEM_CREATE:
       return new Item({
@@ -13,11 +13,11 @@ const itemReducer = (prevState = new Item(), action) => {
         text: action.payload.text,
       });
     case ITEM_UPDATE:
-      return prevState.merge({ text: action.payload.text });
+      return state.merge({ text: action.payload.text });
     case ITEM_TOGGLE_EDIT:
-      return prevState.merge({ editing: !prevState.editing });
+      return state.merge({ editing: !state.editing });
     default:
-      return prevState;
+      return state;
   }
 };
 
