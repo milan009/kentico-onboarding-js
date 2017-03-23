@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List.jsx';
 import { createItem } from '../actions/actionCreators.js';
+import { OrderedSet } from 'immutable';
 
 const mapStateToProps = (state) => {
-  return { items: state.items };
+  return { itemIds: OrderedSet.fromKeys(state.items) };
 };
 
 const mapDispatchToProps = (dispatch) => {

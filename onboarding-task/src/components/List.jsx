@@ -6,10 +6,10 @@ import { ListRow } from '../containers/ListRow.js';
 
 
 function List(props) {
-  const listItems = props.items.valueSeq().map((item, i) => {
+  const listItems = props.itemIds.valueSeq().map((id, i) => {
     return (
-      <div key={item.id} className="list-group-item item-custom">
-        <ListRow index={i + 1} id={item.id} />
+      <div key={id} className="list-group-item item-custom">
+        <ListRow id={id} index={i + 1} />
       </div>
     );
   });
@@ -38,7 +38,7 @@ function List(props) {
 List.displayName = 'List';
 
 List.propTypes = {
-  items: ImmutablePropTypes.map.isRequired,
+  itemIds: ImmutablePropTypes.orderedSetOf(PropTypes.string).isRequired,
   onItemAdd: PropTypes.func.isRequired,
 };
 
