@@ -4,7 +4,7 @@ import {ItemFlags} from '../../src/models/ItemFlags.ts';
 import {Item} from '../../src/models/Item.ts';
 import {toggleItemViewMode, editItem, deleteItem, createItem} from '../../src/actions/actionCreators';
 import {itemFlagReducer} from '../../src/reducers/itemFlagReducer';
-import {editItemValueReducer} from '../../src/reducers/editItemValueReducer';
+import {itemDataReducer} from '../../src/reducers/itemDataReducer';
 import {saveItemEditReducer} from '../../src/reducers/saveItemEditReducer';
 
 describe('FlagsItemsReducer', () => {
@@ -45,7 +45,7 @@ describe('FlagsItemsReducer', () => {
   });
 });
 
-describe('edit item value', () => {
+describe('itemDataReducer', () => {
   it('set new value for existing item', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const state = Immutable.Map().set(
@@ -57,7 +57,7 @@ describe('edit item value', () => {
     );
     const expectedNewState = state.setIn([id, 'value'], 'expected text');
 
-    const actualState = editItemValueReducer(state, editItem(id, 'expected text'));
+    const actualState = itemDataReducer(state, editItem(id, 'expected text'));
     expect(expectedNewState).toEqual(actualState);
   });
 });
@@ -99,7 +99,7 @@ describe('save item edit', () => {
       );
       const expectedNewState = state.setIn([id, 'value'], 'expected text');
 
-      const actualState = editItemValueReducer(state, editItem(id, 'expected text'));
+      const actualState = itemDataReducer(state, editItem(id, 'expected text'));
       expect(expectedNewState).toEqual(actualState);
     });
   });
