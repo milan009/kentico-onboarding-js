@@ -2,7 +2,6 @@ import {
   ITEM_CREATE,
   ITEM_DELETE,
   ITEM_UPDATE,
-  ITEM_TOGGLE_EDIT,
 } from '../actions/actionTypes.js';
 import { Map } from 'immutable';
 import { itemReducer } from './itemReducer.js';
