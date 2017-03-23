@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 
 import {ItemFlags} from '../../src/models/ItemFlags.ts';
 import {Item} from '../../src/models/Item.ts';
-import {toggleItemViewMode, editItem, deleteItem, createItem} from '../../src/actions/actionCreators';
+import {toggleItemViewMode, editItem, deleteItem, createItemFlags} from '../../src/actions/actionCreators';
 import {itemFlagReducer} from '../../src/reducers/itemFlagReducer';
 import {itemDataReducer} from '../../src/reducers/itemDataReducer';
 import {saveItemEditReducer} from '../../src/reducers/saveItemEditReducer';
@@ -40,7 +40,8 @@ describe('FlagsItemsReducer', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const state = Immutable.Map();
 
-    const actualState = itemFlagReducer(state, createItem(id));
+    const actualState = itemFlagReducer(state, createItemFlags(id));
+
     expect(actualState.has(id)).toEqual(true);
   });
 });
@@ -58,6 +59,7 @@ describe('itemDataReducer', () => {
     const expectedNewState = state.setIn([id, 'value'], 'expected text');
 
     const actualState = itemDataReducer(state, editItem(id, 'expected text'));
+
     expect(expectedNewState).toEqual(actualState);
   });
 });
