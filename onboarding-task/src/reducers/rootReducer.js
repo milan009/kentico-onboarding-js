@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { itemsReducer } from './itemsReducer.js';
+import { itemsByIdReducer } from './itemsByIdReducer.js';
+import { itemsUiPropertiesReducer } from './itemsUiPropertiesReducer.js';
 
 const rootReducer = combineReducers({
-  items: itemsReducer,
+  items: itemsByIdReducer,
+  itemsUi: itemsUiPropertiesReducer,
 });
 
 export { rootReducer };

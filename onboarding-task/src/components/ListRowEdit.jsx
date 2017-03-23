@@ -4,17 +4,12 @@ import React, {
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
 import { Input } from './Input.jsx';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
   static propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      editing: PropTypes.bool,
-    }).isRequired,
+    // index: PropTypes.number.isRequired,
+    item: PropTypes.object.isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,
     onItemCancel: PropTypes.func.isRequired,
@@ -53,7 +48,7 @@ class ListRowEdit extends PureComponent {
   render() {
     return (
       <div className="form-inline">
-        <span>{this.props.index}. </span>
+        <span>{this.props.item.index}. </span>
         <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} />
         <button type="button" className="btn btn-primary" onClick={this._onItemUpdate} disabled={this.state.isSaveDisabled}>Save</button>
         <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>

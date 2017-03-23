@@ -7,7 +7,7 @@ import {
 import { Map } from 'immutable';
 import { itemReducer } from './itemReducer.js';
 
-const itemsReducer = (state = Map(), action) => {
+const itemsByIdReducer = (state = Map(), action) => {
   switch (action.type) {
     case ITEM_CREATE: {
       const newItem = itemReducer(undefined, action);
@@ -20,13 +20,12 @@ const itemsReducer = (state = Map(), action) => {
     case ITEM_DELETE:
       return state.delete(action.payload.id);
     case ITEM_TOGGLE_EDIT: {
-      // change locally using getIn/setIn??
-      const toggledId = itemReducer(state.get(action.payload.id), action);
-      return state.set(action.payload.id, toggledId);
+      const toggledItem = itemReducer(state.get(action.payload.id), action);
+      return state.set(action.payload.id, toggledItem);
     }
     default:
       return state;
   }
 };
 
-export { itemsReducer };
+export { itemsByIdReducer };
