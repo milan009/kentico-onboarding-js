@@ -16,7 +16,7 @@ describe('ItemFlagReducer', () => {
     );
 
     const actualState = itemFlagReducer(state, toggleItemViewMode(id));
-    expect(actualState.get(id).editMode).toEqual(true);
+    expect(actualState.get(id).editMode).toBeTruthy();
   });
 
   it('delete flag for given id', () => {
@@ -30,7 +30,7 @@ describe('ItemFlagReducer', () => {
     );
 
     const actualState = itemFlagReducer(state, deleteItem(id));
-    expect(actualState.has(id)).toEqual(false);
+    expect(actualState.has(id)).toBeFalsy();
   });
 
   it('create flag for given id', () => {
@@ -39,6 +39,6 @@ describe('ItemFlagReducer', () => {
 
     const actualState = itemFlagReducer(state, createItemFlags(id));
 
-    expect(actualState.has(id)).toEqual(true);
+    expect(actualState.has(id)).toBeTruthy();
   });
 });

@@ -42,6 +42,6 @@ describe('itemDataReducer', () => {
     );
 
     const actualState = itemDataReducer(state, deleteItem(id));
-    expect(actualState.has(id)).toEqual(false);
+    expect(actualState.has(id)).toBeFalsy();
   });
 });
