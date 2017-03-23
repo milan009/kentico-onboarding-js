@@ -1,7 +1,7 @@
 import {ITEM_CREATED, ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
 
-const createItem = (value: string) => {
-  return { type: ITEM_CREATED, value }
+const createItem = (id: string, value: string) => {
+  return { type: ITEM_CREATED, id, value }
 };
 
 const deleteItem = (id: string) => {

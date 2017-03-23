@@ -2,13 +2,13 @@ import * as Immutable from 'immutable';
 
 import {ItemFlags} from '../../src/models/ItemFlags.ts';
 import {Item} from '../../src/models/Item.ts';
-import {toggleItemViewMode, editItem} from '../../src/actions/actionCreators';
+import {toggleItemViewMode, editItem, deleteItem, createItem} from '../../src/actions/actionCreators';
 import {itemFlagReducer} from '../../src/reducers/itemFlagReducer';
 import {editItemValueReducer} from '../../src/reducers/editItemValueReducer';
 import {saveItemEditReducer} from '../../src/reducers/saveItemEditReducer';
 
-describe('FlagsItemsReducer - toggle view mode', () => {
-  it('switch to edit mode(EditMode=true)', () => {
+describe('FlagsItemsReducer', () => {
+  it('toggle view mode: switch to edit mode(EditMode=true)', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const state = Immutable.Map().set(
       id,
@@ -20,6 +20,28 @@ describe('FlagsItemsReducer - toggle view mode', () => {
 
     const actualState = itemFlagReducer(state, toggleItemViewMode(id));
     expect(actualState.get(id).editMode).toEqual(true);
+  });
+
+  it('delete flag for given id', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const state = Immutable.Map().set(
+      id,
+      new ItemFlags({
+        id,
+        editMode: true
+      })
+    );
+
+    const actualState = itemFlagReducer(state, deleteItem(id));
+    expect(actualState.has(id)).toEqual(false);
+  });
+
+  it('create flag for given id', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const state = Immutable.Map();
+
+    const actualState = itemFlagReducer(state, createItem(id));
+    expect(actualState.has(id)).toEqual(true);
   });
 });
 
