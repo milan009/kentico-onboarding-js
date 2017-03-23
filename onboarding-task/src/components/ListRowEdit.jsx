@@ -8,7 +8,6 @@ import { Input } from './Input.jsx';
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
   static propTypes = {
-    // index: PropTypes.number.isRequired,
     item: PropTypes.object.isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,

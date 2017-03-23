@@ -6,7 +6,6 @@ import React, {
 class ListRowDisplay extends PureComponent {
   static displayName = 'ListRowDisplay';
   static propTypes = {
-    // index: PropTypes.number.isRequired,
     item: PropTypes.object.isRequired,
     onItemClick: PropTypes.func.isRequired,
   };

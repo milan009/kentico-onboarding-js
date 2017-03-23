@@ -3,7 +3,7 @@ import React, {
   PropTypes,
 } from 'react';
 import { ListRowDisplay } from './ListRowDisplay.jsx';
-import { ListRowEdit } from './ListRowEdit';
+import { ListRowEdit } from './ListRowEdit.jsx';
 
 class ListRow extends PureComponent {
   static displayName = 'ListRow';
