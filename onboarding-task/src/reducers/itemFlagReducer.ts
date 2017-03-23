@@ -4,7 +4,7 @@ import {ITEM_VIEW_MODE_TOGGLED} from '../actions/actionTypes';
 import {ItemFlags} from '../models/ItemFlags';
 
 
-const toggleItemViewModeReducer = (state: Immutable.Map<string, ItemFlags>, action: any) => {
+const itemFlagReducer = (state: Immutable.Map<string, ItemFlags>, action: any) => {
   switch (action.type) {
     case ITEM_VIEW_MODE_TOGGLED:
       const newEditModeFlag = !state.get(action.id).editMode;
@@ -14,4 +14,4 @@ const toggleItemViewModeReducer = (state: Immutable.Map<string, ItemFlags>, acti
   }
 };
 
-export { toggleItemViewModeReducer };
+export { itemFlagReducer };
