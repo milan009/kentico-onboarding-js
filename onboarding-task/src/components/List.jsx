@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import TsComponent from './TsComponent.tsx';
 import { CreateItem } from './CreateItem.jsx';
-import { ListRowContainer } from '../containers/ListRowContainer.js';
+import { ListRow } from '../containers/ListRow.js';
 
 
 function List(props) {
   const listItems = props.items.valueSeq().map((item, i) => {
     return (
       <div key={item.id} className="list-group-item item-custom">
-        <ListRowContainer index={i + 1} id={item.id} />
+        <ListRow index={i + 1} id={item.id} />
       </div>
     );
   });

@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
-import { List } from '../components/List.jsx';
-import { createItem, toggleEditItem, deleteItem, updateItem } from '../actions/actionCreators.js';
+import { ListRow } from '../components/ListRow.jsx';
+import { toggleEditItem, deleteItem, updateItem } from '../actions/actionCreators.js';
 
-const mapStateToProps = (state) => {
-  return { items: state.items };
+const mapStateToProps = (state, props) => {
+  return {
+    index: props.index,
+    item: state.items.get(props.id),
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onItemAdd: (text) => {
-      dispatch(createItem(text));
-    },
     onItemClick: (id) => {
       dispatch(toggleEditItem(id));
     },
@@ -27,9 +27,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const ListContainer = connect(
+const ListRowContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(List);
+)(ListRow);
 
-export { ListContainer };
+export { ListRowContainer as ListRow };
