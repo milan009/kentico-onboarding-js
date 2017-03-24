@@ -4,7 +4,24 @@ import assignment from './../../../assignment.gif';
 import TsComponent from './TsComponent.tsx';
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listOfListItems: ['listItem1'],
+    };
+  }
+  _ChangeTextOnListItem(newText, index) {
+    console.log(`${newText}:${index}`);
+    const newListOfListItems = this.state.listOfListItems;
+    newListOfListItems[index] = newText;
+    this.setState({ listOfListItems: newListOfListItems });
+  }
+
   render() {
+    const listItems = this.state.listOfListItems.map((x, i) => {
+      return <ListItem text={x} updateFunction={this._ChangeTextOnListItem} index={i} key={i} />;
+    }
+    );
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -25,8 +42,7 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
-              {/* TODO: implement the list here :)*/ }
-              <ListItem />
+              {listItems}
             </pre>
           </div>
         </div>
@@ -36,27 +52,57 @@ class List extends Component {
 }
 
 class ListItem extends Component {
+  static propTypes = {
+    text: React.PropTypes.string.isRequired,
+    updateFunction: React.PropTypes.func.isRequired,
+    index: React.PropTypes.number.isRequired,
+  };
   constructor(props) {
     super(props);
     this.state = {
-      text: 'Placeholder',
+      text: props.text,
       added: false,
+      editPhase: false,
     };
-    this.changeAddState = this.changeAddState.bind(this);
+    this._Add = this._Add.bind(this);
+    this._Edit = this._Edit.bind(this);
+    this._CancelEdit = this._CancelEdit.bind(this);
+    this._Delete = this._Delete.bind(this);
+    this._Save = this._Save.bind(this);
+    this._OnInputChange = this._OnInputChange.bind(this);
   }
-  changeAddState() {
+  _Add() {
     this.setState({ added: true });
+    this.props.updateFunction(this.state.text, this.props.index);
   }
-
+  _Edit() {
+    this.setState({ editPhase: this.state.added });
+  }
+  _CancelEdit() {
+    this.setState({ editPhase: false });
+    this.setState({ text: this.props.text });
+  }
+  _Delete() {
+    alert('not implemented');
+  }
+  _Save() {
+    this.setState({ editPhase: false });
+    this.props.updateFunction(this.state.text, this.props.index);
+  }
+  _OnInputChange(e) {
+    this.setState({ text: e.target.input });
+  }
   render() {
-    let alreadyAdded = this.state.added;
+    const hideAddPhase = this.state.added;
+    const hideEditPhase = !this.state.editPhase || !this.state.added;
     return (
       <div>
-        <textarea>{this.state.text}</textarea>
-        <button hidden={alreadyAdded} onClick={this.changeAddState}>Add</button>
-        <button hidden={!alreadyAdded}>Save</button>
-        <button hidden={!alreadyAdded}>Cancel</button>
-        <button hidden={!alreadyAdded}>Delete</button>
+        {/* // TODO Implement text update */}
+        <input value={this.state.text} onClick={this._Edit} onChange={this._OnInputChange} />
+        <button hidden={hideAddPhase} onClick={this._Add}>Add</button>
+        <button hidden={hideEditPhase} onClick={this._Save}>Save</button>
+        <button hidden={hideEditPhase} onClick={this._CancelEdit}>Cancel</button>
+        <button hidden={hideEditPhase} onClick={this._Delete}>Delete</button>
       </div>
     );
   }
