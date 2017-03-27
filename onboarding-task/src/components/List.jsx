@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { Map } from 'immutable';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
-import { Map } from 'immutable';
 import { createGuid } from '../utils/guidHelper.js';
 
-class List extends Component {
+class List extends PureComponent {
   static displayName = 'List';
 
   constructor(props) {

@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class LineEdit extends Component {
+class LineEdit extends PureComponent {
   static propTypes = {
     line: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
