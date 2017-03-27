@@ -18,8 +18,8 @@ class List extends PureComponent {
     const lines = this.state.lines;
     const id = createGuid();
 
-    const newItem = Map({ [id]: Map({ text, isEdited: false }) });
-    const editedLines = lines.merge(newItem);
+    const newItem = Map({ text, isEdited: false });
+    const editedLines = lines.set(id, newItem);
 
     this.setState({ lines: editedLines });
   };
@@ -45,7 +45,7 @@ class List extends PureComponent {
     const itemId = item.id;
 
     const updatedItem = Map({ 'isEdited': false, 'text': [item.text] });
-    const updatedItems = rows.merge({ [itemId]: updatedItem });
+    const updatedItems = rows.mergeIn([itemId], updatedItem);
 
     this.setState({ lines: updatedItems });
   };
