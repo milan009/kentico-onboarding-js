@@ -1,38 +1,36 @@
 import React, {
-  PureComponent,
   PropTypes,
 } from 'react';
 import { ListRowDisplay } from './ListRowDisplay.jsx';
 import { ListRowEdit } from './ListRowEdit.jsx';
 
-class ListRow extends PureComponent {
-  static displayName = 'ListRow';
-  static propTypes = {
-    item: PropTypes.object.isRequired,
-    onItemClick: PropTypes.func.isRequired,
-    onItemUpdate: PropTypes.func.isRequired,
-    onItemDelete: PropTypes.func.isRequired,
-    onItemCancel: PropTypes.func.isRequired,
-  };
-
-  render() {
-    if (this.props.item.editing) {
-      return (
-        <ListRowEdit
-          item={this.props.item}
-          onItemUpdate={this.props.onItemUpdate}
-          onItemDelete={this.props.onItemDelete}
-          onItemCancel={this.props.onItemCancel}
-        />
-      );
-    }
+function ListRow(props) {
+  if (props.item.editing) {
     return (
-      <ListRowDisplay
-        item={this.props.item}
-        onItemClick={this.props.onItemClick}
+      <ListRowEdit
+        item={props.item}
+        onItemUpdate={props.onItemUpdate}
+        onItemDelete={props.onItemDelete}
+        onItemCancel={props.onItemCancel}
       />
     );
   }
+  return (
+    <ListRowDisplay
+      item={props.item}
+      onItemClick={props.onItemClick}
+    />
+  );
 }
+
+ListRow.displayName = 'ListRow';
+
+ListRow.propTypes = {
+  item: PropTypes.object.isRequired,
+  onItemClick: PropTypes.func.isRequired,
+  onItemUpdate: PropTypes.func.isRequired,
+  onItemDelete: PropTypes.func.isRequired,
+  onItemCancel: PropTypes.func.isRequired,
+};
 
 export { ListRow };
