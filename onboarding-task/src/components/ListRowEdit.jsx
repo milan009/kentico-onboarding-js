@@ -29,10 +29,7 @@ class ListRowEdit extends PureComponent {
     });
   };
 
-  _onItemUpdate = (event) => {
-    event.preventDefault();
-    this.props.onItemUpdate(this.state.text);
-  };
+  _onItemUpdate = () => this.props.onItemUpdate(this.state.text);
 
   render() {
     return (
