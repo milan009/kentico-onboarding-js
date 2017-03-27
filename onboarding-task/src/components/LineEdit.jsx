@@ -1,6 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react';
 
 class LineEdit extends PureComponent {
+  static displayName = 'LineEdit';
+
   static propTypes = {
     line: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
@@ -8,8 +10,6 @@ class LineEdit extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
-
-  static displayName = 'LineEdit';
 
   constructor(props) {
     super(props);
