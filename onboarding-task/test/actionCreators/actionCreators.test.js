@@ -10,7 +10,7 @@ import {
   deleteItem,
   toggleEditItem,
 } from '../../src/actions/actionCreators.js';
-import { createItemFactory } from '../../src/actions/itemCreateFactory.js';
+import { createItemFactory } from '../../src/actions/createItemFactory.js';
 
 describe('actionCreators:', () => {
   const id = 'TestId';

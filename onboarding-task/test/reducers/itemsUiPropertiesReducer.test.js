@@ -10,7 +10,7 @@ import {
   deleteItem,
   toggleEditItem,
 } from '../../src/actions/actionCreators.js';
-import { createItemFactory } from '../../src/actions/itemCreateFactory.js';
+import { createItemFactory } from '../../src/actions/createItemFactory.js';
 import { Map } from 'immutable';
 import { ItemUi } from '../../src/models/ItemUi.js';
 import { itemsUiPropertiesReducer } from '../../src/reducers/itemsReducers/itemsUiPropertiesReducer.js';

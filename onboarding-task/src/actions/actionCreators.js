@@ -5,7 +5,7 @@ import {
 } from './actionTypes';
 
 import { generateUuid } from '../utils/idGenerator.js';
-import { createItemFactory } from './itemCreateFactory.js';
+import { createItemFactory } from './createItemFactory.js';
 
 export const createItem = createItemFactory(generateUuid);
 
