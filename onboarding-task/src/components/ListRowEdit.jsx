@@ -31,17 +31,7 @@ class ListRowEdit extends PureComponent {
 
   _onItemUpdate = (event) => {
     event.preventDefault();
-    this.props.onItemUpdate(this.props.item.id, this.state.text);
-  };
-
-  _onItemDelete = (event) => {
-    event.preventDefault();
-    this.props.onItemDelete(this.props.item.id);
-  };
-
-  _onItemCancel = (event) => {
-    event.preventDefault();
-    this.props.onItemCancel(this.props.item.id);
+    this.props.onItemUpdate(this.state.text);
   };
 
   render() {
@@ -50,8 +40,8 @@ class ListRowEdit extends PureComponent {
         <span>{this.props.item.index}. </span>
         <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} />
         <button type="button" className="btn btn-primary" onClick={this._onItemUpdate} disabled={this.state.isSaveDisabled}>Save</button>
-        <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>
-        <button type="button" className="btn btn-danger" onClick={this._onItemDelete}>Delete</button>
+        <button type="button" className="btn btn-default" onClick={this.props.onItemCancel}>Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={this.props.onItemDelete}>Delete</button>
       </div>
     );
   }

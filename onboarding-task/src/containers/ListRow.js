@@ -7,8 +7,8 @@ import {
   updateItem,
 } from '../actions/actionCreators.js';
 
-const getItemUi = (state, props) => state.itemsUi.get(props.id);
-const getItem = (state, props) => state.items.get(props.id);
+const getItemUi = (state, props) => state.itemsUiProperties.get(props.id);
+const getItem = (state, props) => state.itemsById.get(props.id);
 const getIndex = (state, props) => props.index;
 
 const getItemViewModel = createSelector(
@@ -27,12 +27,12 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { id }) => {
   return {
-    onItemClick: (id) => dispatch(toggleEditItem(id)),
-    onItemDelete: (id) => dispatch(deleteItem(id)),
-    onItemUpdate: (id, text) => dispatch(updateItem(id, text)),
-    onItemCancel: (id) => dispatch(toggleEditItem(id)),
+    onItemClick: () => dispatch(toggleEditItem(id)),
+    onItemDelete: () => dispatch(deleteItem(id)),
+    onItemUpdate: (text) => dispatch(updateItem(id, text)),
+    onItemCancel: () => dispatch(toggleEditItem(id)),
   };
 };
 
