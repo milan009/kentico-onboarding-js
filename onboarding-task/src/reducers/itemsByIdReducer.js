@@ -12,14 +12,20 @@ const itemsByIdReducer = (state = Map(), action) => {
       const newItem = itemReducer(undefined, action);
       return state.set(action.payload.id, newItem);
     }
+
     case ITEM_UPDATE: {
-      const updatedItem = itemReducer(state.get(action.payload.id), action);
+      const existingItem = state.get(action.payload.id);
+      const updatedItem = itemReducer(existingItem, action);
       return state.set(action.payload.id, updatedItem);
     }
-    case ITEM_DELETE:
+
+    case ITEM_DELETE: {
       return state.delete(action.payload.id);
-    default:
+    }
+
+    default: {
       return state;
+    }
   }
 };
 

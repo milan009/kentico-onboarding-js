@@ -11,8 +11,10 @@ const itemReducer = (state = new Item(), action) => {
         id: action.payload.id,
         text: action.payload.text,
       });
+
     case ITEM_UPDATE:
       return state.merge({ text: action.payload.text });
+
     default:
       return state;
   }

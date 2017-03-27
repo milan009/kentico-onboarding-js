@@ -12,15 +12,20 @@ const itemsUiPropertiesReducer = (state = Map(), action) => {
     case ITEM_CREATE: {
       return state.set(action.payload.id, new ItemUi());
     }
+
     case ITEM_UPDATE:
     case ITEM_TOGGLE_EDIT: {
       const itemEditing = state.get(action.payload.id).editFormVisible;
       return state.mergeIn([action.payload.id], { editFormVisible: !itemEditing });
     }
-    case ITEM_DELETE:
+
+    case ITEM_DELETE: {
       return state.delete(action.payload.id);
-    default:
+    }
+
+    default: {
       return state;
+    }
   }
 };
 
