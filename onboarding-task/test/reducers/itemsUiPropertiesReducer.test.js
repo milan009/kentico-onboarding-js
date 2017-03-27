@@ -13,7 +13,7 @@ import {
 import { createItemFactory } from '../../src/actions/itemCreateFactory.js';
 import { Map } from 'immutable';
 import { ItemUi } from '../../src/models/ItemUi.js';
-import { itemsUiPropertiesReducer } from '../../src/reducers/itemsUiPropertiesReducer.js';
+import { itemsUiPropertiesReducer } from '../../src/reducers/itemsReducers/itemsUiPropertiesReducer.js';
 
 describe('itemsUiPropertiesReducer:', () => {
   const id = 'testId';

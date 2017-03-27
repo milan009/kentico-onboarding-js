@@ -7,8 +7,8 @@ import {
   updateItem,
 } from '../actions/actionCreators.js';
 
-const getItemUi = (state, props) => state.itemsUiProperties.get(props.id);
-const getItem = (state, props) => state.itemsById.get(props.id);
+const getItemUi = (state, props) => state.items.uiProperties.get(props.id);
+const getItem = (state, props) => state.items.byId.get(props.id);
 const getIndex = (state, props) => props.index;
 
 const getItemViewModel = createSelector(

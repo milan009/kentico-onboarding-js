@@ -1,8 +1,8 @@
 import {
   ITEM_CREATE,
   ITEM_UPDATE,
-} from '../actions/actionTypes.js';
-import { Item } from '../models/Item.js';
+} from '../../actions/actionTypes.js';
+import { Item } from '../../models/Item.js';
 
 const itemReducer = (state = new Item(), action) => {
   switch (action.type) {

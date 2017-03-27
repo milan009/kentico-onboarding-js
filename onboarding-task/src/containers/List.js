@@ -4,7 +4,7 @@ import { createItem } from '../actions/actionCreators.js';
 import { OrderedSet } from 'immutable';
 
 const mapStateToProps = (state) => {
-  return { itemIds: OrderedSet.fromKeys(state.itemsById) };
+  return { itemIds: OrderedSet.fromKeys(state.items.byId) };
 };
 
 const mapDispatchToProps = (dispatch) => {

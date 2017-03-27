@@ -4,7 +4,7 @@ import {
 } from '../../src/actions/actionCreators.js';
 import { createItemFactory } from '../../src/actions/itemCreateFactory.js';
 import { Item } from '../../src/models/Item.js';
-import { itemReducer } from '../../src/reducers/itemReducer.js';
+import { itemReducer } from '../../src/reducers/itemsReducers/itemReducer.js';
 
 describe('itemReducer:', () => {
   const id = 'TestId';

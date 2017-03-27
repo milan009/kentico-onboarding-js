@@ -3,9 +3,9 @@ import {
   ITEM_DELETE,
   ITEM_UPDATE,
   ITEM_TOGGLE_EDIT,
-} from '../actions/actionTypes.js';
+} from '../../actions/actionTypes.js';
 import { Map } from 'immutable';
-import { ItemUi } from '../models/ItemUi.js';
+import { ItemUi } from '../../models/ItemUi.js';
 
 const itemsUiPropertiesReducer = (state = Map(), action) => {
   switch (action.type) {
