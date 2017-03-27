@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
 import { Map } from 'immutable';
-import { createGuid } from '../GuidHelper.js';
+import { createGuid } from '../utils/guidHelper.js';
 
 class List extends Component {
   static displayName = 'List';
