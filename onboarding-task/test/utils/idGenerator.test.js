@@ -1,4 +1,4 @@
-import { generateUuid } from '../../src/utils/idGenerator.js';
+import { generateUuid } from '../../src/utils/idGenerator.ts';
 
 describe('Generate uuid:', () => {
   it('should return unique string each run', () => {

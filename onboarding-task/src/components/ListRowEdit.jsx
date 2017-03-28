@@ -2,7 +2,7 @@ import React, {
   PureComponent,
   PropTypes,
 } from 'react';
-import { validateItemText } from '../utils/itemValidator.js';
+import { validateItemText } from '../utils/itemValidator.ts';
 import { Input } from './Input.jsx';
 
 class ListRowEdit extends PureComponent {

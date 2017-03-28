@@ -1,15 +1,15 @@
 import { Map } from 'immutable';
-import { Item } from '../../src/models/Item.js';
+import { Item } from '../../src/models/Item.ts';
 import {
   ITEM_CREATE,
   ITEM_DELETE,
   ITEM_UPDATE,
-} from '../../src/actions/actionTypes.js';
+} from '../../src/actions/actionTypes.ts';
 import {
   createItem,
   updateItem,
   deleteItem,
-} from '../../src/actions/actionCreators.js';
+} from '../../src/actions/actionCreators.ts';
 import { itemsByIdReducer } from '../../src/reducers/itemsReducers/itemsByIdReducer';
 
 describe('itemsByIdReducer:', () => {

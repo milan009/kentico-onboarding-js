@@ -5,9 +5,9 @@ import {
   toggleEditItem,
   deleteItem,
   updateItem,
-} from '../actions/actionCreators.js';
+} from '../actions/actionCreators.ts';
 
-const getItemUi = (state, props) => state.items.uiProperties.get(props.id);
+const getItemUi = (state, props) => state.items.byUiProperties.get(props.id);
 const getItem = (state, props) => state.items.byId.get(props.id);
 const getIndex = (state, props) => props.index;
 

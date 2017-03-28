@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List.jsx';
-import { createItem } from '../actions/actionCreators.js';
+import { createItem } from '../actions/actionCreators.ts';
 import { OrderedSet } from 'immutable';
 
 const mapStateToProps = (state) => {

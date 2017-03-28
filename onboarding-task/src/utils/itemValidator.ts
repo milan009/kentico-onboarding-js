@@ -1,5 +1,10 @@
-function validateItemText(text) {  // might be part of validateItem() later, if other params are added
-  const error = {
+interface IError {
+  isValid: boolean;
+  messages: string[];
+}
+
+function validateItemText(text: string) {  // might be part of validateItem() later, if other params are added
+  const error: IError = {
     isValid: true,
     messages: [],
   };

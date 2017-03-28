@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { List } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { generateUuid } from '../utils/idGenerator.js';
+import { generateUuid } from '../utils/idGenerator.ts';
 
 function ErrorsTooltip(props) {
   if (!props.errors.size) {

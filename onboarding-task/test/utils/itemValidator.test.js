@@ -1,5 +1,5 @@
 
-import { validateItemText } from '../../src/utils/itemValidator.js';
+import { validateItemText } from '../../src/utils/itemValidator.ts';
 
 describe('Validate item text:', () => {
   it('should be invalid for empty text', () => {

@@ -1,20 +1,20 @@
 import { itParam } from 'mocha-param';
 import { Map } from 'immutable';
-import { createItemFactory } from '../../src/actions/createItemFactory.js';
-import { ItemUi } from '../../src/models/ItemUi.js';
+import { createItemFactory } from '../../src/actions/createItemFactory.ts';
+import { ItemUi } from '../../src/interfaces/IItemUi.ts';
 import {
   ITEM_CREATE,
   ITEM_DELETE,
   ITEM_UPDATE,
   ITEM_TOGGLE_EDIT,
-} from '../../src/actions/actionTypes.js';
+} from '../../src/actions/actionTypes.ts';
 import {
   createItem,
   updateItem,
   deleteItem,
   toggleEditItem,
-} from '../../src/actions/actionCreators.js';
-import { itemsUiPropertiesReducer } from '../../src/reducers/itemsReducers/itemsUiPropertiesReducer.js';
+} from '../../src/actions/actionCreators.ts';
+import { itemsUiPropertiesReducer } from '../../src/reducers/itemsReducers/itemsUiPropertiesReducer.ts';
 
 describe('itemsUiPropertiesReducer:', () => {
   const id = 'testId';
@@ -28,7 +28,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   it('should return original state on unknown action', () => {
     const state = new Map({
-      [id]: new ItemUi(),
+      [id]: { editFormVisible: false },
     });
     const result = itemsUiPropertiesReducer(state, { type: 'unknown' });
 
@@ -37,7 +37,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   it(`should add new item to state on action ${ITEM_CREATE}`, () => {
     const state = new Map({
-      [id]: new ItemUi(),
+      [id]: { editFormVisible: false },
     });
     const result = itemsUiPropertiesReducer(state, createItem('text'));
 
@@ -52,7 +52,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   itParam(`should toggle editFormVisible on action ${ITEM_UPDATE}`, toggleParams, (visible) => {
     const state = new Map({
-      [id]: new ItemUi({ editFormVisible: visible }),
+      [id]: { editFormVisible: visible },
     });
     const result = itemsUiPropertiesReducer(state, updateItem(id, 'new text'));
 
@@ -61,7 +61,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   itParam(`should toggle editFormVisible on action ${ITEM_TOGGLE_EDIT}`, toggleParams, (visible) => {
     const state = new Map({
-      [id]: new ItemUi({ editFormVisible: visible }),
+      [id]: { editFormVisible: visible },
     });
     const result = itemsUiPropertiesReducer(state, toggleEditItem(id));
 
@@ -70,7 +70,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   it(`should delete item on action ${ITEM_DELETE}`, () => {
     const state = new Map({
-      [id]: new ItemUi(),
+      [id]: { editFormVisible: false },
     });
     const result = itemsUiPropertiesReducer(state, deleteItem(id));
 
@@ -79,7 +79,7 @@ describe('itemsUiPropertiesReducer:', () => {
 
   it(`should be the same when id does not exist on ${ITEM_DELETE}`, () => {
     const state = new Map({
-      [id]: new ItemUi(),
+      [id]: { editFormVisible: false },
     });
     const result = itemsUiPropertiesReducer(state, deleteItem('otherId'));
 

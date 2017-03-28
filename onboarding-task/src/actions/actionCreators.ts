@@ -4,12 +4,13 @@ import {
   ITEM_TOGGLE_EDIT,
 } from './actionTypes';
 
-import { generateUuid } from '../utils/idGenerator.js';
-import { createItemFactory } from './createItemFactory.js';
+import { generateUuid } from '../utils/idGenerator';
+import { createItemFactory } from './createItemFactory';
+import { IAction } from '../interfaces/IAction';
 
 export const createItem = createItemFactory(generateUuid);
 
-export const updateItem = (id, text) => {
+export const updateItem = (id: string, text: string) : IAction => {
   return {
     type: ITEM_UPDATE,
     payload: {
@@ -19,7 +20,7 @@ export const updateItem = (id, text) => {
   };
 };
 
-export const deleteItem = (id) => {
+export const deleteItem = (id: string) : IAction => {
   return {
     type: ITEM_DELETE,
     payload: {
@@ -28,7 +29,7 @@ export const deleteItem = (id) => {
   };
 };
 
-export const toggleEditItem = (id) => {
+export const toggleEditItem = (id: string) : IAction => {
   return {
     type: ITEM_TOGGLE_EDIT,
     payload: {
