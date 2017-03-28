@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { Button, FormControl, Form } from 'react-bootstrap';
 
 class NewListItem extends PureComponent {
+  static displayName = 'NewListItem';
+
   static propTypes = {
-    addFunction: React.PropTypes.func.isRequired,
+    addFunction: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
@@ -16,8 +18,9 @@ class NewListItem extends PureComponent {
     this.setState({ text: e.target.value });
   };
 
-  _add = () => {
-    this.props.addFunction(this.state.text); // TODO rename addFunction
+  _onAddButtonClick = () => {
+    this.props.addFunction(this.state.text);
+
     this.setState({ text: '' });
   };
 
@@ -25,9 +28,8 @@ class NewListItem extends PureComponent {
     return (
       <div>
         <Form inline>
-          {'  '}
           <FormControl value={this.state.text} onChange={this._onInputChange} type="text" />
-          <Button onClick={this._add}>Add</Button>
+          <Button onClick={this._onAddButtonClick}>Add</Button>
         </Form>
       </div>
     );

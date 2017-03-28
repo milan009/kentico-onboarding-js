@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
-import { NewListItem } from './NewListItem';
-import { InsertedListItem } from './InsertedListItem';
-import { EditedListItem } from './EditedListItem';
+import { NewListItem } from './NewListItemForm';
+import { ListItem } from './ListItem';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
 import assignment from './../../../assignment.gif';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import TsComponent from './TsComponent.tsx';
 
 class List extends PureComponent {
+  static displayName = 'List';
 
   constructor(props) {
     super(props);
@@ -20,71 +20,72 @@ class List extends PureComponent {
   _addItem = (text) => {
     const newItems = this.state.items.slice();
     newItems.push({
+      id: generatePseudoUniqueID(),
       textSaved: text,
       textShown: text,
       editing: false,
-      id: generatePseudoUniqueID(),
     });
+
     this.setState({ items: newItems });
   };
 
-  // TODO edit and save contain a lot of duplicate code, refactor
-  _edit = (index) => {
+  _startEditing = (index) => {
+    const newItems = [...this.state.items];
+    const updatedItem = { ...newItems[index], editing: true };
+    newItems[index] = updatedItem;
+
+    this.setState({ items: newItems });
+  };
+
+  _updateItem = (index, event) => {
     const newItems = this.state.items.slice();
-    newItems[index].editing = true;
+    const updatedItem = { ...newItems[index], textShown: event.target.value };
+    newItems[index] = updatedItem;
+
     this.setState({ items: newItems });
   };
 
-  _update = (index, e) => {
+  _cancelEditing = (index) => {
     const newItems = this.state.items.slice();
-    newItems[index].textShown = e.target.value;
+    const updatedItem = { ...newItems[index], editing: false, textShown: newItems[index].textSaved };
+    newItems[index] = updatedItem;
+
     this.setState({ items: newItems });
   };
 
-  _cancel = (index) => {
+  _saveItem = (index, text) => {
     const newItems = this.state.items.slice();
-    newItems[index].textShown = newItems[index].textSaved;
-    newItems[index].editing = false;
+    const updatedItem = { ...newItems[index], textShown: text, textSaved: text, editing: false };
+    newItems[index] = updatedItem;
+
     this.setState({ items: newItems });
   };
 
-  _save = (index, text) => {
-    const newItems = this.state.items.slice();
-    newItems[index].textSaved = text;
-    newItems[index].textShown = text;
-    newItems[index].editing = false;
+  _deleteItem = (indexToDelete) => {
+    const newItems = this.state.items.filter((_, index) => index !== indexToDelete);
+
     this.setState({ items: newItems });
   };
 
-  _delete = (index) => {
-    const newItems = this.state.items.filter((_, i) => i !== index);
-    this.setState({ items: newItems });
-  };
+  _createListItems = () =>
+    this.state.items.map((item, index) =>
+      <ListGroupItem key={item.id}>
+        <ListItem
+          data={item}
+          index={index}
+          saveFunction={this._saveItem}
+          deleteFunction={this._deleteItem}
+          updateFunction={this._updateItem}
+          cancelFunction={this._cancelEditing}
+          editFunction={this._startEditing}
+        />
+      </ListGroupItem>
+    );
 
-  _createListItems = () => {
-    return this.state.items.map((x, i) => {
-      if (x.editing) {
-        return (<EditedListItem
-          text={x.textShown}
-          index={i}
-          key={x.id}
-          saveFunction={this._save}
-          deleteFunction={this._delete}
-          updateFunction={this._update}
-          cancelFunction={this._cancel}
-        />);
-      }
-      return (<InsertedListItem
-        text={x.textShown}
-        index={i}
-        key={x.id}
-        editFunction={this._edit}
-      />);
-    });
-  };
 
   render() {
     const listItems = this._createListItems();
+
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -106,8 +107,13 @@ class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ListGroup>
               {listItems}
+              <ListGroupItem>
+                <NewListItem
+                  addFunction={this._addItem}
+                  key={generatePseudoUniqueID()}
+                />
+              </ListGroupItem>
             </ListGroup>
-            <NewListItem addFunction={this._addItem} key={generatePseudoUniqueID()} />
           </div>
         </div>
       </div>

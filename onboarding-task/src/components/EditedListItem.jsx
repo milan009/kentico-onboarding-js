@@ -1,42 +1,43 @@
-import React, { PureComponent } from 'react';
-import { Button, FormControl, ControlLabel, Form } from 'react-bootstrap';
+import React, { PureComponent, PropTypes } from 'react';
+import { Button, FormControl, Form } from 'react-bootstrap';
 
 class EditedListItem extends PureComponent {
+  static displayName = 'EditedListItem';
+
   static propTypes = {
-    text: React.PropTypes.string.isRequired,
-    index: React.PropTypes.number.isRequired,
-    saveFunction: React.PropTypes.func.isRequired,
-    deleteFunction: React.PropTypes.func.isRequired,
-    updateFunction: React.PropTypes.func.isRequired,
-    cancelFunction: React.PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    saveFunction: PropTypes.func.isRequired,
+    deleteFunction: PropTypes.func.isRequired,
+    updateFunction: PropTypes.func.isRequired,
+    cancelFunction: PropTypes.func.isRequired,
   };
 
-  _onInputChange = (e) => {
-    this.props.updateFunction(this.props.index, e);
+  _onInputChange = (event) => {
+    this.props.updateFunction(this.props.index, event);
   };
 
-  _save = () => {
+  _onSaveButtonClick = () => {
     this.props.saveFunction(this.props.index, this.props.text);
   };
 
-  _cancel = () => {
+  _onCancelButtonClick = () => {
     this.props.cancelFunction(this.props.index);
   };
 
-  _delete = () => {
+  _onDeleteButtonClick = () => {
     this.props.deleteFunction(this.props.index);
   };
 
   render() {
     return (
-      // TODO make numbers consistent
       <div>
         <Form inline>
-          <ControlLabel>{this.props.index + 1}.</ControlLabel>
+          <span>{this.props.index + 1}. </span>
           <FormControl value={this.props.text} onChange={this._onInputChange} />
-          <Button onClick={this._save} bsStyle="primary">Save</Button>
-          <Button onClick={this._cancel}>Cancel</Button>
-          <Button onClick={this._delete} bsStyle="danger">Delete</Button>
+          <Button onClick={this._onSaveButtonClick} bsStyle="primary">Save</Button>
+          <Button onClick={this._onCancelButtonClick}>Cancel</Button>
+          <Button onClick={this._onDeleteButtonClick} bsStyle="danger">Delete</Button>
         </Form>
       </div>
     );

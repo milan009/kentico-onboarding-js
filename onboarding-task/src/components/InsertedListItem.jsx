@@ -1,20 +1,22 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
 class InsertedListItem extends PureComponent {
+  static displayName = 'InsertedListItem';
+
   static propTypes = {
-    text: React.PropTypes.string.isRequired,
-    index: React.PropTypes.number.isRequired,
-    editFunction: React.PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    editFunction: PropTypes.func.isRequired,
   };
 
-  _edit = () => {
+  _onClick = () => {
     this.props.editFunction(this.props.index);
   };
 
   render() {
     return (
       <div>
-        <h5 onClick={this._edit}>{this.props.index + 1}. {this.props.text}</h5>
+        <span onClick={this._onClick}>{this.props.index + 1}. {this.props.text}</span>
       </div>
     );
   }
