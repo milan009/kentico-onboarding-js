@@ -1,6 +1,7 @@
 import {
   createItem,
   updateItem,
+  toggleEditItem,
 } from '../../src/actions/actionCreators.js';
 import { createItemFactory } from '../../src/actions/createItemFactory.js';
 import { Item } from '../../src/models/Item.js';
@@ -52,18 +53,4 @@ describe('itemReducer:', () => {
 
     expect(resultState).toEqual(expectedState);
   });
-
-  // it('toggles editing correctly using toggleEditItem (false -> true)', () => {
-  //   const state = new Item({ id, text });
-  //   const result = itemReducer(state, toggleEditItem(id));
-  //
-  //   expect(result.editing).toBe(true);
-  // });
-  //
-  // it('toggles editing correctly using toggleEditItem (true -> false)', () => {
-  //   const state = new Item({ id, text, editing: true });
-  //   const result = itemReducer(state, toggleEditItem(id));
-  //
-  //   expect(result.editing).toBe(false);
-  // });
 });

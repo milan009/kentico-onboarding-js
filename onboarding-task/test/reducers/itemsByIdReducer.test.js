@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+import { Item } from '../../src/models/Item.js';
 import {
   ITEM_CREATE,
   ITEM_DELETE,
@@ -8,8 +10,6 @@ import {
   updateItem,
   deleteItem,
 } from '../../src/actions/actionCreators.js';
-import { Map } from 'immutable';
-import { Item } from '../../src/models/Item.js';
 import { itemsByIdReducer } from '../../src/reducers/itemsReducers/itemsByIdReducer';
 
 describe('itemsByIdReducer:', () => {

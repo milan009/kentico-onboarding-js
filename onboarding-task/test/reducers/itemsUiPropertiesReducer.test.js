@@ -1,3 +1,7 @@
+import { itParam } from 'mocha-param';
+import { Map } from 'immutable';
+import { createItemFactory } from '../../src/actions/createItemFactory.js';
+import { ItemUi } from '../../src/models/ItemUi.js';
 import {
   ITEM_CREATE,
   ITEM_DELETE,
@@ -10,13 +14,11 @@ import {
   deleteItem,
   toggleEditItem,
 } from '../../src/actions/actionCreators.js';
-import { createItemFactory } from '../../src/actions/createItemFactory.js';
-import { Map } from 'immutable';
-import { ItemUi } from '../../src/models/ItemUi.js';
 import { itemsUiPropertiesReducer } from '../../src/reducers/itemsReducers/itemsUiPropertiesReducer.js';
 
 describe('itemsUiPropertiesReducer:', () => {
   const id = 'testId';
+  const toggleParams = [false, true];
 
   it('should return Map with new item when state undefined', () => {
     const result = itemsUiPropertiesReducer(undefined, createItem('text'));
@@ -48,40 +50,22 @@ describe('itemsUiPropertiesReducer:', () => {
     expect(result.get(id).editFormVisible).toBeFalsy();
   });
 
-  it(`should toggle editFormVisible on action ${ITEM_UPDATE} (false -> true)`, () => {
+  itParam(`should toggle editFormVisible on action ${ITEM_UPDATE}`, toggleParams, (visible) => {
     const state = new Map({
-      [id]: new ItemUi({ editFormVisible: false }),
+      [id]: new ItemUi({ editFormVisible: visible }),
     });
     const result = itemsUiPropertiesReducer(state, updateItem(id, 'new text'));
 
-    expect(result.get(id).editFormVisible).toBeTruthy();
+    expect(result.get(id).editFormVisible).toBe(!visible);
   });
 
-  it(`should toggle editFormVisible on action ${ITEM_UPDATE} (true -> false)`, () => {
+  itParam(`should toggle editFormVisible on action ${ITEM_TOGGLE_EDIT}`, toggleParams, (visible) => {
     const state = new Map({
-      [id]: new ItemUi({ editFormVisible: true }),
-    });
-    const result = itemsUiPropertiesReducer(state, updateItem(id, 'new text'));
-
-    expect(result.get(id).editFormVisible).toBeFalsy();
-  });
-
-  it(`should toggle editFormVisible on action ${ITEM_TOGGLE_EDIT} (false -> true)`, () => {
-    const state = new Map({
-      [id]: new ItemUi({ editFormVisible: false }),
+      [id]: new ItemUi({ editFormVisible: visible }),
     });
     const result = itemsUiPropertiesReducer(state, toggleEditItem(id));
 
-    expect(result.get(id).editFormVisible).toBeTruthy();
-  });
-
-  it(`should toggle editFormVisible on action ${ITEM_TOGGLE_EDIT} (true -> false)`, () => {
-    const state = new Map({
-      [id]: new ItemUi({ editFormVisible: true }),
-    });
-    const result = itemsUiPropertiesReducer(state, toggleEditItem(id));
-
-    expect(result.get(id).editFormVisible).toBeFalsy();
+    expect(result.get(id).editFormVisible).toBe(!visible);
   });
 
   it(`should delete item on action ${ITEM_DELETE}`, () => {
