@@ -1,7 +1,7 @@
 import { OrderedSet } from 'immutable';
-import { itemsOrder } from '../../src/reducers/itemsOrder';
-import { deleteItem } from '../../src/actions/itemsActionCreators';
-import { addItemFactory } from '../../src/actions/addItemFactory';
+import { itemsOrder } from '../../src/reducers/itemsOrder.ts';
+import { deleteItem } from '../../src/actions/itemsActionCreators.ts';
+import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 
 describe('itemsOrder', () => {
   const addItem = addItemFactory(() => 'uuid2');

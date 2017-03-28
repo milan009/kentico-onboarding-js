@@ -1,5 +1,4 @@
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
-import { Promise } from 'ts-promise';
 
 function requestItems() {
   return {

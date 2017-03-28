@@ -1,7 +1,5 @@
-import { Promise } from 'ts-promise';
-import {requestItems, receiveItems, failFetchItems, fetchItemsFactory} from '../../src/actions/fetchItemsFactory';
-import {FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL} from '../../src/actions/actionTypes';
-import {IAction} from '../../src/actions/IAction';
+import { requestItems, receiveItems, failFetchItems, fetchItemsFactory } from '../../src/actions/fetchItemsFactory.ts';
+import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from '../../src/actions/actionTypes.ts';
 
 describe('fetchItems', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -40,7 +38,7 @@ describe('fetchItems', () => {
               text: 'object2',
             },
           ],
-        }
+        },
       };
 
       const resultAction = receiveItems(responseBody);
@@ -63,12 +61,10 @@ describe('fetchItems', () => {
   });
 
 
-
-
   describe('fetch items tests', () => {
-    const dispatchMock = jest.fn((action: IAction) => action);
+    const dispatchMock = jest.fn((action) => action);
 
-    const fakeFetch: any = () => Promise.resolve({
+    const fakeFetch = () => Promise.resolve({
       json: () => Promise.resolve(responseBody),
     });
 
@@ -111,7 +107,7 @@ describe('fetchItems', () => {
 
     it('should fail', (done) => {
       const expectedDispatchAction = failFetchItems(new Error());
-      const failFetch: any = () => Promise.resolve({
+      const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
       const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com');
@@ -127,6 +123,5 @@ describe('fetchItems', () => {
         });
     });
   });
-
 });
 
