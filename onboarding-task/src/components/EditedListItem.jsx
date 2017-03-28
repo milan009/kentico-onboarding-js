@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Button, FormControl, ControlLabel, Form } from 'react-bootstrap';
 
 class EditedListItem extends PureComponent {
   static propTypes = {
@@ -9,13 +10,11 @@ class EditedListItem extends PureComponent {
   };
   constructor(props) {
     super(props);
-    console.log('creating editing obj');
     this.state = {
       text: this.props.text,
     };
   }
   _onInputChange = (e) => {
-    console.log('onInputChange called');
     this.setState({ text: e.target.value });
   };
   _save = () => {
@@ -30,12 +29,15 @@ class EditedListItem extends PureComponent {
   };
   render() {
     return (
+      // TODO make numbers consistent
       <div>
-        {this.props.index + 1}.
-        <input value={this.state.text} onChange={this._onInputChange} />
-        <button onClick={this._save}>Save</button>
-        <button onClick={this._cancel}>Cancel</button>
-        <button onClick={this._delete}>Delete</button>
+        <Form inline>
+          <ControlLabel>{this.props.index + 1}.</ControlLabel>
+          <FormControl value={this.state.text} onChange={this._onInputChange} />
+          <Button onClick={this._save} bsStyle="primary">Save</Button>
+          <Button onClick={this._cancel}>Cancel</Button>
+          <Button onClick={this._delete} bsStyle="danger">Delete</Button>
+        </Form>
       </div>
     );
   }

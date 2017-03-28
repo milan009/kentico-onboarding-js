@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Button, FormControl, FormGroup, Form } from 'react-bootstrap';
 
 class NewListItem extends PureComponent {
   static propTypes = {
@@ -14,14 +15,17 @@ class NewListItem extends PureComponent {
     this.setState({ text: e.target.value });
   };
   _add = () => {
-    this.props.addFunction(this.state.text);
+    this.props.addFunction(this.state.text); // TODO rename addFunction
     this.setState({ text: '' });
   };
   render() {
     return (
       <div>
-        <input value={this.state.text} onChange={this._onInputChange} />
-        <button onClick={this._add}>Add</button>
+        <Form inline>
+          {'  '}
+          <FormControl value={this.state.text} onChange={this._onInputChange} type="text" />
+          <Button onClick={this._add}>Add</Button>
+        </Form>
       </div>
     );
   }

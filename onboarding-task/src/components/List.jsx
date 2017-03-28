@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { NewListItem } from './NewListItem';
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
@@ -6,7 +6,7 @@ import assignment from './../../../assignment.gif';
 
 import TsComponent from './TsComponent.tsx';
 
-class List extends Component {
+class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +26,9 @@ class List extends Component {
   _addItem = (text) => {
     const newItems = this.state.items.slice();
     newItems.push({ // rename
-      textInfo: text,
+      textSaved: text,
       editing: false,
+      textShown: text,
     });
     this.setState({ items: newItems });
   }
@@ -42,7 +43,7 @@ class List extends Component {
     console.log('save called');
     const newItems = this.state.items.slice();
     newItems[index].editing = false;
-    newItems[index].textInfo = text;
+    newItems[index].textSaved = text;
     this.setState({ items: newItems });
   };
   _delete = (index) => {
@@ -50,11 +51,12 @@ class List extends Component {
     this.setState({ items: newItems });
   };
   render() {
+    console.log('render called');
     const listItems = this.state.items.map((x, i) => {
       if (x.editing) {
-        return <EditedListItem text={x.textInfo} index={i} saveFunction={this._save} deleteFunction={this._delete} key={this._guid()} />;  // TODO implement functions, generate correct unique keys
+        return <EditedListItem text={x.textSaved} index={i} saveFunction={this._save} deleteFunction={this._delete} key={this._guid()} />;  // TODO implement functions, generate correct unique keys
       }
-      return <InsertedListItem text={x.textInfo} index={i} editFunction={this._edit} key={this._guid()} />;
+      return <InsertedListItem text={x.textSaved} index={i} editFunction={this._edit} key={this._guid()} />;
     }
     );
     return (
