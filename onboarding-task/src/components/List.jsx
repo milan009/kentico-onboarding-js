@@ -44,9 +44,9 @@ class List extends PureComponent {
   _handleClickSave = (item) => {
     const rows = this.state.lines;
     const itemId = item.id;
+    const itemText = item.text;
 
-    const updatedItem = Item({ 'id': itemId, 'isEdited': false, 'text': item.text });
-    const updatedItems = rows.mergeIn([itemId], updatedItem);
+    const updatedItems = rows.mergeIn([itemId], { 'isEdited': false, 'text': itemText });
 
     this.setState({ lines: updatedItems });
   };
