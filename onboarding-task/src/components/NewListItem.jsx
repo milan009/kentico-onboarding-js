@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Button, FormControl, FormGroup, Form } from 'react-bootstrap';
+import { Button, FormControl, Form } from 'react-bootstrap';
 
 class NewListItem extends PureComponent {
   static propTypes = {
@@ -11,13 +11,16 @@ class NewListItem extends PureComponent {
       text: '',
     };
   }
+
   _onInputChange = (e) => {
     this.setState({ text: e.target.value });
   };
+
   _add = () => {
     this.props.addFunction(this.state.text); // TODO rename addFunction
     this.setState({ text: '' });
   };
+
   render() {
     return (
       <div>

@@ -10,18 +10,23 @@ class EditedListItem extends PureComponent {
     updateFunction: React.PropTypes.func.isRequired,
     cancelFunction: React.PropTypes.func.isRequired,
   };
+
   _onInputChange = (e) => {
     this.props.updateFunction(this.props.index, e);
   };
+
   _save = () => {
     this.props.saveFunction(this.props.index, this.props.text);
   };
+
   _cancel = () => {
     this.props.cancelFunction(this.props.index);
   };
+
   _delete = () => {
     this.props.deleteFunction(this.props.index);
   };
+
   render() {
     return (
       // TODO make numbers consistent
