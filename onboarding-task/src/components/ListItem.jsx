@@ -3,7 +3,7 @@ import { LineEdit } from './LineEdit.jsx';
 import { LineRead } from './LineRead.jsx';
 
 const ListItem = (props) => {
-  if (props.line.row.get('isEdited')) {
+  if (props.line.row.isEdited) {
     return (
       <LineEdit
         key={props.line.id}
