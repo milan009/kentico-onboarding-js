@@ -61,13 +61,12 @@ class List extends PureComponent {
 
   render() {
     const rows = this.state.lines;
-    let index = 1;
-    const renderedRows = rows.map((row, id) => (
-      <li className="list-group-item">
+    const renderedRows = rows.valueSeq().map((row, index) => (
+      <li key={row.id} className="list-group-item">
         <ListItem
-          key={id}
+          key={row.id}
           line={row}
-          index={index++}
+          index={index + 1}
           onSave={this._handleClickSave}
           onCancel={this._handleClickCancel}
           onDelete={this._handleDeleteLine}
