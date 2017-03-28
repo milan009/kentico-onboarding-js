@@ -14,7 +14,7 @@ class LineEdit extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.line.row.text,
+      text: this.props.line.text,
     };
   }
 

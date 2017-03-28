@@ -19,7 +19,7 @@ class List extends PureComponent {
     const lines = this.state.lines;
     const id = createGuid();
 
-    const newItem = new Data({ text, isEdited: false });
+    const newItem = new Data({ id, text, isEdited: false });
     const editedLines = lines.set(id, newItem);
 
     this.setState({ lines: editedLines });
@@ -45,7 +45,7 @@ class List extends PureComponent {
     const rows = this.state.lines;
     const itemId = item.id;
 
-    const updatedItem = Data({ 'isEdited': false, 'text': [item.text] });
+    const updatedItem = Data({ 'id': itemId, 'isEdited': false, 'text': [item.text] });
     const updatedItems = rows.mergeIn([itemId], updatedItem);
 
     this.setState({ lines: updatedItems });
@@ -66,7 +66,7 @@ class List extends PureComponent {
       <li className="list-group-item">
         <ListItem
           key={id}
-          line={{ id, row }}
+          line={row}
           index={index++}
           onSave={this._handleClickSave}
           onCancel={this._handleClickCancel}
