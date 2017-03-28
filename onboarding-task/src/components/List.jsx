@@ -22,13 +22,13 @@ class List extends PureComponent {
       .toString(16)
       .substring(1);
   };
-
   _addItem = (text) => {
     const newItems = this.state.items.slice();
     newItems.push({ // rename
       textSaved: text,
       editing: false,
       textShown: text,
+      key: this._guid(),
     });
     this.setState({ items: newItems });
   }
@@ -39,11 +39,24 @@ class List extends PureComponent {
     newItems[index].editing = true;
     this.setState({ items: newItems });
   };
+  _update = (index, e) => {
+    console.log(e.target.value);
+    const newItems = this.state.items.slice();
+    newItems[index].textShown = e.target.value;
+    this.setState({ items: newItems });
+  };
+  _cancel = (index) => {
+    const newItems = this.state.items.slice();
+    newItems[index].textShown = newItems[index].textSaved;
+    newItems[index].editing = false;
+    this.setState({ items: newItems });
+  }
   _save = (index, text) => {
-    console.log('save called');
+    console.log('save called:' + index + ':' + text);
     const newItems = this.state.items.slice();
     newItems[index].editing = false;
     newItems[index].textSaved = text;
+    newItems[index].textShown = text;
     this.setState({ items: newItems });
   };
   _delete = (index) => {
@@ -51,12 +64,11 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
   render() {
-    console.log('render called');
     const listItems = this.state.items.map((x, i) => {
       if (x.editing) {
-        return <EditedListItem text={x.textSaved} index={i} saveFunction={this._save} deleteFunction={this._delete} key={this._guid()} />;  // TODO implement functions, generate correct unique keys
+        return <EditedListItem text={x.textShown} index={i} saveFunction={this._save} deleteFunction={this._delete} updateFunction={this._update} cancelFunction={this._cancel} key={this.props.key} />;  // TODO implement functions, generate correct unique keys
       }
-      return <InsertedListItem text={x.textSaved} index={i} editFunction={this._edit} key={this._guid()} />;
+      return <InsertedListItem text={x.textShown} index={i} editFunction={this._edit} key={this._guid()} />;
     }
     );
     return (
