@@ -4,17 +4,11 @@ import React, {
 } from 'react';
 import { validateItemText } from '../utils/itemValidator.js';
 import { Input } from './Input.jsx';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ListRowEdit extends PureComponent {
   static displayName = 'ListRowEdit';
   static propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      editing: PropTypes.bool,
-    }).isRequired,
+    item: PropTypes.object.isRequired,
     onItemUpdate: PropTypes.func.isRequired,
     onItemDelete: PropTypes.func.isRequired,
     onItemCancel: PropTypes.func.isRequired,
@@ -35,29 +29,16 @@ class ListRowEdit extends PureComponent {
     });
   };
 
-  _onItemUpdate = (event) => {
-    event.preventDefault();
-    this.props.onItemUpdate(this.props.item.id, this.state.text);
-  };
-
-  _onItemDelete = (event) => {
-    event.preventDefault();
-    this.props.onItemDelete(this.props.item.id);
-  };
-
-  _onItemCancel = (event) => {
-    event.preventDefault();
-    this.props.onItemCancel(this.props.item.id);
-  };
+  _onItemUpdate = () => this.props.onItemUpdate(this.state.text);
 
   render() {
     return (
       <div className="form-inline">
-        <span>{this.props.index}. </span>
+        <span>{this.props.item.index}. </span>
         <Input value={this.state.text} onChange={this._onTextChange} validate={validateItemText} />
         <button type="button" className="btn btn-primary" onClick={this._onItemUpdate} disabled={this.state.isSaveDisabled}>Save</button>
-        <button type="button" className="btn btn-default" onClick={this._onItemCancel}>Cancel</button>
-        <button type="button" className="btn btn-danger" onClick={this._onItemDelete}>Delete</button>
+        <button type="button" className="btn btn-default" onClick={this.props.onItemCancel}>Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={this.props.onItemDelete}>Delete</button>
       </div>
     );
   }

@@ -1,46 +1,36 @@
 import React, {
-  PureComponent,
   PropTypes,
 } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ListRowDisplay } from './ListRowDisplay.jsx';
-import { ListRowEdit } from './ListRowEdit';
+import { ListRowEdit } from './ListRowEdit.jsx';
 
-class ListRow extends PureComponent {
-  static displayName = 'ListRow';
-  static propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      editing: PropTypes.bool,
-    }).isRequired,
-    onItemClick: PropTypes.func.isRequired,
-    onItemUpdate: PropTypes.func.isRequired,
-    onItemDelete: PropTypes.func.isRequired,
-    onItemCancel: PropTypes.func.isRequired,
-  };
-
-  render() {
-    if (this.props.item.editing) {
-      return (
-        <ListRowEdit
-          index={this.props.index}
-          item={this.props.item}
-          onItemUpdate={this.props.onItemUpdate}
-          onItemDelete={this.props.onItemDelete}
-          onItemCancel={this.props.onItemCancel}
-        />
-      );
-    }
+function ListRow(props) {
+  if (props.item.editing) {
     return (
-      <ListRowDisplay
-        index={this.props.index}
-        item={this.props.item}
-        onItemClick={this.props.onItemClick}
+      <ListRowEdit
+        item={props.item}
+        onItemUpdate={props.onItemUpdate}
+        onItemDelete={props.onItemDelete}
+        onItemCancel={props.onItemCancel}
       />
     );
   }
+  return (
+    <ListRowDisplay
+      item={props.item}
+      onItemClick={props.onItemClick}
+    />
+  );
 }
+
+ListRow.displayName = 'ListRow';
+
+ListRow.propTypes = {
+  item: PropTypes.object.isRequired,
+  onItemClick: PropTypes.func.isRequired,
+  onItemUpdate: PropTypes.func.isRequired,
+  onItemDelete: PropTypes.func.isRequired,
+  onItemCancel: PropTypes.func.isRequired,
+};
 
 export { ListRow };

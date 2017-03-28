@@ -1,33 +1,20 @@
 import React, {
-  PureComponent,
   PropTypes,
 } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class ListRowDisplay extends PureComponent {
-  static displayName = 'ListRowDisplay';
-  static propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ImmutablePropTypes.recordOf({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      editing: PropTypes.bool,
-    }).isRequired,
-    onItemClick: PropTypes.func.isRequired,
-  };
-
-  _onItemClick = (event) => {
-    event.preventDefault();
-    this.props.onItemClick(this.props.item.id);
-  };
-
-  render() {
-    return (
-      <div className="item-active" onClick={this._onItemClick}>
-        {this.props.index}. <span>{this.props.item.text}</span>
-      </div>
-    );
-  }
+function ListRowDisplay(props) {
+  return (
+    <div className="item-active" onClick={props.onItemClick}>
+      {props.item.index}. <span>{props.item.text}</span>
+    </div>
+  );
 }
+
+ListRowDisplay.displayName = 'ListRowDisplay';
+
+ListRowDisplay.propTypes = {
+  item: PropTypes.object.isRequired,
+  onItemClick: PropTypes.func.isRequired,
+};
 
 export { ListRowDisplay };
