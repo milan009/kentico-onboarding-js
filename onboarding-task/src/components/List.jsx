@@ -19,7 +19,7 @@ class List extends PureComponent {
     const lines = this.state.lines;
     const id = createGuid();
 
-    const newItem = Data({ text, isEdited: false });
+    const newItem = new Data({ text, isEdited: false });
     const editedLines = lines.set(id, newItem);
 
     this.setState({ lines: editedLines });
