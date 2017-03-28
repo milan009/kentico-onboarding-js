@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Map } from 'immutable';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
-import { Data } from '.././Data.js';
+import { Item } from '../models/Item.js';
 import { createGuid } from '../utils/guidHelper.js';
 
 class List extends PureComponent {
@@ -19,7 +19,7 @@ class List extends PureComponent {
     const lines = this.state.lines;
     const id = createGuid();
 
-    const newItem = new Data({ id, text, isEdited: false });
+    const newItem = new Item({ id, text, isEdited: false });
     const editedLines = lines.set(id, newItem);
 
     this.setState({ lines: editedLines });
@@ -45,7 +45,7 @@ class List extends PureComponent {
     const rows = this.state.lines;
     const itemId = item.id;
 
-    const updatedItem = Data({ 'id': itemId, 'isEdited': false, 'text': [item.text] });
+    const updatedItem = Item({ 'id': itemId, 'isEdited': false, 'text': item.text });
     const updatedItems = rows.mergeIn([itemId], updatedItem);
 
     this.setState({ lines: updatedItems });

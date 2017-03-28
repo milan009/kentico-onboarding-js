@@ -1,9 +1,9 @@
 import { Record } from 'immutable';
 
-const Data = Record({
+const Item = Record({
   id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   text: '',
   isEdited: false,
 });
 
-export { Data };
+export { Item };
