@@ -1,11 +1,23 @@
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
-import { validateItemText } from '../utils/itemValidator.ts';
-import { Input } from './Input.jsx';
+import * as React from 'react';
+import { validateItemText } from '../utils/itemValidator';
+import { Input } from './Input';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-class ListRowEdit extends PureComponent {
+const { PropTypes } = React;
+
+interface IListRowEditProps {
+  item: IItemViewModel;
+  onItemUpdate: (text: string) => void;
+  onItemDelete: () => void;
+  onItemCancel: () => void;
+}
+
+interface IListRowEditState {
+  text: string;
+  isSaveDisabled: boolean;
+}
+
+class ListRowEdit extends React.PureComponent<IListRowEditProps, IListRowEditState> {
   static displayName = 'ListRowEdit';
   static propTypes = {
     item: PropTypes.object.isRequired,
@@ -14,15 +26,15 @@ class ListRowEdit extends PureComponent {
     onItemCancel: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IListRowEditProps) {
     super(props);
     this.state = {
-      text: props.item.text,
+      text: this.props.item.text,
       isSaveDisabled: false,
     };
   }
 
-  _onTextChange = (value, isValid) => {
+  _onTextChange = (value: string, isValid: boolean) => {
     this.setState({
       text: value,
       isSaveDisabled: !isValid,

@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux';
 import { itemsReducer } from './itemsReducers/itemsReducer';
-import { IItems } from '../interfaces/IItems';
 import { IAction } from '../interfaces/IAction';
+import { IAppState } from '../interfaces/IAppState';
 
-interface IState {
-  items: IItems;
-}
-
-type IRootReducer = (state: IState, action: IAction) => IState;
+type IRootReducer = (state: IAppState, action: IAction) => IAppState;
 
 const rootReducer: IRootReducer = combineReducers({
   items: itemsReducer,

@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "@types/bootstrap": "^3.3.32",
+    "@types/classnames": "0.0.32",
     "@types/immutable": "^3.8.7",
     "@types/jest": "^18.1.1",
     "@types/node": "^7.0.0",

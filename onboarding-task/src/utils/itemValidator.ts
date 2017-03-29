@@ -1,9 +1,6 @@
-interface IError {
-  isValid: boolean;
-  messages: string[];
-}
+import { IError } from '../interfaces/IError';
 
-function validateItemText(text: string) {  // might be part of validateItem() later, if other params are added
+function validateItemText(text: string): IError {  // might be part of validateItem() later, if other params are added
   const error: IError = {
     isValid: true,
     messages: [],

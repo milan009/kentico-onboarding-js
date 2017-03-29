@@ -1,14 +1,20 @@
-import React, {
-  PropTypes,
-} from 'react';
+import * as React from 'react';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-function ListRowDisplay(props) {
+const {PropTypes} = React;
+
+interface IListRowDisplayProps {
+  item: IItemViewModel;
+  onItemClick: () => void;
+}
+
+const ListRowDisplay: React.StatelessComponent<IListRowDisplayProps> = (props) => {
   return (
     <div className="item-active" onClick={props.onItemClick}>
       {props.item.index}. <span>{props.item.text}</span>
     </div>
   );
-}
+};
 
 ListRowDisplay.displayName = 'ListRowDisplay';
 
