@@ -6,8 +6,9 @@ import {
 import { createListItemFactory } from './createListItemFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from '../interfaces/IAction';
+import { sendItem } from './sendItemActionCreators';
 
-export const createListItem = createListItemFactory(createGuid);
+export const createListItem = createListItemFactory(createGuid, sendItem);
 
 export const switchFormVisibilityForListItem = (id: string): IAction => {
   return {

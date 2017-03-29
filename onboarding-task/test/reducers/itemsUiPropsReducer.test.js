@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 
 import { itemsUiPropsReducer } from '../../src/reducers/itemsReducers/itemsUiPropsReducer.ts';
 import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord.ts';
-import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
+import { createListItemAction } from '../../src/actionCreators/createListItemFactory.ts';
 import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators.ts';
 import {
   CREATE_ITEM_IN_LIST,
@@ -23,7 +23,7 @@ describe('uiPropsReducer ', () => {
   it(`creates new uiProps and adds them to given id when state is empty and ${CREATE_ITEM_IN_LIST} action is dispatched`, () => {
     const prevState = emptyState;
     const expectedState = oneItemFalseState;
-    const nextState = itemsUiPropsReducer(prevState, createListItemFactory(() => id)('test'));
+    const nextState = itemsUiPropsReducer(prevState, createListItemAction(id, 'test'));
 
     expect(nextState).toEqual(expectedState);
   });
@@ -31,7 +31,7 @@ describe('uiPropsReducer ', () => {
   it(`creates new uiProps and adds them to given id when state is nonempty and ${CREATE_ITEM_IN_LIST} action is dispatched`, () => {
     const prevState = oneItemFalseState;
     const expectedState = oneItemFalseState.set('test-id-2', falseRecord);
-    const nextState = itemsUiPropsReducer(prevState, createListItemFactory(() => 'test-id-2')('test'));
+    const nextState = itemsUiPropsReducer(prevState, createListItemAction('test-id-2', 'test'));
 
     expect(nextState).toEqual(expectedState);
   });

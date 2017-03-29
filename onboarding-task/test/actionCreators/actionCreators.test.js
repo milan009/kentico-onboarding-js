@@ -6,22 +6,17 @@ describe('action creators ', () => {
   const id = 'test-id';
   const text = 'Testing...';
 
-  it(`createListItem creates ${CREATE_ITEM_IN_LIST} action`, () => {
-    const actualAction = createListItemFactory(() => id)(text);
+  it(`createListItem creates ${CREATE_ITEM_IN_LIST} action`, (done) => {
     const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
-
-    expect(actualAction).toEqual(expectedAction);
-  });
-
-  it(`createListItem creates ${CREATE_ITEM_IN_LIST} action and calls dispatch parameter when given`, () => {
+    const expectedItemToSend = { Id: id, Value: text };
     const fakeDispatch = jest.fn(action => action);
-    const fakeSendItem = jest.fn(action => action);
-    const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
-    const actualAction = createListItemWithDispatchFactory(fakeDispatch, () => id, fakeSendItem)(text);
 
-    expect(actualAction).toEqual(expectedAction);
-    expect(fakeDispatch.mock.calls.length).toEqual(1);
-    expect(fakeSendItem.mock.calls.length).toEqual(1);
+    createListItemFactory(() => id, action => action)(text)(fakeDispatch).then(action => {
+      expect(fakeDispatch.mock.calls.length).toEqual(2);
+      expect(fakeDispatch.mock.calls[0][0]).toEqual(expectedAction);
+      expect(fakeDispatch.mock.calls[1][0]).toEqual(expectedItemToSend);
+      done();
+    });
   });
 
   it(`switchFormVisibilityForListItem creates ${SWITCH_FORM_VISIBILITY_FOR_ITEM} action`, () => {

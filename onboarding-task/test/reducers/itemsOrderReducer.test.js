@@ -7,24 +7,24 @@ import {
 } from '../../src/constants/actionTypes.ts';
 import { itemsOrderReducer } from '../../src/reducers/itemsReducers/itemsOrderReducer.ts';
 import { deleteListItem } from '../../src/actionCreators/actionCreators.ts';
-import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
+import { createListItemAction } from '../../src/actionCreators/createListItemFactory.ts';
 import { fetchItemsSuccess } from '../../src/actionCreators/fetchItemsActionCreators.ts';
 
 describe('itemsOrderReducer ', () => {
   const emptyState = new Immutable.List();
   const nonemptyState = Immutable.List.of('test-id-1', 'test-id-2', 'test-id-3', 'test-id-4');
-  const createListItem = createListItemFactory(() => 'test-id-0');
+  const id = 'test-id-0';
 
   it(`adds given id into state when ${CREATE_ITEM_IN_LIST} action is dispatched and empty state is passed in`, () => {
     const expectedState = Immutable.List.of('test-id-0');
-    const actualState = itemsOrderReducer(emptyState, createListItem('Testing...'));
+    const actualState = itemsOrderReducer(emptyState, createListItemAction(id, 'Testing...'));
 
     expect(actualState).toEqual(expectedState);
   });
 
   it(`adds given id into state when ${CREATE_ITEM_IN_LIST} action is dispatched and nonempty state is passed in`, () => {
     const expectedState = nonemptyState.push('test-id-0');
-    const actualState = itemsOrderReducer(nonemptyState, createListItem('Testing...'));
+    const actualState = itemsOrderReducer(nonemptyState, createListItemAction(id, 'Testing...'));
 
     expect(actualState).toEqual(expectedState);
   });

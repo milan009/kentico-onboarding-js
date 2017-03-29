@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 
 import { ItemRecord } from '../../src/models/ItemRecord.ts';
 import { itemsByIdsReducer } from '../../src/reducers/itemsReducers/itemsByIdsReducer.ts';
-import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
+import { createListItemAction } from '../../src/actionCreators/createListItemFactory.ts';
 import {
   updateListItem,
   deleteListItem,
@@ -23,17 +23,15 @@ describe('itemsByIdsReducer', () => {
   const record2 = new ItemRecord({ id, text: 'test-2' });
 
   it(`adds new item into empty state when ${CREATE_ITEM_IN_LIST} action is dispatched`, () => {
-    const createListItem = createListItemFactory(() => id);
-    const newState = itemsByIdsReducer(emptyState, createListItem('test'));
+    const newState = itemsByIdsReducer(emptyState, createListItemAction(id, 'test'));
     const expectedState = Immutable.Map.of(id, record1);
 
     expect(newState).toEqual(expectedState);
   });
 
   it(`adds new item into state when ${CREATE_ITEM_IN_LIST} action is dispatched`, () => {
-    const createListItem = createListItemFactory(() => id2);
     const prevState = Immutable.Map.of(id, record2);
-    const newState = itemsByIdsReducer(prevState, createListItem('Testing...'));
+    const newState = itemsByIdsReducer(prevState, createListItemAction(id2, 'Testing...'));
     const expectedState = prevState.set(id2, new ItemRecord({ id: id2, text: 'Testing...' }));
 
     expect(newState).toEqual(expectedState);

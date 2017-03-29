@@ -4,7 +4,7 @@ import { List } from '../components/List';
 import { IAppState } from '../interfaces/IAppState';
 import { dispatchType } from '../utils/dispatchType';
 import { fetchItems } from '../actionCreators/fetchItemsActionCreators';
-import { createListItemWithDispatch } from '../actionCreators/createListItemFactory';
+import { createListItem } from '../actionCreators/actionCreators';
 
 const mapStateToProps = (state: IAppState) => {
   return {
@@ -16,7 +16,6 @@ const mapStateToProps = (state: IAppState) => {
 };
 
 const mapDispatchToProps = (dispatch: dispatchType) => {
-  const createListItem = createListItemWithDispatch(dispatch);
   return {
     onListItemAdd: (text: string) => dispatch(createListItem(text)),
     onListMount: () => dispatch(fetchItems()),
