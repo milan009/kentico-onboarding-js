@@ -2,9 +2,9 @@ import * as Immutable from 'immutable';
 
 import {Item} from '../../src/models/Item.ts';
 import {editItem, createItem, deleteItem} from '../../src/actions/actionCreators';
-import {itemDataReducer} from '../../src/reducers/itemDataReducer';
+import {itemsDataReducer} from '../../src/reducers/itemsDataReducer';
 
-describe('itemDataReducer', () => {
+describe('itemsDataReducer', () => {
   it('set new value for existing item', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const state = Immutable.Map().set(
@@ -16,7 +16,7 @@ describe('itemDataReducer', () => {
     );
     const expectedNewState = state.setIn([id, 'value'], 'expected text');
 
-    const actualState = itemDataReducer(state, editItem(id, 'expected text'));
+    const actualState = itemsDataReducer(state, editItem(id, 'expected text'));
 
     expect(actualState).toEqual(expectedNewState);
   });
@@ -26,7 +26,7 @@ describe('itemDataReducer', () => {
     const state = Immutable.Map();
     const expectedNewState = state.set(id, 'text');
 
-    const actualState = itemDataReducer(state, createItem(id, 'text'));
+    const actualState = itemsDataReducer(state, createItem(id, 'text'));
 
     expect(actualState).toEqual(expectedNewState);
   });
@@ -41,7 +41,7 @@ describe('itemDataReducer', () => {
       })
     );
 
-    const actualState = itemDataReducer(state, deleteItem(id));
+    const actualState = itemsDataReducer(state, deleteItem(id));
     expect(actualState.has(id)).toBeFalsy();
   });
 });

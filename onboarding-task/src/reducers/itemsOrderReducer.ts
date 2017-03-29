@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 
 import {ITEM_CREATED, ITEM_DELETED} from '../actions/actionTypes';
 
-const itemOrderReducer = (state: Immutable.OrderedSet<string>, action: any) => {
+const itemsOrderReducer = (state: Immutable.OrderedSet<string>, action: any) => {
   switch (action.type) {
     case ITEM_DELETED:
       return state.delete(action.id);
@@ -15,4 +15,4 @@ const itemOrderReducer = (state: Immutable.OrderedSet<string>, action: any) => {
   }
 };
 
-export { itemOrderReducer };
+export { itemsOrderReducer };
