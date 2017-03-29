@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class AddLine extends Component {
+class AddLine extends PureComponent {
   static displayName = 'AddLine';
 
   static propTypes = {

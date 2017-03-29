@@ -1,15 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class LineEdit extends Component {
+class LineEdit extends PureComponent {
+  static displayName = 'LineEdit';
+
   static propTypes = {
-    line: PropTypes.object.isRequired,
+    line: ImmutablePropTypes.recordOf({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      isEdited: PropTypes.bool.isRequired,
+    }).isRequired,
     index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
-
-  static displayName = 'LineEdit';
 
   constructor(props) {
     super(props);
