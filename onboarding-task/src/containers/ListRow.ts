@@ -10,7 +10,7 @@ import {
 import { IAppState } from '../interfaces/IAppState';
 import { IItem } from '../models/Item';
 import { IItemUi } from '../interfaces/IItemUi';
-import { IDispatchType } from '../interfaces/IDispatchType';
+import { Dispatch } from '../interfaces/Dispatch';
 
 interface IListRowOwnProps {
   id: string;
@@ -37,7 +37,7 @@ const mapStateToProps = (state: IAppState, props: IListRowOwnProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: IDispatchType, { id }: IListRowOwnProps) => {
+const mapDispatchToProps = (dispatch: Dispatch, { id }: IListRowOwnProps) => {
   return {
     onItemClick: () => dispatch(toggleEditItem(id)),
     onItemDelete: () => dispatch(deleteItem(id)),

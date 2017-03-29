@@ -10,12 +10,12 @@ import { IAction } from '../interfaces/IAction';
 
 const { PropTypes } = React;
 
-interface IListViewModel {
+interface IListProps {
   itemIds: OrderedSet<string>;
   onItemAdd: (text: string) => IAction;
 }
 
-const List: React.StatelessComponent<IListViewModel> = (props) => {
+const List: React.StatelessComponent<IListProps> = (props) => {
   const listItems = props.itemIds.valueSeq().map((id: string, i: number) => {
     return (
       <div key={id} className="list-group-item item-custom">

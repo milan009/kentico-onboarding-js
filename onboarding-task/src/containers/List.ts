@@ -3,13 +3,13 @@ import { List } from '../components/List';
 import { createItem } from '../actions/actionCreators';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../interfaces/IAppState';
-import { IDispatchType } from '../interfaces/IDispatchType';
+import { Dispatch } from '../interfaces/Dispatch';
 
 const mapStateToProps = (state: IAppState) => {
   return { itemIds: OrderedSet.fromKeys(state.items.byId) };
 };
 
-const mapDispatchToProps = (dispatch: IDispatchType) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onItemAdd: (text: string) => dispatch(createItem(text)),
   };

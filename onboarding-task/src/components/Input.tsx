@@ -10,12 +10,12 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import { generateUuid } from '../utils/idGenerator';
 import { IError } from '../interfaces/IError';
 
-interface IErrorsTooltip {
+interface IErrorsTooltipProps {
   inputId: string;
   errors: List<string>;
 }
 
-const ErrorsTooltip: StatelessComponent<IErrorsTooltip> = (props) => {
+const ErrorsTooltip: StatelessComponent<IErrorsTooltipProps> = (props) => {
   if (!props.errors.size) {
     return <noscript />;
   }
