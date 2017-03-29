@@ -30,6 +30,8 @@ class List extends React.PureComponent<IListProps, undefined> {
   render() {
     if (this.props.isFetching) {
       return <div className="loader">Loading...</div>;
+    } else if (!this.props.isFetching && this.props.itemIds.isEmpty()) {
+      return <div className="loader">Nothing to show!</div>;
     }
     return (
       <div className="row">
