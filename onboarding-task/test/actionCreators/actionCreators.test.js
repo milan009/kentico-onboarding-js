@@ -1,6 +1,6 @@
 import { CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST, UPDATE_TEXT_OF_ITEM, SWITCH_FORM_VISIBILITY_FOR_ITEM } from '../../src/constants/actionTypes.ts';
 import { switchFormVisibilityForListItem, updateListItem, deleteListItem } from '../../src/actionCreators/actionCreators.ts';
-import { createListItemFactory, createListItemWithDispatchFactory } from '../../src/actionCreators/createListItemFactory.ts';
+import { createListItemFactory } from '../../src/actionCreators/createListItemFactory.ts';
 
 describe('action creators ', () => {
   const id = 'test-id';
@@ -14,7 +14,7 @@ describe('action creators ', () => {
     createListItemFactory(() => id, action => action)(text)(fakeDispatch).then(action => {
       expect(fakeDispatch.mock.calls.length).toEqual(2);
       expect(fakeDispatch.mock.calls[0][0]).toEqual(expectedAction);
-      expect(fakeDispatch.mock.calls[1][0]).toEqual(expectedItemToSend);
+      expect(action).toEqual(expectedItemToSend);
       done();
     });
   });

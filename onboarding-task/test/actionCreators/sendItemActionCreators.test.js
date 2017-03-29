@@ -4,13 +4,14 @@ import { sendItemFactory } from '../../src/actionCreators/sendItemFactory.ts';
 
 describe('sendItemActionCreators ', () => {
   const fakeResponse = 'This is fake response.';
-  const moreAccurateResponse = { Id: 'id', Value: 'text' };
+  const moreAccurateResponse = { Id: 'id', Value: 'text', Ueid: 'ueid' };
 
   it(`returns action with correct response in payload and type ${SEND_ITEM_SUCCESS}`, () => {
     const expectedAction = {
       type: SEND_ITEM_SUCCESS,
       payload: {
         successMessage: `Item ${moreAccurateResponse.Value} was successfully uploaded.`,
+        item: moreAccurateResponse,
       },
     };
     const actualAction = sendItemSuccess(moreAccurateResponse);

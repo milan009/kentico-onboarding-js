@@ -6,11 +6,12 @@ import {
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 import { sendItemFactory } from './sendItemFactory';
 
-const sendItemSuccess = (response: IFetchedItem): IAction => {
+const sendItemSuccess = (sentItem: IFetchedItem): IAction => {
   return {
     type: SEND_ITEM_SUCCESS,
     payload: {
-      successMessage: `Item ${response.Value} was successfully uploaded.`,
+      successMessage: `Item ${sentItem.Value} was successfully uploaded.`,
+      item: sentItem,
     },
   };
 };
