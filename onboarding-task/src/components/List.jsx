@@ -13,7 +13,6 @@ class List extends PureComponent {
     super(props);
     this.state = {
       items: [],
-      itemForm: this._createItemForm(),
     };
   }
 
@@ -67,15 +66,6 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
 
-  _createItemForm = () => (
-    <ListGroupItem>
-      <ItemForm
-        onAdd={this._addItem}
-        key={generatePseudoUniqueID()}
-      />
-    </ListGroupItem>
-  );
-
   _createListItems = () =>
     this.state.items.map((item, index) =>
       <ListGroupItem key={item.id}>
@@ -94,7 +84,6 @@ class List extends PureComponent {
 
   render() {
     const listItems = this._createListItems();
-    const itemForm = this.state.itemForm;
 
     return (
       <div className="row">
@@ -115,7 +104,11 @@ class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ListGroup>
               {listItems}
-              {itemForm}
+              <ListGroupItem>
+                <ItemForm
+                  onAdd={this._addItem}
+                />
+              </ListGroupItem>
             </ListGroup>
           </div>
         </div>
