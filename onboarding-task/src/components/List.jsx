@@ -11,7 +11,7 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      lines: new Map(),
+      lines: Map(),
     };
   }
 
