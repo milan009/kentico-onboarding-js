@@ -27,7 +27,7 @@ const itemsByIdsReducer = (prevState = Map<string, ItemRecord>(), action: IActio
     case FETCH_ITEMS_SUCCESS:
       let result = Map<string, ItemRecord>();
       action.payload.response.forEach((fetchedItem: IFetchedItem) => {
-        result = result.set(fetchedItem.Id, new ItemRecord({ id: fetchedItem.Id, text: fetchedItem.Value }));
+        result = result.set(fetchedItem.id, new ItemRecord({ id: fetchedItem.id, text: fetchedItem.value }));
       });
       return result;
 

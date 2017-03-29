@@ -10,7 +10,7 @@ const sendItemSuccess = (sentItem: IFetchedItem): IAction => {
   return {
     type: SEND_ITEM_SUCCESS,
     payload: {
-      successMessage: `Item ${sentItem.Value} was successfully uploaded.`,
+      successMessage: `Item ${sentItem.value} was successfully uploaded.`,
       item: sentItem,
     },
   };

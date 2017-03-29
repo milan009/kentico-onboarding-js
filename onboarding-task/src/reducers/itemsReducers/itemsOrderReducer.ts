@@ -20,7 +20,7 @@ const itemsOrderReducer = (prevState = List<string>(), action: IAction): List<st
     case FETCH_ITEMS_SUCCESS:
       let newState = List<string>();
       action.payload.response.forEach((item: IFetchedItem) => {
-        newState = newState.push(item.Id);
+        newState = newState.push(item.id);
       });
       return newState;
 
