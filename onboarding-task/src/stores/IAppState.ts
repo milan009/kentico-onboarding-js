@@ -5,6 +5,7 @@ interface IAppState {
   items: OrderedMap<string, IItem>;
   editedItems: Set<string>;
   itemsOrder: OrderedSet<string>;
+  isFetching: boolean;
 }
 
 export {IAppState}

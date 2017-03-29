@@ -24,6 +24,6 @@ function updateItem(id: string, text: string): IAction {
   };
 }
 
-const fetchItemsWithDependecies = fetchItemsFactory(fetch, 'temporary url');
+const fetchItemsWithDependecies = fetchItemsFactory(fetch, '/api/v1/items');
 const addItemWithDependencies = addItemFactory(generateId);
 export { deleteItem, updateItem, addItemWithDependencies as addItem, fetchItemsWithDependecies as fetchItems };
