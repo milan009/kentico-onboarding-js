@@ -17,10 +17,10 @@ type IItemsReducer = (itemsState: IItems, action: IAction) => IItems;
 const isFetchingReducer = (_: boolean, action: IAction) => action.type === FETCH_ITEMS_REQUEST;
 
 const errorReducer = (_: string, action: IAction) =>
-  action.type === FETCH_ITEMS_FAILURE || action.type === SEND_ITEM_FAILURE ? action.payload.response : '';
+  action.type === FETCH_ITEMS_FAILURE || action.type === SEND_ITEM_FAILURE ? action.payload.errorMessage : '';
 
 const successMessageReducer = (_: string, action: IAction) =>
-  action.type === SEND_ITEM_SUCCESS ? action.payload.response : '';
+  action.type === SEND_ITEM_SUCCESS ? action.payload.successMessage : '';
 
 const itemsReducer: IItemsReducer = combineReducers({
   byId: itemsByIdsReducer,

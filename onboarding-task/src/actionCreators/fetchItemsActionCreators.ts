@@ -23,11 +23,11 @@ const fetchItemsSuccess = (response: IFetchedItem[]): IAction => {
   };
 };
 
-const fetchItemsFailure = (response: string): IAction => {
+const fetchItemsFailure = (errorMessage: string): IAction => {
   return {
     type: FETCH_ITEMS_FAILURE,
     payload: {
-      response: response,
+      response: errorMessage,
     },
   };
 };

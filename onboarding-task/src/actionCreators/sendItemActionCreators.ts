@@ -10,16 +10,16 @@ const sendItemSuccess = (response: IFetchedItem): IAction => {
   return {
     type: SEND_ITEM_SUCCESS,
     payload: {
-      response: `Item ${response.Value} was successfully uploaded.`,
+      successMessage: `Item ${response.Value} was successfully uploaded.`,
     },
   };
 };
 
-const sendItemFailure = (response: string): IAction => {
+const sendItemFailure = (errorMessage: string): IAction => {
   return {
     type: SEND_ITEM_FAILURE,
     payload: {
-      response: response,
+      errorMessage,
     },
   };
 };
