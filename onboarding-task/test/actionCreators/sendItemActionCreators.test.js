@@ -10,7 +10,7 @@ describe('sendItemActionCreators ', () => {
     const expectedAction = {
       type: SEND_ITEM_SUCCESS,
       payload: {
-        response: `Item ${moreAccurateResponse.Value} was successfully uploaded.`,
+        successMessage: `Item ${moreAccurateResponse.Value} was successfully uploaded.`,
       },
     };
     const actualAction = sendItemSuccess(moreAccurateResponse);
@@ -22,7 +22,7 @@ describe('sendItemActionCreators ', () => {
     const expectedAction = {
       type: SEND_ITEM_FAILURE,
       payload: {
-        response: fakeResponse,
+        errorMessage: fakeResponse,
       },
     };
     const actualAction = sendItemFailure(fakeResponse);
