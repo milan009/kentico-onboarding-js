@@ -22,7 +22,7 @@ const createListItem = (createGuid: ICreateGuid, text: string, sendItemParam: IS
   const id = createGuid();
   return (dispatch: dispatchType) => {
     dispatch(createListItemAction(id, text));
-    return TsPromise.resolve(dispatch(sendItemParam({ Id: id, Value: text })));
+    return TsPromise.resolve(dispatch(sendItemParam({ Id: 'null', Value: text, Ueid: id })));
   };
 };
 
