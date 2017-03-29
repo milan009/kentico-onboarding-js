@@ -3,16 +3,16 @@ import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 
 const ListItem = (props) => {
-  if (props.data.editing) {
+  if (props.data.isEditing) {
     return (
       <EditedListItem
         text={props.data.textShown}
         index={props.index}
-        saveFunction={props.saveFunction}
-        deleteFunction={props.deleteFunction}
-        updateFunction={props.updateFunction}
-        cancelFunction={props.cancelFunction}
-        editFunction={props.editFunction}
+        onSave={props.onSave}
+        onDelete={props.onDelete}
+        onUpdate={props.onUpdate}
+        onCancel={props.onCancel}
+        onEdit={props.onEdit}
       />
     );
   }
@@ -22,7 +22,7 @@ const ListItem = (props) => {
       text={props.data.textShown}
       index={props.index}
       key={props.data.id}
-      editFunction={props.editFunction}
+      onEdit={props.onEdit}
     />
   );
 };
@@ -30,11 +30,11 @@ const ListItem = (props) => {
 ListItem.propTypes = {
   data: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  saveFunction: PropTypes.func.isRequired,
-  deleteFunction: PropTypes.func.isRequired,
-  updateFunction: PropTypes.func.isRequired,
-  cancelFunction: PropTypes.func.isRequired,
-  editFunction: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 ListItem.displayName = 'ListItem';

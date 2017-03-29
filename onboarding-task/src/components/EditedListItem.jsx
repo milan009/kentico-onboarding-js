@@ -7,26 +7,26 @@ class EditedListItem extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    saveFunction: PropTypes.func.isRequired,
-    deleteFunction: PropTypes.func.isRequired,
-    updateFunction: PropTypes.func.isRequired,
-    cancelFunction: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   _onInputChange = (event) => {
-    this.props.updateFunction(this.props.index, event);
+    this.props.onUpdate(this.props.index, event);
   };
 
   _onSaveButtonClick = () => {
-    this.props.saveFunction(this.props.index, this.props.text);
+    this.props.onSave(this.props.index, this.props.text);
   };
 
   _onCancelButtonClick = () => {
-    this.props.cancelFunction(this.props.index);
+    this.props.onCancel(this.props.index);
   };
 
   _onDeleteButtonClick = () => {
-    this.props.deleteFunction(this.props.index);
+    this.props.onDelete(this.props.index);
   };
 
   render() {

@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
-import { NewListItem } from './NewListItemForm';
+import { ItemForm } from './ItemForm';
 import { ListItem } from './ListItem';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
-import assignment from './../../../assignment.gif';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import TsComponent from './TsComponent.tsx';
@@ -14,6 +13,7 @@ class List extends PureComponent {
     super(props);
     this.state = {
       items: [],
+      itemForm: this._createItemForm(),
     };
   }
 
@@ -23,15 +23,15 @@ class List extends PureComponent {
       id: generatePseudoUniqueID(),
       textSaved: text,
       textShown: text,
-      editing: false,
+      isEditing: false,
     });
 
     this.setState({ items: newItems });
   };
 
   _startEditing = (index) => {
-    const newItems = [...this.state.items];
-    const updatedItem = { ...newItems[index], editing: true };
+    const newItems = this.state.items.slice();
+    const updatedItem = { ...newItems[index], isEditing: true };
     newItems[index] = updatedItem;
 
     this.setState({ items: newItems });
@@ -47,7 +47,7 @@ class List extends PureComponent {
 
   _cancelEditing = (index) => {
     const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], editing: false, textShown: newItems[index].textSaved };
+    const updatedItem = { ...newItems[index], isEditing: false, textShown: newItems[index].textSaved };
     newItems[index] = updatedItem;
 
     this.setState({ items: newItems });
@@ -55,7 +55,7 @@ class List extends PureComponent {
 
   _saveItem = (index, text) => {
     const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], textShown: text, textSaved: text, editing: false };
+    const updatedItem = { ...newItems[index], textShown: text, textSaved: text, isEditing: false };
     newItems[index] = updatedItem;
 
     this.setState({ items: newItems });
@@ -67,17 +67,26 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
 
+  _createItemForm = () => (
+    <ListGroupItem>
+      <ItemForm
+        onAdd={this._addItem}
+        key={generatePseudoUniqueID()}
+      />
+    </ListGroupItem>
+  );
+
   _createListItems = () =>
     this.state.items.map((item, index) =>
       <ListGroupItem key={item.id}>
         <ListItem
           data={item}
           index={index}
-          saveFunction={this._saveItem}
-          deleteFunction={this._deleteItem}
-          updateFunction={this._updateItem}
-          cancelFunction={this._cancelEditing}
-          editFunction={this._startEditing}
+          onSave={this._saveItem}
+          onDelete={this._deleteItem}
+          onUpdate={this._updateItem}
+          onCancel={this._cancelEditing}
+          onEdit={this._startEditing}
         />
       </ListGroupItem>
     );
@@ -85,10 +94,10 @@ class List extends PureComponent {
 
   render() {
     const listItems = this._createListItems();
+    const itemForm = this.state.itemForm;
 
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
         <div className="row">
           <div className="col-sm-12 text-center">
             <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
@@ -99,7 +108,6 @@ class List extends PureComponent {
           <div className="col-sm-12">
             <p className="lead text-center">Desired functionality is captured on the gif image. </p>
             <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
           </div>
         </div>
 
@@ -107,12 +115,7 @@ class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ListGroup>
               {listItems}
-              <ListGroupItem>
-                <NewListItem
-                  addFunction={this._addItem}
-                  key={generatePseudoUniqueID()}
-                />
-              </ListGroupItem>
+              {itemForm}
             </ListGroup>
           </div>
         </div>

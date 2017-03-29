@@ -6,11 +6,11 @@ class InsertedListItem extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    editFunction: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
   };
 
   _onClick = () => {
-    this.props.editFunction(this.props.index);
+    this.props.onEdit(this.props.index);
   };
 
   render() {
