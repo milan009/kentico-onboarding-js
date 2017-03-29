@@ -4,13 +4,13 @@ import { sendItemFactory } from '../../src/actionCreators/sendItemFactory.ts';
 
 describe('sendItemActionCreators ', () => {
   const fakeResponse = 'This is fake response.';
-  const moreAccurateResponse = { Id: 'id', Value: 'text', Ueid: 'ueid' };
+  const moreAccurateResponse = { id: 'id', value: 'text', ueid: 'ueid' };
 
   it(`returns action with correct response in payload and type ${SEND_ITEM_SUCCESS}`, () => {
     const expectedAction = {
       type: SEND_ITEM_SUCCESS,
       payload: {
-        successMessage: `Item ${moreAccurateResponse.Value} was successfully uploaded.`,
+        successMessage: `Item ${moreAccurateResponse.value} was successfully uploaded.`,
         item: moreAccurateResponse,
       },
     };
@@ -33,7 +33,7 @@ describe('sendItemActionCreators ', () => {
 });
 
 describe('sendItem ', () => {
-  const fakeSuccessResponse = { Id: 'id', Value: 'text' };
+  const fakeSuccessResponse = { id: 'id', value: 'text', ueid: 'ueid' };
   const fakeFetch = (path) => {
     return path === '/api/v1/Items'
       ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })

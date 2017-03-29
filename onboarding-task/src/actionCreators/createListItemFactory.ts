@@ -1,5 +1,3 @@
-import TsPromise from 'ts-promise';
-
 import { CREATE_ITEM_IN_LIST } from '../constants/actionTypes';
 import { IAction } from '../interfaces/IAction';
 import { dispatchType } from '../utils/dispatchType';
@@ -22,7 +20,7 @@ const createListItem = (createGuid: ICreateGuid, text: string, sendItemParam: IS
   const id = createGuid();
   return (dispatch: dispatchType) => {
     dispatch(createListItemAction(id, text));
-    return TsPromise.resolve(dispatch(sendItemParam({ id: 'null', value: text, ueid: id })));
+    return dispatch(sendItemParam({ id: 'null', value: text, ueid: id }));
   };
 };
 

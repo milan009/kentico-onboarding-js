@@ -64,9 +64,9 @@ describe('itemsByIdsReducer', () => {
       ids[2], new ItemRecord({ id: ids[2], text: texts[2] }),
     );
     const fetchedItems = [
-      { Id: ids[0], Value: texts[0] },
-      { Id: ids[1], Value: texts[1] },
-      { Id: ids[2], Value: texts[2] },
+      { id: ids[0], value: texts[0], ueid: 'ueid0' },
+      { id: ids[1], value: texts[1], ueid: 'ueid1' },
+      { id: ids[2], value: texts[2], ueid: 'ueid2' },
     ];
     const actualState = itemsByIdsReducer(prevState, fetchItemsSuccess(fetchedItems));
 

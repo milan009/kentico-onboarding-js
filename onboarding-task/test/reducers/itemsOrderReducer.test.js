@@ -45,7 +45,11 @@ describe('itemsOrderReducer ', () => {
 
   it(`returns list of ids of fetched items in the order they came when ${FETCH_ITEMS_SUCCESS} action is dispatched`, () => {
     const expectedState = emptyState.push('test0', 'test1', 'test2');
-    const response = [{ Id: 'test0', Value: 'text' }, { Id: 'test1', Value: 'text' }, { Id: 'test2', Value: 'text' }];
+    const response = [
+      { id: 'test0', value: 'text', ueid: 'ueid0' },
+      { id: 'test1', value: 'text', ueid: 'ueid' },
+      { id: 'test2', value: 'text', ueid: 'ueid' },
+    ];
     const actualState = itemsOrderReducer(nonemptyState, fetchItemsSuccess(response));
 
     expect(actualState).toEqual(expectedState);
