@@ -102,7 +102,7 @@ In this task you will use TypeScript to make you app strongly typed. Mainly intr
 
 Make sure you install type definitions for 3rd pardty libraries you are already using in your app (e.g. redux, react-redux, immutable, memoizee...). To do that, run this for each library:
 ```
-npm install --save-dev @types/redux
+npm install --save-dev @types/immutable
 ```
 Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -120,3 +120,8 @@ Do not forget to tell the client app to [proxy your requests to the server](http
 - make sure you use [`redux-thunk`](https://github.com/gaearon/redux-thunk) middleware
 - do not forget about dependency injection and tests (see sample tests for inspiration)
 - [optional] if you have time left in the sprint, you can implement delete + update funcitonality (DELETE and PUT requests to server) as well
+
+**Note**
+You might experience a dependency hell due to different versions of promises, fetch and their respective typings. The solution is to install `isomorphic-fetch` and `es6-promise` libraries plus their typings (see Task 4). Also make sure to *uninstall* all other packages for promises and fetch (plus their typings) otherwise you will get many wierd error messages. 
+
+In order to wirte tests properly, you will surely need to use some [mocking functionality provided by Jest testing framework](https://facebook.github.io/jest/docs/mock-functions.html#content). In case your linter starts to complain about it forllow [this SO answer](http://stackoverflow.com/a/40265356).
