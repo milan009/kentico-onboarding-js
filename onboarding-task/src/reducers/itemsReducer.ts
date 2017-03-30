@@ -3,7 +3,7 @@ import {itemsFlagReducer} from './itemsFlagReducer';
 import {itemsOrderReducer} from './itemsOrderReducer';
 import {combineReducers} from 'redux';
 
-const itemsReducer =  combineReducers({
+const itemsReducer = combineReducers({
   itemsDataReducer,
   itemsOrderReducer,
   itemsFlagReducer
