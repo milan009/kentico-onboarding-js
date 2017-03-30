@@ -5,6 +5,9 @@ import {ItemFlags} from '../models/ItemFlags';
 
 
 const itemsFlagReducer = (state: Immutable.Map<string, ItemFlags>, action: any) => {
+  if (typeof state === 'undefined') {
+    state = Immutable.Map<string, ItemFlags>();
+  }
   switch (action.type) {
     case ITEM_VIEW_MODE_TOGGLED:
       const newEditModeFlag = !state.get(action.id).editMode;

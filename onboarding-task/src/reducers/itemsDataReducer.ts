@@ -5,6 +5,9 @@ import {Item} from '../models/Item';
 
 
 const itemsDataReducer = (state: Immutable.Map<string,Item>, action: any) => {
+  if (typeof state === 'undefined') {
+    state = Immutable.Map<string,Item>();
+  }
   switch (action.type) {
     case ITEM_EDITED:
       return state.setIn([action.id, 'value'], action.value);
