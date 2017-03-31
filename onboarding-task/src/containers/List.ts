@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addItem, fetchItems} from '../actions/itemsActionCreators';
+import { fetchItems, postItem } from '../actions/itemsActionCreators';
 import { List } from '../components/List';
 import { IAppState } from '../stores/IAppState';
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addItem: (text: string) => dispatch(addItem(text)),
+    addItem: (text: string) => dispatch(postItem(text)),
     fetchItems: () => dispatch(fetchItems())
   };
 };

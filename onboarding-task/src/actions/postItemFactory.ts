@@ -30,21 +30,27 @@ function failPostItem(error: Error) {
 }
 
 function postItems(fetch: Fetch, url: string) {
-  return (dispatch: any, item: Item) => {
-    dispatch(requestPostItem(item));
+  return (text: string) => {
+    return (dispatch: any) => {
+      const item = new Item({ text });
+      dispatch(requestPostItem(item));
 
-    return fetch(url, {
+      return fetch(url, {
         method: 'POST',
-        body: item,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item),
       })
-      .then((response: any) => response.json())
-      .then((json: any) => dispatch(receivePostItem(json)))
-      .catch((error) => dispatch(failPostItem(error)));
+        .then((response: any) => response.json())
+        .then((json: any) => dispatch(receivePostItem(json)))
+        .catch((error) => dispatch(failPostItem(error)));
+    };
   };
 }
 
 function postItemFactory (fetch: Fetch, url: string) {
-  return () => postItems(fetch, url);
+  return postItems(fetch, url);
 }
 
 export { requestPostItem, receivePostItem, failPostItem, postItemFactory };

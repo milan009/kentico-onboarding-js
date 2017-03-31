@@ -1,13 +1,10 @@
 import { OrderedSet } from 'immutable';
 import { itemsOrder } from '../../src/reducers/itemsOrder.ts';
 import { deleteItem } from '../../src/actions/itemsActionCreators.ts';
-import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { receiveItems } from '../../src/actions/fetchItemsFactory.ts';
 import { receivePostItem } from '../../src/actions/postItemFactory.ts';
 
 describe('itemsOrder', () => {
-  const addItem = addItemFactory(() => 'uuid2');
-
   it('should return initial state', () => {
     const expectedOrder = OrderedSet();
     const itemOrderBefore = undefined;
@@ -54,15 +51,6 @@ describe('itemsOrder', () => {
     };
 
     const itemOrderAfter = itemsOrder(itemOrderBefore, receivePostItem(receivedItem));
-
-    expect(itemOrderAfter).toEqual(expectedItemOrder);
-  });
-
-  it('should push item to set', () => {
-    const expectedItemOrder = OrderedSet(['uuid1', 'uuid2']);
-    const itemOrderBefore = OrderedSet(['uuid1']);
-
-    const itemOrderAfter = itemsOrder(itemOrderBefore, addItem('test text'));
 
     expect(itemOrderAfter).toEqual(expectedItemOrder);
   });

@@ -1,9 +1,8 @@
 import * as fetch from 'isomorphic-fetch';
 import { DELETE_ITEM, UPDATE_ITEM } from './actionTypes';
-import { generateId } from '../utils/idGenerator';
-import { addItemFactory } from './addItemFactory';
 import { IAction } from './IAction';
 import { fetchItemsFactory } from './fetchItemsFactory';
+import { postItemFactory } from './postItemFactory';
 
 function deleteItem(id: string): IAction {
   return {
@@ -25,5 +24,5 @@ function updateItem(id: string, text: string): IAction {
 }
 
 const fetchItemsWithDependecies = fetchItemsFactory(fetch, '/api/v1/items');
-const addItemWithDependencies = addItemFactory(generateId);
-export { deleteItem, updateItem, addItemWithDependencies as addItem, fetchItemsWithDependecies as fetchItems };
+const postItemWithDependecies = postItemFactory(fetch, '/api/v1/items');
+export { deleteItem, updateItem, fetchItemsWithDependecies as fetchItems, postItemWithDependecies as postItem };

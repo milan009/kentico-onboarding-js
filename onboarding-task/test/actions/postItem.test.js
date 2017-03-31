@@ -4,10 +4,10 @@ import { requestPostItem, receivePostItem, failPostItem, postItemFactory } from 
 
 describe('postItem', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
-  const testItem = new Item({ id: firstTestId, text: 'test text' });
+  const testText = 'test text';
+  const testItem = new Item({ id: '00000000-0000-0000-0000-000000000000', text: testText });
 
   describe('postItem action creators', () => {
-
     it('should create post request action', () => {
       const expectedAction = {
         type: POST_ITEM_REQUEST,
@@ -67,7 +67,7 @@ describe('postItem', () => {
       const expectedDispatchAction = requestPostItem(testItem);
       const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com');
 
-      testPostItem()(dispatchMock, testItem);
+      testPostItem(testText)(dispatchMock);
 
       expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
     });
@@ -76,7 +76,7 @@ describe('postItem', () => {
       const fetchMock = jest.fn(fakeFetch);
       const testPostItem = postItemFactory(fetchMock, 'www.besturl.com');
 
-      testPostItem()(dispatchMock, testItem);
+      testPostItem(testText)(dispatchMock);
 
       expect(fetchMock.mock.calls[0][0]).toEqual('www.besturl.com');
     });
@@ -85,7 +85,7 @@ describe('postItem', () => {
       const expectedDispatchAction = receivePostItem(responseBody);
       const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com');
 
-      testPostItem()(dispatchMock, testItem)
+      testPostItem(testText)(dispatchMock)
         .then(() => {
           expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
           done();
@@ -103,7 +103,7 @@ describe('postItem', () => {
       const testPostItem = postItemFactory(failFetch, 'www.besturl.com');
 
 
-      testPostItem()(dispatchMock)
+      testPostItem(testText)(dispatchMock)
         .then(() => {
           expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
           done();
