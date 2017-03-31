@@ -1,9 +1,11 @@
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
 import { Fetch } from './IFetch';
+import { Dispatch } from '../stores/Dispatch';
 
 function requestItems() {
   return {
     type: FETCH_ITEMS_REQUEST,
+    payload: {},
   };
 }
 
@@ -26,7 +28,7 @@ function failFetchItems(error: Error) {
 }
 
 function fetchItems(fetch: Fetch, url: string) {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch) => {
     dispatch(requestItems());
 
     return fetch(url)

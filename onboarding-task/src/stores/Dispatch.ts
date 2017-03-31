@@ -1,6 +1,5 @@
-import { Dispatch } from 'react-redux';
 import { IAction } from '../actions/IAction';
 
-type TDispatch = Dispatch<(action: IAction) => IAction>;
+type TDispatch = ( action: IAction |( (dispatch: TDispatch) => Promise<IAction>) | ( (dispatch: TDispatch) => IAction)) => IAction;
 
 export { TDispatch as Dispatch};

@@ -1,6 +1,7 @@
 import { POST_ITEM_FAIL, POST_ITEM_RECEIVE, POST_ITEM_REQUEST } from './actionTypes';
 import { Item } from '../models/Item';
 import { Fetch } from './IFetch';
+import { Dispatch } from '../stores/Dispatch';
 
 function requestPostItem(item: Item) {
   return {
@@ -31,7 +32,7 @@ function failPostItem(error: Error) {
 
 function postItems(fetch: Fetch, url: string) {
   return (text: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
       const item = new Item({ text });
       dispatch(requestPostItem(item));
 
