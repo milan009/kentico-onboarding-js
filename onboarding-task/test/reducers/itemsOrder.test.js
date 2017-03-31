@@ -3,6 +3,7 @@ import { itemsOrder } from '../../src/reducers/itemsOrder.ts';
 import { deleteItem } from '../../src/actions/itemsActionCreators.ts';
 import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { receiveItems } from '../../src/actions/fetchItemsFactory.ts';
+import { receivePostItem } from '../../src/actions/postItemFactory.ts';
 
 describe('itemsOrder', () => {
   const addItem = addItemFactory(() => 'uuid2');
@@ -36,6 +37,23 @@ describe('itemsOrder', () => {
       }];
 
     const itemOrderAfter = itemsOrder(itemOrderBefore, receiveItems(receivedItems));
+
+    expect(itemOrderAfter).toEqual(expectedItemOrder);
+  });
+
+  it('should handle receive item', () => {
+    const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
+    const secondTestId = '70e9ad48-e190-4578-8939-f9afa5b51501';
+    const expectedItemOrder = OrderedSet([firstTestId, secondTestId]);
+    const itemOrderBefore = OrderedSet([firstTestId]);
+    const receivedItem = {
+      id: secondTestId,
+      text: 'second test',
+      creation: '0001-01-01T00:00:00',
+      lastChange: '0001-01-01T00:00:00',
+    };
+
+    const itemOrderAfter = itemsOrder(itemOrderBefore, receivePostItem(receivedItem));
 
     expect(itemOrderAfter).toEqual(expectedItemOrder);
   });

@@ -1,5 +1,5 @@
 import { OrderedSet } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM, FETCH_ITEMS_RECEIVE } from '../actions/actionTypes';
+import { ADD_ITEM, DELETE_ITEM, FETCH_ITEMS_RECEIVE, POST_ITEM_RECEIVE } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
 
 const itemsOrder = (state = OrderedSet(), action: IAction) => {
@@ -8,6 +8,10 @@ const itemsOrder = (state = OrderedSet(), action: IAction) => {
       return OrderedSet(
         action.payload.items.map((item: any) => item.id)
       );
+
+    case POST_ITEM_RECEIVE:
+      return state.add(action.payload.item.id);
+
     case ADD_ITEM:
       return state.add(action.payload.item.id);
 
