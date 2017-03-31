@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { ItemForm } from './ItemForm';
+import { Map, Record } from 'immutable';
+import { ItemForm } from './CreateItemForm';
 import { ListItem } from './ListItem';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
@@ -12,66 +13,68 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: Map(),
     };
   }
 
   _addItem = (text) => {
-    const newItems = this.state.items.slice();
-    newItems.push({
-      id: generatePseudoUniqueID(),
+    const originalItems = this.state.items;
+
+    const newItem = new Record({ // TODO extract new record outside and set different attributes here
       textSaved: text,
       textShown: text,
       isEditing: false,
     });
 
-    this.setState({ items: newItems });
-  };
-
-  _startEditing = (index) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], isEditing: true };
-    newItems[index] = updatedItem;
+    const newItems = originalItems.set(generatePseudoUniqueID(), newItem());
 
     this.setState({ items: newItems });
   };
 
-  _updateItem = (index, event) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], textShown: event.target.value };
-    newItems[index] = updatedItem;
+  _startEditing= (key) => {
+    const newItems = this.state.items.setIn([key, 'isEditing'], true);
 
     this.setState({ items: newItems });
   };
 
-  _cancelEditing = (index) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], isEditing: false, textShown: newItems[index].textSaved };
-    newItems[index] = updatedItem;
+  _updateItem = (key, event) => {
+    const newItems = this.state.items.setIn([key, 'textShown'], event.target.value);
 
     this.setState({ items: newItems });
   };
 
-  _saveItem = (index, text) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], textShown: text, textSaved: text, isEditing: false };
-    newItems[index] = updatedItem;
+  _cancelEditing = (key) => {
+    let newItems = this.state.items;
+    newItems = newItems.setIn([key, 'textShown'], newItems.get(key).textSaved);
+    newItems = newItems.setIn([key, 'isEditing'], false);
 
     this.setState({ items: newItems });
   };
 
-  _deleteItem = (indexToDelete) => {
-    const newItems = this.state.items.filter((_, index) => index !== indexToDelete);
+  _saveItem = (key, text) => {
+    let newItems = this.state.items;
+    newItems = newItems.setIn([key, 'textShown'], text);
+    newItems = newItems.setIn([key, 'textSaved'], text);
+    newItems = newItems.setIn([key, 'isEditing'], false);
 
     this.setState({ items: newItems });
   };
 
-  _createListItems = () =>
-    this.state.items.map((item, index) =>
-      <ListGroupItem key={item.id}>
+  _deleteItem = (keyToDelete) => { // TODO debug, store order in ordered list!
+    const newItems = this.state.items.delete(keyToDelete);
+
+    this.setState({ items: newItems });
+  };
+
+  // TODO debug map
+  _createListItems = () => {
+    let i = 0;
+    return this.state.items.map((item, key) =>
+      <ListGroupItem key={key}>
         <ListItem
           data={item}
-          index={index}
+          index={i++}
+          mapKey={key} // TODO check if keys are correct, possibly causes deletion bug
           onSave={this._saveItem}
           onDelete={this._deleteItem}
           onUpdate={this._updateItem}
@@ -80,6 +83,7 @@ class List extends PureComponent {
         />
       </ListGroupItem>
     );
+  };
 
 
   render() {
