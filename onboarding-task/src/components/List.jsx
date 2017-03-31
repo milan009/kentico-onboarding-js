@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Map, Record } from 'immutable';
+import { Map as ImmutableMap, Record, List as ImmutableList } from 'immutable';
 import { ItemForm } from './CreateItemForm';
 import { ListItem } from './ListItem';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
@@ -13,22 +13,29 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      items: Map(),
+      items: ImmutableMap(),
+      orderedKeys: ImmutableList(),
     };
   }
 
   _addItem = (text) => {
     const originalItems = this.state.items;
+    const originalOrderedKeys = this.state.orderedKeys;
+    const id = generatePseudoUniqueID();
 
-    const newItem = new Record({ // TODO extract new record outside and set different attributes here
+    const newItem = new Record({
       textSaved: text,
       textShown: text,
       isEditing: false,
     });
 
-    const newItems = originalItems.set(generatePseudoUniqueID(), newItem());
+    const newItems = originalItems.set(id, newItem());
+    const newOrderedKeys = originalOrderedKeys.insert(originalOrderedKeys.size, id);
 
-    this.setState({ items: newItems });
+    this.setState({
+      items: newItems,
+      orderedKeys: newOrderedKeys,
+    });
   };
 
   _startEditing= (key) => {
@@ -60,21 +67,24 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
 
-  _deleteItem = (keyToDelete) => { // TODO debug, store order in ordered list!
+  _deleteItem = (keyToDelete) => {
     const newItems = this.state.items.delete(keyToDelete);
+    const newOrderedKeys = this.state.orderedKeys.filter(x => x !== keyToDelete);
 
-    this.setState({ items: newItems });
+    this.setState({
+      items: newItems,
+      orderedKeys: newOrderedKeys,
+    });
   };
 
-  // TODO debug map
   _createListItems = () => {
-    let i = 0;
-    return this.state.items.map((item, key) =>
-      <ListGroupItem key={key}>
+    return this.state.orderedKeys.map((key, index) => {
+      const item = this.state.items.get(key);
+      return (<ListGroupItem key={key}>
         <ListItem
           data={item}
-          index={i++}
-          mapKey={key} // TODO check if keys are correct, possibly causes deletion bug
+          index={index}
+          mapKey={key}
           onSave={this._saveItem}
           onDelete={this._deleteItem}
           onUpdate={this._updateItem}
@@ -82,9 +92,9 @@ class List extends PureComponent {
           onEdit={this._startEditing}
         />
       </ListGroupItem>
-    );
+      );
+    });
   };
-
 
   render() {
     const listItems = this._createListItems();
