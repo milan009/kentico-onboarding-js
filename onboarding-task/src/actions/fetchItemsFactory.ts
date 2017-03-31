@@ -1,4 +1,5 @@
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
+import { Fetch } from './IFetch';
 
 function requestItems() {
   return {
@@ -23,8 +24,6 @@ function failFetchItems(error: Error) {
     }
   };
 }
-
-type Fetch = (url: string, options?: any) => Promise<Response>;
 
 function fetchItems(fetch: Fetch, url: string) {
   return (dispatch: any) => {
