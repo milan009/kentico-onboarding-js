@@ -37,7 +37,7 @@ function fetchItems(fetch: Fetch, url: string) {
 }
 
 function fetchItemsFactory(fetch: Fetch, url: string) {
-  return () => fetchItems(fetch, url);
+  return fetchItems(fetch, url);
 }
 
 export { fetchItemsFactory, requestItems, receiveItems, failFetchItems };

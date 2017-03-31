@@ -13,7 +13,7 @@ const mapStateToProps = (state: IAppState) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addItem: (text: string) => dispatch(postItem(text)),
-    fetchItems: () => dispatch(fetchItems())
+    fetchItems: () => dispatch(fetchItems)
   };
 };
 

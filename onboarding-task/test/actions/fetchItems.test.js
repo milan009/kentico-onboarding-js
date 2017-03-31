@@ -77,7 +77,7 @@ describe('fetchItems', () => {
       const expectedDispatchAction = requestItems();
       const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com');
 
-      testFetchItems()(dispatchMock);
+      testFetchItems(dispatchMock);
 
       expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
     });
@@ -86,7 +86,7 @@ describe('fetchItems', () => {
       const fetchMock = jest.fn(fakeFetch);
       const testFetchItems = fetchItemsFactory(fetchMock, 'www.besturl.com');
 
-      testFetchItems()(dispatchMock);
+      testFetchItems(dispatchMock);
 
       expect(fetchMock.mock.calls[0][0]).toEqual('www.besturl.com');
     });
@@ -95,7 +95,7 @@ describe('fetchItems', () => {
       const expectedDispatchAction = receiveItems(responseBody);
       const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com');
 
-      testFetchItems()(dispatchMock)
+      testFetchItems(dispatchMock)
         .then(() => {
           expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
           done();
@@ -113,7 +113,7 @@ describe('fetchItems', () => {
       const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com');
 
 
-      testFetchItems()(dispatchMock)
+      testFetchItems(dispatchMock)
         .then(() => {
           expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
           done();
