@@ -1,23 +1,31 @@
 import {ITEM_CREATED, ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
+import {generateGuid} from '../utils/generateGuid';
+import {createItemFactory} from './createItemFactory';
+import {IAction} from '../stores/IAction';
 
-const createItem = (id: string, value: string) => {
-  return { type: ITEM_CREATED, id, value }
-};
+// TODO: insert types of funs
 
-const createItemFlags = (id: string) => {
-  return { type: ITEM_CREATED, id }
-};
+// TODO: rewrite/delete createItemFlags
+const createItemFlags = (id: string): IAction => ({
+  type: ITEM_CREATED,
+  payload: { id },
+});
 
-const deleteItem = (id: string) => {
-  return { type: ITEM_DELETED, id }
-};
+const deleteItem = (id: string): IAction => ({
+  type: ITEM_DELETED,
+  payload: { id },
+});
 
-const editItem = (id: string, value: string) => {
-  return { type: ITEM_EDITED, id, value }
-};
+const editItem = (id: string, value: string): IAction => ({
+  type: ITEM_EDITED,
+  payload: { id, value },
+});
 
-const toggleItemViewMode = (id: string) => {
-  return { type: ITEM_VIEW_MODE_TOGGLED, id: id }
-};
+const toggleItemViewMode = (id: string): IAction => ({
+  type: ITEM_VIEW_MODE_TOGGLED,
+  payload: { id },
+});
 
-export { createItem, deleteItem, editItem, toggleItemViewMode, createItemFlags };
+const createItemWithDependencies = createItemFactory(generateGuid);
+
+export { createItemWithDependencies as createItem, deleteItem, editItem, toggleItemViewMode, createItemFlags };
