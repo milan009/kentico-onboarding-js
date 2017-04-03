@@ -69,7 +69,7 @@ describe('uiPropsReducer ', () => {
 
   it(`returns empty uiProp for every fetched item when ${FETCH_ITEMS_SUCCESS} action is dispatched`, () => {
     const prevState = oneItemFalseState;
-    const expectedState = Immutable.Map.of(id, new ItemUiPropsRecord(), 'id-2', new ItemUiPropsRecord());
+    const expectedState = Immutable.Map.of(id, new ItemUiPropsRecord({ savedOnServer: true }), 'id-2', new ItemUiPropsRecord({ savedOnServer: true }));
     const fakeResponse = [{ id, value: 'text', ueid: 'ueid0' }, { id: 'id-2', value: 'test', ueid: 'ueid1' }];
     const actual = itemsUiPropsReducer(prevState, fetchItemsSuccess(fakeResponse));
 
