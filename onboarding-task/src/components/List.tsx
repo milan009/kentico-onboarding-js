@@ -10,8 +10,8 @@ interface IListProps {
   isFetching: boolean;
   error: string;
   successMessage: string;
-  onListItemAdd: (text: string) => IAction;
-  onListMount: () => IAction;
+  onListItemAdd: (text: string) => Promise<IAction>;
+  onListMount: () => Promise<IAction>;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
