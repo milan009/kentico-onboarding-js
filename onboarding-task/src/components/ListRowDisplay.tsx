@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListRowDisplayProps {
   item: IItemViewModel;

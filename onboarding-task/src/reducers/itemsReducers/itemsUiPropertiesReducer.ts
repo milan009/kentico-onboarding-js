@@ -5,8 +5,8 @@ import {
   ITEM_TOGGLE_EDIT,
 } from '../../actions/actionTypes';
 import { Map } from 'immutable';
-import { ItemUi } from '../../types/ItemUi';
-import { IAction } from '../../interfaces/state/IAction';
+import { ItemUi } from '../../models/ItemUi';
+import { IAction } from '../../actions/IAction';
 
 const itemsUiPropertiesReducer = (state = Map<string, ItemUi>(), action: IAction) => {
   switch (action.type) {

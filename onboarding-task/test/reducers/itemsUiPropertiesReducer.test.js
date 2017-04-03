@@ -1,7 +1,7 @@
 import { itParam } from 'mocha-param';
 import { Map } from 'immutable';
 import { createItemFactory } from '../../src/actions/createItemFactory.ts';
-import { ItemUi } from '../../src/types/ItemUi.ts';
+import { ItemUi } from '../../src/models/ItemUi.ts';
 import {
   ITEM_CREATE,
   ITEM_DELETE,

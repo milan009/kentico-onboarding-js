@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { itemsReducer } from './itemsReducers/itemsReducer';
-import { IAction } from '../interfaces/state/IAction';
-import { IAppState } from '../interfaces/state/IAppState';
+import { IAction } from '../actions/IAction';
+import { IAppState } from './IAppState';
 
 type IRootReducer = (state: IAppState, action: IAction) => IAppState;
 

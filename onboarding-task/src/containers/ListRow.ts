@@ -7,11 +7,11 @@ import {
   deleteItem,
   updateItem,
 } from '../actions/actionCreators';
-import { IAppState } from '../interfaces/state/IAppState';
-import { IItem } from '../interfaces/IItem';
-import { ItemUi } from '../types/ItemUi';
+import { IAppState } from '../reducers/IAppState';
+import { IItem } from '../models/IItem';
+import { ItemUi } from '../models/ItemUi';
 import { Dispatch } from '../types/Dispatch';
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListRowOwnProps {
   id: string;

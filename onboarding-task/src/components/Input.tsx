@@ -8,7 +8,7 @@ const ReactTooltip = require('react-tooltip');
 const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { generateUuid } from '../utils/idGenerator';
-import { IError } from '../interfaces/IError';
+import { IError } from '../models/IError';
 
 interface IErrorsTooltipProps {
   inputId: string;

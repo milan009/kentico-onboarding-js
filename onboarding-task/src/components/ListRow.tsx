@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ListRowDisplay } from './ListRowDisplay';
 import { ListRowEdit } from './ListRowEdit';
-import { IItemViewModel } from '../interfaces/IItemViewModel';
-import { IAction } from '../interfaces/state/IAction';
+import { IItemViewModel } from '../models/IItemViewModel';
+import { IAction } from '../actions/IAction';
 
 interface IListRowProps {
   item: IItemViewModel;

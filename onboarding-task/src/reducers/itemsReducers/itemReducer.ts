@@ -2,8 +2,8 @@ import {
   ITEM_CREATE,
   ITEM_UPDATE,
 } from '../../actions/actionTypes';
-import { Item } from '../../types/Item';
-import { IAction } from '../../interfaces/state/IAction';
+import { Item } from '../../models/Item';
+import { IAction } from '../../actions/IAction';
 
 const itemReducer = (state = new Item(), action: IAction): Item => {
   switch (action.type) {

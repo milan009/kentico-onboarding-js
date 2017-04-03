@@ -6,7 +6,7 @@ import {
 
 import { generateUuid } from '../utils/idGenerator';
 import { createItemFactory } from './createItemFactory';
-import { IAction } from '../interfaces/state/IAction';
+import { IAction } from './IAction';
 
 export const createItem = createItemFactory(generateUuid);
 

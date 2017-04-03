@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { validateItemText } from '../utils/itemValidator';
 import { Input } from './Input';
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListRowEditProps {
   item: IItemViewModel;

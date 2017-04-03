@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { IItem } from '../interfaces/IItem';
+import { IItem } from './IItem';
 
 interface IItemParams {
   readonly id?: string;
