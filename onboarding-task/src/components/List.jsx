@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { ItemForm } from './ItemForm';
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+import { ItemForm } from './CreateItemForm';
 import { ListItem } from './ListItem';
+import { Item } from '../models/Item';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-
-import TsComponent from './TsComponent.tsx';
 
 class List extends PureComponent {
   static displayName = 'List';
@@ -12,86 +12,105 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: ImmutableMap(),
+      orderedIds: ImmutableList(),
     };
   }
 
   _addItem = (text) => {
-    const newItems = this.state.items.slice();
-    newItems.push({
-      id: generatePseudoUniqueID(),
+    const originalItems = this.state.items;
+    const originalOrderedKeys = this.state.orderedIds;
+    const itemId = generatePseudoUniqueID();
+
+    const newItem = new Item({
+      id: itemId,
       textSaved: text,
       textShown: text,
       isEditing: false,
     });
 
-    this.setState({ items: newItems });
+    const updatedItems = originalItems.set(itemId, newItem);
+    const updatedOrderedKeys = originalOrderedKeys.push(itemId);
+
+    this.setState({
+      items: updatedItems,
+      orderedIds: updatedOrderedKeys,
+    });
   };
 
-  _startEditing = (index) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], isEditing: true };
-    newItems[index] = updatedItem;
+  _startEditing= (id) => {
+    const updatedItems = this.state.items.setIn([id, 'isEditing'], true);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _updateItem = (index, event) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], textShown: event.target.value };
-    newItems[index] = updatedItem;
+  _updateItem = (id, event) => {
+    const updatedItems = this.state.items.setIn([id, 'textShown'], event.target.value);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _cancelEditing = (index) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], isEditing: false, textShown: newItems[index].textSaved };
-    newItems[index] = updatedItem;
+  _cancelEditing = (id) => {
+    const originalItems = this.state.items;
+    const originalItem = originalItems.get(id);
+    const updatedItem = originalItem.merge({
+      textShown: originalItem.textSaved,
+      isEditing: false,
+    });
+    const updatedItems = originalItems.set(id, updatedItem);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _saveItem = (index, text) => {
-    const newItems = this.state.items.slice();
-    const updatedItem = { ...newItems[index], textShown: text, textSaved: text, isEditing: false };
-    newItems[index] = updatedItem;
+  _saveItem = (id, text) => {
+    const originalItems = this.state.items;
+    const originalItem = originalItems.get(id);
+    const updatedItem = originalItem.merge({
+      textShown: text,
+      textSaved: text,
+      isEditing: false,
+    });
+    const updatedItems = originalItems.set(id, updatedItem);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _deleteItem = (indexToDelete) => {
-    const newItems = this.state.items.filter((_, index) => index !== indexToDelete);
+  _deleteItem = (idToDelete) => {
+    const updatedItems = this.state.items.delete(idToDelete);
+    const updatedOrderedKeys = this.state.orderedIds.filter(x => x !== idToDelete);
 
-    this.setState({ items: newItems });
+    this.setState({
+      items: updatedItems,
+      orderedIds: updatedOrderedKeys,
+    });
   };
 
-  _createListItems = () =>
-    this.state.items.map((item, index) =>
-      <ListGroupItem key={item.id}>
-        <ListItem
-          data={item}
-          index={index}
-          onSave={this._saveItem}
-          onDelete={this._deleteItem}
-          onUpdate={this._updateItem}
-          onCancel={this._cancelEditing}
-          onEdit={this._startEditing}
-        />
-      </ListGroupItem>
-    );
+  _createListItems = () => {
+    return this.state.orderedIds.map((id, index) => {
+      const item = this.state.items.get(id);
 
+      return (
+        <ListGroupItem key={id}>
+          <ListItem
+            data={item}
+            index={index}
+            id={id}
+            onSave={this._saveItem}
+            onDelete={this._deleteItem}
+            onUpdate={this._updateItem}
+            onCancel={this._cancelEditing}
+            onEdit={this._startEditing}
+          />
+        </ListGroupItem>
+      );
+    });
+  };
 
   render() {
     const listItems = this._createListItems();
 
     return (
       <div className="row">
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-sm-12">

@@ -6,8 +6,9 @@ const ListItem = (props) => {
   if (props.data.isEditing) {
     return (
       <EditedListItem
-        text={props.data.textShown}
         index={props.index}
+        id={props.id}
+        text={props.data.textShown}
         onSave={props.onSave}
         onDelete={props.onDelete}
         onUpdate={props.onUpdate}
@@ -21,7 +22,7 @@ const ListItem = (props) => {
     <InsertedListItem
       text={props.data.textShown}
       index={props.index}
-      key={props.data.id}
+      id={props.id}
       onEdit={props.onEdit}
     />
   );
@@ -30,6 +31,7 @@ const ListItem = (props) => {
 ListItem.propTypes = {
   data: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
