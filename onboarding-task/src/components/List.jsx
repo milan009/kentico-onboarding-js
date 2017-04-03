@@ -20,16 +20,17 @@ class List extends PureComponent {
   _addItem = (text) => {
     const originalItems = this.state.items;
     const originalOrderedKeys = this.state.orderedIds;
-    const id = generatePseudoUniqueID();
+    const itemId = generatePseudoUniqueID();
 
     const newItem = new Item({
+      id: itemId,
       textSaved: text,
       textShown: text,
       isEditing: false,
     });
 
-    const updatedItems = originalItems.set(id, newItem);
-    const updatedOrderedKeys = originalOrderedKeys.push(id);
+    const updatedItems = originalItems.set(itemId, newItem);
+    const updatedOrderedKeys = originalOrderedKeys.push(itemId);
 
     this.setState({
       items: updatedItems,
