@@ -4,10 +4,10 @@ import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './ListItemSavedFlag';
 
 interface ListItemLabelProps {
-  text: string;
-  index: number;
-  savedOnServer: boolean;
-  onClick: () => IAction;
+  readonly text: string;
+  readonly index: number;
+  readonly savedOnServer: boolean;
+  readonly onClick: () => IAction;
 }
 
 const ListItemLabel = ({ text, index, onClick, savedOnServer }: ListItemLabelProps) =>

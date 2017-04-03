@@ -1,7 +1,7 @@
 import { IItems } from './IItems';
 
 interface IAppState {
-  items: IItems;
+  readonly items: IItems;
 }
 
 export { IAppState };

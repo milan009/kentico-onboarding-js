@@ -6,8 +6,8 @@ import { IAction } from '../interfaces/IAction';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 
 interface IListItemProps {
-  item: IItemViewModel;
-  onLabelClick: () => IAction;
+  readonly item: IItemViewModel;
+  readonly onLabelClick: () => IAction;
 }
 
 class ListItem extends React.PureComponent<IListItemProps, undefined> {

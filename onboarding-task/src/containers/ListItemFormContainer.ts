@@ -7,7 +7,7 @@ import { dispatchType } from '../utils/dispatchType';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 
 interface IOwnProps {
-  item: IItemViewModel;
+  readonly item: IItemViewModel;
 }
 
 const mapStateToProps = (_state: IAppState, ownProps: IOwnProps) => {

@@ -5,16 +5,16 @@ import { ListItemSavedFlag } from './ListItemSavedFlag';
 import { ListItemValidatedInput } from './ListItemValidatedInput';
 
 interface IListItemFormProps {
-  index: number;
-  inputValue: string;
-  savedOnServer: boolean;
-  onFormSubmit: (input: string) => IAction;
-  onFormCancelClick: () => IAction;
-  onFormDeleteClick: () => IAction;
+  readonly index: number;
+  readonly inputValue: string;
+  readonly savedOnServer: boolean;
+  readonly onFormSubmit: (input: string) => IAction;
+  readonly onFormCancelClick: () => IAction;
+  readonly onFormDeleteClick: () => IAction;
 }
 
 interface IListItemFormState {
-  input: string;
+  readonly input: string;
 }
 
 class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemFormState> {

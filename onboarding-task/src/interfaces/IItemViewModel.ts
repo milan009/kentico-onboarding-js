@@ -1,7 +1,7 @@
 export interface IItemViewModel {
-  id: string;
-  text: string;
-  formDisplayed: boolean;
-  index: number;
-  savedOnServer: boolean;
+  readonly id: string;
+  readonly text: string;
+  readonly formDisplayed: boolean;
+  readonly index: number;
+  readonly savedOnServer: boolean;
 }

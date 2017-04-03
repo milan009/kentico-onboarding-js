@@ -1,13 +1,13 @@
 import { Record } from 'immutable';
 
 interface IItemUiPropsRecord {
-  formDisplayed: boolean;
-  savedOnServer: boolean;
+  readonly formDisplayed: boolean;
+  readonly savedOnServer: boolean;
 }
 
 interface IItemUiPropsDefaultValues {
-  formDisplayed?: boolean;
-  savedOnServer?: boolean;
+  readonly formDisplayed?: boolean;
+  readonly savedOnServer?: boolean;
 }
 
 const itemUiPropsDefaultValues: IItemUiPropsDefaultValues = {

@@ -1,5 +1,5 @@
 export interface IFetchedItem {
-  id: string;
-  ueid: string;
-  value: string;
+  readonly id: string;
+  readonly ueid: string;
+  readonly value: string;
 }

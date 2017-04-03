@@ -2,12 +2,12 @@ import React = require('react');
 import {ListItemValidatedInput} from './ListItemValidatedInput';
 
 interface ICreateListItemProps {
-  onListItemAdd: (input: string) => void;
+  readonly onListItemAdd: (input: string) => void;
 }
 
 interface ICreateListItemState {
-  input: string;
-  showError: boolean;
+  readonly input: string;
+  readonly showError: boolean;
 }
 
 class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateListItemState> {

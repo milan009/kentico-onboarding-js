@@ -1,12 +1,12 @@
 import React = require('react');
 
 interface ListItemValidatedInputProps {
-  onInputChange: (input: string) => void;
-  input: string;
+  readonly onInputChange: (input: string) => void;
+  readonly input: string;
 }
 
 interface ListItemValidatedInputState {
-  showError: boolean;
+  readonly showError: boolean;
 }
 
 class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputProps, ListItemValidatedInputState> {

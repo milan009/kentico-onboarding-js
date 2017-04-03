@@ -15,7 +15,7 @@ const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: n
 const memoizedListItemViewModel = memoize(getListItemViewModel);
 
 interface IOwnProps {
-  id: string;
+  readonly id: string;
 }
 
 const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {

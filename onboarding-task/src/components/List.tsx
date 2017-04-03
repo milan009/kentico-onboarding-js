@@ -6,12 +6,12 @@ import { CreateListItem } from './CreateListItem';
 import { IAction } from '../interfaces/IAction';
 
 interface IListProps {
-  itemsOrder: ImmutableList<string>;
-  isFetching: boolean;
-  error: string;
-  successMessage: string;
-  onListItemAdd: (text: string) => Promise<IAction>;
-  onListMount: () => Promise<IAction>;
+  readonly itemsOrder: ImmutableList<string>;
+  readonly isFetching: boolean;
+  readonly error: string;
+  readonly successMessage: string;
+  readonly onListItemAdd: (text: string) => Promise<IAction>;
+  readonly onListMount: () => Promise<IAction>;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
