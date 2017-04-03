@@ -2,6 +2,7 @@ import React = require('react');
 
 import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './ListItemSavedFlag';
+import { ListItemValidatedInput } from './ListItemValidatedInput';
 
 interface IListItemFormProps {
   index: number;
@@ -27,12 +28,17 @@ class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemForm
       input: props.inputValue,
     };
 
-    this._onChange = this._onChange.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._isValid = this._isValid.bind(this);
   }
 
-  _onChange(event: any) {
-    this.setState({ input: event.target.value });
+  _isValid(input: string) {
+    return input !== '';
+  }
+
+  _onInputChange(input: string) {
+    this.setState({ input });
   }
 
   _onSubmit(event: any) {
@@ -44,13 +50,8 @@ class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemForm
     return (
       <div className="container-fluid">
         <form className="form-inline col-md-10" onSubmit={this._onSubmit}>
-          {this.props.index}. <input
-            type="text"
-            className="form-control"
-            value={this.state.input}
-            onChange={this._onChange}
-          />
-        <button type="submit" className="btn btn-primary"> Change</button>
+          {this.props.index}. <ListItemValidatedInput onInputChange={this._onInputChange} input={this.state.input} />
+        <button type="submit" className="btn btn-primary" disabled={!this._isValid(this.state.input)} > Change</button>
         <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
       </form>

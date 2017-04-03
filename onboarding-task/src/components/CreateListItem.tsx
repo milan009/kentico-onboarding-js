@@ -1,4 +1,5 @@
 import React = require('react');
+import {ListItemValidatedInput} from './ListItemValidatedInput';
 
 interface ICreateListItemProps {
   onListItemAdd: (input: string) => void;
@@ -6,6 +7,7 @@ interface ICreateListItemProps {
 
 interface ICreateListItemState {
   input: string;
+  showError: boolean;
 }
 
 class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateListItemState> {
@@ -15,14 +17,22 @@ class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateLi
   constructor(props: ICreateListItemProps) {
     super(props);
 
-    this.state = { input: '' };
+    this.state = {
+      input: '',
+      showError: false,
+    };
 
     this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._isValid = this._isValid.bind(this);
   }
 
-  _onInputChange(event: any) {
-    this.setState({ input: event.target.value });
+  _isValid(input: string) {
+    return input !== '';
+  }
+
+  _onInputChange(input: string) {
+    this.setState({ input });
   }
 
   _onSubmit(event: any) {
@@ -35,8 +45,8 @@ class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateLi
   render() {
     return (
       <form className="form-inline" onSubmit={this._onSubmit} >
-        <input type="text" className="form-control" value={this.state.input} placeholder="Add item" onChange={this._onInputChange} />
-        <button type="submit" className="btn btn-default" > Add </button>
+        <ListItemValidatedInput onInputChange={this._onInputChange} input={this.state.input} />
+        <button type="submit" className="btn btn-default" disabled={!this._isValid(this.state.input)} > Add </button>
       </form>
     );
   }
