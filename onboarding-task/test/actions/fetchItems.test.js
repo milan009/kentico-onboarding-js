@@ -17,7 +17,7 @@ describe('fetchItems', () => {
 
   describe('action creators test', () => {
     it('should return request items action', () => {
-      const expectedAction = { type: FETCH_ITEMS_REQUEST };
+      const expectedAction = { type: FETCH_ITEMS_REQUEST, payload: {} };
 
       const resultAction = requestItems();
 

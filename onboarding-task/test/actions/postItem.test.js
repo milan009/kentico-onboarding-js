@@ -1,6 +1,6 @@
-import { POST_ITEM_REQUEST, POST_ITEM_RECEIVE, POST_ITEM_FAIL } from '../../src/actions/actionTypes.ts';
+import { POST_ITEM_RECEIVE, POST_ITEM_FAIL } from '../../src/actions/actionTypes.ts';
 import { Item } from '../../src/models/Item.ts';
-import { requestPostItem, receivePostItem, failPostItem, postItemFactory } from '../../src/actions/postItemFactory.ts';
+import { receivePostItem, failPostItem, postItemFactory } from '../../src/actions/postItemFactory.ts';
 
 describe('postItem', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -8,19 +8,6 @@ describe('postItem', () => {
   const testItem = new Item({ id: '00000000-0000-0000-0000-000000000000', text: testText });
 
   describe('postItem action creators', () => {
-    it('should create post request action', () => {
-      const expectedAction = {
-        type: POST_ITEM_REQUEST,
-        payload: {
-          item: testItem,
-        },
-      };
-
-      const resultAction = requestPostItem(testItem);
-
-      expect(resultAction).toEqual(expectedAction);
-    });
-
     it('should create post receive action', () => {
       const expectedAction = {
         type: POST_ITEM_RECEIVE,
@@ -63,15 +50,6 @@ describe('postItem', () => {
       dispatchMock.mockReset();
     });
 
-    it('should dispatch requestPostItem', () => {
-      const expectedDispatchAction = requestPostItem(testItem);
-      const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com');
-
-      testPostItem(testText)(dispatchMock);
-
-      expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
-    });
-
     it('should call fetch with correct url', () => {
       const fetchMock = jest.fn(fakeFetch);
       const testPostItem = postItemFactory(fetchMock, 'www.besturl.com');
@@ -105,7 +83,7 @@ describe('postItem', () => {
 
       testPostItem(testText)(dispatchMock)
         .then(() => {
-          expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
+          expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
           done();
         })
         .catch((e) => {

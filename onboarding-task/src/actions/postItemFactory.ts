@@ -1,16 +1,7 @@
-import { POST_ITEM_FAIL, POST_ITEM_RECEIVE, POST_ITEM_REQUEST } from './actionTypes';
+import { POST_ITEM_FAIL, POST_ITEM_RECEIVE } from './actionTypes';
 import { Item } from '../models/Item';
 import { Fetch } from './IFetch';
 import { Dispatch } from '../stores/Dispatch';
-
-function requestPostItem(item: Item) {
-  return {
-    type: POST_ITEM_REQUEST,
-    payload: {
-      item
-    }
-  };
-}
 
 function receivePostItem(json: any) {
   return {
@@ -34,7 +25,6 @@ function postItems(fetch: Fetch, url: string) {
   return (text: string) => {
     return (dispatch: Dispatch) => {
       const item = new Item({ text });
-      dispatch(requestPostItem(item));
 
       return fetch(url, {
         method: 'POST',
@@ -54,4 +44,4 @@ function postItemFactory (fetch: Fetch, url: string) {
   return postItems(fetch, url);
 }
 
-export { requestPostItem, receivePostItem, failPostItem, postItemFactory };
+export { receivePostItem, failPostItem, postItemFactory };
