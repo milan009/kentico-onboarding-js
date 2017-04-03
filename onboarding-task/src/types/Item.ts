@@ -16,6 +16,6 @@ export class Item extends Record(itemDefaultValues) implements IItem {
   readonly text: string;
   with = (params: IItemParams) : Item => {
 
-    return new Item({id: this.id, text: this.text, ...params});
+    return this.merge(params) as Item;
   }
 }
