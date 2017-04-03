@@ -8,7 +8,9 @@ import thunk from 'redux-thunk';
 
 import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
+import './sticky-footer.css';
 import './index.css';
+import './loader.css';
 
 const logger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
