@@ -3,8 +3,6 @@ import { validateItemText } from '../utils/itemValidator';
 import { Input } from './Input';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-const { PropTypes } = React;
-
 interface IListRowEditProps {
   item: IItemViewModel;
   onItemUpdate: (text: string) => void;
@@ -20,10 +18,10 @@ interface IListRowEditState {
 class ListRowEdit extends React.PureComponent<IListRowEditProps, IListRowEditState> {
   static displayName = 'ListRowEdit';
   static propTypes = {
-    item: PropTypes.object.isRequired,
-    onItemUpdate: PropTypes.func.isRequired,
-    onItemDelete: PropTypes.func.isRequired,
-    onItemCancel: PropTypes.func.isRequired,
+    item: React.PropTypes.object.isRequired,
+    onItemUpdate: React.PropTypes.func.isRequired,
+    onItemDelete: React.PropTypes.func.isRequired,
+    onItemCancel: React.PropTypes.func.isRequired,
   };
 
   constructor(props: IListRowEditProps) {

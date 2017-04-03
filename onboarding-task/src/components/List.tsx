@@ -8,8 +8,6 @@ import { CreateItem } from './CreateItem';
 import { ListRow } from '../containers/ListRow';
 import { IAction } from '../interfaces/IAction';
 
-const { PropTypes } = React;
-
 interface IListProps {
   itemIds: OrderedSet<string>;
   onItemAdd: (text: string) => IAction;
@@ -48,8 +46,8 @@ const List: React.StatelessComponent<IListProps> = (props) => {
 List.displayName = 'List';
 
 List.propTypes = {
-  itemIds: ImmutablePropTypes.orderedSetOf(PropTypes.string).isRequired,
-  onItemAdd: PropTypes.func.isRequired,
+  itemIds: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,
+  onItemAdd: React.PropTypes.func.isRequired,
 };
 
 export { List };

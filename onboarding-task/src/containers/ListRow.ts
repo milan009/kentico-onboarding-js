@@ -11,6 +11,7 @@ import { IAppState } from '../interfaces/IAppState';
 import { IItem } from '../interfaces/IItem';
 import { ItemUi } from '../types/ItemUi';
 import { Dispatch } from '../types/Dispatch';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
 interface IListRowOwnProps {
   id: string;
@@ -23,7 +24,7 @@ const getIndex = (_: IAppState, props: IListRowOwnProps) => props.index;
 
 const getItemViewModel = createSelector(
   getItem, getItemUi, getIndex,
-  (item: IItem, itemUi: ItemUi, index: number) => ({
+  (item: IItem, itemUi: ItemUi, index: number) : IItemViewModel => ({
     id: item.id,
     index,
     text: item.text,

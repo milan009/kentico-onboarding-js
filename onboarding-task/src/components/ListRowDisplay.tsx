@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-const {PropTypes} = React;
-
 interface IListRowDisplayProps {
   item: IItemViewModel;
   onItemClick: () => void;
@@ -19,8 +17,8 @@ const ListRowDisplay: React.StatelessComponent<IListRowDisplayProps> = (props) =
 ListRowDisplay.displayName = 'ListRowDisplay';
 
 ListRowDisplay.propTypes = {
-  item: PropTypes.object.isRequired,
-  onItemClick: PropTypes.func.isRequired,
+  item: React.PropTypes.object.isRequired,
+  onItemClick: React.PropTypes.func.isRequired,
 };
 
 export { ListRowDisplay };

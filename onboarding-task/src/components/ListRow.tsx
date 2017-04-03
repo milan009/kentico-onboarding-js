@@ -4,8 +4,6 @@ import { ListRowEdit } from './ListRowEdit';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 import { IAction } from '../interfaces/IAction';
 
-const { PropTypes } = React;
-
 interface IListRowProps {
   item: IItemViewModel;
   onItemUpdate: (text: string) => IAction;
@@ -36,11 +34,11 @@ const ListRow: React.StatelessComponent<IListRowProps> = (props) => {
 ListRow.displayName = 'ListRow';
 
 ListRow.propTypes = {
-  item: PropTypes.object.isRequired,
-  onItemClick: PropTypes.func.isRequired,
-  onItemUpdate: PropTypes.func.isRequired,
-  onItemDelete: PropTypes.func.isRequired,
-  onItemCancel: PropTypes.func.isRequired,
+  item: React.PropTypes.object.isRequired,
+  onItemClick: React.PropTypes.func.isRequired,
+  onItemUpdate: React.PropTypes.func.isRequired,
+  onItemDelete: React.PropTypes.func.isRequired,
+  onItemCancel: React.PropTypes.func.isRequired,
 };
 
 export { ListRow };
