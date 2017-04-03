@@ -5,6 +5,7 @@ import { ListItemContainer } from '../containers/ListItemContainer';
 import { CreateListItem } from './CreateListItem';
 import { IAction } from '../interfaces/IAction';
 import { Loader } from './Loader';
+import { StatusMessage } from './StatusMessage';
 
 interface IListProps {
   readonly itemsOrder: ImmutableList<string>;
@@ -37,22 +38,9 @@ class List extends React.PureComponent<IListProps, undefined> {
         </li>
       );
 
-      const error = this.props.error && this.props.error !== ''
-        ? (<div className="alert alert-danger" role="alert">
-          <strong>Error!</strong> {this.props.error}
-        </div> )
-        : '';
-
-      const successMessage = this.props.successMessage && this.props.successMessage !== ''
-        ? (<div className="alert alert-success" role="alert">
-          <strong>Success!</strong> {this.props.successMessage}
-        </div> )
-        : '';
-
       return (
         <div>
-          {error}
-          {successMessage}
+          <StatusMessage successMessage={this.props.successMessage} error={this.props.error} />
           <ul className="list-group">
 
             {listItems}
