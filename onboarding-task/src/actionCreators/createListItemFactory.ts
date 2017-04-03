@@ -2,8 +2,8 @@ import { CREATE_ITEM_IN_LIST } from '../constants/actionTypes';
 import { IAction } from '../interfaces/IAction';
 import { dispatchType } from '../utils/dispatchType';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
+import { createGuidType } from '../utils/guidHelper';
 
-type ICreateGuid = () => string;
 type ISendItem = (item: IFetchedItem) => (dispatch: dispatchType) => Promise<IAction>;
 
 const createListItemAction = (id: string, text: string): IAction => {
@@ -16,7 +16,7 @@ const createListItemAction = (id: string, text: string): IAction => {
   };
 };
 
-const createListItem = (createGuid: ICreateGuid, text: string, sendItemParam: ISendItem) => {
+const createListItem = (createGuid: createGuidType, text: string, sendItemParam: ISendItem) => {
   const id = createGuid();
   return (dispatch: dispatchType) => {
     dispatch(createListItemAction(id, text));
@@ -24,7 +24,7 @@ const createListItem = (createGuid: ICreateGuid, text: string, sendItemParam: IS
   };
 };
 
-const createListItemFactory = (createGuid: ICreateGuid, sendItemParam: ISendItem) =>
+const createListItemFactory = (createGuid: createGuidType, sendItemParam: ISendItem) =>
   (text: string) => createListItem(createGuid, text, sendItemParam);
 
 export { createListItemFactory, createListItemAction };
