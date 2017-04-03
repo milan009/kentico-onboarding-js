@@ -7,7 +7,7 @@ import {
   deleteItem,
   updateItem,
 } from '../actions/actionCreators';
-import { IAppState } from '../interfaces/IAppState';
+import { IAppState } from '../interfaces/state/IAppState';
 import { IItem } from '../interfaces/IItem';
 import { ItemUi } from '../types/ItemUi';
 import { Dispatch } from '../types/Dispatch';

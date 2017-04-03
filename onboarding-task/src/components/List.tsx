@@ -6,7 +6,7 @@ import { OrderedSet } from 'immutable';
 import TsComponent from './TsComponent';
 import { CreateItem } from './CreateItem';
 import { ListRow } from '../containers/ListRow';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../interfaces/state/IAction';
 
 interface IListProps {
   itemIds: OrderedSet<string>;

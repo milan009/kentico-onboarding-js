@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ListRowDisplay } from './ListRowDisplay';
 import { ListRowEdit } from './ListRowEdit';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../interfaces/state/IAction';
 
 interface IListRowProps {
   item: IItemViewModel;

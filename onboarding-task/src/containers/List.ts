@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 import { createItem } from '../actions/actionCreators';
 import { OrderedSet } from 'immutable';
-import { IAppState } from '../interfaces/IAppState';
+import { IAppState } from '../interfaces/state/IAppState';
 import { Dispatch } from '../types/Dispatch';
 import { createSelector } from 'reselect';
 

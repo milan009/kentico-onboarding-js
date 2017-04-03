@@ -1,3 +1,3 @@
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../interfaces/state/IAction';
 
 export type Dispatch = (action: IAction) => IAction;

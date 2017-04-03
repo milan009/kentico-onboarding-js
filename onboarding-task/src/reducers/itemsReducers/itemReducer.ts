@@ -3,7 +3,7 @@ import {
   ITEM_UPDATE,
 } from '../../actions/actionTypes';
 import { Item } from '../../types/Item';
-import { IAction } from '../../interfaces/IAction';
+import { IAction } from '../../interfaces/state/IAction';
 
 const itemReducer = (state = new Item(), action: IAction): Item => {
   switch (action.type) {

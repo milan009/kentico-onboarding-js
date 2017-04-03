@@ -5,7 +5,7 @@ import {
 } from '../../actions/actionTypes';
 import { OrderedMap } from 'immutable';
 import { itemReducer } from './itemReducer';
-import { IAction } from '../../interfaces/IAction';
+import { IAction } from '../../interfaces/state/IAction';
 import { Item } from '../../types/Item';
 
 const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): OrderedMap<string, Item> => {

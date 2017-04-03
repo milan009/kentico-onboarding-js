@@ -6,7 +6,7 @@ import {
 } from '../../actions/actionTypes';
 import { Map } from 'immutable';
 import { ItemUi } from '../../types/ItemUi';
-import { IAction } from '../../interfaces/IAction';
+import { IAction } from '../../interfaces/state/IAction';
 
 const itemsUiPropertiesReducer = (state = Map<string, ItemUi>(), action: IAction) => {
   switch (action.type) {

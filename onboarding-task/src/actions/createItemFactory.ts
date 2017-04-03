@@ -1,7 +1,7 @@
 import {
   ITEM_CREATE,
 } from './actionTypes';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../interfaces/state/IAction';
 
 type IGenerateId = () => string;
 

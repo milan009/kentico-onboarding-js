@@ -1,4 +1,4 @@
-import { IItem } from '../interfaces/IItem';
+import { IItem } from './IItem';
 
 export interface IItemViewModel extends IItem {
   index: number;
