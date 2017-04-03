@@ -5,6 +5,8 @@ import {
   CREATE_ITEM_IN_LIST,
   DELETE_ITEM_FROM_LIST,
   FETCH_ITEMS_SUCCESS,
+  SEND_ITEM_FAILURE,
+  SEND_ITEM_SUCCESS,
 } from '../../constants/actionTypes';
 import { itemReducer } from './itemReducer';
 import {ItemRecord} from '../../models/ItemRecord';
@@ -30,6 +32,13 @@ const itemsByIdsReducer = (prevState = Map<string, ItemRecord>(), action: IActio
         result = result.set(fetchedItem.id, new ItemRecord({ id: fetchedItem.id, text: fetchedItem.value }));
       });
       return result;
+
+    case SEND_ITEM_SUCCESS:
+      const tmpState = prevState.delete(action.payload.item.ueid);
+      return tmpState.set(action.payload.item.id, new ItemRecord({ id: action.payload.item.id, text: action.payload.item.value }));
+
+    case SEND_ITEM_FAILURE:
+      return prevState.delete(action.payload.itemId);
 
     default:
       return prevState;

@@ -11,7 +11,6 @@ const itemReducer = (prevState = new ItemRecord(), action: IAction): ItemRecord 
       return new ItemRecord({ id: action.payload.id, text: action.payload.text });
 
     case UPDATE_TEXT_OF_ITEM:
-
       return prevState.merge({ text: action.payload.text }) as ItemRecord;
 
     default:
