@@ -4,9 +4,17 @@ import { createItem } from '../actions/actionCreators';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../interfaces/IAppState';
 import { Dispatch } from '../types/Dispatch';
+import { createSelector } from 'reselect';
+
+const getItemIds = (state: IAppState) => OrderedSet.fromKeys(state.items.byId);
+
+const getListViewModel = createSelector(
+  getItemIds,
+  (itemIds: OrderedSet<string>) => itemIds
+);
 
 const mapStateToProps = (state: IAppState) => {
-  return { itemIds: OrderedSet.fromKeys(state.items.byId) };
+  return { itemIds: getListViewModel(state) };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
