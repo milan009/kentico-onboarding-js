@@ -1,7 +1,9 @@
 import * as actionTypes from '../actionTypes.js';
+import { createGuid } from '../utils/guidHelper.js';
 
-export function addItem(text) {
-  return { type: actionTypes.ADD_ITEM, text };
+export const addItem = (text) => {
+  const id = createGuid();
+  return { type: actionTypes.ADD_ITEM, text, id };
 }
 
 export function deleteItem(id) {
