@@ -4,15 +4,17 @@ import { updateListItem, switchFormVisibilityForListItem, deleteListItem } from 
 import { ListItemForm } from '../components/ListItemForm';
 import { IAppState } from '../interfaces/IAppState';
 import { dispatchType } from '../utils/dispatchType';
+import { IItemViewModel } from '../interfaces/IItemViewModel';
 
 interface IOwnProps {
-  item: { id: string; text: string; formDisplayed: boolean; index: number; };
+  item: IItemViewModel;
 }
 
 const mapStateToProps = (_state: IAppState, ownProps: IOwnProps) => {
   return {
     inputValue: ownProps.item.text,
     index: ownProps.item.index,
+    savedOnServer: ownProps.item.savedOnServer,
   };
 };
 

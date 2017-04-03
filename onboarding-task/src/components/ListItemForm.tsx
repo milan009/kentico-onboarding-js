@@ -1,10 +1,12 @@
 import React = require('react');
 
 import { IAction } from '../interfaces/IAction';
+import { ListItemSavedFlag } from './ListItemSavedFlag';
 
 interface IListItemFormProps {
   index: number;
   inputValue: string;
+  savedOnServer: boolean;
   onFormSubmit: (input: string) => IAction;
   onFormCancelClick: () => IAction;
   onFormDeleteClick: () => IAction;
@@ -40,17 +42,20 @@ class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemForm
 
   render() {
     return (
-      <form className="form-inline" onSubmit={this._onSubmit}>
-        {this.props.index}. <input
-          type="text"
-          className="form-control"
-          value={this.state.input}
-          onChange={this._onChange}
-        />
+      <div className="container-fluid">
+        <form className="form-inline col-md-10" onSubmit={this._onSubmit}>
+          {this.props.index}. <input
+            type="text"
+            className="form-control"
+            value={this.state.input}
+            onChange={this._onChange}
+          />
         <button type="submit" className="btn btn-primary"> Change</button>
         <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
       </form>
+      <ListItemSavedFlag saved={this.props.savedOnServer}/>
+    </div>
     );
   }
 }
