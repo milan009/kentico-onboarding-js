@@ -7,7 +7,7 @@ const ListItem = (props) => {
     return (
       <EditedListItem
         index={props.index}
-        mapKey={props.mapKey}
+        id={props.id}
         text={props.data.textShown}
         onSave={props.onSave}
         onDelete={props.onDelete}
@@ -22,7 +22,7 @@ const ListItem = (props) => {
     <InsertedListItem
       text={props.data.textShown}
       index={props.index}
-      mapKey={props.mapKey}
+      id={props.id}
       onEdit={props.onEdit}
     />
   );
@@ -31,7 +31,7 @@ const ListItem = (props) => {
 ListItem.propTypes = {
   data: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  mapKey: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

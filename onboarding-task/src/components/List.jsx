@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Map as ImmutableMap, Record, List as ImmutableList } from 'immutable';
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { ItemForm } from './CreateItemForm';
 import { ListItem } from './ListItem';
+import { Item } from '../models/Item';
 import { generatePseudoUniqueID } from '../utils/keyGenerator';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-
-import TsComponent from './TsComponent.tsx';
 
 class List extends PureComponent {
   static displayName = 'List';
@@ -14,84 +13,94 @@ class List extends PureComponent {
     super(props);
     this.state = {
       items: ImmutableMap(),
-      orderedKeys: ImmutableList(),
+      orderedIds: ImmutableList(),
     };
   }
 
   _addItem = (text) => {
     const originalItems = this.state.items;
-    const originalOrderedKeys = this.state.orderedKeys;
+    const originalOrderedKeys = this.state.orderedIds;
     const id = generatePseudoUniqueID();
 
-    const newItem = new Record({
+    const newItem = new Item({
       textSaved: text,
       textShown: text,
       isEditing: false,
     });
 
-    const newItems = originalItems.set(id, newItem());
-    const newOrderedKeys = originalOrderedKeys.insert(originalOrderedKeys.size, id);
+    const updatedItems = originalItems.set(id, newItem);
+    const updatedOrderedKeys = originalOrderedKeys.insert(originalOrderedKeys.size, id);
 
     this.setState({
-      items: newItems,
-      orderedKeys: newOrderedKeys,
+      items: updatedItems,
+      orderedIds: updatedOrderedKeys,
     });
   };
 
-  _startEditing= (key) => {
-    const newItems = this.state.items.setIn([key, 'isEditing'], true);
+  _startEditing= (id) => {
+    const updatedItems = this.state.items.setIn([id, 'isEditing'], true);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _updateItem = (key, event) => {
-    const newItems = this.state.items.setIn([key, 'textShown'], event.target.value);
+  _updateItem = (id, event) => {
+    const updatedItems = this.state.items.setIn([id, 'textShown'], event.target.value);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _cancelEditing = (key) => {
-    let newItems = this.state.items;
-    newItems = newItems.setIn([key, 'textShown'], newItems.get(key).textSaved);
-    newItems = newItems.setIn([key, 'isEditing'], false);
+  _cancelEditing = (id) => {
+    const originalItems = this.state.items;
+    const originalItem = originalItems.get(id);
+    const updatedItem = originalItem.merge({
+      textShown: originalItem.textSaved,
+      isEditing: false,
+    });
+    const updatedItems = originalItems.set(id, updatedItem);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _saveItem = (key, text) => {
-    let newItems = this.state.items;
-    newItems = newItems.setIn([key, 'textShown'], text);
-    newItems = newItems.setIn([key, 'textSaved'], text);
-    newItems = newItems.setIn([key, 'isEditing'], false);
+  _saveItem = (id, text) => {
+    const originalItems = this.state.items;
+    const originalItem = originalItems.get(id);
+    const updatedItem = originalItem.merge({
+      textShown: text,
+      textSaved: text,
+      isEditing: false,
+    });
+    const updatedItems = originalItems.set(id, updatedItem);
 
-    this.setState({ items: newItems });
+    this.setState({ items: updatedItems });
   };
 
-  _deleteItem = (keyToDelete) => {
-    const newItems = this.state.items.delete(keyToDelete);
-    const newOrderedKeys = this.state.orderedKeys.filter(x => x !== keyToDelete);
+  _deleteItem = (idToDelete) => {
+    const newItems = this.state.items.delete(idToDelete);
+    const newOrderedKeys = this.state.orderedIds.filter(x => x !== idToDelete);
 
     this.setState({
       items: newItems,
-      orderedKeys: newOrderedKeys,
+      orderedIds: newOrderedKeys,
     });
   };
 
   _createListItems = () => {
-    return this.state.orderedKeys.map((key, index) => {
-      const item = this.state.items.get(key);
-      return (<ListGroupItem key={key}>
-        <ListItem
-          data={item}
-          index={index}
-          mapKey={key}
-          onSave={this._saveItem}
-          onDelete={this._deleteItem}
-          onUpdate={this._updateItem}
-          onCancel={this._cancelEditing}
-          onEdit={this._startEditing}
-        />
-      </ListGroupItem>
+    return this.state.orderedIds.map((id, index) => {
+      const item = this.state.items.get(id);
+
+      return (
+        <ListGroupItem key={id}>
+          <ListItem
+            data={item}
+            index={index}
+            id={id}
+            onSave={this._saveItem}
+            onDelete={this._deleteItem}
+            onUpdate={this._updateItem}
+            onCancel={this._cancelEditing}
+            onEdit={this._startEditing}
+          />
+        </ListGroupItem>
       );
     });
   };
@@ -101,11 +110,6 @@ class List extends PureComponent {
 
     return (
       <div className="row">
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-sm-12">

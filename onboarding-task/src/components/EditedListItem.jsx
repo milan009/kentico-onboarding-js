@@ -7,7 +7,7 @@ class EditedListItem extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    mapKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -15,19 +15,19 @@ class EditedListItem extends PureComponent {
   };
 
   _onInputChange = (event) => {
-    this.props.onUpdate(this.props.mapKey, event);
+    this.props.onUpdate(this.props.id, event);
   };
 
   _onSaveButtonClick = () => {
-    this.props.onSave(this.props.mapKey, this.props.text);
+    this.props.onSave(this.props.id, this.props.text);
   };
 
   _onCancelButtonClick = () => {
-    this.props.onCancel(this.props.mapKey);
+    this.props.onCancel(this.props.id);
   };
 
   _onDeleteButtonClick = () => {
-    this.props.onDelete(this.props.mapKey);
+    this.props.onDelete(this.props.id);
   };
 
   render() {
