@@ -8,7 +8,8 @@ const ListItemSavedFlag = ({ saved }: ListItemSavedFlagProps) => {
   const style = {
     color: saved ? 'green' : 'orange',
   }
-  return <span><span className={saved ? 'glyphicon glyphicon-cloud' : 'glyphicon glyphicon-alert'} style={style}></span></span>;
+  const tooltip = saved ? 'Item is saved in database.' : 'Item is not saved in database.';
+  return <span title={tooltip}><span className={saved ? 'glyphicon glyphicon-cloud' : 'glyphicon glyphicon-alert'} style={style}></span></span>;
 }
 
 export { ListItemSavedFlag };
