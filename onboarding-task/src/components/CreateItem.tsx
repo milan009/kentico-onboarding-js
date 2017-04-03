@@ -1,17 +1,23 @@
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
-import { validateItemText } from '../utils/itemValidator.js';
-import { Input } from './Input.jsx';
+import * as React from 'react';
+import { validateItemText } from '../utils/itemValidator';
+import { Input } from './Input';
 
-class CreateItem extends PureComponent {
+interface ICreateItemProps {
+  onItemAdd: (text: string) => void;
+}
+
+interface ICreateItemState {
+  text: string;
+  isAddDisabled: boolean;
+}
+
+class CreateItem extends React.PureComponent<ICreateItemProps, ICreateItemState> {
   static displayName = 'CreateItem';
   static propTypes = {
-    onItemAdd: PropTypes.func.isRequired,
+    onItemAdd: React.PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: ICreateItemProps) {
     super(props);
 
     this.state = {
@@ -20,14 +26,14 @@ class CreateItem extends PureComponent {
     };
   }
 
-  _onTextChange = (value, isValid) => {
+  _onTextChange = (value: string, isValid: boolean) => {
     this.setState({
       text: value,
       isAddDisabled: !isValid,
     });
   };
 
-  _handleSubmit = (event) => {
+  _handleSubmit = (event: any) => {
     event.preventDefault();
     const text = this.state.text;
     this.props.onItemAdd(text);

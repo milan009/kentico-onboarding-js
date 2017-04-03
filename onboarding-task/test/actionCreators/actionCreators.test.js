@@ -3,14 +3,14 @@ import {
   ITEM_UPDATE,
   ITEM_CREATE,
   ITEM_TOGGLE_EDIT,
-} from '../../src/actions/actionTypes.js';
+} from '../../src/actions/actionTypes.ts';
 import {
   createItem,
   updateItem,
   deleteItem,
   toggleEditItem,
-} from '../../src/actions/actionCreators.js';
-import { createItemFactory } from '../../src/actions/createItemFactory.js';
+} from '../../src/actions/actionCreators.ts';
+import { createItemFactory } from '../../src/actions/createItemFactory.ts';
 
 describe('actionCreators:', () => {
   const id = 'TestId';

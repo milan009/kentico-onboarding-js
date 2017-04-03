@@ -2,11 +2,13 @@ import {
   ITEM_CREATE,
   ITEM_DELETE,
   ITEM_UPDATE,
-} from '../../actions/actionTypes.js';
-import { Map } from 'immutable';
-import { itemReducer } from './itemReducer.js';
+} from '../../actions/actionTypes';
+import { OrderedMap } from 'immutable';
+import { itemReducer } from './itemReducer';
+import { IAction } from '../../actions/IAction';
+import { Item } from '../../models/Item';
 
-const itemsByIdReducer = (state = Map(), action) => {
+const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): OrderedMap<string, Item> => {
   switch (action.type) {
     case ITEM_CREATE: {
       const newItem = itemReducer(undefined, action);

@@ -1,15 +1,21 @@
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
-import ReactTooltip from 'react-tooltip';
-import classNames from 'classnames';
+import * as React from 'react';
+import { StatelessComponent, PropTypes } from 'react';
+import * as classNames from 'classnames';
 import { List } from 'immutable';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { generateUuid } from '../utils/idGenerator.js';
+// No types included or available
+const ReactTooltip = require('react-tooltip');
+const ImmutablePropTypes = require('react-immutable-proptypes');
 
-function ErrorsTooltip(props) {
+import { generateUuid } from '../utils/idGenerator';
+import { IError } from '../models/IError';
+
+interface IErrorsTooltipProps {
+  inputId: string;
+  errors: List<string>;
+}
+
+const ErrorsTooltip: StatelessComponent<IErrorsTooltipProps> = (props) => {
   if (!props.errors.size) {
     return <noscript />;
   }
@@ -27,14 +33,26 @@ function ErrorsTooltip(props) {
       </ul>
     </ReactTooltip>
   );
-}
-
-ErrorsTooltip.propTypes = {
-  inputId: PropTypes.string.isRequired,
-  errors: ImmutablePropTypes.listOf(PropTypes.string),
 };
 
-class Input extends PureComponent {
+ErrorsTooltip.displayName = 'ErrorsTooltip';
+ErrorsTooltip.propTypes = {
+  inputId: PropTypes.string.isRequired,
+  errors: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+};
+
+
+interface IInputProps {
+  value: string;
+  onChange: (text: string, isValid: boolean) => void;
+  validate: (text: string) => IError;
+}
+
+interface IInputState {
+  errors: List<string>;
+}
+
+class Input extends React.PureComponent<IInputProps, IInputState> {
   static displayName = 'Input';
   static propTypes = {
     value: PropTypes.string.isRequired,
@@ -42,22 +60,24 @@ class Input extends PureComponent {
     validate: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  private tooltipId: string;
+
+  constructor(props: IInputProps) {
     super(props);
-    this.state = { errors: List() };
+    this.state = { errors: List<string>() };
 
     // Unique id required by ReactTooltip to be bound by other element
     this.tooltipId = generateUuid();
   }
 
-  _onChange = (event) => {
+  _onChange = (event: any) => {
     const validation = this.props.validate(event.target.value);
     this.props.onChange(event.target.value, validation.isValid);
 
     this.setState({ errors: List(validation.messages) });
   };
 
-  _getStyles = (hasErrors, isEmpty) => {
+  _getStyles = (hasErrors: boolean, isEmpty: boolean) => {
     const groupStyle = classNames('form-group', 'has-feedback', {
       'has-error': hasErrors,
       'has-success': !hasErrors && !isEmpty,
@@ -74,7 +94,7 @@ class Input extends PureComponent {
   };
 
   render() {
-    const styles = this._getStyles(this.state.errors.size, !this.props.value);
+    const styles = this._getStyles(this.state.errors.size > 0, !this.props.value);
 
     return (
       <div className={styles.groupStyle}>

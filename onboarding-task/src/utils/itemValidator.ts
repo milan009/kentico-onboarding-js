@@ -1,5 +1,7 @@
-function validateItemText(text) {  // might be part of validateItem() later, if other params are added
-  const error = {
+import { IError } from '../models/IError';
+
+function validateItemText(text: string): IError {  // might be part of validateItem() later, if other params are added
+  const error: IError = {
     isValid: true,
     messages: [],
   };

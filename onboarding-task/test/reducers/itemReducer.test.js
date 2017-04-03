@@ -2,10 +2,10 @@ import {
   createItem,
   updateItem,
   toggleEditItem,
-} from '../../src/actions/actionCreators.js';
-import { createItemFactory } from '../../src/actions/createItemFactory.js';
-import { Item } from '../../src/models/Item.js';
-import { itemReducer } from '../../src/reducers/itemsReducers/itemReducer.js';
+} from '../../src/actions/actionCreators.ts';
+import { createItemFactory } from '../../src/actions/createItemFactory.ts';
+import { Item } from '../../src/models/Item.ts';
+import { itemReducer } from '../../src/reducers/itemsReducers/itemReducer.ts';
 
 describe('itemReducer:', () => {
   const id = 'TestId';

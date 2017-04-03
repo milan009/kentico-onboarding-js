@@ -1,12 +1,20 @@
-import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import TsComponent from './TsComponent.tsx';
-import { CreateItem } from './CreateItem.jsx';
-import { ListRow } from '../containers/ListRow.js';
+import * as React from 'react';
 
+// Types not available
+const ImmutablePropTypes = require('react-immutable-proptypes');
+import { OrderedSet } from 'immutable';
+import TsComponent from './TsComponent';
+import { CreateItem } from './CreateItem';
+import { ListRow } from '../containers/ListRow';
+import { IAction } from '../actions/IAction';
 
-function List(props) {
-  const listItems = props.itemIds.valueSeq().map((id, i) => {
+interface IListProps {
+  itemIds: OrderedSet<string>;
+  onItemAdd: (text: string) => IAction;
+}
+
+const List: React.StatelessComponent<IListProps> = (props) => {
+  const listItems = props.itemIds.valueSeq().map((id: string, i: number) => {
     return (
       <div key={id} className="list-group-item item-custom">
         <ListRow id={id} index={i + 1} />
@@ -33,13 +41,13 @@ function List(props) {
       </div>
     </div>
   );
-}
+};
 
 List.displayName = 'List';
 
 List.propTypes = {
-  itemIds: ImmutablePropTypes.orderedSetOf(PropTypes.string).isRequired,
-  onItemAdd: PropTypes.func.isRequired,
+  itemIds: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,
+  onItemAdd: React.PropTypes.func.isRequired,
 };
 
 export { List };

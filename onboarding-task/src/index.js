@@ -7,7 +7,7 @@ import {
 } from 'redux';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
-import { rootReducer } from './reducers/rootReducer.js';
+import { rootReducer } from './reducers/rootReducer.ts';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
