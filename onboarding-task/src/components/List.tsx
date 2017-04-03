@@ -8,8 +8,8 @@ import {IAction} from '../actions/IAction';
 
 interface IListProps {
   itemIds: OrderedSet<string>;
-  addItem: (text: string) => IAction;
-  fetchItems: () => IAction;
+  addItem: (text: string) => Promise<IAction>;
+  fetchItems: () => Promise<IAction>;
   isFetching: boolean;
 }
 

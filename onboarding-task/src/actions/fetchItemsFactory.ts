@@ -1,6 +1,7 @@
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
 import { Fetch } from './IFetch';
 import { Dispatch } from '../stores/Dispatch';
+import { IItemResponse } from './IItemResponse';
 
 function requestItems() {
   return {
@@ -9,7 +10,7 @@ function requestItems() {
   };
 }
 
-function receiveItems(json: any) {
+function receiveItems(json: IItemResponse[]) {
   return {
     type: FETCH_ITEMS_RECEIVE,
     payload: {
@@ -32,8 +33,8 @@ function fetchItems(fetch: Fetch, url: string) {
     dispatch(requestItems());
 
     return fetch(url)
-      .then((response: any) => response.json())
-      .then((json: any) => dispatch(receiveItems(json)))
+      .then((response: Response) => response.json())
+      .then((json: IItemResponse[]) => dispatch(receiveItems(json)))
       .catch((error) => dispatch(failFetchItems(error)));
   };
 }

@@ -2,8 +2,9 @@ import { POST_ITEM_FAIL, POST_ITEM_RECEIVE } from './actionTypes';
 import { Item } from '../models/Item';
 import { Fetch } from './IFetch';
 import { Dispatch } from '../stores/Dispatch';
+import { IItemResponse } from './IItemResponse';
 
-function receivePostItem(json: any) {
+function receivePostItem(json: IItemResponse) {
   return {
     type: POST_ITEM_RECEIVE,
     payload: {
@@ -33,8 +34,8 @@ function postItems(fetch: Fetch, url: string) {
         },
         body: JSON.stringify(item),
       })
-        .then((response: any) => response.json())
-        .then((json: any) => dispatch(receivePostItem(json)))
+        .then((response: Response) => response.json())
+        .then((json: IItemResponse) => dispatch(receivePostItem(json)))
         .catch((error) => dispatch(failPostItem(error)));
     };
   };
