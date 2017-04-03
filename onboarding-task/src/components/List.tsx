@@ -4,6 +4,7 @@ import { List as ImmutableList } from 'immutable';
 import { ListItemContainer } from '../containers/ListItemContainer';
 import { CreateListItem } from './CreateListItem';
 import { IAction } from '../interfaces/IAction';
+import { Loader } from './Loader';
 
 interface IListProps {
   readonly itemsOrder: ImmutableList<string>;
@@ -25,14 +26,7 @@ class List extends React.PureComponent<IListProps, undefined> {
   render() {
     if (this.props.isFetching) {
       return (
-        <div className="angryLoaderMain">
-          <div className="load">Loading...</div>
-          <div className="hands"></div>
-          <div className="body"></div>
-          <div className="head">
-            <div className="eye"></div>
-          </div>
-        </div>
+        <Loader />
       );
     } else {
       const listItems = this.props.itemsOrder.map((key) =>
