@@ -20,11 +20,8 @@ const itemsOrderReducer = (prevState = List<string>(), action: IAction): List<st
       return prevState.splice(index, 1) as List<string>;
 
     case FETCH_ITEMS_SUCCESS:
-      let newState = List<string>();
-      action.payload.response.forEach((item: IFetchedItem) => {
-        newState = newState.push(item.id);
-      });
-      return newState;
+      const ids = action.payload.response.map((fetchedItem: IFetchedItem) => fetchedItem.id);
+      return List<string>(ids);
 
     case SEND_ITEM_SUCCESS:
       return prevState.set(prevState.indexOf(action.payload.item.ueid), action.payload.item.id)

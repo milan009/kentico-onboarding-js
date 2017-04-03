@@ -27,11 +27,11 @@ const itemsByIdsReducer = (prevState = Map<string, ItemRecord>(), action: IActio
       return prevState.delete(action.payload.id);
 
     case FETCH_ITEMS_SUCCESS:
-      let result = Map<string, ItemRecord>();
+      const tmpResult: { [key: string]: ItemRecord } = {};
       action.payload.response.forEach((fetchedItem: IFetchedItem) => {
-        result = result.set(fetchedItem.id, new ItemRecord({ id: fetchedItem.id, text: fetchedItem.value }));
+        tmpResult[fetchedItem.id] =  new ItemRecord({ id: fetchedItem.id, text: fetchedItem.value });
       });
-      return result;
+      return Map<string, ItemRecord>(tmpResult);
 
     case SEND_ITEM_SUCCESS:
       const tmpState = prevState.delete(action.payload.item.ueid);

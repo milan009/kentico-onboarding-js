@@ -25,11 +25,11 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
       return prevState.delete(action.payload.id);
 
     case FETCH_ITEMS_SUCCESS:
-      let newState = Map<string, ItemUiPropsRecord>();
+      const tmpResult: { [key: string]: ItemUiPropsRecord } = {};
       action.payload.response.forEach((item: IFetchedItem) => {
-        newState = newState.set(item.id, new ItemUiPropsRecord({ savedOnServer: true }));
+        tmpResult[item.id] = new ItemUiPropsRecord({ savedOnServer: true });
       });
-      return newState;
+      return Map<string, ItemUiPropsRecord>(tmpResult);
 
     case SEND_ITEM_SUCCESS:
       const oldFormDisplayed = prevState.get(action.payload.item.ueid).formDisplayed;
