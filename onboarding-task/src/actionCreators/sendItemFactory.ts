@@ -15,7 +15,7 @@ const sendItem = (fetchParam: fetchType, item: IFetchedItem) => {
     fetchParam('/api/v1/Items', { method: 'POST', body: JSON.stringify(item), headers: myHeaders })
       .then<IFetchedItem | string>((response: Response) => response.ok ? response.json() : TsPromise.reject(new Error(response.statusText)))
       .then<IAction>((json: IFetchedItem) => dispatch(sendItemSuccess(json)))
-      .catch<IAction>((error: Error) => dispatch(sendItemFailure(error.message)));
+      .catch<IAction>((error: Error) => dispatch(sendItemFailure(error.message, item.ueid)));
 };
 
 const sendItemFactory = (fetchParam: fetchType) => (item: IFetchedItem) => sendItem(fetchParam, item);

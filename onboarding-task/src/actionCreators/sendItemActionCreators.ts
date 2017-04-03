@@ -16,11 +16,12 @@ const sendItemSuccess = (sentItem: IFetchedItem): IAction => {
   };
 };
 
-const sendItemFailure = (errorMessage: string): IAction => {
+const sendItemFailure = (errorMessage: string, itemId: string): IAction => {
   return {
     type: SEND_ITEM_FAILURE,
     payload: {
       errorMessage,
+      itemId
     },
   };
 };
