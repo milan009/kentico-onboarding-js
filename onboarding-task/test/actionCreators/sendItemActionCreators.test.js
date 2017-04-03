@@ -3,18 +3,18 @@ import { SEND_ITEM_SUCCESS, SEND_ITEM_FAILURE } from '../../src/constants/action
 import { sendItemFactory } from '../../src/actionCreators/sendItemFactory.ts';
 
 describe('sendItemActionCreators ', () => {
-  const fakeResponse = 'This is fake response.';
-  const moreAccurateResponse = { id: 'id', value: 'text', ueid: 'ueid' };
+  const fakeFailureResponse = 'This is fake response.';
+  const fakeSuccessResponse = { id: 'id', value: 'text', ueid: 'ueid' };
 
   it(`returns action with correct response in payload and type ${SEND_ITEM_SUCCESS}`, () => {
     const expectedAction = {
       type: SEND_ITEM_SUCCESS,
       payload: {
-        successMessage: `Item ${moreAccurateResponse.value} was successfully uploaded.`,
-        item: moreAccurateResponse,
+        successMessage: `Item ${fakeSuccessResponse.value} was successfully uploaded.`,
+        item: fakeSuccessResponse,
       },
     };
-    const actualAction = sendItemSuccess(moreAccurateResponse);
+    const actualAction = sendItemSuccess(fakeSuccessResponse);
 
     expect(actualAction).toEqual(expectedAction);
   });
@@ -23,18 +23,19 @@ describe('sendItemActionCreators ', () => {
     const expectedAction = {
       type: SEND_ITEM_FAILURE,
       payload: {
-        errorMessage: fakeResponse,
+        errorMessage: fakeFailureResponse,
       },
     };
-    const actualAction = sendItemFailure(fakeResponse);
+    const actualAction = sendItemFailure(fakeFailureResponse);
 
     expect(actualAction).toEqual(expectedAction);
   });
 });
 
 describe('sendItem ', () => {
+  const fakeDispatch = action => action;
   const fakeSuccessResponse = { id: 'id', value: 'text', ueid: 'ueid' };
-  const fakeFetch = (path) => {
+  const fakeFetch = (path, params) => {
     return path === '/api/v1/Items'
       ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })
       : Promise.reject();
@@ -42,12 +43,26 @@ describe('sendItem ', () => {
   const sendItemActionCreator = sendItemFactory(fakeFetch);
 
   it('calls fetchParam with correct path', (done) => {
-    const mockDispatch = action => action;
-    sendItemActionCreator(fakeSuccessResponse)(mockDispatch).then(() => done());
+    sendItemActionCreator(fakeSuccessResponse)(fakeDispatch).then(() => done());
+  });
+
+  it('calls fetchParam with correct parameters', (done) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    const fetchParams = { method: 'POST', body: JSON.stringify(fakeSuccessResponse), headers: myHeaders };
+    const fakeFetchWithSpy = jest.fn((path) => {
+      return path === '/api/v1/Items'
+        ? Promise.resolve({ json: () => Promise.resolve(fakeSuccessResponse), ok: true })
+        : Promise.reject();
+    });
+    sendItemFactory(fakeFetchWithSpy)(fakeSuccessResponse)(fakeDispatch).then(() => {
+      expect(fakeFetchWithSpy.mock.calls[0][1]).toEqual(fetchParams);
+      done();
+    });
   });
 
   it('dispatches sendItemSuccess with parsed response as argument when response.ok', (done) => {
-    const mockDispatch = jest.fn(action => action);
+    const mockDispatch = jest.fn((action) => action);
     sendItemActionCreator(fakeSuccessResponse)(mockDispatch).then(() => {
       const actualDispatchedAction = mockDispatch.mock.calls[0][0];
 
@@ -57,16 +72,16 @@ describe('sendItem ', () => {
   });
 
   it('dispatches sendItemFailure with error message from the server as argument when !response.ok', (done) => {
-    const mockDispatch = jest.fn(action => action);
+    const mockDispatch = jest.fn((action) => action);
     const errorMessage = 'error Test';
     const fakeFetchWithError = () => {
       return Promise.resolve({ statusText: errorMessage, ok: false });
     };
     const fetchItemsActionCreatorWithError = sendItemFactory(fakeFetchWithError);
-    fetchItemsActionCreatorWithError()(mockDispatch).then(() => {
+    fetchItemsActionCreatorWithError({ ueid: 'ueid-test' })(mockDispatch).then(() => {
       const actualDispatchedAction = mockDispatch.mock.calls[0][0];
 
-      expect(actualDispatchedAction).toEqual(sendItemFailure(errorMessage));
+      expect(actualDispatchedAction).toEqual(sendItemFailure(errorMessage, 'ueid-test'));
       done();
     });
   });
