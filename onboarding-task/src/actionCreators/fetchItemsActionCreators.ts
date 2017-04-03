@@ -27,7 +27,7 @@ const fetchItemsFailure = (errorMessage: string): IAction => {
   return {
     type: FETCH_ITEMS_FAILURE,
     payload: {
-      response: errorMessage,
+      errorMessage: errorMessage,
     },
   };
 };
