@@ -15,7 +15,7 @@ interface IListRowProps {
 }
 
 const ListRow: React.StatelessComponent<IListRowProps> = (props) => {
-  if (props.item.editing) {
+  if (props.item.editFormVisible) {
     return (
       <ListRowEdit
         item={props.item}

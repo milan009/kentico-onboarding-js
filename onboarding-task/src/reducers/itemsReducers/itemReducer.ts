@@ -2,7 +2,7 @@ import {
   ITEM_CREATE,
   ITEM_UPDATE,
 } from '../../actions/actionTypes';
-import { Item } from '../../models/Item';
+import { Item } from '../../types/Item';
 import { IAction } from '../../interfaces/IAction';
 
 const itemReducer = (state = new Item(), action: IAction): Item => {

@@ -1,8 +1,8 @@
-import { Item } from '../models/Item';
-import { Map } from 'immutable';
-import { IItemUi } from './IItemUi';
+import { Item } from '../types/Item';
+import { Map, OrderedMap } from 'immutable';
+import { ItemUi } from '../types/ItemUi';
 
 export interface IItems {
-  byId: Map<string, Item>;
-  byUiProperties: Map<string, IItemUi>;
+  byId: OrderedMap<string, Item>;
+  uiProperties: Map<string, ItemUi>;
 }

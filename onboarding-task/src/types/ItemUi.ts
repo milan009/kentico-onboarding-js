@@ -1,3 +1,3 @@
-export type IItemUi = {
+export type ItemUi = {
   readonly editFormVisible: boolean;
 };

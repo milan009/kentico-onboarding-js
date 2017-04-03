@@ -8,26 +8,26 @@ import {
   updateItem,
 } from '../actions/actionCreators';
 import { IAppState } from '../interfaces/IAppState';
-import { IItem } from '../models/Item';
-import { IItemUi } from '../interfaces/IItemUi';
-import { Dispatch } from '../interfaces/Dispatch';
+import { IItem } from '../interfaces/IItem';
+import { ItemUi } from '../types/ItemUi';
+import { Dispatch } from '../types/Dispatch';
 
 interface IListRowOwnProps {
   id: string;
   index: number;
 }
 
-const getItemUi = (state: IAppState, props: IListRowOwnProps) => state.items.byUiProperties.get(props.id);
+const getItemUi = (state: IAppState, props: IListRowOwnProps) => state.items.uiProperties.get(props.id);
 const getItem = (state: IAppState, props: IListRowOwnProps) => state.items.byId.get(props.id);
 const getIndex = (_: IAppState, props: IListRowOwnProps) => props.index;
 
 const getItemViewModel = createSelector(
   getItem, getItemUi, getIndex,
-  (item: IItem, itemUi: IItemUi, index: number) => ({
+  (item: IItem, itemUi: ItemUi, index: number) => ({
     id: item.id,
     index,
     text: item.text,
-    editing: itemUi.editFormVisible,
+    editFormVisible: itemUi.editFormVisible,
   })
 );
 

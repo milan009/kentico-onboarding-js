@@ -1,13 +1,9 @@
 import { Record } from 'immutable';
+import { IItem } from '../interfaces/IItem';
 
 interface IItemParams {
   readonly id?: string;
   readonly text?: string;
-}
-
-export interface IItem {
-  readonly id: string;
-  readonly text: string;
 }
 
 const itemDefaultValues: IItem = {

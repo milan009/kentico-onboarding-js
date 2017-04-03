@@ -8,7 +8,7 @@ type IItemsReducer = (items: IItems, action: IAction) => IItems;
 
 const itemsReducer: IItemsReducer = combineReducers({
   byId: itemsByIdReducer,
-  byUiProperties: itemsUiPropertiesReducer,
+  uiProperties: itemsUiPropertiesReducer,
 }) as IItemsReducer;
 
 export { itemsReducer };

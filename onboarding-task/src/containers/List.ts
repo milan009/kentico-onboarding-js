@@ -3,7 +3,7 @@ import { List } from '../components/List';
 import { createItem } from '../actions/actionCreators';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../interfaces/IAppState';
-import { Dispatch } from '../interfaces/Dispatch';
+import { Dispatch } from '../types/Dispatch';
 
 const mapStateToProps = (state: IAppState) => {
   return { itemIds: OrderedSet.fromKeys(state.items.byId) };

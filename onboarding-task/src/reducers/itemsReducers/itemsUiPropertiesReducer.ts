@@ -5,19 +5,19 @@ import {
   ITEM_TOGGLE_EDIT,
 } from '../../actions/actionTypes';
 import { Map } from 'immutable';
-import { IItemUi } from '../../interfaces/IItemUi';
+import { ItemUi } from '../../types/ItemUi';
 import { IAction } from '../../interfaces/IAction';
 
-const itemsUiPropertiesReducer = (state = Map<string, IItemUi>(), action: IAction) => {
+const itemsUiPropertiesReducer = (state = Map<string, ItemUi>(), action: IAction) => {
   switch (action.type) {
     case ITEM_CREATE: {
-      const newItem: IItemUi = { editFormVisible: false };
+      const newItem: ItemUi = { editFormVisible: false };
       return state.set(action.payload.id, newItem);
     }
 
     case ITEM_UPDATE:
     case ITEM_TOGGLE_EDIT: {
-      const oldItem: IItemUi = state.get(action.payload.id);
+      const oldItem: ItemUi = state.get(action.payload.id);
       return state.set(action.payload.id, { ...oldItem, editFormVisible: !oldItem.editFormVisible });
     }
 
