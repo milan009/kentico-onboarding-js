@@ -8,8 +8,8 @@ import { IAppState } from '../interfaces/IAppState';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 import { dispatchType } from '../utils/dispatchType';
 
-const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number): IItemViewModel => {
-  return { id: item.id, text: item.text, formDisplayed, index };
+const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number, savedOnServer: boolean): IItemViewModel => {
+  return { id: item.id, text: item.text, formDisplayed, index, savedOnServer };
 };
 
 const memoizedListItemViewModel = memoize(getListItemViewModel);
@@ -20,11 +20,11 @@ interface IOwnProps {
 
 const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
   const id = ownProps.id;
-  const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
+  const itemUiProps = state.items.uiPropsById.get(id);
   const item = state.items.byId.get(id);
   const index = state.items.orderedIds.indexOf(id) + 1;
   return {
-    item: memoizedListItemViewModel(item, formDisplayed, index),
+    item: memoizedListItemViewModel(item, itemUiProps.formDisplayed, index, itemUiProps.savedOnServer),
   };
 };
 

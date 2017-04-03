@@ -22,6 +22,7 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
       : (<ListItemLabel
         text={this.props.item.text}
         index={this.props.item.index}
+        savedOnServer={this.props.item.savedOnServer}
         onClick={this.props.onLabelClick}
       />);
   }

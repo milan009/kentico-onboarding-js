@@ -3,4 +3,5 @@ export interface IItemViewModel {
   text: string;
   formDisplayed: boolean;
   index: number;
+  savedOnServer: boolean;
 }
