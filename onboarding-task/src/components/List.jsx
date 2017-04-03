@@ -29,7 +29,7 @@ class List extends PureComponent {
     });
 
     const updatedItems = originalItems.set(id, newItem);
-    const updatedOrderedKeys = originalOrderedKeys.insert(originalOrderedKeys.size, id);
+    const updatedOrderedKeys = originalOrderedKeys.push(id);
 
     this.setState({
       items: updatedItems,
@@ -75,12 +75,12 @@ class List extends PureComponent {
   };
 
   _deleteItem = (idToDelete) => {
-    const newItems = this.state.items.delete(idToDelete);
-    const newOrderedKeys = this.state.orderedIds.filter(x => x !== idToDelete);
+    const updatedItems = this.state.items.delete(idToDelete);
+    const updatedOrderedKeys = this.state.orderedIds.filter(x => x !== idToDelete);
 
     this.setState({
-      items: newItems,
-      orderedIds: newOrderedKeys,
+      items: updatedItems,
+      orderedIds: updatedOrderedKeys,
     });
   };
 
