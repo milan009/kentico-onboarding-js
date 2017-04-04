@@ -1,25 +1,26 @@
 import { connect } from 'react-redux';
 
-import { ListRoot } from '../components/ListRoot';
+import { loadingWrapper } from '../components/loadingWrapper';
+import { ListContainer } from './ListContainer';
 import { IAppState } from '../interfaces/IAppState';
 import { fetchItems } from '../actionCreators/fetchItemsActionCreators';
 import { dispatchType } from '../utils/dispatchType';
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    isFetching: state.items.isFetching,
+    isLoading: state.items.isFetching,
   };
 };
 
 const mapDispatchToProps = (dispatch: dispatchType) => {
   return {
-    onListMount: () => dispatch(fetchItems()),
+    onMountCallback: () => dispatch(fetchItems()),
   };
 };
 
-const ListRootContainer = connect(
+const WrappedListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ListRoot);
+)(loadingWrapper(ListContainer));
 
-export { ListRootContainer };
+export { WrappedListContainer };
