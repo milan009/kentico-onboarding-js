@@ -1,40 +1,49 @@
-import { addItem, deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../../src/actionTypes.js';
-import { createGuid } from '../../src/utils/guidHelper.js';
 
 describe('Correctly creates actions', () => {
-  const id = createGuid();
+  const fakeId = '07b2b519-e303-1bbf-8ba7-9b986a0d15fc';
+  const generateFakeId = () => '11111111-e303-1bbf-8ba7-9b986a0d15fc';
   const text = 'test text';
+
   it('Action to add an item', () => {
-    const expectedActionCreator = addItem({ type: ADD_ITEM, id, text });
-    const testedItem = addItem(text);
-    expect(expectedActionCreator.text).toBe(testedItem.text);
-    expect(expectedActionCreator.type).toBe(testedItem.type);
+    const expectedAction = { type: ADD_ITEM, id: generateFakeId(), text };
+
+    const testedAction = addItemFactory(generateFakeId)(text);
+
+    expect(testedAction).toEqual(expectedAction);
   });
 
   it('Action to delete an item', () => {
-    const expectedActionCreator = deleteItem({ type: DELETE_ITEM, id });
-    const testedItem = addItem(id);
-    expect(expectedActionCreator.id).toBe(testedItem.id);
-    expect(expectedActionCreator.type).toBe(testedItem.type);
+    const expectedAction = { type: DELETE_ITEM, id: fakeId };
+
+    const testedAction = deleteItem(fakeId);
+
+    expect(testedAction).toEqual(expectedAction);
   });
 
   it('Action to edit an item', () => {
-    const expectedActionCreator = editItem({ type: EDIT_ITEM, id });
-    const testedItem = addItem(id);
-    expect(expectedActionCreator.id).toBe(testedItem.id);
-    expect(expectedActionCreator.type).toBe(testedItem.type);
+    const expectedAction = { type: EDIT_ITEM, id: fakeId };
+
+    const testedAction = editItem(fakeId);
+
+    expect(testedAction).toEqual(expectedAction);
   });
+
   it('Action to save the changes done to an item', () => {
-    const expectedActionCreator = saveChangesToItem({ type: SAVE_CHANGES_TO_ITEM, id, text });
-    const testedItem = addItem(id, text);
-    expect(expectedActionCreator.text).toBe(testedItem.text);
-    expect(expectedActionCreator.type).toBe(testedItem.type);
+    const expectedAction = { type: SAVE_CHANGES_TO_ITEM, id: fakeId, text };
+
+    const testedAction = saveChangesToItem(fakeId, text);
+
+    expect(expectedAction).toEqual(testedAction);
   });
+
   it('Action to delete the changes done to an item', () => {
-    const expectedActionCreator = cancelChangesToItem({ type: CANCEL_CHANGES_TO_ITEM, id });
-    const testedItem = addItem(id);
-    expect(expectedActionCreator.id).toBe(testedItem.id);
-    expect(expectedActionCreator.type).toBe(testedItem.type);
+    const expectedAction = { type: CANCEL_CHANGES_TO_ITEM, id: fakeId };
+
+    const testedAction = cancelChangesToItem(fakeId);
+
+    expect(expectedAction).toEqual(testedAction);
   });
 });
