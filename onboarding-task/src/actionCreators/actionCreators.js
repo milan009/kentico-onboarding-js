@@ -1,23 +1,21 @@
-import * as actionTypes from '../actionTypes.js';
+import { DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../actionTypes.js';
 import { createGuid } from '../utils/guidHelper.js';
+import { addItemFactory } from './addItemFactory';
 
-export const addItem = (text) => {
-  const id = createGuid();
-  return { type: actionTypes.ADD_ITEM, text, id };
-}
+export const addItem = addItemFactory(createGuid);
 
-export function deleteItem(id) {
-  return { type: actionTypes.DELETE_ITEM, id };
-}
+export const deleteItem = (id) => {
+  return { type: DELETE_ITEM, id };
+};
 
-export function editItem(id) {
-  return { type: actionTypes.EDIT_ITEM, id };
-}
+export const editItem = (id) => {
+  return { type: EDIT_ITEM, id };
+};
 
-export function saveChangesToItem(text, id) {
-  return { type: actionTypes.SAVE_CHANGES_TO_ITEM, text, id };
-}
+export const saveChangesToItem = (id, text) => {
+  return { type: SAVE_CHANGES_TO_ITEM, text, id };
+};
 
-export function cancelChangesToItem(id) {
-  return { type: actionTypes.CANCEL_CHANGES_TO_ITEM, id };
-}
+export const cancelChangesToItem = (id) => {
+  return { type: CANCEL_CHANGES_TO_ITEM, id };
+};

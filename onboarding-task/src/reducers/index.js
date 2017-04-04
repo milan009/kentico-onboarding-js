@@ -1,6 +1,6 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { manageItems } from './manageItems.js';
 
-const todoAppReducers = manageItems;
+const rootReducer = combineReducers({ manageItems });
 
-export { todoAppReducers };
+export { rootReducer };
