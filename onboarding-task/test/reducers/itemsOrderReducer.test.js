@@ -2,6 +2,7 @@ import * as Immutable from 'immutable';
 
 import {createItem, deleteItem} from '../../src/actions/actionCreators';
 import {itemsOrderReducer} from '../../src/reducers/itemsOrderReducer';
+import {createItemFactory} from '../../src/actions/createItemFactory';
 
 describe('itemsOrderReducer', () => {
   it('delete item for given id', () => {
@@ -14,6 +15,7 @@ describe('itemsOrderReducer', () => {
 
   it('create item for given id', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const createItem = createItemFactory(() => id);
     const state = Immutable.OrderedSet();
     const expectedState = state.add(id);
 

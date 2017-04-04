@@ -1,15 +1,14 @@
-import {ITEM_CREATED, ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
+import {ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
 import {generateGuid} from '../utils/generateGuid';
 import {createItemFactory} from './createItemFactory';
 import {IAction} from '../stores/IAction';
 
-// TODO: insert types of funs
 
 // TODO: rewrite/delete createItemFlags
-const createItemFlags = (id: string): IAction => ({
-  type: ITEM_CREATED,
-  payload: { id },
-});
+// const createItemFlags = (id: string): IAction => ({
+//   type: ITEM_CREATED,
+//   payload: { id },
+// });
 
 const deleteItem = (id: string): IAction => ({
   type: ITEM_DELETED,
@@ -28,4 +27,4 @@ const toggleItemViewMode = (id: string): IAction => ({
 
 const createItemWithDependencies = createItemFactory(generateGuid);
 
-export { createItemWithDependencies as createItem, deleteItem, editItem, toggleItemViewMode, createItemFlags };
+export { createItemWithDependencies as createItem, deleteItem, editItem, toggleItemViewMode };

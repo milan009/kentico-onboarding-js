@@ -10,13 +10,13 @@ const itemsDataReducer = (state: Immutable.Map<string,Item>, action: any) => {
   }
   switch (action.type) {
     case ITEM_EDITED:
-      return state.setIn([action.id, 'value'], action.value);
+      return state.setIn([action.payload.id, 'value'], action.payload.value);
 
     case ITEM_CREATED:
-      return state.set(action.id, action.value);
+      return state.set(action.payload.id, action.payload.value);
 
     case ITEM_DELETED:
-      return state.delete(action.id);
+      return state.delete(action.payload.id);
 
     default:
       return state;

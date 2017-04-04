@@ -1,7 +1,8 @@
 import * as Immutable from 'immutable';
 
 import {ItemFlags} from '../../src/models/ItemFlags.ts';
-import {toggleItemViewMode, deleteItem, createItemFlags} from '../../src/actions/actionCreators';
+import {toggleItemViewMode, deleteItem} from '../../src/actions/actionCreators';
+import {createItemFactory} from '../../src/actions/createItemFactory';
 import {itemsFlagReducer} from '../../src/reducers/itemsFlagReducer';
 
 describe('ItemsFlagReducer', () => {
@@ -35,9 +36,10 @@ describe('ItemsFlagReducer', () => {
 
   it('create flag for given id', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const createItem = createItemFactory(() => id);
     const state = Immutable.Map();
 
-    const actualState = itemsFlagReducer(state, createItemFlags(id));
+    const actualState = itemsFlagReducer(state, createItem("some value"));
 
     expect(actualState.has(id)).toBeTruthy();
   });

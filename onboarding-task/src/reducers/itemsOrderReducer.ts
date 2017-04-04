@@ -8,10 +8,10 @@ const itemsOrderReducer = (state: Immutable.OrderedSet<string>, action: any) => 
   }
   switch (action.type) {
     case ITEM_DELETED:
-      return state.delete(action.id);
+      return state.delete(action.payload.id);
 
     case ITEM_CREATED:
-      return state.add(action.id);
+      return state.add(action.payload.id);
 
     default:
       return state;
