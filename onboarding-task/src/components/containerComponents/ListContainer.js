@@ -8,15 +8,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    _handleAddLine: (text) => dispatch(addItem(text)),
+    onAddLine: (text) => dispatch(addItem(text)),
 
-    _handleDeleteLine: (id) => dispatch(deleteItem(id)),
+    onDeleteLine: (id) => dispatch(deleteItem(id)),
 
-    _handleDoubleClick: (id) => dispatch(editItem(id)),
+    onDoubleClick: (id) => dispatch(editItem(id)),
 
-    _handleClickSave: (id, text) => dispatch(saveChangesToItem(id, text)),
+    onClickSave: (id, text) => dispatch(saveChangesToItem(id, text)),
 
-    _handleClickCancel: (id) => dispatch(cancelChangesToItem(id)),
+    onClickCancel: (id) => dispatch(cancelChangesToItem(id)),
   };
 };
 

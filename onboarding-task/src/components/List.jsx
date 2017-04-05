@@ -1,18 +1,15 @@
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
 
 const List = ({
     lines,
-    _handleAddLine,
-    _handleDeleteLine,
-    _handleDoubleClick,
-    _handleClickSave,
-    _handleClickCancel,
+    onAddLine,
+    onDeleteLine,
+    onDoubleClick,
+    onClickSave,
+    onClickCancel,
   }) => {
   List.displayName = 'List';
 
@@ -22,10 +19,10 @@ const List = ({
         key={row.id}
         line={row}
         index={index + 1}
-        onSave={_handleClickSave}
-        onCancel={_handleClickCancel}
-        onDelete={_handleDeleteLine}
-        onDoubleClick={_handleDoubleClick}
+        onSave={onClickSave}
+        onCancel={onClickCancel}
+        onDelete={onDeleteLine}
+        onDoubleClick={onDoubleClick}
       />
     </li>
   ));
@@ -43,7 +40,7 @@ const List = ({
           <ul id="todo-list" className="list-group">
             {renderedRows}
             <li className="list-group-item">
-              <AddLine onAdd={_handleAddLine} />
+              <AddLine onAdd={onAddLine} />
             </li>
           </ul>
         </div>
@@ -54,11 +51,11 @@ const List = ({
 
 List.propTypes = {
   lines: ImmutablePropTypes.map.isRequired,
-  _handleAddLine: PropTypes.func.isRequired,
-  _handleDeleteLine: PropTypes.func.isRequired,
-  _handleDoubleClick: PropTypes.func.isRequired,
-  _handleClickSave: PropTypes.func.isRequired,
-  _handleClickCancel: PropTypes.func.isRequired,
+  onAddLine: PropTypes.func.isRequired,
+  onDeleteLine: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
+  onClickSave: PropTypes.func.isRequired,
+  onClickCancel: PropTypes.func.isRequired,
 };
 
 export { List };
