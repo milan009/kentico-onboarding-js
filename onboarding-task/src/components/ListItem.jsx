@@ -3,27 +3,34 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { LineEdit } from './LineEdit.jsx';
 import { LineRead } from './LineRead.jsx';
 
-const ListItem = (props) => {
+const ListItem = ({
+    line,
+    index,
+    onSave,
+    onCancel,
+    onDelete,
+    onDoubleClick,
+}) => {
   ListItem.displayName = 'ListItem';
 
-  if (props.line.isEdited) {
+  if (line.isEdited) {
     return (
       <LineEdit
-        key={props.line.id}
-        line={props.line}
-        index={(props.index)}
-        onSave={props.onSave}
-        onCancel={props.onCancel}
-        onDelete={props.onDelete}
+        key={line.id}
+        line={line}
+        index={(index)}
+        onSave={onSave}
+        onCancel={onCancel}
+        onDelete={onDelete}
       />
     );
   }
   return (
     <LineRead
-      key={props.line.id}
-      line={props.line}
-      index={(props.index)}
-      onDoubleClick={props.onDoubleClick}
+      key={line.id}
+      line={line}
+      index={(index)}
+      onDoubleClick={onDoubleClick}
     />
   );
 };

@@ -1,29 +1,17 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { AddLine } from './AddLine.jsx';
-import { ListItem } from './ListItem.jsx';
+import { ListItemContainer } from './containerComponents/ListItemContainer';
 
 const List = ({
     lines,
     onAddLine,
-    onDeleteLine,
-    onDoubleClick,
-    onClickSave,
-    onClickCancel,
   }) => {
   List.displayName = 'List';
 
-  const renderedRows = lines.valueSeq().map((row, index) => (
-    <li key={row.id} className="list-group-item">
-      <ListItem
-        key={row.id}
-        line={row}
-        index={index + 1}
-        onSave={onClickSave}
-        onCancel={onClickCancel}
-        onDelete={onDeleteLine}
-        onDoubleClick={onDoubleClick}
-      />
+  const renderedRows = lines.valueSeq().map((line, index) => (
+    <li key={line.id} className="list-group-item">
+      <ListItemContainer line={line} index={index + 1} />
     </li>
   ));
 
@@ -52,10 +40,6 @@ const List = ({
 List.propTypes = {
   lines: ImmutablePropTypes.map.isRequired,
   onAddLine: PropTypes.func.isRequired,
-  onDeleteLine: PropTypes.func.isRequired,
-  onDoubleClick: PropTypes.func.isRequired,
-  onClickSave: PropTypes.func.isRequired,
-  onClickCancel: PropTypes.func.isRequired,
 };
 
 export { List };
