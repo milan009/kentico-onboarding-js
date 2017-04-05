@@ -5,11 +5,25 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 
 describe('itemsOrder reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
-
+  const json = [
+    {
+      id: '00000',
+      text: 'serus'
+    },
+    {
+      id: '11111',
+      text: 'soj'
+    },
+    {
+      id: '22222',
+      text: 'nazdar'
+    },
+  ];
   const stateBefore = Immutable.OrderedSet(['00000', '11111', '22222']);
 
   const addItemAction = addItemFactory(() => '12345')('text');
   const deleteItemAction = actions.deleteItem('00000');
+  const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
 
 
   it('should return empty list if action is uknown or not provided', () => {
@@ -36,6 +50,14 @@ describe('itemsOrder reducer', () => {
     const actualState = itemsOrder(stateBefore, deleteItemAction);
 
     expect(actualState).toEqual(expectedState);
+  });
+
+  it('should handle FETCH_ITEMS_SUCCESS action', () => {
+    const expectedState = stateBefore;
+    const actualState = itemsOrder(undefined, fetchItemsSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
+
   });
 });
 

@@ -6,17 +6,33 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 describe('itemsFlags reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
   const firstItem = { isEdited: false };
-  const secondItem = { isEdited: true };
+  const secondItem = { isEdited: false };
   const thirdItem = { isEdited: false };
   const stateBefore = Immutable.Map({
     '00000': firstItem,
     '11111': secondItem,
     '22222': thirdItem,
   });
+  const json = [
+    {
+      id: '00000',
+      text: 'serus'
+    },
+    {
+      id: '11111',
+      text: 'soj'
+    },
+    {
+      id: '22222',
+      text: 'nazdar'
+    },
+  ];
   const addItemAction = addItemFactory(() => '12345')('text');
   const deleteItemAction = actions.deleteItem('00000');
   const toggleEditModeAction = actions.toggleEditMode('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
+  const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
+
 
   it('should return empty list if action is uknown or not provided', () => {
     const actualState = itemsFlags(stateBefore, UNKNOWN_ACTION);
@@ -56,6 +72,14 @@ describe('itemsFlags reducer', () => {
     const actualState = itemsFlags(stateBefore, updateItemAction);
 
     expect(actualState).toEqual(expectedState);
+  });
+
+  it('should handle FETCH_ITEMS_SUCCESS action', () => {
+    const expectedState = stateBefore;
+    const actualState = itemsFlags(undefined, fetchItemsSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
+
   });
 });
 

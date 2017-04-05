@@ -16,12 +16,16 @@ describe('itemsById reducer', () => {
   });
   const json = [
     {
-      id: '12345',
-      text: 'first item'
+      id: '00000',
+      text: 'serus'
     },
     {
-      id: '67890',
-      text: 'second item'
+      id: '11111',
+      text: 'soj'
+    },
+    {
+      id: '22222',
+      text: 'nazdar'
     },
   ];
   const addItemAction = addItemFactory(() => '00000')('text');
@@ -67,15 +71,12 @@ describe('itemsById reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  // it('should handle FETCH_ITEMS_SUCCESS action', () => {
-  //   const expectedState = Immutable.Map({
-  //     '12345' : 'first item',
-  //     '67890' : 'second item'
-  //   });
-  //   const actualState = itemsById(undefined, fetchItemsSuccessAction);
-  //
-  //   expect(actualState).toEqual(expectedState);
-  //
-  // });
+  it('should handle FETCH_ITEMS_SUCCESS action', () => {
+    const expectedState = stateBefore;
+    const actualState = itemsById(undefined, fetchItemsSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
 });
 
