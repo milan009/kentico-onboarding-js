@@ -1,6 +1,6 @@
 import { DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../actionTypes.js';
-import { createGuid } from '../utils/guidHelper.js';
 import { addItemFactory } from './addItemFactory';
+import { createGuid } from '../utils/guidHelper.js';
 
 export const addItem = addItemFactory(createGuid);
 
