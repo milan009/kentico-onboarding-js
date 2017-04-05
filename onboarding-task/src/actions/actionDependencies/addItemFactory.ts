@@ -1,7 +1,7 @@
 import { ADD_ITEM } from '../actionTypes';
-import { IItemAction } from '../IItemAction';
+import { IAction } from '../IAction';
 
-const addItem = (text: string, generateGuid: () => string ): IItemAction => ({
+const addItem = (text: string, generateGuid: () => string ): IAction => ({
   type: ADD_ITEM,
   payload: {
     guid: generateGuid(),
@@ -9,6 +9,6 @@ const addItem = (text: string, generateGuid: () => string ): IItemAction => ({
   },
 });
 
-export function addItemFactory(generateGuid: () => string): (text: string) => IItemAction {
-  return (text: string): IItemAction => addItem(text, generateGuid);
+export function addItemFactory(generateGuid: () => string): (text: string) => IAction {
+  return (text: string): IAction => addItem(text, generateGuid);
 }
