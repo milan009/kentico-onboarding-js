@@ -26,7 +26,7 @@ class List extends React.PureComponent<IListProps, undefined> {
     this._addItem = this._addItem.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.fetchItems();
   }
 
