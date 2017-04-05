@@ -23,13 +23,12 @@ function itemsFlags (state: Map<string, IItemFlags> = emptyItemsFlags, action: I
       return state.set(action.payload.guid, { isEdited: !stateBefore.isEdited });
 
     case FETCH_ITEMS_SUCCESS:
-      debugger;
-      const newState = Immutable.Map<string, IItemFlags>();
-      action.payload.items.map(
-        (currentItem: IItemServerModel) =>
-          newState.set(currentItem.id, { isEdited: false }));
-      return newState;
-
+      const items = action.payload.items;
+      const mapObject = items.reduce((accu: any, currentItem: IItemServerModel) => {
+        accu[currentItem.id] = {isEdited: false};
+        return accu;
+      },{});
+      return Map<string, IItemFlags>(mapObject);
     default:
       return state;
   }

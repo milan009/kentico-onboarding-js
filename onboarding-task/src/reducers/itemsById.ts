@@ -19,15 +19,13 @@ function itemsById (state = emptyItemsById, action: IAction): Map<string, ItemRe
       return state.delete(action.payload.guid);
 
     case FETCH_ITEMS_SUCCESS:
-      debugger;
-        const newState = Map<string, ItemRecord>();
-        const items = action.payload.items;
-        console.log(items);
-        items.map((currentItem: IItemServerModel) => {
-          newState.set(currentItem.id, new ItemRecord({guid: currentItem.id, text: currentItem.text}))
-        });
-        console.log(newState);
-      return newState;
+      const items = action.payload.items;
+      const mapObject = items.reduce((accu: any, currentItem: IItemServerModel) => {
+        accu[currentItem.id] = new ItemRecord({guid: currentItem.id, text: currentItem.text});
+        return accu;
+      },{});
+      const result = Map<string, ItemRecord>(mapObject);
+      return result;
     default:
       return state;
   }
