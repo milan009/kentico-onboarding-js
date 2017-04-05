@@ -3,7 +3,7 @@ import { List } from '../components/List';
 import * as Immutable from 'immutable';
 import { IItemFlags } from '../reducers/itemsFlags';
 import { IItemRecord } from '../models/ItemRecord';
-import { addItem } from '../actions/actionCreators';
+import {addItem, fetchItems} from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
 
 
@@ -22,6 +22,7 @@ const mapStateToProps = (state: IListState) => {
 const mapDispatchToProps = (dispatch: Dispatch ) => {
   return {
     onAddItem: (text: string) => dispatch(addItem(text)),
+    fetchItems: () => dispatch(fetchItems())
   };
 };
 
