@@ -2,6 +2,7 @@ import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './ac
 import { Fetch } from './IFetch';
 import { Dispatch } from '../stores/Dispatch';
 import { IItemResponse } from './IItemResponse';
+import {IAction} from './IAction';
 
 function requestItems() {
   return {
@@ -19,28 +20,31 @@ function receiveItems(json: IItemResponse[]) {
   };
 }
 
-function failFetchItems(error: Error) {
+function failFetchItems() {
   return {
     type: FETCH_ITEMS_FAIL,
     payload: {
-      error
     }
   };
 }
 
-function fetchItems(fetch: Fetch, url: string) {
+function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error) => IAction) {
   return (dispatch: Dispatch) => {
     dispatch(requestItems());
 
     return fetch(url)
       .then((response: Response) => response.json())
       .then((json: IItemResponse[]) => dispatch(receiveItems(json)))
-      .catch((error) => dispatch(failFetchItems(error)));
+      .catch((error) => {
+        console.log(error);
+        dispatch(failFetchItems());
+        return dispatch(createErrorMessage(new Error('Oh, something went wrong!')));
+      });
   };
 }
 
-function fetchItemsFactory(fetch: Fetch, url: string) {
-  return fetchItems(fetch, url);
+function fetchItemsFactory(fetch: Fetch, url: string, createErrorMessage: (error: Error) => IAction) {
+  return fetchItems(fetch, url, createErrorMessage);
 }
 
 export { fetchItemsFactory, requestItems, receiveItems, failFetchItems };

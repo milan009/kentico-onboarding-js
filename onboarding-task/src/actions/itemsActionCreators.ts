@@ -3,6 +3,7 @@ import { DELETE_ITEM, UPDATE_ITEM } from './actionTypes';
 import { IAction } from './IAction';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { postItemFactory } from './postItemFactory';
+import { createErrorMessage } from './errorMessageActionCreators';
 
 function deleteItem(id: string): IAction {
   return {
@@ -23,6 +24,6 @@ function updateItem(id: string, text: string): IAction {
   };
 }
 
-const fetchItemsWithDependecies = fetchItemsFactory(fetch, '/api/v1/items');
-const postItemWithDependecies = postItemFactory(fetch, '/api/v1/items');
-export { deleteItem, updateItem, fetchItemsWithDependecies as fetchItems, postItemWithDependecies as postItem };
+const fetchItemsWithDependencies = fetchItemsFactory(fetch, '/api/v1/items', createErrorMessage);
+const postItemWithDependencies = postItemFactory(fetch, '/api/v1/items', createErrorMessage);
+export { deleteItem, updateItem, fetchItemsWithDependencies as fetchItems, postItemWithDependencies as postItem };

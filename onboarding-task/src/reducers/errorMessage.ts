@@ -1,13 +1,11 @@
-import { FETCH_ITEMS_FAIL, POST_ITEM_FAIL } from '../actions/actionTypes';
+import { CREATE_ERROR_MESSAGE } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
+import { OrderedMap } from 'immutable';
 
-const errorMessage = (state = '', action: IAction) => {
+const errorMessage = (state = OrderedMap(), action: IAction) => {
   switch (action.type) {
-    case FETCH_ITEMS_FAIL:
-      return action.payload.error;
-
-    case POST_ITEM_FAIL:
-      return action.payload.error;
+    case CREATE_ERROR_MESSAGE:
+      return state.set(action.payload.error.id, action.payload.error);
 
     default:
       return state;

@@ -4,13 +4,15 @@ import { OrderedSet } from 'immutable';
 
 import { Item } from '../containers/Item';
 import { AddForm } from './AddForm';
-import {IAction} from '../actions/IAction';
+import { IAction } from '../actions/IAction';
+import { IErrorMessage } from '../models/ErrorMessage';
 
 interface IListProps {
   itemIds: OrderedSet<string>;
   addItem: (text: string) => Promise<IAction>;
   fetchItems: () => Promise<IAction>;
   isFetching: boolean;
+  errorMessage: IErrorMessage;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
@@ -21,6 +23,7 @@ class List extends React.PureComponent<IListProps, undefined> {
     addItem: React.PropTypes.func.isRequired,
     fetchItems: React.PropTypes.func.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
+    errorMessage: React.PropTypes.object,
   };
 
   componentDidMount() {

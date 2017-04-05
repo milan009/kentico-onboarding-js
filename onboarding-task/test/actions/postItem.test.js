@@ -1,6 +1,7 @@
-import { POST_ITEM_RECEIVE, POST_ITEM_FAIL } from '../../src/actions/actionTypes.ts';
+import { POST_ITEM_RECEIVE } from '../../src/actions/actionTypes.ts';
 import { Item } from '../../src/models/Item.ts';
-import { receivePostItem, failPostItem, postItemFactory } from '../../src/actions/postItemFactory.ts';
+import { receivePostItem, postItemFactory } from '../../src/actions/postItemFactory.ts';
+import { createErrorMessageWithoutDependency } from '../../src/actions/errorMessageActionCreators.ts';
 
 describe('postItem', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -17,19 +18,6 @@ describe('postItem', () => {
       };
 
       const resultAction = receivePostItem(testItem);
-
-      expect(resultAction).toEqual(expectedAction);
-    });
-
-    it('should create post fail action', () => {
-      const expectedAction = {
-        type: POST_ITEM_FAIL,
-        payload: {
-          error: new Error('fail'),
-        },
-      };
-
-      const resultAction = failPostItem(new Error('fail'));
 
       expect(resultAction).toEqual(expectedAction);
     });
@@ -50,9 +38,11 @@ describe('postItem', () => {
       dispatchMock.mockReset();
     });
 
+    const createErrorMessage = createErrorMessageWithoutDependency(() => firstTestId);
+
     it('should call fetch with correct url', () => {
       const fetchMock = jest.fn(fakeFetch);
-      const testPostItem = postItemFactory(fetchMock, 'www.besturl.com');
+      const testPostItem = postItemFactory(fetchMock, 'www.besturl.com', createErrorMessage);
 
       testPostItem(testText)(dispatchMock);
 
@@ -61,7 +51,7 @@ describe('postItem', () => {
 
     it('should dispatch receive post item', (done) => {
       const expectedDispatchAction = receivePostItem(responseBody);
-      const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com');
+      const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com', createErrorMessage);
 
       testPostItem(testText)(dispatchMock)
         .then(() => {
@@ -74,11 +64,11 @@ describe('postItem', () => {
     });
 
     it('should fail post item', (done) => {
-      const expectedDispatchAction = failPostItem(new Error());
+      const expectedDispatchAction = createErrorMessage(new Error('Oh, something went wrong!'));;
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
-      const testPostItem = postItemFactory(failFetch, 'www.besturl.com');
+      const testPostItem = postItemFactory(failFetch, 'www.besturl.com', createErrorMessage);
 
 
       testPostItem(testText)(dispatchMock)
