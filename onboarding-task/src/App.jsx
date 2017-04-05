@@ -16,10 +16,10 @@ const rootReducer = combineReducers({
   itemsOrder,
 });
 const logger = createLogger();
-// const initialState = getInitialState();
+const initialState = getInitialState();
 const store = createStore(
   rootReducer,
-  // initialState,
+  initialState,
   applyMiddleware(logger, thunk)
 );
 
