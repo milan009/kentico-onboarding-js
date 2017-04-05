@@ -6,17 +6,28 @@ import { addItemFactory } from '../../src/actions/actionDependencies/addItemFact
 
 describe('itemsById reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
-  const firstItem = new ItemRecord({ guid: '00000', text: 'serus', isEdited: false });
-  const secondItem = new ItemRecord({ guid: '11111', text: 'soj', isEdited: false });
-  const thirdItem = new ItemRecord({ guid: '22222', text: 'nazdar', isEdited: false });
+  const firstItem = new ItemRecord({ guid: '00000', text: 'serus' });
+  const secondItem = new ItemRecord({ guid: '11111', text: 'soj' });
+  const thirdItem = new ItemRecord({ guid: '22222', text: 'nazdar' });
   const stateBefore = Immutable.Map({
     [firstItem.guid]: firstItem,
     [secondItem.guid]: secondItem,
     [thirdItem.guid]: thirdItem,
   });
+  const json = [
+    {
+      id: '12345',
+      text: 'first item'
+    },
+    {
+      id: '67890',
+      text: 'second item'
+    },
+  ];
   const addItemAction = addItemFactory(() => '00000')('text');
   const deleteItemAction = actions.deleteItem('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
+  const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
 
 
   it('should return the initial state if action is uknown or not provided', () => {
@@ -55,5 +66,16 @@ describe('itemsById reducer', () => {
 
     expect(actualState).toEqual(expectedState);
   });
+
+  // it('should handle FETCH_ITEMS_SUCCESS action', () => {
+  //   const expectedState = Immutable.Map({
+  //     '12345' : 'first item',
+  //     '67890' : 'second item'
+  //   });
+  //   const actualState = itemsById(undefined, fetchItemsSuccessAction);
+  //
+  //   expect(actualState).toEqual(expectedState);
+  //
+  // });
 });
 
