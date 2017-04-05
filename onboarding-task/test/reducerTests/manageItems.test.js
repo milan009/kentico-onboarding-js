@@ -1,6 +1,5 @@
 import { Map } from 'immutable';
 import { Item } from '../../src/models/Item.js';
-import { rootReducer } from '../../src/reducers/index.js';
 import { deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { manageItems } from '../../src/reducers/manageItems';
