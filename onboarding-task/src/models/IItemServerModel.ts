@@ -1,5 +1,5 @@
-interface IItem {
+interface IItemServerModel {
   id: string;
   text: string;
 }
-export { IItem };
+export { IItemServerModel };

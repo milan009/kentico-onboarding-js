@@ -1,3 +1,11 @@
-/**
- * Created by IvanJ on 4.4.2017.
- */
+import { ItemRecord } from './ItemRecord';
+import { Map, OrderedSet } from 'immutable';
+import { IItemFlags } from '../reducers/itemsFlags';
+
+export interface IAppState {
+  itemsById: Map<string, ItemRecord>;
+  itemsFlags: Map<string, IItemFlags>;
+  itemsOrder: OrderedSet<string>;
+  isFetching: string;
+
+}
