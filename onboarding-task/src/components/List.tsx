@@ -4,11 +4,12 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ListItem } from '../containers/ListItem';
 import { AddItem } from './AddItem';
 import {Set} from 'immutable';
-import {IItemAction} from '../actions/IItemAction';
+import {IAction} from '../actions/IAction';
 
 interface IListProps {
   itemsOrder: Set<string>;
-  onAddItem: (text: string) => IItemAction;
+  onAddItem: (text: string) => IAction;
+  fetchItems: () => Promise<any>;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
@@ -16,12 +17,17 @@ class List extends React.PureComponent<IListProps, undefined> {
   static propTypes = {
     itemsOrder: ImmutablePropTypes.orderedSet.isRequired,
     onAddItem: PropTypes.func.isRequired,
+    fetchItems: PropTypes.func.isRequired,
   };
 
   constructor(props: IListProps) {
     super(props);
 
     this._addItem = this._addItem.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.fetchItems();
   }
 
   _addItem(text: string) {
