@@ -4,6 +4,8 @@ import { LineEdit } from './LineEdit.jsx';
 import { LineRead } from './LineRead.jsx';
 
 const ListItem = (props) => {
+  ListItem.displayName = 'ListItem';
+
   if (props.line.isEdited) {
     return (
       <LineEdit
@@ -25,8 +27,6 @@ const ListItem = (props) => {
     />
   );
 };
-
-ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
   line: ImmutablePropTypes.recordOf({

@@ -3,7 +3,7 @@ import { List } from '../List.jsx';
 import { addItem, editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../../actionCreators/actionCreators.js';
 
 const mapStateToProps = (state) => {
-  return state;
+  return { lines: state.lines };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,11 +28,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cancelChangesToItem(id));
     },
   };
-}
+};
 
 const ListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);
 
-export {ListContainer};
+export { ListContainer };
