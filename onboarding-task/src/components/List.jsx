@@ -1,5 +1,7 @@
-import React, { PureComponent, PropTypes } from 'react';
-import { Map } from 'immutable';
+import React, {
+  PureComponent,
+  PropTypes,
+} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { AddLine } from './AddLine.jsx';
 import { ListItem } from './ListItem.jsx';
@@ -11,7 +13,7 @@ const List = ({
     _handleDoubleClick,
     _handleClickSave,
     _handleClickCancel,
-}) => {
+  }) => {
   List.displayName = 'List';
 
   const renderedRows = lines.valueSeq().map((row, index) => (

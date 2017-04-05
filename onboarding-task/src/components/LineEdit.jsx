@@ -28,10 +28,10 @@ class LineEdit extends PureComponent {
   };
 
   _handleOnSave = () => {
-    this.props.onSave({
-      id: this.props.line.id,
-      text: this.state.text,
-    });
+    this.props.onSave(
+      this.props.line.id,
+      this.state.text,
+    );
   };
 
   _handleOnDelete = () => {
