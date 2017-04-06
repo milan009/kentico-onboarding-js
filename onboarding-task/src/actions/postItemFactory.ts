@@ -29,7 +29,7 @@ function postItems(fetch: Fetch, url: string, createErrorMessage: (error: Error)
         .then((response: Response) => response.json())
         .then((json: IItemResponse) => dispatch(receivePostItem(json)))
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           return dispatch(createErrorMessage(new Error('Oh, something went wrong!')));
         });
     };

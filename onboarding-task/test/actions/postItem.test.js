@@ -1,7 +1,7 @@
 import { POST_ITEM_RECEIVE } from '../../src/actions/actionTypes.ts';
 import { Item } from '../../src/models/Item.ts';
 import { receivePostItem, postItemFactory } from '../../src/actions/postItemFactory.ts';
-import { createErrorMessageWithoutDependency } from '../../src/actions/errorMessageActionCreators.ts';
+import { createErrorMessageFactory } from '../../src/actions/errorMessageActionCreators.ts';
 
 describe('postItem', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -38,7 +38,7 @@ describe('postItem', () => {
       dispatchMock.mockReset();
     });
 
-    const createErrorMessage = createErrorMessageWithoutDependency(() => firstTestId);
+    const createErrorMessage = createErrorMessageFactory(() => firstTestId);
 
     it('should call fetch with correct url', () => {
       const fetchMock = jest.fn(fakeFetch);

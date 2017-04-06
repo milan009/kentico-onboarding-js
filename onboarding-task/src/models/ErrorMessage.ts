@@ -1,8 +1,8 @@
 import { Record } from 'immutable';
 
 interface IErrorMessage {
-  id: string;
-  message: string;
+  readonly id: string;
+  readonly message: string;
 }
 
 const defaultValues: IErrorMessage = {

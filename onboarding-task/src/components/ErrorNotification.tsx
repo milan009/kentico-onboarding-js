@@ -49,24 +49,19 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
 
   render() {
     const messages = this.props.errorMessages.valueSeq().map((errorMessage) => {
-      if (errorMessage) {
-        return (
-          <ErrorMessageDetail
-            errorMessage={errorMessage}
-            key={errorMessage.id}
-            deleteErrorMessage={this.props.deleteErrorMessage}
-          />
-        );
+      if (!errorMessage) {
+        return null;
       }
-
-      return null;
+      return (
+        <ErrorMessageDetail
+          errorMessage={errorMessage}
+          key={errorMessage.id}
+          deleteErrorMessage={this.props.deleteErrorMessage}
+        />
+      );
     });
 
-    if (messages) {
-      return <div>{messages}</div>;
-    }else {
-      return null;
-    }
+    return messages ? <div>{messages}</div> : null;
   }
 }
 

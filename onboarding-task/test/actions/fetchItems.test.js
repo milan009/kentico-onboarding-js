@@ -1,6 +1,6 @@
 import { requestItems, receiveItems, fetchItemsFactory, failFetchItems } from '../../src/actions/fetchItemsFactory.ts';
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE } from '../../src/actions/actionTypes.ts';
-import { createErrorMessageWithoutDependency } from '../../src/actions/errorMessageActionCreators.ts';
+import { createErrorMessageFactory } from '../../src/actions/errorMessageActionCreators.ts';
 
 describe('fetchItems', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -51,7 +51,7 @@ describe('fetchItems', () => {
 
   describe('fetch items tests', () => {
     const dispatchMock = jest.fn((action) => action);
-    const createErrorMessage = createErrorMessageWithoutDependency(() => firstTestId);
+    const createErrorMessage = createErrorMessageFactory(() => firstTestId);
 
 
     const fakeFetch = () => Promise.resolve({

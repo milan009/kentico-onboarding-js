@@ -3,7 +3,7 @@ import { CREATE_ERROR_MESSAGE, DELETE_ERROR_MESSAGE } from './actionTypes';
 import { ErrorMessage } from '../models/ErrorMessage';
 
 
-function createErrorMessageWithoutDependency(idGenerator: any) {
+function createErrorMessageFactory(idGenerator: any) {
   return (error: Error) => {
     return {
       type: CREATE_ERROR_MESSAGE,
@@ -26,6 +26,6 @@ function deleteErrorMessage(id: string) {
   };
 }
 
-const createErrorMessage = createErrorMessageWithoutDependency(v4);
+const createErrorMessage = createErrorMessageFactory(v4);
 
-export { createErrorMessageWithoutDependency, createErrorMessage, deleteErrorMessage };
+export { createErrorMessageFactory, createErrorMessage, deleteErrorMessage };

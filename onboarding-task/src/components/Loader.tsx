@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { ComponentElement } from 'react';
 
 import { IAction } from '../actions/IAction';
 
 interface ILoaderProps {
   fetch: () => Promise<IAction>;
   isFetching: boolean;
-  component: React.ComponentClass<any>;
+  component: ComponentElement<any, any>;
 }
 
 class Loader extends React.PureComponent<ILoaderProps, undefined> {
@@ -14,7 +15,7 @@ class Loader extends React.PureComponent<ILoaderProps, undefined> {
   static propTypes = {
     fetch: React.PropTypes.func.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
-    component: React.PropTypes.func.isRequired,
+    component: React.PropTypes.node.isRequired,
   };
 
   componentDidMount() {
@@ -26,7 +27,7 @@ class Loader extends React.PureComponent<ILoaderProps, undefined> {
       return <div className="loader">Loading...</div>;
     }
 
-    return React.createElement(this.props.component);
+    return this.props.component;
   }
 }
 

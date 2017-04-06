@@ -21,7 +21,12 @@ class List extends React.PureComponent<IListProps, undefined> {
   static propTypes = {
     itemIds: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,
     addItem: React.PropTypes.func.isRequired,
-    errorMessages: React.PropTypes.object,
+    errorMessages: ImmutablePropTypes.orderedMapOf(
+      ImmutablePropTypes.recordOf({
+        id: React.PropTypes.string.isRequired,
+        message: React.PropTypes.string.isRequired,
+      })
+    ).isRequired,
     deleteErrorMessage: React.PropTypes.func.isRequired,
   };
 

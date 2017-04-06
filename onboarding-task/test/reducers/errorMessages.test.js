@@ -1,11 +1,11 @@
 import { OrderedMap } from 'immutable';
 import { errorMessages } from '../../src/reducers/errorMessages.ts';
-import { createErrorMessageWithoutDependency, deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
+import { createErrorMessageFactory, deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
 import { ErrorMessage } from '../../src/models/ErrorMessage.ts';
 
 describe('errorMessages', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
-  const createErrorMessage = createErrorMessageWithoutDependency(() => firstTestId);
+  const createErrorMessage = createErrorMessageFactory(() => firstTestId);
 
   it('should return initial state', () => {
     const expectedErrorMessages = OrderedMap();
