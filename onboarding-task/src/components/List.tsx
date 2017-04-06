@@ -11,8 +11,6 @@ import { IErrorMessage } from '../models/ErrorMessage';
 interface IListProps {
   itemIds: OrderedSet<string>;
   addItem: (text: string) => Promise<IAction>;
-  fetchItems: () => Promise<IAction>;
-  isFetching: boolean;
   errorMessages: OrderedMap<string, IErrorMessage>;
   deleteErrorMessage: (text: string) => IAction;
 }
@@ -23,20 +21,11 @@ class List extends React.PureComponent<IListProps, undefined> {
   static propTypes = {
     itemIds: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,
     addItem: React.PropTypes.func.isRequired,
-    fetchItems: React.PropTypes.func.isRequired,
-    isFetching: React.PropTypes.bool.isRequired,
     errorMessages: React.PropTypes.object,
     deleteErrorMessage: React.PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    this.props.fetchItems();
-  }
-
   render() {
-    if (this.props.isFetching) {
-      return <div className="loader">Loading...</div>;
-    }
     return (
       <div className="row">
         <ErrorNotification errorMessages={this.props.errorMessages} deleteErrorMessage={this.props.deleteErrorMessage} />

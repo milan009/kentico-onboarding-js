@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import './sticky-footer.css';
-import { List } from './containers/List';
+import { ListLoader } from './containers/ListLoader';
 
 class App extends React.PureComponent<undefined, undefined> {
   render() {
@@ -26,7 +26,7 @@ class App extends React.PureComponent<undefined, undefined> {
           </div>
 
           <section id="app-content">
-            <List />
+            <ListLoader />
           </section>
         </div>
         <footer className="footer">
