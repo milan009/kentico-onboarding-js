@@ -3,19 +3,21 @@ import { Dispatch } from '../stores/Dispatch';
 import { fetchItems, postItem } from '../actions/itemsActionCreators';
 import { List } from '../components/List';
 import { IAppState } from '../stores/IAppState';
+import { deleteErrorMessage } from '../actions/errorMessageActionCreators';
 
 const mapStateToProps = (state: IAppState) => {
   return {
     itemIds: state.itemsOrder,
     isFetching: state.isFetching,
-    errorMessage: state.errorMessage,
+    errorMessages: state.errorMessages,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addItem: (text: string) => dispatch(postItem(text)),
-    fetchItems: () => dispatch(fetchItems)
+    fetchItems: () => dispatch(fetchItems),
+    deleteErrorMessage: (id: string) => dispatch(deleteErrorMessage(id))
   };
 };
 

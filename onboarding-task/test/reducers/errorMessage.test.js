@@ -1,36 +1,36 @@
 import { OrderedMap } from 'immutable';
-import { errorMessage } from '../../src/reducers/errorMessage.ts';
+import { errorMessages } from '../../src/reducers/errorMessages.ts';
 import { createErrorMessageWithoutDependency, deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
 import { ErrorMessage } from '../../src/models/ErrorMessage.ts';
 
-describe('errorMessage', () => {
+describe('errorMessages', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
   const createErrorMessage = createErrorMessageWithoutDependency(() => firstTestId);
 
   it('should return initial state', () => {
-    const expectedErrorMessage = OrderedMap();
-    const errorMessageBefore = undefined;
+    const expectedErrorMessages = OrderedMap();
+    const errorMessagesBefore = undefined;
 
-    const errorMessageAfter = errorMessage(errorMessageBefore, { type: 'NOT_DEFINED' });
+    const errorMessagesAfter = errorMessages(errorMessagesBefore, { type: 'NOT_DEFINED' });
 
-    expect(errorMessageAfter).toEqual(expectedErrorMessage);
+    expect(errorMessagesAfter).toEqual(expectedErrorMessages);
   });
 
   it('should handle create error message', () => {
-    const expectedErrorMessage = OrderedMap({ [firstTestId]: new ErrorMessage({ id: firstTestId, message: 'error message' }) });
-    const errorMessageBefore = OrderedMap();
+    const expectedErrorMessages = OrderedMap({ [firstTestId]: new ErrorMessage({ id: firstTestId, message: 'error message' }) });
+    const errorMessagesBefore = OrderedMap();
 
-    const errorMessageAfter = errorMessage(errorMessageBefore, createErrorMessage(new Error('error message')));
+    const errorMessagesAfter = errorMessages(errorMessagesBefore, createErrorMessage(new Error('error message')));
 
-    expect(errorMessageAfter).toEqual(expectedErrorMessage);
+    expect(errorMessagesAfter).toEqual(expectedErrorMessages);
   });
 
   it('should handle delete error message', () => {
-    const expectedErrorMessage = OrderedMap();
-    const errorMessageBefore = OrderedMap({ [firstTestId]: new ErrorMessage({ id: firstTestId, message: 'error message' }) });
+    const expectedErrorMessages = OrderedMap();
+    const errorMessagesBefore = OrderedMap({ [firstTestId]: new ErrorMessage({ id: firstTestId, message: 'error message' }) });
 
-    const errorMessageAfter = errorMessage(errorMessageBefore, deleteErrorMessage(firstTestId));
+    const errorMessagesAfter = errorMessages(errorMessagesBefore, deleteErrorMessage(firstTestId));
 
-    expect(errorMessageAfter).toEqual(expectedErrorMessage);
+    expect(errorMessagesAfter).toEqual(expectedErrorMessages);
   });
 });

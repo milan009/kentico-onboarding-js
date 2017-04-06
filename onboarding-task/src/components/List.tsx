@@ -1,9 +1,10 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
-import { OrderedSet } from 'immutable';
+import { OrderedSet, OrderedMap } from 'immutable';
 
 import { Item } from '../containers/Item';
 import { AddForm } from './AddForm';
+import { ErrorNotification } from './ErrorNotification';
 import { IAction } from '../actions/IAction';
 import { IErrorMessage } from '../models/ErrorMessage';
 
@@ -12,7 +13,8 @@ interface IListProps {
   addItem: (text: string) => Promise<IAction>;
   fetchItems: () => Promise<IAction>;
   isFetching: boolean;
-  errorMessage: IErrorMessage;
+  errorMessages: OrderedMap<string, IErrorMessage>;
+  deleteErrorMessage: (text: string) => IAction;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
@@ -23,7 +25,8 @@ class List extends React.PureComponent<IListProps, undefined> {
     addItem: React.PropTypes.func.isRequired,
     fetchItems: React.PropTypes.func.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
-    errorMessage: React.PropTypes.object,
+    errorMessages: React.PropTypes.object,
+    deleteErrorMessage: React.PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -33,11 +36,10 @@ class List extends React.PureComponent<IListProps, undefined> {
   render() {
     if (this.props.isFetching) {
       return <div className="loader">Loading...</div>;
-    } else if (!this.props.isFetching && this.props.itemIds.isEmpty()) {
-      return <div className="loader">Nothing to show!</div>;
     }
     return (
       <div className="row">
+        <ErrorNotification errorMessages={this.props.errorMessages} deleteErrorMessage={this.props.deleteErrorMessage} />
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ul className="list-group">
             {this.props.itemIds.valueSeq().map((id: string, index: number) =>

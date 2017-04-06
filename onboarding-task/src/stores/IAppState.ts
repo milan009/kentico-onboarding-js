@@ -7,7 +7,7 @@ interface IAppState {
   editedItems: Set<string>;
   itemsOrder: OrderedSet<string>;
   isFetching: boolean;
-  errorMessage: IErrorMessage;
+  errorMessages: OrderedMap<string, IErrorMessage>;
 }
 
 export {IAppState}
