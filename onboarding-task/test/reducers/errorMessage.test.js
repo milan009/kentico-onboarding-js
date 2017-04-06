@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { errorMessage } from '../../src/reducers/errorMessage.ts';
-import { createErrorMessageWithoutDependency } from '../../src/actions/errorMessageActionCreators.ts';
+import { createErrorMessageWithoutDependency, deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
 import { ErrorMessage } from '../../src/models/ErrorMessage.ts';
 
 describe('errorMessage', () => {
@@ -21,6 +21,15 @@ describe('errorMessage', () => {
     const errorMessageBefore = OrderedMap();
 
     const errorMessageAfter = errorMessage(errorMessageBefore, createErrorMessage(new Error('error message')));
+
+    expect(errorMessageAfter).toEqual(expectedErrorMessage);
+  });
+
+  it('should handle delete error message', () => {
+    const expectedErrorMessage = OrderedMap();
+    const errorMessageBefore = OrderedMap({ [firstTestId]: new ErrorMessage({ id: firstTestId, message: 'error message' }) });
+
+    const errorMessageAfter = errorMessage(errorMessageBefore, deleteErrorMessage(firstTestId));
 
     expect(errorMessageAfter).toEqual(expectedErrorMessage);
   });

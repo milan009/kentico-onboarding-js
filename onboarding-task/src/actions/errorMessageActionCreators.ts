@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { CREATE_ERROR_MESSAGE } from './actionTypes';
+import { CREATE_ERROR_MESSAGE, DELETE_ERROR_MESSAGE } from './actionTypes';
 import { ErrorMessage } from '../models/ErrorMessage';
 
 
@@ -17,6 +17,15 @@ function createErrorMessageWithoutDependency(idGenerator: any) {
   };
 }
 
+function deleteErrorMessage(id: string) {
+  return {
+    type: DELETE_ERROR_MESSAGE,
+    payload: {
+      id,
+    }
+  };
+}
+
 const createErrorMessage = createErrorMessageWithoutDependency(v4);
 
-export { createErrorMessageWithoutDependency, createErrorMessage };
+export { createErrorMessageWithoutDependency, createErrorMessage, deleteErrorMessage };
