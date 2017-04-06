@@ -1,7 +1,7 @@
 import * as fetch from 'isomorphic-fetch';
 import { DELETE_ITEM, UPDATE_ITEM } from './actionTypes';
 import { IAction } from './IAction';
-import { fetchItemsFactory } from './fetchItemsFactory';
+import { failFetchItems, fetchItemsFactory } from './fetchItemsFactory';
 import { postItemFactory } from './postItemFactory';
 import { createErrorMessage } from './errorMessageActionCreators';
 
@@ -24,6 +24,6 @@ function updateItem(id: string, text: string): IAction {
   };
 }
 
-const fetchItemsWithDependencies = fetchItemsFactory(fetch, '/api/v1/items', createErrorMessage);
+const fetchItemsWithDependencies = fetchItemsFactory(fetch, '/api/v1/items', failFetchItems);
 const postItemWithDependencies = postItemFactory(fetch, '/api/v1/items', createErrorMessage);
 export { deleteItem, updateItem, fetchItemsWithDependencies as fetchItems, postItemWithDependencies as postItem };

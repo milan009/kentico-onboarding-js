@@ -1,6 +1,5 @@
-import { requestItems, receiveItems, fetchItemsFactory, failFetchItems } from '../../src/actions/fetchItemsFactory.ts';
+import { requestItems, receiveItems, fetchItemsFactory, failFetchItemsFactory } from '../../src/actions/fetchItemsFactory.ts';
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE } from '../../src/actions/actionTypes.ts';
-import { createErrorMessageFactory } from '../../src/actions/errorMessageActionCreators.ts';
 
 describe('fetchItems', () => {
   const firstTestId = '0aeeaa2b-1a2a-482c-b2a6-b172109071e7';
@@ -51,7 +50,7 @@ describe('fetchItems', () => {
 
   describe('fetch items tests', () => {
     const dispatchMock = jest.fn((action) => action);
-    const createErrorMessage = createErrorMessageFactory(() => firstTestId);
+    const failFetchItems = failFetchItemsFactory(() => firstTestId);
 
 
     const fakeFetch = () => Promise.resolve({
@@ -65,7 +64,7 @@ describe('fetchItems', () => {
 
     it('should dispatch requestItems', () => {
       const expectedDispatchAction = requestItems();
-      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', createErrorMessage);
+      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems);
 
       testFetchItems(dispatchMock);
 
@@ -74,7 +73,7 @@ describe('fetchItems', () => {
 
     it('should call fetch with correct url', () => {
       const fetchMock = jest.fn(fakeFetch);
-      const testFetchItems = fetchItemsFactory(fetchMock, 'www.besturl.com', createErrorMessage);
+      const testFetchItems = fetchItemsFactory(fetchMock, 'www.besturl.com', failFetchItems);
 
       testFetchItems(dispatchMock);
 
@@ -83,7 +82,7 @@ describe('fetchItems', () => {
 
     it('should dispatch receive items', (done) => {
       const expectedDispatchAction = receiveItems(responseBody);
-      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', createErrorMessage);
+      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems);
 
       testFetchItems(dispatchMock)
         .then(() => {
@@ -95,30 +94,12 @@ describe('fetchItems', () => {
         });
     });
 
-    it('should dispatch create error message', (done) => {
-      const expectedDispatchAction = createErrorMessage(new Error('Oh, something went wrong!'));
-      const failFetch = () => Promise.resolve({
-        json: () => Promise.reject(new Error()),
-      });
-      const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', createErrorMessage);
-
-
-      testFetchItems(dispatchMock)
-        .then(() => {
-          expect(dispatchMock.mock.calls[2][0]).toEqual(expectedDispatchAction);
-          done();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    });
-
     it('should dispatch failFetchItems', (done) => {
-      const expectedDispatchAction = failFetchItems();
+      const expectedDispatchAction = failFetchItems(new Error('Oh, something went wrong!'));
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
-      const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', createErrorMessage);
+      const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', failFetchItems);
 
 
       testFetchItems(dispatchMock)
