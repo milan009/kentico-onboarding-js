@@ -46,7 +46,6 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
     super(props);
   }
 
-
   render() {
     const messages = this.props.errorMessages.valueSeq().map((errorMessage) => {
       if (!errorMessage) {
@@ -61,7 +60,22 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
       );
     });
 
-    return messages ? <div>{messages}</div> : null;
+    return this.areValid(messages) ? <div>{messages}</div> : null;
+  }
+
+  private areValid(messages: any) {
+    if (messages.isEmpty()) {
+      return false;
+    }else {
+      messages.reduce((_isAllNull: boolean, message: any) => {
+        if (message) {
+          return false;
+        }
+        return true;
+      },              true);
+    }
+
+    return true;
   }
 }
 

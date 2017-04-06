@@ -36,8 +36,6 @@ function failFetchItemsFactory(idGenerator: any) {
   };
 }
 
-const failFetchItems = failFetchItemsFactory(v4);
-
 function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error) => IAction) {
   return (dispatch: Dispatch) => {
     dispatch(requestItems());
@@ -55,5 +53,7 @@ function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error
 function fetchItemsFactory(fetch: Fetch, url: string, createErrorMessage: (error: Error) => IAction) {
   return fetchItems(fetch, url, createErrorMessage);
 }
+
+const failFetchItems = failFetchItemsFactory(v4);
 
 export { fetchItemsFactory, requestItems, receiveItems, failFetchItems, failFetchItemsFactory };
