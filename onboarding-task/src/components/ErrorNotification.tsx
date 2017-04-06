@@ -12,7 +12,14 @@ interface IErrorMessageDetailProps {
 
 const ErrorMessageDetail: React.StatelessComponent<IErrorMessageDetailProps> = ({ deleteErrorMessage, errorMessage}) => (
   <div className="alert alert-danger alert-dismissable fade in" key={errorMessage.id}>
-    <a className="close" data-dismiss="alert" aria-label="close" onClick={() => deleteErrorMessage(errorMessage.id)}>&times;</a>
+    <a
+      className="close"
+      data-dismiss="alert"
+      aria-label="close"
+      onClick={() => deleteErrorMessage(errorMessage.id)}
+    >
+      &times;
+    </a>
     <strong>Error!</strong> {errorMessage.message}
   </div>
 );
@@ -43,11 +50,18 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
   render() {
     const messages = this.props.errorMessages.valueSeq().map((errorMessage) => {
       if (errorMessage) {
-        return <ErrorMessageDetail errorMessage={errorMessage} key={errorMessage.id} deleteErrorMessage={this.props.deleteErrorMessage} />;
+        return (
+          <ErrorMessageDetail
+            errorMessage={errorMessage}
+            key={errorMessage.id}
+            deleteErrorMessage={this.props.deleteErrorMessage}
+          />
+        );
       }
 
       return null;
     });
+
     if (messages) {
       return <div>{messages}</div>;
     }else {

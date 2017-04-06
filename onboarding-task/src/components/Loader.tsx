@@ -12,7 +12,9 @@ class Loader extends React.PureComponent<ILoaderProps, undefined> {
   static displayName = 'Loader';
 
   static propTypes = {
-
+    fetch: React.PropTypes.func.isRequired,
+    isFetching: React.PropTypes.bool.isRequired,
+    component: React.PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -22,9 +24,9 @@ class Loader extends React.PureComponent<ILoaderProps, undefined> {
   render() {
     if (this.props.isFetching) {
       return <div className="loader">Loading...</div>;
-    } else {
-      return React.createElement(this.props.component);
     }
+
+    return React.createElement(this.props.component);
   }
 }
 
