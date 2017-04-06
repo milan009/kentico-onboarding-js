@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { OrderedMap } from 'immutable';
+import { OrderedMap, Iterable } from 'immutable';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { IAction } from '../actions/IAction';
@@ -63,19 +63,17 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
     return this.areValid(messages) ? <div>{messages}</div> : null;
   }
 
-  private areValid(messages: any) {
+  private areValid(messages: Iterable<number, JSX.Element| null>) {
     if (messages.isEmpty()) {
       return false;
     }else {
-      messages.reduce((_isAllNull: boolean, message: any) => {
+      return messages.reduce((_isAllNotNull: boolean, message: JSX.Element) => {
         if (message) {
-          return false;
+          return true;
         }
-        return true;
-      },              true);
+        return false;
+      },                     false);
     }
-
-    return true;
   }
 }
 
