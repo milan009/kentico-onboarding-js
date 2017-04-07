@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 
-import { loadingWrapper } from '../components/utilComponents/loadingWrapper';
+import { loadingWrapper, ILoadingWrapperDataProps, ILoadingWrapperCallbacksProps } from '../components/utilComponents/loadingWrapper';
 import { ListContainer } from './ListContainer';
 import { IAppState } from '../interfaces/IAppState';
 import { fetchItems } from '../actionCreators/fetchItemsActionCreators';
 import { dispatchType } from '../utils/dispatchType';
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: IAppState): ILoadingWrapperDataProps => {
   return {
     isLoading: state.items.isFetching,
   };
 };
 
-const mapDispatchToProps = (dispatch: dispatchType) => {
+const mapDispatchToProps = (dispatch: dispatchType): ILoadingWrapperCallbacksProps => {
   return {
     onMountCallback: () => dispatch(fetchItems()),
   };

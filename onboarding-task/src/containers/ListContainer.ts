@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import { List } from '../components/List';
+import { List, IListDataProps, IListCallbacksProps } from '../components/List';
 import { IAppState } from '../interfaces/IAppState';
 import { dispatchType } from '../utils/dispatchType';
 import { createListItem } from '../actionCreators/actionCreators';
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: IAppState): IListDataProps => {
   return {
     itemsOrder: state.items.orderedIds,
     error: state.items.error,
@@ -13,7 +13,7 @@ const mapStateToProps = (state: IAppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: dispatchType) => {
+const mapDispatchToProps = (dispatch: dispatchType): IListCallbacksProps => {
   return {
     onListItemAdd: (text: string) => dispatch(createListItem(text)),
   };

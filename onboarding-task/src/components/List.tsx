@@ -6,14 +6,17 @@ import { CreateListItem } from './CreateListItem';
 import { IAction } from '../interfaces/IAction';
 import { StatusMessage } from './utilComponents/StatusMessage';
 
-interface IListProps {
+interface IListDataProps {
   readonly itemsOrder: ImmutableList<string>;
   readonly error: string;
   readonly successMessage: string;
+}
+
+interface IListCallbacksProps {
   readonly onListItemAdd: (text: string) => Promise<IAction>;
 }
 
-class List extends React.PureComponent<IListProps, undefined> {
+class List extends React.PureComponent<IListDataProps & IListCallbacksProps, undefined> {
 
   static displayName = 'List';
 
@@ -43,4 +46,4 @@ class List extends React.PureComponent<IListProps, undefined> {
     }
 }
 
-export { List };
+export { List, IListDataProps, IListCallbacksProps };

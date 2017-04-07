@@ -5,12 +5,15 @@ import { ListItemLabel } from './ListItemLabel';
 import { IAction } from '../interfaces/IAction';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 
-interface IListItemProps {
+interface IListItemDataProps {
   readonly item: IItemViewModel;
+}
+
+interface IListItemCallbacksProps {
   readonly onLabelClick: () => IAction;
 }
 
-class ListItem extends React.PureComponent<IListItemProps, undefined> {
+class ListItem extends React.PureComponent<IListItemDataProps & IListItemCallbacksProps, undefined> {
 
   static displayName = 'ListItem';
 
@@ -28,4 +31,4 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
   }
 }
 
-export { ListItem };
+export { ListItem, IListItemDataProps, IListItemCallbacksProps };

@@ -4,10 +4,13 @@ import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
 import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
 
-interface IListItemFormProps {
+interface IListItemFormDataProps {
   readonly index: number;
   readonly inputValue: string;
   readonly savedOnServer: boolean;
+}
+
+interface IListItemFormCallbacksProps {
   readonly onFormSubmit: (input: string) => IAction;
   readonly onFormCancelClick: () => IAction;
   readonly onFormDeleteClick: () => IAction;
@@ -17,11 +20,11 @@ interface IListItemFormState {
   readonly input: string;
 }
 
-class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemFormState> {
+class ListItemForm extends React.PureComponent<IListItemFormDataProps & IListItemFormCallbacksProps, IListItemFormState> {
 
   static displayName = 'ListItemForm';
 
-  constructor(props: IListItemFormProps) {
+  constructor(props: IListItemFormDataProps & IListItemFormCallbacksProps) {
     super(props);
 
     this.state = {
@@ -61,4 +64,4 @@ class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemForm
   }
 }
 
-export { ListItemForm };
+export { ListItemForm, IListItemFormDataProps, IListItemFormCallbacksProps };

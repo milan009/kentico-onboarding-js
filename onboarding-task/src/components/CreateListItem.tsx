@@ -1,7 +1,7 @@
 import React = require('react');
 import {ListItemValidatedInput} from './utilComponents/ListItemValidatedInput';
 
-interface ICreateListItemProps {
+interface ICreateListItemDataProps {
   readonly onListItemAdd: (input: string) => void;
 }
 
@@ -10,11 +10,11 @@ interface ICreateListItemState {
   readonly showError: boolean;
 }
 
-class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateListItemState> {
+class CreateListItem extends React.PureComponent<ICreateListItemDataProps, ICreateListItemState> {
 
   static displayName = 'CreateListItem';
 
-  constructor(props: ICreateListItemProps) {
+  constructor(props: ICreateListItemDataProps) {
     super(props);
 
     this.state = {

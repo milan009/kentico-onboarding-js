@@ -3,13 +3,16 @@ import React = require('react');
 import { Loader } from './Loader';
 
 
-interface IProps {
+interface ILoadingWrapperDataProps {
   isLoading: boolean;
+}
+
+interface ILoadingWrapperCallbacksProps {
   onMountCallback: () => any;
 }
 
-const loadingWrapper = (WrappedComponent: React.ComponentClass<IProps>) => {
-  return class extends React.PureComponent<IProps, undefined> {
+const loadingWrapper = (WrappedComponent: React.ComponentClass<ILoadingWrapperDataProps & ILoadingWrapperCallbacksProps>) => {
+  return class extends React.PureComponent<ILoadingWrapperDataProps & ILoadingWrapperCallbacksProps, undefined> {
 
     static displayName = `Loading Wrapper (${(WrappedComponent as any).displayName})`;
 
@@ -27,5 +30,5 @@ const loadingWrapper = (WrappedComponent: React.ComponentClass<IProps>) => {
   };
 };
 
-export { loadingWrapper };
+export { loadingWrapper, ILoadingWrapperDataProps, ILoadingWrapperCallbacksProps };
 

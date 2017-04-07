@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import memoize = require('memoizee');
 
-import { ListItem } from '../components/ListItem';
+import { ListItem, IListItemDataProps, IListItemCallbacksProps } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
 import { ItemRecord } from '../models/ItemRecord';
 import { IAppState } from '../interfaces/IAppState';
@@ -18,7 +18,7 @@ interface IOwnProps {
   readonly id: string;
 }
 
-const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
+const mapStateToProps = (state: IAppState, ownProps: IOwnProps): IListItemDataProps => {
   const id = ownProps.id;
   const itemUiProps = state.items.uiPropsById.get(id);
   const item = state.items.byId.get(id);
@@ -28,7 +28,7 @@ const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps) => {
+const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps): IListItemCallbacksProps => {
   return {
     onLabelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
   };
