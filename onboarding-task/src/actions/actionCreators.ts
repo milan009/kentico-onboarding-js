@@ -1,7 +1,7 @@
 import {ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED} from './actionTypes';
 import {generateGuid} from '../utils/generateGuid';
 import {createItemFactory} from './createItemFactory';
-import {IAction} from '../stores/IAction';
+import {IAction} from './IAction';
 
 const deleteItem = (id: string): IAction => ({
   type: ITEM_DELETED,
