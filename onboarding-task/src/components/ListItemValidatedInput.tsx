@@ -1,4 +1,5 @@
 import React = require('react');
+import * as classNames from 'classnames';
 
 interface ListItemValidatedInputProps {
   readonly onInputChange: (input: string) => void;
@@ -43,11 +44,15 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
   }
 
   render() {
-    const groupErrorClass = (this._isValid(this.props.input) ? 'has-success' : 'has-error') + ' has-feedback';
-    const formGroup = 'form-group col-md-3 ' + (this.state.showError ? groupErrorClass : '');
-    const glyphiconFeedback = 'glyphicon ' + ( this._isValid(this.props.input) ? 'glyphicon-ok' : 'glyphicon-remove' ) + ' form-control-feedback';
+    const groupErrorClass = classNames(this._isValid(this.props.input) ? 'has-success' : 'has-error', ' has-feedback');
+    const formGroupClass = classNames('form-group col-md-3 ', this.state.showError ? groupErrorClass : '');
+    const glyphiconFeedbackClass = classNames(
+      'glyphicon ',
+      this._isValid(this.props.input) ? 'glyphicon-ok' : 'glyphicon-remove',
+      ' form-control-feedback'
+    );
     return (
-        <div className={formGroup} >
+        <div className={formGroupClass} >
           <input
             type="text"
             className="form-control"
@@ -58,7 +63,7 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
             onBlur={this._onFocusOut}
             aria-describedby="inputSuccess4Status"
           />
-          {this.state.showError && <span className={glyphiconFeedback} aria-hidden={true}></span>}
+          {this.state.showError && <span className={glyphiconFeedbackClass} aria-hidden={true}></span>}
           <span id="inputSuccess4Status" className="sr-only">(success)</span>
         </div>
     );

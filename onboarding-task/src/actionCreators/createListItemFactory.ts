@@ -20,7 +20,7 @@ const createListItem = (createGuid: createGuidType, text: string, sendItemParam:
   const id = createGuid();
   return (dispatch: dispatchType) => {
     dispatch(createListItemAction(id, text));
-    return dispatch(sendItemParam({ id: 'null', value: text, ueid: id }));
+    return dispatch(sendItemParam({ id: '', value: text, ueid: id }));
   };
 };
 
