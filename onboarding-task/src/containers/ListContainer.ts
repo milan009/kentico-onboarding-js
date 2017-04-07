@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Immutable from 'immutable';
 import { connect } from 'react-redux';
 
 import { List } from '../components/List';
@@ -8,17 +7,11 @@ import { IAppState } from '../stores/IAppState';
 import { createItem, deleteItem, editItem, toggleItemViewMode } from '../actions/actionCreators';
 import { IAction } from '../stores/IAction';
 
-
-interface IListContainerProps {
-  itemsOrder: Immutable.OrderedSet<string>;
-}
-
-function mapStateToProps(state: IAppState): IListContainerProps {
+function mapStateToProps(state: IAppState) {
   return {
       itemsOrder: state.itemsOrder,
   };
 }
-
 
 function mapDispatchToProps(dispatch: Dispatch<IAction>) {
   return {
