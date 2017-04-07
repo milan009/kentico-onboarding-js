@@ -3,13 +3,6 @@ import {generateGuid} from '../utils/generateGuid';
 import {createItemFactory} from './createItemFactory';
 import {IAction} from '../stores/IAction';
 
-
-// TODO: rewrite/delete createItemFlags
-// const createItemFlags = (id: string): IAction => ({
-//   type: ITEM_CREATED,
-//   payload: { id },
-// });
-
 const deleteItem = (id: string): IAction => ({
   type: ITEM_DELETED,
   payload: { id },
