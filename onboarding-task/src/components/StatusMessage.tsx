@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MessageType } from '../enums/MessageType';
+import { MessageType } from '../utils/MessageType';
 
 const ErrorStatusMessage = ({ error }: { error: string }) => error && error !== ''
   ? (<div className="alert alert-danger" role="alert">
@@ -16,10 +16,10 @@ const SuccessStatusMessage = ({ successMessage }: { successMessage: string }) =>
 
 const StatusMessage = ({ message , messageType }: { message: string; messageType: MessageType }) => {
   switch (messageType) {
-    case MessageType.Error:
+    case 'Error':
       return <ErrorStatusMessage error={message} />;
 
-    case MessageType.Success:
+    case 'Success':
       return <SuccessStatusMessage successMessage={message} />;
 
     default:
