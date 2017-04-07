@@ -4,7 +4,7 @@ import { List as ImmutableList } from 'immutable';
 import { ListItemContainer } from '../containers/ListItemContainer';
 import { CreateListItem } from './CreateListItem';
 import { IAction } from '../interfaces/IAction';
-import { StatusMessage } from './StatusMessage';
+import { StatusMessage } from './utilComponents/StatusMessage';
 
 interface IListProps {
   readonly itemsOrder: ImmutableList<string>;

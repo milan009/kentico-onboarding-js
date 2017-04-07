@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { loadingWrapper } from '../components/loadingWrapper';
+import { loadingWrapper } from '../components/utilComponents/loadingWrapper';
 import { ListContainer } from './ListContainer';
 import { IAppState } from '../interfaces/IAppState';
 import { fetchItems } from '../actionCreators/fetchItemsActionCreators';

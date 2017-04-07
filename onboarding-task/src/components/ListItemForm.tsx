@@ -1,8 +1,8 @@
 import React = require('react');
 
 import { IAction } from '../interfaces/IAction';
-import { ListItemSavedFlag } from './ListItemSavedFlag';
-import { ListItemValidatedInput } from './ListItemValidatedInput';
+import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
+import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
 
 interface IListItemFormProps {
   readonly index: number;

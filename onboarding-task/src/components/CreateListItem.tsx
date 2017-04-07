@@ -1,5 +1,5 @@
 import React = require('react');
-import {ListItemValidatedInput} from './ListItemValidatedInput';
+import {ListItemValidatedInput} from './utilComponents/ListItemValidatedInput';
 
 interface ICreateListItemProps {
   readonly onListItemAdd: (input: string) => void;

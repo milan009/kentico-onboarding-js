@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MessageType } from '../utils/MessageType';
+import { MessageType } from '../../utils/MessageType';
 
 const ErrorStatusMessage = ({ error }: { error: string }) => error && error !== ''
   ? (<div className="alert alert-danger" role="alert">

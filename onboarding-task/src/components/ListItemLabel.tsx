@@ -1,7 +1,7 @@
 import React = require('react');
 
 import { IAction } from '../interfaces/IAction';
-import { ListItemSavedFlag } from './ListItemSavedFlag';
+import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
 
 interface ListItemLabelProps {
   readonly text: string;
