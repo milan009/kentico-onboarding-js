@@ -4,16 +4,19 @@ import { EditItem } from './EditItem';
 import { Item } from '../models/Item';
 import { ViewItem } from './ViewItem';
 
-interface IListItemProps {
+interface IListItemDataProps {
   item: Item;
   index: number;
   isInEditMode: boolean;
-  onItemValueEdit: (id: string, value: string) => void;
-  onDelete: (deletedItemID: string) => void;
-  onViewChange: (id: string) => void;
 }
 
-class ListItem extends React.PureComponent<IListItemProps, undefined> {
+interface IListItemCallbacksProps {
+  onItemValueEdit: (value: string) => void;
+  onDelete: () => void;
+  onViewChange: () => void;
+}
+
+class ListItem extends React.PureComponent<IListItemDataProps & IListItemCallbacksProps, undefined> {
   static displayName = 'ListItem';
 
   static propTypes = {
@@ -25,21 +28,12 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
     onViewChange: React.PropTypes.func.isRequired,
   };
 
-  constructor(props: IListItemProps) {
+  constructor(props: IListItemDataProps & IListItemCallbacksProps) {
     super(props);
   }
 
-  _toggleViewMode = () => {
-    this.props.onViewChange(this.props.item.id);
-  };
-
   _saveValue = (value: string) => {
-    this.props.onItemValueEdit(this.props.item.id, value);
-    this._toggleViewMode();
-  };
-
-  _deleteItem = () => {
-    this.props.onDelete(this.props.item.id);
+    this.props.onItemValueEdit(value);
   };
 
   render() {
@@ -50,18 +44,18 @@ class ListItem extends React.PureComponent<IListItemProps, undefined> {
           value={value}
           index={this.props.index}
           onEdit={this._saveValue}
-          onDelete={this._deleteItem}
-          onCancel={this._toggleViewMode}
+          onDelete={this.props.onDelete}
+          onCancel={this.props.onViewChange}
         />);
     }
     return (
         <ViewItem
           value={value}
           index={this.props.index}
-          onClick={this._toggleViewMode}
+          onClick={this.props.onViewChange}
         />
     );
   }
 }
 
-export { ListItem };
+export { ListItem, IListItemDataProps, IListItemCallbacksProps };
