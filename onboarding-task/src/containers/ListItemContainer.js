@@ -6,8 +6,7 @@ import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '..
 //   return { item: ownProps.item };
 // };
 
-const mapDispatchToProps = (dispatch, props) => ({
-  index: props.index,
+const mapDispatchToProps = (dispatch) => ({
   onDelete: (id) => dispatch(deleteItem(id)),
   onDoubleClick: (id) => dispatch(editItem(id)),
   onSave: (id, text) => dispatch(saveChangesToItem(id, text)),
