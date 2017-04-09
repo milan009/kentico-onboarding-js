@@ -9,9 +9,9 @@ const List = ({
   }) => {
   List.displayName = 'List';
 
-  const renderedRows = items.valueSeq().map((line, index) => (
-    <li key={line.id} className="list-group-item">
-      <ListItemContainer line={line} index={index + 1} />
+  const renderedRows = items.valueSeq().map((item, index) => (
+    <li key={item.id} className="list-group-item">
+      <ListItemContainer item={item} index={index + 1} />
     </li>
   ));
 

@@ -5,7 +5,7 @@ class ItemRead extends PureComponent {
   static displayName = 'ItemRead';
 
   static propTypes = {
-    line: ImmutablePropTypes.recordOf({
+    item: ImmutablePropTypes.recordOf({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
@@ -15,14 +15,14 @@ class ItemRead extends PureComponent {
   };
 
   _handleDoubleClick = () => {
-    this.props.onDoubleClick(this.props.line.id);
+    this.props.onDoubleClick(this.props.item.id);
   };
 
   render() {
     return (
       <div onDoubleClick={this._handleDoubleClick} >
         <span>{this.props.index}. </span>
-        {this.props.line.text}
+        {this.props.item.text}
       </div>
     );
   }

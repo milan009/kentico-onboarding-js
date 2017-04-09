@@ -4,7 +4,7 @@ import { ItemEdit } from './ItemEdit.jsx';
 import { ItemRead } from './ItemRead.jsx';
 
 const ListItem = ({
-    line,
+    item,
     index,
     onSave,
     onCancel,
@@ -13,11 +13,11 @@ const ListItem = ({
 }) => {
   ListItem.displayName = 'ListItem';
 
-  if (line.isEdited) {
+  if (item.isEdited) {
     return (
       <ItemEdit
-        key={line.id}
-        line={line}
+        key={item.id}
+        item={item}
         index={(index)}
         onSave={onSave}
         onCancel={onCancel}
@@ -27,8 +27,8 @@ const ListItem = ({
   }
   return (
     <ItemRead
-      key={line.id}
-      line={line}
+      key={item.id}
+      item={item}
       index={(index)}
       onDoubleClick={onDoubleClick}
     />
@@ -36,7 +36,7 @@ const ListItem = ({
 };
 
 ListItem.propTypes = {
-  line: ImmutablePropTypes.recordOf({
+  item: ImmutablePropTypes.recordOf({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     isEdited: PropTypes.bool.isRequired,

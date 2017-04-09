@@ -5,7 +5,7 @@ class ItemEdit extends PureComponent {
   static displayName = 'ItemEdit';
 
   static propTypes = {
-    line: ImmutablePropTypes.recordOf({
+    item: ImmutablePropTypes.recordOf({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
@@ -19,7 +19,7 @@ class ItemEdit extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.line.text,
+      text: this.props.item.text,
     };
   }
 
@@ -29,17 +29,17 @@ class ItemEdit extends PureComponent {
 
   _handleOnSave = () => {
     this.props.onSave(
-      this.props.line.id,
+      this.props.item.id,
       this.state.text,
     );
   };
 
   _handleOnDelete = () => {
-    this.props.onDelete(this.props.line.id);
+    this.props.onDelete(this.props.item.id);
   };
 
   _handleOnCancel = () => {
-    this.props.onCancel(this.props.line.id);
+    this.props.onCancel(this.props.item.id);
   };
 
   render() {

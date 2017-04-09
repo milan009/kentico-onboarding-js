@@ -3,8 +3,8 @@ import { ListItem } from '../components/ListItem.jsx';
 import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 
 
-const mapStateToProps = (state, props) => {
-  return { line: props.line };
+const mapStateToProps = (state) => {
+  return { item: state.item };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
