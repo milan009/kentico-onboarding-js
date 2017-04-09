@@ -1,8 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class LineRead extends PureComponent {
-  static displayName = 'LineRead';
+class ItemRead extends PureComponent {
+  static displayName = 'ItemRead';
 
   static propTypes = {
     line: ImmutablePropTypes.recordOf({
@@ -28,4 +28,4 @@ class LineRead extends PureComponent {
   }
 }
 
-export { LineRead };
+export { ItemRead };

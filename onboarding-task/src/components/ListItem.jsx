@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { LineEdit } from './LineEdit.jsx';
-import { LineRead } from './LineRead.jsx';
+import { ItemEdit } from './ItemEdit.jsx';
+import { ItemRead } from './ItemRead.jsx';
 
 const ListItem = ({
     line,
@@ -15,7 +15,7 @@ const ListItem = ({
 
   if (line.isEdited) {
     return (
-      <LineEdit
+      <ItemEdit
         key={line.id}
         line={line}
         index={(index)}
@@ -26,7 +26,7 @@ const ListItem = ({
     );
   }
   return (
-    <LineRead
+    <ItemRead
       key={line.id}
       line={line}
       index={(index)}

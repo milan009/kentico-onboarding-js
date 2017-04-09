@@ -1,8 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-class LineEdit extends PureComponent {
-  static displayName = 'LineEdit';
+class ItemEdit extends PureComponent {
+  static displayName = 'ItemEdit';
 
   static propTypes = {
     line: ImmutablePropTypes.recordOf({
@@ -58,4 +58,4 @@ class LineEdit extends PureComponent {
   }
 }
 
-export { LineEdit };
+export { ItemEdit };

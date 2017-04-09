@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { AddLine } from './AddLine.jsx';
+import { AddItem } from './AddItem.jsx';
 import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
@@ -28,7 +28,7 @@ const List = ({
           <ul id="todo-list" className="list-group">
             {renderedRows}
             <li className="list-group-item">
-              <AddLine onAdd={onAddLine} />
+              <AddItem onAdd={onAddLine} />
             </li>
           </ul>
         </div>
