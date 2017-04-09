@@ -29,17 +29,16 @@ class ItemEdit extends PureComponent {
 
   _handleOnSave = () => {
     this.props.onSave(
-      this.props.item.id,
       this.state.text,
     );
   };
 
   _handleOnDelete = () => {
-    this.props.onDelete(this.props.item.id);
+    this.props.onDelete();
   };
 
   _handleOnCancel = () => {
-    this.props.onCancel(this.props.item.id);
+    this.props.onCancel();
   };
 
   render() {

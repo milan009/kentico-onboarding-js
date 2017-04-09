@@ -6,11 +6,11 @@ import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '..
 //   return { item: ownProps.item };
 // };
 
-const mapDispatchToProps = (dispatch) => ({
-  onDelete: (id) => dispatch(deleteItem(id)),
-  onDoubleClick: (id) => dispatch(editItem(id)),
-  onSave: (id, text) => dispatch(saveChangesToItem(id, text)),
-  onCancel: (id) => dispatch(cancelChangesToItem(id)),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onDelete: () => dispatch(deleteItem(ownProps.item.id)),
+  onDoubleClick: () => dispatch(editItem(ownProps.item.id)),
+  onSave: (text) => dispatch(saveChangesToItem(ownProps.item.id, text)),
+  onCancel: () => dispatch(cancelChangesToItem(ownProps.item.id)),
 });
 
 const ListItemContainer = connect(

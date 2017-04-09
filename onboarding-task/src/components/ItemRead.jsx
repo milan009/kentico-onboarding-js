@@ -15,7 +15,7 @@ class ItemRead extends PureComponent {
   };
 
   _handleDoubleClick = () => {
-    this.props.onDoubleClick(this.props.item.id);
+    this.props.onDoubleClick();
   };
 
   render() {
