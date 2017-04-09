@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { itemsReducer } from './itemsReducer.js';
 
-const rootReducer = combineReducers({ lines: itemsReducer });
+const rootReducer = combineReducers({ items: itemsReducer });
 
 export { rootReducer };

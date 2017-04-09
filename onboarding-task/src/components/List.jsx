@@ -4,12 +4,12 @@ import { AddLine } from './AddLine.jsx';
 import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
-    lines,
+    items,
     onAddLine,
   }) => {
   List.displayName = 'List';
 
-  const renderedRows = lines.valueSeq().map((line, index) => (
+  const renderedRows = items.valueSeq().map((line, index) => (
     <li key={line.id} className="list-group-item">
       <ListItemContainer line={line} index={index + 1} />
     </li>
@@ -38,7 +38,7 @@ const List = ({
 };
 
 List.propTypes = {
-  lines: ImmutablePropTypes.map.isRequired,
+  items: ImmutablePropTypes.map.isRequired,
   onAddLine: PropTypes.func.isRequired,
 };
 
