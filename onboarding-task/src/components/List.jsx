@@ -38,7 +38,7 @@ class List extends PureComponent {
     });
   };
 
-  _startEditing= (id) => {
+  _startEditing = (id) => {
     const updatedItems = this.state.items.setIn([id, 'isEditing'], true);
 
     this.setState({ items: updatedItems });
@@ -111,14 +111,6 @@ class List extends PureComponent {
 
     return (
       <div className="row">
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-          </div>
-        </div>
-
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ListGroup>
