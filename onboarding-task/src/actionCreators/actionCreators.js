@@ -4,18 +4,18 @@ import { createGuid } from '../utils/guidHelper.js';
 
 export const addItem = addItemFactory(createGuid);
 
-export const deleteItem = (id) => {
-  return { type: DELETE_ITEM, payload: { id } };
-};
+export const deleteItem = (id) => ({
+  type: DELETE_ITEM, payload: { id },
+});
 
-export const editItem = (id) => {
-  return { type: ENABLE_EDIT_ITEM, payload: { id } };
-};
+export const editItem = (id) => ({
+  type: ENABLE_EDIT_ITEM, payload: { id },
+});
 
-export const saveChangesToItem = (id, text) => {
-  return { type: SAVE_CHANGES_TO_ITEM, payload: { id, text } };
-};
+export const saveChangesToItem = (id, text) => ({
+  type: SAVE_CHANGES_TO_ITEM, payload: { id, text },
+});
 
-export const cancelChangesToItem = (id) => {
-  return { type: CANCEL_CHANGES_TO_ITEM, payload: { id } };
-};
+export const cancelChangesToItem = (id) => ({
+  type: CANCEL_CHANGES_TO_ITEM, payload: { id },
+});

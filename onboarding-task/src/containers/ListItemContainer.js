@@ -6,19 +6,17 @@ import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '..
 //   return { item: ownProps.item };
 // };
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    index: props.index,
+const mapDispatchToProps = (dispatch, props) => ({
+  index: props.index,
 
-    onDelete: (id) => dispatch(deleteItem(id)),
+  onDelete: (id) => dispatch(deleteItem(id)),
 
-    onDoubleClick: (id) => dispatch(editItem(id)),
+  onDoubleClick: (id) => dispatch(editItem(id)),
 
-    onSave: (id, text) => dispatch(saveChangesToItem(id, text)),
+  onSave: (id, text) => dispatch(saveChangesToItem(id, text)),
 
-    onCancel: (id) => dispatch(cancelChangesToItem(id)),
-  };
-};
+  onCancel: (id) => dispatch(cancelChangesToItem(id)),
+});
 
 const ListItemContainer = connect(
   null, // mapStateToProps,

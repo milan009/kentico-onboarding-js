@@ -9,9 +9,7 @@ class AddItem extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-    };
+    this.state = { text: '' };
   }
 
   _handleChange = (event) => {
