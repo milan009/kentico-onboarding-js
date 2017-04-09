@@ -1,12 +1,13 @@
+import {combineReducers} from 'redux';
+
 import {itemsDataReducer} from './itemsDataReducer';
 import {itemsFlagReducer} from './itemsFlagReducer';
 import {itemsOrderReducer} from './itemsOrderReducer';
-import {combineReducers} from 'redux';
 
 const itemsReducer = combineReducers({
-  itemsDataReducer,
-  itemsOrderReducer,
-  itemsFlagReducer
+  items: itemsDataReducer,
+  itemsOrder: itemsOrderReducer,
+  itemsDisplayFlags: itemsFlagReducer
 });
 
 export { itemsReducer };
