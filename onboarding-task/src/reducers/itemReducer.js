@@ -8,18 +8,16 @@ const itemReducer = (state = new Item(), action) => {
       return item;
     }
 
-    case EDIT_ITEM: {
+    case EDIT_ITEM:
       return state.set('isEdited', true);
-    }
 
     case SAVE_CHANGES_TO_ITEM: {
       const changes = { text: action.payload.text, isEdited: false };
       return state.merge(changes);
     }
 
-    case CANCEL_CHANGES_TO_ITEM: {
+    case CANCEL_CHANGES_TO_ITEM:
       return state.set('isEdited', false);
-    }
 
     default:
       return state;
