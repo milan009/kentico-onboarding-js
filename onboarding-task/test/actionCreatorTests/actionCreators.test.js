@@ -8,7 +8,7 @@ describe('Correctly creates actions', () => {
   const text = 'test text';
 
   it('Action to add an item', () => {
-    const expectedAction = { type: ADD_ITEM, id: generateFakeId(), text };
+    const expectedAction = { type: ADD_ITEM, payload: { id: generateFakeId(), text } };
 
     const testedAction = addItemFactory(generateFakeId)(text);
 
@@ -16,7 +16,7 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to delete an item', () => {
-    const expectedAction = { type: DELETE_ITEM, id: fakeId };
+    const expectedAction = { type: DELETE_ITEM, payload: { id: fakeId } };
 
     const testedAction = deleteItem(fakeId);
 
@@ -24,7 +24,7 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to edit an item', () => {
-    const expectedAction = { type: EDIT_ITEM, id: fakeId };
+    const expectedAction = { type: EDIT_ITEM, payload: { id: fakeId } };
 
     const testedAction = editItem(fakeId);
 
@@ -32,7 +32,7 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to save the changes done to an item', () => {
-    const expectedAction = { type: SAVE_CHANGES_TO_ITEM, id: fakeId, text };
+    const expectedAction = { type: SAVE_CHANGES_TO_ITEM, payload: { id: fakeId, text } };
 
     const testedAction = saveChangesToItem(fakeId, text);
 
@@ -40,7 +40,7 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to delete the changes done to an item', () => {
-    const expectedAction = { type: CANCEL_CHANGES_TO_ITEM, id: fakeId };
+    const expectedAction = { type: CANCEL_CHANGES_TO_ITEM, payload: { id: fakeId } };
 
     const testedAction = cancelChangesToItem(fakeId);
 

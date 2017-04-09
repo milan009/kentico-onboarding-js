@@ -4,7 +4,7 @@ import { ADD_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } fro
 const manageItem = (state = new Item(), action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      const item = new Item({ id: action.id, text: action.text, isEdited: false });
+      const item = new Item({ id: action.payload.id, text: action.payload.text, isEdited: false });
       return state.merge(item);
     }
 
@@ -13,7 +13,7 @@ const manageItem = (state = new Item(), action) => {
     }
 
     case SAVE_CHANGES_TO_ITEM: {
-      const changes = { text: action.text, isEdited: false };
+      const changes = { text: action.payload.text, isEdited: false };
       return state.merge(changes);
     }
 

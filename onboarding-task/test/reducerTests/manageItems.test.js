@@ -65,7 +65,7 @@ describe('Correctly creates reducers', () => {
   });
 
   it('Reducer with unknown action', () => {
-    const unknownAction = { type: 'TEST_ME', id };
+    const unknownAction = { type: 'TEST_ME', payload: { id } };
 
     const tested = manageItems(initialState, unknownAction);
 
