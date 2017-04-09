@@ -13,8 +13,8 @@ const itemsReducer = (state = OrderedMap(), action) => {
     case ENABLE_EDIT_ITEM:
     case SAVE_CHANGES_TO_ITEM:
     case CANCEL_CHANGES_TO_ITEM: {
-      const stateItem = state.get(action.payload.id);
-      const editedItem = itemReducer(stateItem, action);
+      const currentItem = state.get(action.payload.id);
+      const editedItem = itemReducer(currentItem, action);
 
       return state.set(action.payload.id, editedItem);
     }
