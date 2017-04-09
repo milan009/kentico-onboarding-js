@@ -2,10 +2,9 @@ import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem.jsx';
 import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 
-
-const mapStateToProps = (state) => {
-  return { item: state.item };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   return { item: ownProps.item };
+// };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
@@ -22,7 +21,7 @@ const mapDispatchToProps = (dispatch, props) => {
 };
 
 const ListItemContainer = connect(
-  mapStateToProps,
+  null, // mapStateToProps,
   mapDispatchToProps,
 )(ListItem);
 
