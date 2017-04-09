@@ -1,5 +1,5 @@
 import { Item } from '../models/Item.js';
-import { ADD_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
+import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 
 const itemReducer = (state = new Item(), action) => {
   switch (action.type) {
@@ -8,7 +8,7 @@ const itemReducer = (state = new Item(), action) => {
       return item;
     }
 
-    case EDIT_ITEM:
+    case ENABLE_EDIT_ITEM:
       return state.set('isEdited', true);
 
     case SAVE_CHANGES_TO_ITEM: {

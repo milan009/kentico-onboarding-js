@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { itemReducer } from './itemReducer.js';
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 
 const itemsReducer = (state = Map(), action) => {
   switch (action.type) {
@@ -10,7 +10,7 @@ const itemsReducer = (state = Map(), action) => {
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
-    case EDIT_ITEM:
+    case ENABLE_EDIT_ITEM:
     case SAVE_CHANGES_TO_ITEM:
     case CANCEL_CHANGES_TO_ITEM: {
       const stateItem = state.get(action.payload.id);
