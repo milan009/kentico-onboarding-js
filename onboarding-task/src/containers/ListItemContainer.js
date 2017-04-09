@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { ListItem } from '../ListItem.jsx';
-import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../../actionCreators/actionCreators.js';
+import { ListItem } from '../components/ListItem.jsx';
+import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 
 
 const mapStateToProps = (state, props) => {

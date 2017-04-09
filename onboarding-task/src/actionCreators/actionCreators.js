@@ -1,4 +1,4 @@
-import { DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../actionTypes.js';
+import { DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 import { addItemFactory } from './addItemFactory';
 import { createGuid } from '../utils/guidHelper.js';
 

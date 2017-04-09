@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { List } from '../List.jsx';
-import { addItem } from '../../actionCreators/actionCreators.js';
+import { List } from '../components/List.jsx';
+import { addItem } from '../actionCreators/actionCreators.js';
 
 const mapStateToProps = (state) => {
   return { lines: state.lines };

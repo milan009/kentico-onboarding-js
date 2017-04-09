@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { manageItem } from './manageItem.js';
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 
 const manageItems = (state = Map(), action) => {
   switch (action.type) {

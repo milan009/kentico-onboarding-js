@@ -1,6 +1,6 @@
 import { deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../../src/actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../../src/constants/actionTypes.js';
 
 describe('Correctly creates actions', () => {
   const fakeId = '07b2b519-e303-1bbf-8ba7-9b986a0d15fc';

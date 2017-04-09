@@ -1,5 +1,5 @@
 import { Item } from '../models/Item.js';
-import { ADD_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../actionTypes.js';
+import { ADD_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 
 const manageItem = (state = new Item(), action) => {
   switch (action.type) {
