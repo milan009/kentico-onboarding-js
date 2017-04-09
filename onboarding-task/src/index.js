@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import App from './App.tsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
@@ -12,11 +12,12 @@ import { itemsReducer } from './reducers/itemsReducer.ts';
 
 
 const logger = createLogger();
+// ToDo: let or const?
 const store = createStore(itemsReducer, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />,
+    <App />
   </Provider>,
   document.getElementById('app-root')
 );

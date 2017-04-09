@@ -1,8 +1,8 @@
 import './sticky-footer.css';
-import React, { Component } from 'react';
-import { List } from './components/List.tsx';
+import * as React from 'react';
+import { List } from './containers/ListContainer';
 
-class App extends Component {
+class App extends React.PureComponent<undefined, undefined> {
   render() {
     return (
       <div>
