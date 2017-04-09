@@ -1,11 +1,11 @@
 import { Map } from 'immutable';
-import { manageItem } from './manageItem.js';
+import { itemReducer } from './itemReducer.js';
 import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
 
-const manageItems = (state = Map(), action) => {
+const itemsReducer = (state = Map(), action) => {
   switch (action.type) {
     case ADD_ITEM:
-      return state.set(action.payload.id, manageItem(undefined, action));
+      return state.set(action.payload.id, itemReducer(undefined, action));
 
     case DELETE_ITEM:
       return state.delete(action.payload.id);
@@ -14,7 +14,7 @@ const manageItems = (state = Map(), action) => {
     case SAVE_CHANGES_TO_ITEM:
     case CANCEL_CHANGES_TO_ITEM: {
       const stateItem = state.get(action.payload.id);
-      const editedItem = manageItem(stateItem, action);
+      const editedItem = itemReducer(stateItem, action);
 
       return state.set(action.payload.id, editedItem);
     }
@@ -24,4 +24,4 @@ const manageItems = (state = Map(), action) => {
   }
 };
 
-export { manageItems };
+export { itemsReducer };
