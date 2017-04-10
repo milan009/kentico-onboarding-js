@@ -20,10 +20,7 @@ const mapStateToProps = (_state: IAppState, ownProps: IOwnProps): IListItemFormD
 
 const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps): IListItemFormCallbacksProps => {
   return {
-    onFormSubmit: (text: string) => {
-      dispatch(updateListItem(ownProps.item.id, text));
-      return dispatch(switchFormVisibilityForListItem(ownProps.item.id));
-    },
+    onFormSubmit: (text: string) => dispatch(updateListItem(ownProps.item.id, text)),
     onFormCancelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.item.id)),
     onFormDeleteClick: () => dispatch(deleteListItem(ownProps.item.id)),
   };

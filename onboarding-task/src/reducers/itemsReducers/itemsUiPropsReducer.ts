@@ -8,6 +8,7 @@ import {
   FETCH_ITEMS_SUCCESS,
   SEND_ITEM_SUCCESS,
   SEND_ITEM_FAILURE,
+  UPDATE_TEXT_OF_ITEM,
 } from '../../constants/actionTypes';
 import { IAction } from '../../interfaces/IAction';
 import { IFetchedItem } from '../../interfaces/IFetchedItem';
@@ -17,6 +18,7 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
     case CREATE_ITEM_IN_LIST:
       return prevState.set(action.payload.id, new ItemUiPropsRecord());
 
+    case UPDATE_TEXT_OF_ITEM:
     case SWITCH_FORM_VISIBILITY_FOR_ITEM:
       const formDisplayed = !prevState.get(action.payload.id).formDisplayed;
       return prevState.setIn([action.payload.id, 'formDisplayed'], formDisplayed);
