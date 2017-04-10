@@ -1,7 +1,6 @@
 import { itemsOrder } from '../../src/reducers/itemsOrder';
 import * as actions from '../../src/actions/actionCreators';
 import * as Immutable from 'immutable';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsOrder reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -19,12 +18,15 @@ describe('itemsOrder reducer', () => {
       text: 'nazdar'
     },
   ];
+  const newItem = {
+    id: '12345',
+    text: 'text'
+  };
   const stateBefore = Immutable.OrderedSet(['00000', '11111', '22222']);
 
-  const addItemAction = addItemFactory(() => '12345')('text');
   const deleteItemAction = actions.deleteItem('00000');
   const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
-
+  const postItemSuccessAction = actions.postItemSuccess(newItem);
 
   it('should return empty list if action is uknown or not provided', () => {
     const actualState = itemsOrder(stateBefore, UNKNOWN_ACTION);
@@ -36,13 +38,6 @@ describe('itemsOrder reducer', () => {
     const actualState = itemsOrder(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.OrderedSet());
-  });
-
-  it('should handle ADD_ITEM action', () => {
-    const expectedState = stateBefore.add('12345');
-    const actualState = itemsOrder(stateBefore, addItemAction);
-
-    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle DELETE_ITEM action', () => {
@@ -57,7 +52,13 @@ describe('itemsOrder reducer', () => {
     const actualState = itemsOrder(undefined, fetchItemsSuccessAction);
 
     expect(actualState).toEqual(expectedState);
+  });
 
+  it('should handle POST_ITEM_SUCCESS action', () => {
+    const expectedState = stateBefore.add('12345');
+    const actualState = itemsOrder(stateBefore, postItemSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
   });
 });
 

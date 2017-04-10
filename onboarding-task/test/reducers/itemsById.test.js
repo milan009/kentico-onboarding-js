@@ -2,7 +2,6 @@ import { itemsById } from '../../src/reducers/itemsById';
 import * as actions from '../../src/actions/actionCreators';
 import * as Immutable from 'immutable';
 import { ItemRecord } from '../../src/models/ItemRecord';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsById reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -28,10 +27,15 @@ describe('itemsById reducer', () => {
       text: 'nazdar'
     },
   ];
-  const addItemAction = addItemFactory(() => '00000')('text');
+
+  const newItem = {
+    id: '12345',
+    text: 'text'
+  };
   const deleteItemAction = actions.deleteItem('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
   const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
+  const postItemSuccessAction = actions.postItemSuccess(newItem);
 
 
   it('should return the initial state if action is uknown or not provided', () => {
@@ -41,21 +45,12 @@ describe('itemsById reducer', () => {
   });
 
   it('should return empty immutable emptyItemsById if no state is provided', () => {
+
     const actualState = itemsById(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.Map());
   });
 
-  it('should handle ADD_ITEM action', () => {
-    const addedItem = new ItemRecord({
-      guid: '00000',
-      text: 'text',
-    });
-    const expectedState = stateBefore.set('00000', addedItem);
-    const actualState = itemsById(stateBefore, addItemAction);
-
-    expect(actualState).toEqual(expectedState);
-  });
 
   it('should handle DELETE_ITEM action', () => {
     const expectedState = stateBefore.delete('00000');
@@ -78,5 +73,14 @@ describe('itemsById reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-});
+  it('should handle POST_ITEM_SUCCESS action', () => {
+    const addedItem = new ItemRecord({
+      guid: '12345',
+      text: 'text',
+    });
+    const expectedState = stateBefore.set('12345', addedItem);
+    const actualState = itemsById(stateBefore, postItemSuccessAction);
 
+    expect(actualState).toEqual(expectedState);
+  });
+});

@@ -1,7 +1,6 @@
 import { itemsFlags } from '../../src/reducers/itemsFlags';
 import * as Immutable from 'immutable';
 import * as actions from '../../src/actions/actionCreators';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory';
 
 describe('itemsFlags reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -27,11 +26,16 @@ describe('itemsFlags reducer', () => {
       text: 'nazdar'
     },
   ];
-  const addItemAction = addItemFactory(() => '12345')('text');
+
+  const newItem = {
+    id: '12345',
+    text: 'text'
+  };
   const deleteItemAction = actions.deleteItem('00000');
   const toggleEditModeAction = actions.toggleEditMode('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
   const fetchItemsSuccessAction = actions.fetchItemsSuccess(json);
+  const postItemsSuccessAction = actions.postItemSuccess(newItem);
 
 
   it('should return empty list if action is uknown or not provided', () => {
@@ -44,13 +48,6 @@ describe('itemsFlags reducer', () => {
     const actualState = itemsFlags(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.Map());
-  });
-
-  it('should handle ADD_ITEM action', () => {
-    const expectedState = stateBefore.set('12345', { isEdited: false });
-    const actualState = itemsFlags(stateBefore, addItemAction);
-
-    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle DELETE_ITEM action', () => {
@@ -81,5 +78,13 @@ describe('itemsFlags reducer', () => {
     expect(actualState).toEqual(expectedState);
 
   });
+
+  it('should handle POST_ITEM_SUCCESS action', () => {
+    const expectedState = stateBefore.set('12345', { isEdited: false });
+    const actualState = itemsFlags(stateBefore, postItemsSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
 });
 
