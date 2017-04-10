@@ -43,14 +43,15 @@ describe('itemsDataReducer', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const createItem = createItemFactory(() => id);
     const value = 'text';
+    const item = new Item({
+      id,
+      value,
+    });
     const state = Immutable.Map().set(
       id,
-      new Item({
-        id,
-        value
-      })
+      item
     );
-    const expectedState = state.set(id, value);
+    const expectedState = state.set(id, item);
 
     const actualState = itemsDataReducer(state, createItem(value));
 
