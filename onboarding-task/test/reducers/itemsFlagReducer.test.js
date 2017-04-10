@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 import {ItemFlags} from '../../src/models/ItemFlags.ts';
-import {toggleItemViewMode, deleteItem} from '../../src/actions/actionCreators';
+import {toggleItemViewMode, deleteItem, editItem} from '../../src/actions/actionCreators';
 import {createItemFactory} from '../../src/actions/createItemFactory';
 import {itemsFlagReducer} from '../../src/reducers/itemsFlagReducer';
 
@@ -42,5 +42,21 @@ describe('ItemsFlagReducer', () => {
     const actualState = itemsFlagReducer(state, createItem("some value"));
 
     expect(actualState.has(id)).toBeTruthy();
+  });
+
+  it('toggle edit flag after edit', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const createItem = createItemFactory(() => id);
+    const state = Immutable.Map().set(
+      id,
+      new ItemFlags({
+        id,
+        editMode: true
+      })
+    );
+
+    const actualState = itemsFlagReducer(state, editItem(id, "value"));
+
+    expect(actualState.getIn([id, 'editMode'])).toBeFalsy();
   });
 });
