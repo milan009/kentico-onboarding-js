@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM_TEXT, FETCH_ITEMS_SUCCESS } from '../actions/actionTypes';
+import {DELETE_ITEM, UPDATE_ITEM_TEXT, FETCH_ITEMS_SUCCESS, POST_ITEM_SUCCESS} from '../actions/actionTypes';
 import { item } from './item';
 import { IAction } from '../actions/IAction';
 import { Map } from 'immutable';
@@ -8,8 +8,8 @@ import {IItemServerModel} from '../models/IItemServerModel';
 const emptyItemsById = Map<string, ItemRecord>();
 function itemsById (state = emptyItemsById, action: IAction): Map<string, ItemRecord> {
   switch (action.type) {
-    case ADD_ITEM:
-      return state.set(action.payload.guid, item(undefined, action));
+    // case ADD_ITEM:
+    //   return state.set(action.payload.guid, item(undefined, action));
 
     case UPDATE_ITEM_TEXT:
       const editedItem: ItemRecord = state.get(action.payload.guid);
@@ -26,6 +26,9 @@ function itemsById (state = emptyItemsById, action: IAction): Map<string, ItemRe
       },{});
       const result = Map<string, ItemRecord>(mapObject);
       return result;
+
+    case POST_ITEM_SUCCESS:
+      return state.set(action.payload.item.id, item(undefined, action));
     default:
       return state;
   }

@@ -1,4 +1,7 @@
-import {ADD_ITEM, DELETE_ITEM, FETCH_ITEMS_SUCCESS, TOGGLE_EDIT_MODE, UPDATE_ITEM_TEXT} from '../actions/actionTypes';
+import {
+  DELETE_ITEM, FETCH_ITEMS_SUCCESS, POST_ITEM_SUCCESS, TOGGLE_EDIT_MODE,
+  UPDATE_ITEM_TEXT
+} from '../actions/actionTypes';
 import * as Immutable from 'immutable';
 import { IAction } from '../actions/IAction';
 import { Map } from 'immutable';
@@ -11,8 +14,8 @@ export interface IItemFlags {
 const emptyItemsFlags = Immutable.Map<string, IItemFlags>();
 function itemsFlags (state: Map<string, IItemFlags> = emptyItemsFlags, action: IAction): Map<string, IItemFlags> {
   switch (action.type) {
-    case ADD_ITEM:
-      return state.set(action.payload.guid, { isEdited: false });
+    // case ADD_ITEM:
+    //   return state.set(action.payload.guid, { isEdited: false });
 
     case DELETE_ITEM:
       return state.delete(action.payload.guid);
@@ -29,6 +32,9 @@ function itemsFlags (state: Map<string, IItemFlags> = emptyItemsFlags, action: I
         return accu;
       },{});
       return Map<string, IItemFlags>(mapObject);
+
+    case POST_ITEM_SUCCESS:
+      return state.set(action.payload.item.id, { isEdited: false });
     default:
       return state;
   }
