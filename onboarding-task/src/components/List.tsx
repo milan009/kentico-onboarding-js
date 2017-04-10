@@ -8,14 +8,17 @@ import { ErrorNotification } from './ErrorNotification';
 import { IAction } from '../actions/IAction';
 import { IErrorMessage } from '../models/ErrorMessage';
 
-interface IListProps {
+interface IListDataProps {
   itemIds: OrderedSet<string>;
-  addItem: (text: string) => Promise<IAction>;
   errorMessages: OrderedMap<string, IErrorMessage>;
+}
+
+interface IListCallbackProps {
+  addItem: (text: string) => Promise<IAction>;
   deleteErrorMessage: (text: string) => IAction;
 }
 
-class List extends React.PureComponent<IListProps, undefined> {
+class List extends React.PureComponent<IListDataProps & IListCallbackProps, undefined> {
   static displayName = 'List';
 
   static propTypes = {

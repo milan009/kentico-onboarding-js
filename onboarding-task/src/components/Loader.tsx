@@ -1,34 +1,33 @@
 import * as React from 'react';
-import { ComponentElement } from 'react';
 
 import { IAction } from '../actions/IAction';
 
-interface ILoaderProps {
+interface ILoaderCallbackProps {
   fetch: () => Promise<IAction>;
-  isFetching: boolean;
-  component: ComponentElement<any, any>;
 }
 
-class Loader extends React.PureComponent<ILoaderProps, undefined> {
-  static displayName = 'Loader';
+interface ILoaderDataProps {
+  isFetching: boolean;
+}
 
-  static propTypes = {
-    fetch: React.PropTypes.func.isRequired,
-    isFetching: React.PropTypes.bool.isRequired,
-    component: React.PropTypes.node.isRequired,
-  };
+type ILoaderProps = ILoaderDataProps & ILoaderCallbackProps;
 
-  componentDidMount() {
-    this.props.fetch();
-  }
+function loaderWithSubscription<TLoadedComponentProps>(LoadedComponent: React.ComponentClass<TLoadedComponentProps> | React.StatelessComponent<TLoadedComponentProps>) {
+  return class Loader extends React.PureComponent<ILoaderProps, undefined> {
+    static displayName = `Loader(${LoadedComponent.displayName})`;
 
-  render() {
-    if (this.props.isFetching) {
-      return <div className="loader">Loading...</div>;
+    componentDidMount() {
+      this.props.fetch();
     }
 
-    return this.props.component;
-  }
+    render() {
+      if (this.props.isFetching) {
+        return <div className="loader">Loading...</div>;
+      }
+
+      return <LoadedComponent { ...this.props } />;
+    }
+  };
 }
 
-export { Loader };
+export { loaderWithSubscription };

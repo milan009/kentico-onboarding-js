@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from '../stores/Dispatch';
 import { postItem } from '../actions/itemsActionCreators';
@@ -15,7 +16,7 @@ const mapStateToProps = (state: IAppState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addItem: (text: string) => dispatch(postItem(text)),
-    deleteErrorMessage: (id: string) => dispatch(deleteErrorMessage(id))
+    deleteErrorMessage: (id: string) => dispatch(deleteErrorMessage(id)),
   };
 };
 
