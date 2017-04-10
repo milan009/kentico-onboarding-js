@@ -4,14 +4,15 @@ import { AddItem } from './AddItem.jsx';
 import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
-    items,
+    itemIDs,
     onAddLine,
   }) => {
   List.displayName = 'List';
 
-  const renderedRows = items.valueSeq().map((item, index) => (
-    <li key={item.id} className="list-group-item">
-      <ListItemContainer item={item} index={index + 1} />
+  // const renderedRows = itemIDs.valueSeq().map((itemID, index) => (
+  const renderedRows = itemIDs.map((itemID, index) => (
+    <li key={itemID} className="list-group-item">
+      <ListItemContainer itemID={itemID} index={index + 1} />
     </li>
   ));
 
@@ -38,7 +39,7 @@ const List = ({
 };
 
 List.propTypes = {
-  items: ImmutablePropTypes.map.isRequired,
+  itemIDs: ImmutablePropTypes.list.isRequired,
   onAddLine: PropTypes.func.isRequired,
 };
 

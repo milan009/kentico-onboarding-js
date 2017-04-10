@@ -2,19 +2,21 @@ import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem.jsx';
 import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 
-// const mapStateToProps = (state, ownProps) => {
-//   return { item: ownProps.item };
-// };
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.itemID;
+  const itemById = state.items.get(id);
+  return { item: itemById };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDelete: () => dispatch(deleteItem(ownProps.item.id)),
-  onDoubleClick: () => dispatch(editItem(ownProps.item.id)),
-  onSave: (text) => dispatch(saveChangesToItem(ownProps.item.id, text)),
-  onCancel: () => dispatch(cancelChangesToItem(ownProps.item.id)),
+  onDelete: () => dispatch(deleteItem(ownProps.itemID)),
+  onDoubleClick: () => dispatch(editItem(ownProps.itemID)),
+  onSave: (text) => dispatch(saveChangesToItem(ownProps.itemID, text)),
+  onCancel: () => dispatch(cancelChangesToItem(ownProps.itemID)),
 });
 
 const ListItemContainer = connect(
-  null, // mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps,
 )(ListItem);
 

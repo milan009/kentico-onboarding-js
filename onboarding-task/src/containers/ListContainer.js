@@ -3,7 +3,7 @@ import { List } from '../components/List.jsx';
 import { addItem } from '../actionCreators/actionCreators.js';
 
 const mapStateToProps = (state) => ({
-  items: state.items,
+  itemIDs: state.itemIDs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
