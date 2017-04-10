@@ -41,10 +41,11 @@ describe('postItem', () => {
     const createErrorMessage = createErrorMessageFactory(() => firstTestId);
 
     it('should call fetch with correct url', () => {
+      const fakeDispatch = (action) => action;
       const fetchMock = jest.fn(fakeFetch);
       const testPostItem = postItemFactory(fetchMock, 'www.besturl.com', createErrorMessage);
 
-      testPostItem(testText)(dispatchMock);
+      testPostItem(testText)(fakeDispatch);
 
       expect(fetchMock.mock.calls[0][0]).toEqual('www.besturl.com');
     });
@@ -55,11 +56,8 @@ describe('postItem', () => {
 
       testPostItem(testText)(dispatchMock)
         .then(() => {
-          expect(dispatchMock.mock.calls[1][0]).toEqual(expectedDispatchAction);
+          expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
           done();
-        })
-        .catch((e) => {
-          console.log(e);
         });
     });
 
@@ -75,9 +73,6 @@ describe('postItem', () => {
         .then(() => {
           expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
           done();
-        })
-        .catch((e) => {
-          console.log(e);
         });
     });
   });
