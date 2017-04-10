@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 
 import {Item} from '../../src/models/Item.ts';
 import {ItemFlags} from '../../src/models/ItemFlags.ts';
-import {editItem, createItem, deleteItem} from '../../src/actions/actionCreators';
+import {editItem, deleteItem} from '../../src/actions/actionCreators';
 import {createItemFactory} from '../../src/actions/createItemFactory';
 import {itemsDataReducer} from '../../src/reducers/itemsDataReducer';
 

@@ -4,6 +4,7 @@ import {itemsDataReducer} from './itemsDataReducer';
 import {itemsFlagReducer} from './itemsFlagReducer';
 import {itemsOrderReducer} from './itemsOrderReducer';
 
+
 const itemsReducer = combineReducers({
   items: itemsDataReducer,
   itemsOrder: itemsOrderReducer,

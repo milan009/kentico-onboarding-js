@@ -1,4 +1,5 @@
 import * as Immutable from 'immutable';
+
 import { Item } from '../models/Item';
 import { ItemFlags } from '../models/ItemFlags';
 

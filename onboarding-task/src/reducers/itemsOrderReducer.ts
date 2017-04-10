@@ -1,7 +1,9 @@
 import {OrderedSet} from 'immutable';
 
-import {ITEM_CREATED, ITEM_DELETED} from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
+
+import {ITEM_CREATED, ITEM_DELETED} from '../actions/actionTypes';
+
 
 const itemsOrderReducer = (
   state : OrderedSet<string> = OrderedSet<string>(),

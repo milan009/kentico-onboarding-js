@@ -1,8 +1,9 @@
 import {Map} from 'immutable';
 
-import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED} from '../actions/actionTypes';
-import {Item} from '../models/Item';
 import {IAction} from '../actions/IAction';
+
+import {Item} from '../models/Item';
+import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED} from '../actions/actionTypes';
 
 
 const itemsDataReducer = (

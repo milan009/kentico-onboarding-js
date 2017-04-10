@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { IAppState } from '../stores/IAppState';
+
 import {IListCallbacksProps, IListDataProps, List} from '../components/List';
 import { Dispatch } from '../stores/Dispatch';
-import { IAppState } from '../stores/IAppState';
 import { createItem } from '../actions/actionCreators';
 
 function mapStateToProps(state: IAppState) : IListDataProps {

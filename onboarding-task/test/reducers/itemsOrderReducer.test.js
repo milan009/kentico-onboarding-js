@@ -1,6 +1,6 @@
 import * as Immutable from 'immutable';
 
-import {createItem, deleteItem} from '../../src/actions/actionCreators';
+import {deleteItem} from '../../src/actions/actionCreators';
 import {itemsOrderReducer} from '../../src/reducers/itemsOrderReducer';
 import {createItemFactory} from '../../src/actions/createItemFactory';
 
