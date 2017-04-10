@@ -33,14 +33,6 @@ class ItemEdit extends PureComponent {
     );
   };
 
-  _handleOnDelete = () => {
-    this.props.onDelete();
-  };
-
-  _handleOnCancel = () => {
-    this.props.onCancel();
-  };
-
   render() {
     return (
       <div>
@@ -48,8 +40,8 @@ class ItemEdit extends PureComponent {
           <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
-            <button type="button" className="btn btn-default" onClick={this._handleOnCancel}>Cancel</button>
-            <button type="button" className="btn btn-danger" onClick={this._handleOnDelete}>Delete</button>
+            <button type="button" className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
+            <button type="button" className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>
           </span>
         </span>
       </div>
