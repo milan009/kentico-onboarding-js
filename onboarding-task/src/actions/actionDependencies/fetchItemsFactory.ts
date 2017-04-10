@@ -10,7 +10,7 @@ const fetchItems = (fetch: Fetch) => {
     return fetch('/api/v1/items')
       .then( (response: Response) => response.json() )
       .then( (json: IItemServerModel[]) => dispatch(fetchItemsSuccess(json)))
-      .catch( (error) => dispatch(fetchItemsFailure(error)));
+      .catch( (error: Error) => dispatch(fetchItemsFailure(error)));
   };
 };
 

@@ -1,19 +1,19 @@
-import { generateGuid } from '../utils/generateGuid';
+// import { generateGuid } from '../utils/generateGuid';
 import {
   TOGGLE_EDIT_MODE,
   DELETE_ITEM,
   UPDATE_ITEM_TEXT,
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
-  FETCH_ITEMS_FAILURE
+  FETCH_ITEMS_FAILURE,
+  POST_ITEM_SUCCESS, POST_ITEM_FAILURE
 } from './actionTypes';
-import { addItemFactory } from './actionDependencies/addItemFactory';
 import { IAction } from './IAction';
 import {IItemServerModel} from '../models/IItemServerModel';
 import * as fetch from 'isomorphic-fetch';
 import { fetchItemsFactory } from './actionDependencies/fetchItemsFactory';
+import {postItemFactory} from './actionDependencies/postItemFactory';
 
-export const addItem = addItemFactory(generateGuid);
 
 export const toggleEditMode = (guid: string) : IAction => ({
   type: TOGGLE_EDIT_MODE,
@@ -52,8 +52,26 @@ export const fetchItemsFailure = (error: Error) : IAction => ({
   type: FETCH_ITEMS_FAILURE,
   payload: {
     error
-  },
+  }
 });
 
 export const fetchItems = fetchItemsFactory(fetch);
+
+export const postItemSuccess = (json: IItemServerModel) : IAction => ({
+  type: POST_ITEM_SUCCESS,
+  payload: {
+    item: json
+  }
+});
+
+export const postItemFailure = (error: Error) : IAction => ({
+  type: POST_ITEM_FAILURE,
+  payload: {
+    error
+  }
+});
+
+export const postItem = postItemFactory(fetch);
+
+
 
