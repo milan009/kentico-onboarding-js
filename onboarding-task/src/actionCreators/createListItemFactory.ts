@@ -16,12 +16,14 @@ const createListItemAction = (id: string, text: string): IAction => {
   };
 };
 
-const createListItem = (createGuid: createGuidType, text: string, sendItemParam: ISendItem) => {
-  const id = createGuid();
-  return (dispatch: dispatchType) => {
+type createListItemType = (dispatch: dispatchType) => Promise<IAction>;
+
+const createListItem = (createGuid: createGuidType, text: string, sendItemParam: ISendItem): createListItemType =>
+  (dispatch: dispatchType) => {
+    const id = createGuid();
     dispatch(createListItemAction(id, text));
+
     return dispatch(sendItemParam({ id: '', value: text, ueid: id }));
-  };
 };
 
 const createListItemFactory = (createGuid: createGuidType, sendItemParam: ISendItem) =>
