@@ -6,11 +6,13 @@ import {
 import { IFetchedItem } from '../interfaces/IFetchedItem';
 import { sendItemFactory } from './sendItemFactory';
 
-const sendItemSuccess = (sentItem: IFetchedItem): IAction => {
+type successMessageCreatorType = (sentItem: IFetchedItem) => string;
+
+const sendItemSuccessCreator = (sentItem: IFetchedItem, successMessageCreator: successMessageCreatorType): IAction => {
   return {
     type: SEND_ITEM_SUCCESS,
     payload: {
-      successMessage: `Item ${sentItem.value} was successfully uploaded.`,
+      successMessage: successMessageCreator(sentItem),
       item: sentItem,
     },
   };
@@ -26,6 +28,8 @@ const sendItemFailure = (errorMessage: string, itemId: string): IAction => {
   };
 };
 
+const sendItemSuccess = (sentItem: IFetchedItem) => sendItemSuccessCreator(sentItem, (item: IFetchedItem) => `Item ${item.value} was successfully uploaded.`);
+
 const sendItem = sendItemFactory(fetch);
 
-export { sendItemFailure, sendItemSuccess, sendItem };
+export { sendItemFailure, sendItemSuccess, sendItem, sendItemSuccessCreator };

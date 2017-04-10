@@ -31,4 +31,4 @@ const itemsReducer: IItemsReducer = combineReducers({
   successMessage: successMessageReducer,
 }) as IItemsReducer;
 
-export { itemsReducer, isFetchingReducer, errorReducer };
+export { itemsReducer, isFetchingReducer, errorReducer, successMessageReducer };

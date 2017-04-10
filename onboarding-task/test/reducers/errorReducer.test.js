@@ -7,7 +7,7 @@ import {
   SEND_ITEM_SUCCESS,
 } from '../../src/constants/actionTypes.ts';
 
-describe('isFetchingReducer ', () => {
+describe('errorReducer  ', () => {
   const errorMessage = 'testError';
   it(`returns payload.errorMessage when ${FETCH_ITEMS_FAILURE} action is dispatched`, () => {
     const acutalResult = errorReducer('', fetchItemsFailure(errorMessage));

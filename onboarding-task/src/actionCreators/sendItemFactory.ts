@@ -1,4 +1,3 @@
-require('isomorphic-fetch');
 
 import { IAction } from '../interfaces/IAction';
 import { IFetchedItem } from '../interfaces/IFetchedItem';
