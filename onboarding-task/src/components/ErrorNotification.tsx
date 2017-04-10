@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { OrderedMap, Iterable } from 'immutable';
+import { OrderedMap } from 'immutable';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { IAction } from '../actions/IAction';
@@ -42,38 +42,21 @@ class ErrorNotification extends React.PureComponent<IErrorNotificationProps, und
     deleteErrorMessage: React.PropTypes.func.isRequired,
   };
 
-  constructor(props: IErrorNotificationProps) {
-    super(props);
-  }
+  render(): JSX.Element | null {
+    if (!this.props.errorMessages) {
+      return null;
+    }
 
-  render() {
-    const messages = this.props.errorMessages.valueSeq().map((errorMessage) => {
-      if (!errorMessage) {
-        return null;
-      }
-      return (
+    const messages = this.props.errorMessages.valueSeq().map((errorMessage: IErrorMessage) => (
         <ErrorMessageDetail
           errorMessage={errorMessage}
           key={errorMessage.id}
           deleteErrorMessage={this.props.deleteErrorMessage}
         />
-      );
-    });
+      )
+    );
 
-    return this.areValid(messages) ? <div>{messages}</div> : null;
-  }
-
-  private areValid(messages: Iterable<number, JSX.Element| null>) {
-    if (messages.isEmpty()) {
-      return false;
-    }else {
-      return messages.reduce((_isAllNotNull: boolean, message: JSX.Element) => {
-        if (message) {
-          return true;
-        }
-        return false;
-      },                     false);
-    }
+    return <div>{messages}</div>;
   }
 }
 
