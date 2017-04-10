@@ -8,7 +8,7 @@ describe('action creators ', () => {
 
   it(`createListItem creates ${CREATE_ITEM_IN_LIST} action`, () => {
     const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
-    const expectedItemToSend = { id: 'null', value: text, ueid: id };
+    const expectedItemToSend = { id: '', value: text, ueid: id };
     const fakeDispatch = jest.fn(action => action);
 
     const actualAction = createListItemFactory(() => id, action => action)(text)(fakeDispatch);
