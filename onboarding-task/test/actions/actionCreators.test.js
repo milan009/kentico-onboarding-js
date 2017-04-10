@@ -1,23 +1,10 @@
 import * as actions from '../../src/actions/actionCreators.ts';
 import * as types from '../../src/actions/actionTypes.ts';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory.ts';
-import { fetchItemsFactory } from '../../src/actions/actionDependencies/fetchItemsFactory.ts';
+// import { postItemFactory } from '../../src/actions/actionDependencies/postItemFactory.ts';
 
 describe('actionCreators', () => {
 
   const text = 'New item';
-  it('should create action to add item', () => {
-    const expectedAction = {
-      type: types.ADD_ITEM,
-      payload: {
-        guid: '00000',
-        text,
-      },
-    };
-    const actualAction = addItemFactory(() => '00000')(text);
-
-    expect(actualAction).toEqual(expectedAction);
-  });
 
   it('should create action for toggling edit mode', () => {
     const expectedAction = {
@@ -94,7 +81,7 @@ describe('fetch actionCreators tests', () => {
   });
 
   it('should create action for failed items fetch', () => {
-    const error = new Error("fetching items failed");
+    const error = new Error('fetching items failed');
     const expectedAction = {
       type: types.FETCH_ITEMS_FAILURE,
       payload: {
@@ -106,3 +93,39 @@ describe('fetch actionCreators tests', () => {
     expect(actualAction).toEqual(expectedAction);
   });
 });
+
+describe('post actionCreators tests', () => {
+  const json = [
+    {
+      id: undefined,
+      text: 'first item'
+    },
+  ];
+
+  it('should create action for successful item post', () => {
+    const expectedAction = {
+      type: types.POST_ITEM_SUCCESS,
+      payload: {
+        item: json,
+      }
+    };
+    const actualAction = actions.postItemSuccess(json);
+
+    expect(actualAction).toEqual(expectedAction);
+  });
+
+  it('should create action for failed item post', () => {
+    const error = new Error('post item failed');
+    const expectedAction = {
+      type: types.POST_ITEM_FAILURE,
+      payload: {
+        error
+      }
+    };
+    const actualAction = actions.postItemFailure(error);
+
+    expect(actualAction).toEqual(expectedAction);
+  });
+
+});
+
