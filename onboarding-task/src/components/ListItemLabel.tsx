@@ -11,6 +11,9 @@ interface ListItemLabelProps {
 }
 
 const ListItemLabel = ({ text, index, onClick, savedOnServer }: ListItemLabelProps) =>
-  <div onClick={onClick}><span className="col-md-10">{index}. {text}</span> <ListItemSavedFlag saved={savedOnServer} /></div>;
+  <div onClick={onClick}>
+    <span className="col-md-10">{index}. {text}</span>
+    <ListItemSavedFlag saved={savedOnServer} />
+  </div>;
 
 export { ListItemLabel };
