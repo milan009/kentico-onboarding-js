@@ -26,7 +26,7 @@ describe('fetchItemsActionCreators ', () => {
   });
 
   it(`${fetchItemsFailure} returns correct ${FETCH_ITEMS_FAILURE} action with given response`, () => {
-    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { response: 'test' } };
+    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'test' } };
     const actualAction = fetchItemsFailure('test');
 
     expect(actualAction).toEqual(expectedAction);
