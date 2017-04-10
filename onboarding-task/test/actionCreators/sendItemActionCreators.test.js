@@ -24,9 +24,10 @@ describe('sendItemActionCreators ', () => {
       type: SEND_ITEM_FAILURE,
       payload: {
         errorMessage: fakeFailureResponse,
+        itemId: 'testUeid',
       },
     };
-    const actualAction = sendItemFailure(fakeFailureResponse);
+    const actualAction = sendItemFailure(fakeFailureResponse, 'testUeid');
 
     expect(actualAction).toEqual(expectedAction);
   });
