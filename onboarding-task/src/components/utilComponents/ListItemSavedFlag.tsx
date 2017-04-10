@@ -11,7 +11,12 @@ const ListItemSavedFlag = ({ saved }: ListItemSavedFlagProps) => {
   };
   const className = classNames('glyphicon', saved ? 'glyphicon-cloud' : 'glyphicon-alert');
   const tooltip = saved ? 'Item is saved in database.' : 'Item is not saved in database.';
-  return <span title={tooltip}><span className={className} style={style}></span></span>;
+
+  return (
+  <span title={tooltip}>
+    <span className={className} style={style} />
+  </span>
+  );
 };
 
 export { ListItemSavedFlag };
