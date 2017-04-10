@@ -32,9 +32,9 @@ const itemsUiPropsReducer = (prevState = Map<string, ItemUiPropsRecord>(), actio
       return Map<string, ItemUiPropsRecord>(tmpResult);
 
     case SEND_ITEM_SUCCESS:
-      const oldFormDisplayed = prevState.get(action.payload.item.ueid).formDisplayed;
+      const oldItemUiProps = prevState.get(action.payload.item.ueid);
       const tmpState = prevState.delete(action.payload.item.ueid);
-      return tmpState.set(action.payload.item.id, new ItemUiPropsRecord({ formDisplayed: oldFormDisplayed, savedOnServer: true }));
+      return tmpState.set(action.payload.item.id, oldItemUiProps.merge({ savedOnServer: true }) as ItemUiPropsRecord);
 
     case SEND_ITEM_FAILURE:
       return prevState.delete(action.payload.itemId);
