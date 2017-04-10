@@ -4,11 +4,10 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ListItem } from '../containers/ListItem';
 import { AddItem } from './AddItem';
 import {Set} from 'immutable';
-import {IAction} from '../actions/IAction';
 
 interface IListProps {
   itemsOrder: Set<string>;
-  onAddItem: (text: string) => IAction;
+  onAddItem: (text: string) => Promise<any>;
   fetchItems: () => Promise<any>;
 }
 

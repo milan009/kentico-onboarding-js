@@ -3,9 +3,11 @@ import { List } from '../components/List';
 import * as Immutable from 'immutable';
 import { IItemFlags } from '../reducers/itemsFlags';
 import { IItemRecord } from '../models/ItemRecord';
-import {addItem, fetchItems} from '../actions/actionCreators';
+import {
+        fetchItems,
+        postItem
+      } from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
-
 
 interface IListState {
   itemsById: Immutable.Map<string, IItemRecord>;
@@ -21,8 +23,8 @@ const mapStateToProps = (state: IListState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch ) => {
   return {
-    onAddItem: (text: string) => dispatch(addItem(text)),
-    fetchItems: () => dispatch(fetchItems())
+    fetchItems: () => dispatch(fetchItems()),
+    onAddItem: (text: string) => dispatch(postItem(text)),
   };
 };
 
