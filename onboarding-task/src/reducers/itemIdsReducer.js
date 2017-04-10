@@ -1,14 +1,13 @@
-import { List } from 'immutable';
+import { OrderedSet } from 'immutable';
 import { ADD_ITEM, DELETE_ITEM } from '../constants/actionTypes.js';
 
-const itemIdsReducer = (state = List(), action) => {
+const itemIdsReducer = (state = OrderedSet(), action) => {
   switch (action.type) {
     case ADD_ITEM:
-      return state.push(action.payload.id);
+      return state.add(action.payload.id);
 
     case DELETE_ITEM: {
-      const indexOfItem = state.indexOf(action.payload.id);
-      return state.delete(indexOfItem);
+      return state.delete(action.payload.id);
     }
 
     default:

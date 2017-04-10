@@ -7,8 +7,7 @@ const List = ({
     itemIds,
     onAddLine,
   }) => {
-  // const renderedRows = itemIds.valueSeq().map((itemId, index) => (
-  const renderedRows = itemIds.map((itemId, index) => (
+  const renderedRows = itemIds.valueSeq().map((itemId, index) => (
     <li key={itemId} className="list-group-item">
       <ListItemContainer itemId={itemId} index={index + 1} />
     </li>
@@ -38,7 +37,7 @@ const List = ({
 
 List.displayName = 'List';
 List.propTypes = {
-  itemIds: ImmutablePropTypes.list.isRequired,
+  itemIds: ImmutablePropTypes.orderedSet.isRequired,
   onAddLine: PropTypes.func.isRequired,
 };
 
