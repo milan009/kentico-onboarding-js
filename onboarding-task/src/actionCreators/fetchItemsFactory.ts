@@ -1,4 +1,3 @@
-require('isomorphic-fetch');
 
 import { IAction } from '../interfaces/IAction';
 import { fetchItemsRequest, fetchItemsSuccess, fetchItemsFailure} from './fetchItemsActionCreators';
