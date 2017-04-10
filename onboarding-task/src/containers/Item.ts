@@ -12,8 +12,10 @@ interface IItemContainerProps {
 }
 
 const mapStateToProps = (state: IAppState, ownProps: IItemContainerProps) => {
+  const item = state.items.get(ownProps.id);
+  const isEdited = state.editedItems.has(ownProps.id);
   return {
-    item: selectViewItem(state, ownProps.id, ownProps.index),
+    item: selectViewItem(item, isEdited, ownProps.index),
   };
 };
 

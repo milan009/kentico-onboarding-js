@@ -1,13 +1,11 @@
 import * as memoize from 'memoizee';
 import { ViewItem, IViewItem } from '../viewModels/ViewItem';
-import { IAppState } from '../stores/IAppState';
+import { IItem } from '../models/Item';
 
-const selectViewItem = memoize((state: IAppState, id: string, zeroBasedIndex: number): IViewItem => {
-  const item = state.items.get(id);
-
+const selectViewItem = memoize((item: IItem, isEdited: boolean, zeroBasedIndex: number): IViewItem => {
   return new ViewItem({
     text: item.text,
-    isEdited: state.editedItems.has(id),
+    isEdited,
     index: zeroBasedIndex + 1,
   });
 });
