@@ -9,8 +9,8 @@ class ItemRead extends PureComponent {
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
+      index: PropTypes.number.isRequired,
     }).isRequired,
-    index: PropTypes.number.isRequired,
     onDoubleClick: PropTypes.func.isRequired,
   };
 
@@ -21,7 +21,7 @@ class ItemRead extends PureComponent {
   render() {
     return (
       <div onDoubleClick={this._handleDoubleClick} >
-        <span>{this.props.index}. </span>
+        <span>{this.props.item.index}. </span>
         {this.props.item.text}
       </div>
     );
