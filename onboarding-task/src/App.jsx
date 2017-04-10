@@ -6,6 +6,8 @@ import { List } from './containers/List.tsx';
 import { itemsById } from './reducers/itemsById.ts';
 import { itemsFlags } from './reducers/itemsFlags.ts';
 import { itemsOrder } from './reducers/itemsOrder.ts';
+import { fetching } from './reducers/fetching.ts';
+
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState.ts';
 import thunk from 'redux-thunk';
@@ -14,6 +16,7 @@ const rootReducer = combineReducers({
   itemsById,
   itemsFlags,
   itemsOrder,
+  fetching,
 });
 const logger = createLogger();
 const initialState = getInitialState();

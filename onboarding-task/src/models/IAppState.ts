@@ -6,6 +6,6 @@ export interface IAppState {
   itemsById: Map<string, ItemRecord>;
   itemsFlags: Map<string, IItemFlags>;
   itemsOrder: OrderedSet<string>;
-  isFetching: string;
+  fetching: boolean;
 
 }
