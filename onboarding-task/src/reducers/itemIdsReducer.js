@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { ADD_ITEM, DELETE_ITEM } from '../constants/actionTypes.js';
 
-const itemIDsReducer = (state = List(), action) => {
+const itemIdsReducer = (state = List(), action) => {
   switch (action.type) {
     case ADD_ITEM:
       return state.push(action.payload.id);
@@ -16,4 +16,4 @@ const itemIDsReducer = (state = List(), action) => {
   }
 };
 
-export { itemIDsReducer };
+export { itemIdsReducer };

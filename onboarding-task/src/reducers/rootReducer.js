@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { itemsReducer } from './itemsReducer.js';
-import { itemIDsReducer } from './itemIDsReducer.js';
+import { itemIdsReducer } from './itemIdsReducer.js';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
-  itemIDs: itemIDsReducer,
+  itemIds: itemIdsReducer,
 });
 
 export { rootReducer };

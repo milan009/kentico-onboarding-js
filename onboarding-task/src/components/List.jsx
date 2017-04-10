@@ -4,13 +4,13 @@ import { AddItem } from './AddItem.jsx';
 import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
-    itemIDs,
+    itemIds,
     onAddLine,
   }) => {
-  // const renderedRows = itemIDs.valueSeq().map((itemID, index) => (
-  const renderedRows = itemIDs.map((itemID, index) => (
-    <li key={itemID} className="list-group-item">
-      <ListItemContainer itemID={itemID} index={index + 1} />
+  // const renderedRows = itemIds.valueSeq().map((itemId, index) => (
+  const renderedRows = itemIds.map((itemId, index) => (
+    <li key={itemId} className="list-group-item">
+      <ListItemContainer itemId={itemId} index={index + 1} />
     </li>
   ));
 
@@ -38,7 +38,7 @@ const List = ({
 
 List.displayName = 'List';
 List.propTypes = {
-  itemIDs: ImmutablePropTypes.list.isRequired,
+  itemIds: ImmutablePropTypes.list.isRequired,
   onAddLine: PropTypes.func.isRequired,
 };
 
