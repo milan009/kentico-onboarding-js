@@ -1,6 +1,8 @@
 import React = require('react');
 import * as classNames from 'classnames';
 
+import { isValid } from '../../utils/validationHelpers';
+
 interface ListItemValidatedInputProps {
   readonly onInputChange: (input: string) => void;
   readonly input: string;
@@ -22,13 +24,8 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
     };
 
     this._onInputChange = this._onInputChange.bind(this);
-    this._isValid = this._isValid.bind(this);
     this._onFocusIn = this._onFocusIn.bind(this);
     this._onFocusOut = this._onFocusOut.bind(this);
-  }
-
-  _isValid(input: string) {
-    return input !== '';
   }
 
   _onInputChange(event: any) {
@@ -44,11 +41,11 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
   }
 
   render() {
-    const groupErrorClass = classNames(this._isValid(this.props.input) ? 'has-success' : 'has-error', ' has-feedback');
+    const groupErrorClass = classNames(isValid(this.props.input) ? 'has-success' : 'has-error', ' has-feedback');
     const formGroupClass = classNames('form-group col-md-3 ', this.state.showError ? groupErrorClass : '');
     const glyphiconFeedbackClass = classNames(
       'glyphicon ',
-      this._isValid(this.props.input) ? 'glyphicon-ok' : 'glyphicon-remove',
+      isValid(this.props.input) ? 'glyphicon-ok' : 'glyphicon-remove',
       ' form-control-feedback'
     );
     return (

@@ -20,7 +20,6 @@ class List extends React.PureComponent<IListDataProps & IListCallbacksProps, und
 
   static displayName = 'List';
 
-
   render() {
       const listItems = this.props.itemsOrder.map((key) =>
         <li key={key} className="list-group-item">

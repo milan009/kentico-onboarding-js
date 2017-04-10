@@ -3,6 +3,7 @@ import React = require('react');
 import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
 import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
+import { isValid } from '../utils/validationHelpers';
 
 interface IListItemFormDataProps {
   readonly index: number;
@@ -33,11 +34,6 @@ class ListItemForm extends React.PureComponent<IListItemFormDataProps & IListIte
 
     this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
-    this._isValid = this._isValid.bind(this);
-  }
-
-  _isValid(input: string) {
-    return input !== '';
   }
 
   _onInputChange(input: string) {
@@ -54,7 +50,7 @@ class ListItemForm extends React.PureComponent<IListItemFormDataProps & IListIte
       <div className="container-fluid">
         <form className="form-inline col-md-10" onSubmit={this._onSubmit}>
           {this.props.index}. <ListItemValidatedInput onInputChange={this._onInputChange} input={this.state.input} />
-        <button type="submit" className="btn btn-primary" disabled={!this._isValid(this.state.input)} > Change</button>
+        <button type="submit" className="btn btn-primary" disabled={!isValid(this.state.input)} > Change</button>
         <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
       </form>

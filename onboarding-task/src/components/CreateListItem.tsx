@@ -1,5 +1,7 @@
 import React = require('react');
+
 import {ListItemValidatedInput} from './utilComponents/ListItemValidatedInput';
+import { isValid } from '../utils/validationHelpers';
 
 interface ICreateListItemDataProps {
   readonly onListItemAdd: (input: string) => void;
@@ -24,11 +26,6 @@ class CreateListItem extends React.PureComponent<ICreateListItemDataProps, ICrea
 
     this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
-    this._isValid = this._isValid.bind(this);
-  }
-
-  _isValid(input: string) {
-    return input !== '';
   }
 
   _onInputChange(input: string) {
@@ -46,7 +43,7 @@ class CreateListItem extends React.PureComponent<ICreateListItemDataProps, ICrea
     return (
       <form className="form-inline" onSubmit={this._onSubmit} >
         <ListItemValidatedInput onInputChange={this._onInputChange} input={this.state.input} />
-        <button type="submit" className="btn btn-default" disabled={!this._isValid(this.state.input)} > Add </button>
+        <button type="submit" className="btn btn-default" disabled={!isValid(this.state.input)} > Add </button>
       </form>
     );
   }
