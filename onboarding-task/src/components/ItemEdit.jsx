@@ -9,8 +9,8 @@ class ItemEdit extends PureComponent {
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
-      index: PropTypes.number.isRequired,
     }).isRequired,
+    index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ class ItemEdit extends PureComponent {
   render() {
     return (
       <div>
-        <span className="form-inline">{this.props.item.index}.
+        <span className="form-inline">{this.props.index}.
           <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>

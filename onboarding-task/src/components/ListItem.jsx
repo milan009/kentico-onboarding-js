@@ -5,6 +5,7 @@ import { ItemRead } from './ItemRead.jsx';
 
 const ListItem = ({
     item,
+    index,
     onSave,
     onCancel,
     onDelete,
@@ -15,6 +16,7 @@ const ListItem = ({
       <ItemEdit
         key={item.id}
         item={item}
+        index={(index)}
         onSave={onSave}
         onCancel={onCancel}
         onDelete={onDelete}
@@ -25,6 +27,7 @@ const ListItem = ({
     <ItemRead
       key={item.id}
       item={item}
+      index={(index)}
       onDoubleClick={onDoubleClick}
     />
   );
@@ -36,8 +39,8 @@ ListItem.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     isEdited: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
   }).isRequired,
+  index: PropTypes.number.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
