@@ -11,8 +11,6 @@ const ListItem = ({
     onDelete,
     onDoubleClick,
 }) => {
-  ListItem.displayName = 'ListItem';
-
   if (item.isEdited) {
     return (
       <ItemEdit
@@ -35,6 +33,7 @@ const ListItem = ({
   );
 };
 
+ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
   item: ImmutablePropTypes.recordOf({
     id: PropTypes.string.isRequired,

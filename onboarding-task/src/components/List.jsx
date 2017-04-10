@@ -7,8 +7,6 @@ const List = ({
     itemIDs,
     onAddLine,
   }) => {
-  List.displayName = 'List';
-
   // const renderedRows = itemIDs.valueSeq().map((itemID, index) => (
   const renderedRows = itemIDs.map((itemID, index) => (
     <li key={itemID} className="list-group-item">
@@ -38,6 +36,7 @@ const List = ({
   );
 };
 
+List.displayName = 'List';
 List.propTypes = {
   itemIDs: ImmutablePropTypes.list.isRequired,
   onAddLine: PropTypes.func.isRequired,
