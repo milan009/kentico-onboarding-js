@@ -1,5 +1,5 @@
 import { Item } from '../../src/models/Item.js';
-import { editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { itemReducer } from '../../src/reducers/itemReducer.js';
 
@@ -21,7 +21,7 @@ describe('Correctly creates separate item reducers', () => {
   it('Reducer for editing an Item', () => {
     const initialItem = new Item({ text, id, isEdited: false });
     const expected = new Item({ id, text, isEdited: true });
-    const editAction = editItem(id);
+    const editAction = enableEditItem(id);
 
     const tested = itemReducer(initialItem, editAction);
 

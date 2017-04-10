@@ -1,4 +1,4 @@
-import { deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../../src/constants/actionTypes.js';
 
@@ -26,7 +26,7 @@ describe('Correctly creates actions', () => {
   it('Action to edit an item', () => {
     const expectedAction = { type: ENABLE_EDIT_ITEM, payload: { id: fakeId } };
 
-    const testedAction = editItem(fakeId);
+    const testedAction = enableEditItem(fakeId);
 
     expect(testedAction).toEqual(expectedAction);
   });

@@ -8,7 +8,7 @@ export const deleteItem = (id) => ({
   type: DELETE_ITEM, payload: { id },
 });
 
-export const editItem = (id) => ({
+export const enableEditItem = (id) => ({
   type: ENABLE_EDIT_ITEM, payload: { id },
 });
 

@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { Item } from '../../src/models/Item.js';
-import { deleteItem, editItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { itemsReducer } from '../../src/reducers/itemsReducer';
 
@@ -34,7 +34,7 @@ describe('Correctly creates reducers', () => {
   it('Reducer for editing an Item', () => {
     const expectedItem = new Item({ id, text, isEdited: true });
     const expected = Map({ [id]: expectedItem });
-    const editAction = editItem(id);
+    const editAction = enableEditItem(id);
 
     const tested = itemsReducer(initialState, editAction);
 

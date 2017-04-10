@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem.jsx';
-import { editItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
+import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.itemId;
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onDelete: () => dispatch(deleteItem(ownProps.itemId)),
-  onDoubleClick: () => dispatch(editItem(ownProps.itemId)),
+  onDoubleClick: () => dispatch(enableEditItem(ownProps.itemId)),
   onSave: (text) => dispatch(saveChangesToItem(ownProps.itemId, text)),
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),
 });
