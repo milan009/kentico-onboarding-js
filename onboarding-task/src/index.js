@@ -9,6 +9,7 @@ import App from './App.tsx';
 import { listApp } from './reducers/listApp.ts';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import './styles/loader.css';
 
 const logger = createLogger();
 let store = createStore(
