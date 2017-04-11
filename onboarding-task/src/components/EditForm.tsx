@@ -1,6 +1,6 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
-import {IViewItem} from '../viewModels/ViewItem';
+import { IViewItem } from '../viewModels/ViewItem';
 
 interface IEditFormProps {
   item: IViewItem;
