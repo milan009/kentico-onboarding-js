@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
 import { Fetch } from '../stores/IFetch';
 import { Dispatch } from '../stores/Dispatch';
@@ -55,6 +54,4 @@ function fetchItemsFactory(fetch: Fetch, url: string, createErrorMessage: (error
   return () => fetchItems(fetch, url, createErrorMessage);
 }
 
-const failFetchItems = failFetchItemsFactory(v4);
-
-export { fetchItemsFactory, requestItems, receiveItems, failFetchItems, failFetchItemsFactory };
+export { fetchItemsFactory, requestItems, receiveItems, failFetchItemsFactory };

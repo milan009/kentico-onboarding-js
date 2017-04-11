@@ -1,5 +1,6 @@
 import { isFetching } from '../../src/reducers/isFetching.ts';
-import { requestItems, receiveItems, failFetchItems } from '../../src/actions/fetchItemsFactory.ts';
+import { requestItems, receiveItems } from '../../src/actions/fetchItemsFactory.ts';
+import { failFetchItems } from '../../src/actions/itemsActionCreators.ts';
 
 describe('isFetching reducer', () => {
   it('should return initial state', () => {
