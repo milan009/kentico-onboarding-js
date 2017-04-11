@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../../src/utils/validationHelpers/stringValidationHelpers.ts';
+import { isNotEmpty } from '../../../src/utils/validationHelpers/stringValidationHelpers.ts';
 
 describe('stringValidationHelpers ', () => {
   it('isNotEmpty given empty string returns false', () => {
