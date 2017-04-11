@@ -5,7 +5,7 @@ import {Item} from '../models/Item';
 import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED} from '../actions/actionTypes';
 
 const itemsDataReducer = (
-  state: Map<string,Item> = Map<string,Item>(),
+  state = Map<string,Item>(),
   action: IAction,
 ) => {
   switch (action.type) {

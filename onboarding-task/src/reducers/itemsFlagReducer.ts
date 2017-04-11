@@ -5,7 +5,7 @@ import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED, ITEM_VIEW_MODE_TOGGLED} from '.
 import {ItemFlags} from '../models/ItemFlags';
 
 const itemsFlagReducer = (
-  state: Map<string, ItemFlags> = Map<string, ItemFlags>(),
+  state = Map<string, ItemFlags>(),
   action: IAction,
 ) => {
   switch (action.type) {
