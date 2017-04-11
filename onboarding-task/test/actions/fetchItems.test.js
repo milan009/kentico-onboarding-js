@@ -13,11 +13,15 @@ describe('fetch items action creator', () => {
     },
   ];
 
-  const fetchMock = (url) => Promise.resolve({json: () => Promise.resolve(fakeApiResponse)});
-  const fetchFailedMock =  (url) => Promise.reject("error in test");
+  const fetchMock = (url) => Promise.resolve(new Response(JSON.stringify(fakeApiResponse), { status: 201 }));
+  const fetchFailedMock = (url) => Promise.resolve({
+    json: () => Promise.reject(new Error()),
+  });
   const dispatchMock = jest.fn((action) => action);
 
-  beforeEach( () => { dispatchMock.mockReset(); });
+  beforeEach(() => {
+    dispatchMock.mockReset();
+  });
 
   it('dispatches FETCH_ITEMS_REQUEST action', () => {
     const expectedAction = fetchItemsRequest();
@@ -30,8 +34,7 @@ describe('fetch items action creator', () => {
     expect(actualActionDispatched).toEqual(expectedAction);
   });
 
-  it('dispatches FETCH_ITEMS_SUCCESS action', (done) => {
-
+  it('dispatches FETCH_ITEMS_SUCCESS action', () => {
     const expectedAction = fetchItemsSuccess(fakeApiResponse);
     const fetchItems = fetchItemsFactory(fetchMock);
     const thunkAction = fetchItems();
@@ -40,18 +43,16 @@ describe('fetch items action creator', () => {
       const actualActionDispatched = dispatchMock.mock.calls[1][0];
 
       expect(actualActionDispatched).toEqual(expectedAction);
-      done();
     });
   });
 
   it('dispatches FETCH_ITEMS_FAILURE action', (done) => {
-    const expectedAction = fetchItemsFailure('error in test');
+    const expectedAction = fetchItemsFailure(new Error());
     const fetchItems = fetchItemsFactory(fetchFailedMock);
     const thunkAction = fetchItems();
 
     thunkAction(dispatchMock).then(() => {
       const actualActionDispatched = dispatchMock.mock.calls[1][0];
-
       expect(actualActionDispatched).toEqual(expectedAction);
       done();
     });
