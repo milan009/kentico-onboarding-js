@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ListItem } from '../components/ListItem.jsx';
+import { ListItem } from '../components/ListItem.tsx';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
 import memoize from 'memoizee';
 

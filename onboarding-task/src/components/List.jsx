@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { AddItem } from './AddItem.jsx';
+import { AddItem } from './AddItem.tsx';
 import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
