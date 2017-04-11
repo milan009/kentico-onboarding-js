@@ -1,40 +1,42 @@
 import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { LineEdit } from './LineEdit.jsx';
-import { LineRead } from './LineRead.jsx';
+import { ItemEdit } from './ItemEdit.jsx';
+import { ItemRead } from './ItemRead.jsx';
 
-const ListItem = (props) => {
-  if (props.line.isEdited) {
+const ListItem = ({
+    item,
+    onSave,
+    onCancel,
+    onDelete,
+    onDoubleClick,
+}) => {
+  if (item.isEdited) {
     return (
-      <LineEdit
-        key={props.line.id}
-        line={props.line}
-        index={(props.index)}
-        onSave={props.onSave}
-        onCancel={props.onCancel}
-        onDelete={props.onDelete}
+      <ItemEdit
+        key={item.id}
+        item={item}
+        onSave={onSave}
+        onCancel={onCancel}
+        onDelete={onDelete}
       />
     );
   }
   return (
-    <LineRead
-      key={props.line.id}
-      line={props.line}
-      index={(props.index)}
-      onDoubleClick={props.onDoubleClick}
+    <ItemRead
+      key={item.id}
+      item={item}
+      onDoubleClick={onDoubleClick}
     />
   );
 };
 
 ListItem.displayName = 'ListItem';
-
 ListItem.propTypes = {
-  line: ImmutablePropTypes.recordOf({
+  item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     isEdited: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
   }).isRequired,
-  index: PropTypes.number.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

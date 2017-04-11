@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 
-class AddLine extends PureComponent {
-  static displayName = 'AddLine';
+class AddItem extends PureComponent {
+  static displayName = 'AddItem';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
@@ -9,9 +9,7 @@ class AddLine extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-    };
+    this.state = { text: '' };
   }
 
   _handleChange = (event) => {
@@ -33,4 +31,4 @@ class AddLine extends PureComponent {
   }
 }
 
-export { AddLine };
+export { AddItem };
