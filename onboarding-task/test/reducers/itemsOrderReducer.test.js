@@ -1,8 +1,8 @@
 import * as Immutable from 'immutable';
 
-import {deleteItem} from '../../src/actions/actionCreators';
-import {itemsOrderReducer} from '../../src/reducers/itemsOrderReducer';
-import {createItemFactory} from '../../src/actions/createItemFactory';
+import { deleteItem } from '../../src/actions/actionCreators';
+import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
+import { createItemFactory } from '../../src/actions/createItemFactory';
 
 describe('itemsOrderReducer', () => {
   it('delete item for given id', () => {

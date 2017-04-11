@@ -1,9 +1,9 @@
 import * as Immutable from 'immutable';
 
-import {ItemFlags} from '../../src/models/ItemFlags.ts';
-import {toggleItemViewMode, deleteItem, editItem} from '../../src/actions/actionCreators';
-import {createItemFactory} from '../../src/actions/createItemFactory';
-import {itemsFlagReducer} from '../../src/reducers/itemsFlagReducer';
+import { ItemFlags } from '../../src/models/ItemFlags.ts';
+import { toggleItemViewMode, deleteItem, editItem } from '../../src/actions/actionCreators';
+import { createItemFactory } from '../../src/actions/createItemFactory';
+import { itemsFlagReducer } from '../../src/reducers/itemsFlagReducer';
 
 describe('ItemsFlagReducer', () => {
   it('toggle view mode: switch to edit mode(EditMode=true)', () => {

@@ -1,13 +1,11 @@
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
-import {IAction} from '../actions/IAction';
-import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED, ITEM_VIEW_MODE_TOGGLED} from '../actions/actionTypes';
-import {ItemFlags} from '../models/ItemFlags';
+import { IAction } from '../actions/IAction';
+import { ITEM_CREATED, ITEM_DELETED, ITEM_EDITED, ITEM_VIEW_MODE_TOGGLED } from '../actions/actionTypes';
+import { ItemFlags } from '../models/ItemFlags';
 
-const itemsFlagReducer = (
-  state = Map<string, ItemFlags>(),
-  action: IAction,
-) => {
+const itemsFlagReducer = (state = Map<string, ItemFlags>(),
+                          action: IAction,) => {
   switch (action.type) {
     case ITEM_VIEW_MODE_TOGGLED:
       const newEditModeFlag = !state.get(action.payload.id).editMode;

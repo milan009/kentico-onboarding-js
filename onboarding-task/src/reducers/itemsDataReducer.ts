@@ -1,13 +1,11 @@
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
-import {IAction} from '../actions/IAction';
-import {Item} from '../models/Item';
-import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED} from '../actions/actionTypes';
+import { IAction } from '../actions/IAction';
+import { Item } from '../models/Item';
+import { ITEM_CREATED, ITEM_DELETED, ITEM_EDITED } from '../actions/actionTypes';
 
-const itemsDataReducer = (
-  state = Map<string,Item>(),
-  action: IAction,
-) => {
+const itemsDataReducer = (state = Map<string, Item>(),
+                          action: IAction,) => {
   switch (action.type) {
     case ITEM_EDITED:
       return state.setIn([action.payload.id, 'value'], action.payload.value);

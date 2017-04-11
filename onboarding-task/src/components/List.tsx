@@ -15,7 +15,7 @@ interface IListCallbacksProps {
 const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (props) => {
   const itemsList = props.itemsOrder.toIndexedSeq().map((id: string) => (
     <li className="list-group-item" key={id}>
-      <ListItem id={id} />
+      <ListItem id={id}/>
     </li>)
   );
 
@@ -24,7 +24,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (pr
       <ul className="list-group">
         {itemsList}
         <li className="list-group-item">
-          <AddItem onAdd={props.onAddItem} />
+          <AddItem onAdd={props.onAddItem}/>
         </li>
       </ul>
     </div>

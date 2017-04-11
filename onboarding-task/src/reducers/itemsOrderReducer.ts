@@ -1,12 +1,10 @@
-import {OrderedSet} from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { IAction } from '../actions/IAction';
-import {ITEM_CREATED, ITEM_DELETED} from '../actions/actionTypes';
+import { ITEM_CREATED, ITEM_DELETED } from '../actions/actionTypes';
 
-const itemsOrderReducer = (
-  state = OrderedSet<string>(),
-  action: IAction,
-) => {
+const itemsOrderReducer = (state = OrderedSet<string>(),
+                           action: IAction,) => {
   switch (action.type) {
     case ITEM_DELETED:
       return state.delete(action.payload.id);
