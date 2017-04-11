@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import { isValid } from '../../utils/itemValidationHelpers';
+import { isValid } from '../../utils/validationHelpers/itemValidationHelpers';
 
 interface ListItemValidatedInputProps {
   readonly onInputChange: (input: string) => void;

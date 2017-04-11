@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
-import { isValid } from '../utils/itemValidationHelpers';
+import { isValid } from '../utils/validationHelpers/itemValidationHelpers';
 
 interface ICreateListItemProps {
   readonly onListItemAdd: (input: string) => void;

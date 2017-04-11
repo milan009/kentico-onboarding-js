@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
 import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
-import { isValid } from '../utils/itemValidationHelpers';
+import { isValid } from '../utils/validationHelpers/itemValidationHelpers';
 
 interface IListItemFormDataProps {
   readonly index: number;
