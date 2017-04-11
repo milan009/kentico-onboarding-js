@@ -3,7 +3,7 @@ import { requestItems, receiveItems, failFetchItems } from '../../src/actions/fe
 
 describe('isFetching reducer', () => {
   it('should return initial state', () => {
-    const expectedIsFetching = true;
+    const expectedIsFetching = false;
     const isFetchingBefore = undefined;
 
     const isFetchingAfter = isFetching(isFetchingBefore, { type: 'NOT_DEFINED', payload: undefined });

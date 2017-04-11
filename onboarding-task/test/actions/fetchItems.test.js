@@ -28,16 +28,7 @@ describe('fetchItems', () => {
       const expectedAction = {
         type: FETCH_ITEMS_RECEIVE,
         payload: {
-          items: [
-            {
-              id: firstTestId,
-              text: 'object1',
-            },
-            {
-              id: secondTestId,
-              text: 'object2',
-            },
-          ],
+          items: responseBody,
         },
       };
 
@@ -110,4 +101,3 @@ describe('fetchItems', () => {
     });
   });
 });
-

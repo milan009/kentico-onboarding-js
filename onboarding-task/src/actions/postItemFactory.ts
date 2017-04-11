@@ -22,7 +22,8 @@ function postItems(fetch: Fetch, url: string, createErrorMessage: (error: Error)
       return fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accepts': 'application/json',
         },
         body: JSON.stringify(item),
       })

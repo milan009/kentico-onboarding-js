@@ -19,7 +19,8 @@ describe('List reducer', () => {
 
   it('should handle receive items', () => {
     const secondTestId = '70e9ad48-e190-4578-8939-f9afa5b51501';
-    const expectedItems = OrderedMap({ [firstTestId]: new Item({ id: firstTestId, text: 'first test' }),
+    const expectedItems = OrderedMap({
+      [firstTestId]: new Item({ id: firstTestId, text: 'first test' }),
       [secondTestId]: new Item({ id: secondTestId, text: 'second test' }) });
     const receivedItems = [
       {

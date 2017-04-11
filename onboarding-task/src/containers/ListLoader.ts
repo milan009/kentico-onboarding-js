@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-const ListLoaderContainer: ComponentClass<{}> = connect(
+const ListLoaderContainer: ComponentClass<any> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(loaderWithSubscription(List));
