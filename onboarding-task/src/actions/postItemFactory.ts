@@ -32,7 +32,7 @@ function postItems(fetch: Fetch, url: string, createErrorMessage: (error: Error)
         .then((receivedItem: IItemResponse) => dispatch(receivePostItem(receivedItem)))
         .catch((error) => {
           console.error(error);
-          return dispatch(createErrorMessage(new Error('Oh, something went wrong!')));
+          return dispatch(createErrorMessage(new Error(`Item: ${item.text} was not stored. Repeat again later`)));
         });
     };
   };

@@ -45,7 +45,7 @@ function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error
       .then((receivedItems: IItemResponse[]) => dispatch(receiveItems(receivedItems)))
       .catch((error) => {
         console.error(error);
-        return dispatch(createErrorMessage(new Error('Oh, something went wrong!')));
+        return dispatch(createErrorMessage(new Error('Cannot reach server. Try again later.')));
       });
   };
 }
