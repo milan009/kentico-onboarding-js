@@ -45,9 +45,7 @@ describe('fetchItems', () => {
     const failFetchItems = failFetchItemsFactory(() => firstTestId);
 
 
-    const fakeFetch = () => Promise.resolve({
-      json: () => Promise.resolve(responseBody),
-    });
+    const fakeFetch = () => Promise.resolve(Promise.resolve(new Response(JSON.stringify(responseBody), { status: 200 })));
 
     beforeEach(() => {
       dispatchMock.mockReset();

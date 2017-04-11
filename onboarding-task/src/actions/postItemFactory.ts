@@ -4,6 +4,7 @@ import { Fetch } from '../stores/IFetch';
 import { Dispatch } from '../stores/Dispatch';
 import { IItemResponse } from '../models/IItemResponse';
 import { IAction } from './IAction';
+import { parseResponse } from '../utils/ajaxUtils';
 
 function receivePostItem(receivedItem: IItemResponse) {
   return {
@@ -27,7 +28,7 @@ function postItems(fetch: Fetch, url: string, createErrorMessage: (error: Error)
         },
         body: JSON.stringify(item),
       })
-        .then((response: Response) => response.json())
+        .then(parseResponse)
         .then((receivedItem: IItemResponse) => dispatch(receivePostItem(receivedItem)))
         .catch((error) => {
           console.error(error);

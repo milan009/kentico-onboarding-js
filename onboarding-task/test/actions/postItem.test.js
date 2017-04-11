@@ -30,9 +30,7 @@ describe('postItem', () => {
     };
     const dispatchMock = jest.fn((action) => action);
 
-    const fakeFetch = () => Promise.resolve({
-      json: () => Promise.resolve(responseBody),
-    });
+    const fakeFetch = () => Promise.resolve(new Response(JSON.stringify(responseBody), { status: 201 }));
 
     beforeEach(() => {
       dispatchMock.mockReset();

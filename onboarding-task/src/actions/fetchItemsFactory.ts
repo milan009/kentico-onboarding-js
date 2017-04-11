@@ -5,6 +5,7 @@ import { Dispatch } from '../stores/Dispatch';
 import { IItemResponse } from '../models/IItemResponse';
 import { IAction } from './IAction';
 import { ErrorMessage } from '../models/ErrorMessage';
+import { parseResponse } from '../utils/ajaxUtils';
 
 function requestItems() {
   return {
@@ -41,7 +42,7 @@ function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error
     dispatch(requestItems());
 
     return fetch(url)
-      .then((response: Response) => response.json())
+      .then(parseResponse)
       .then((receivedItems: IItemResponse[]) => dispatch(receiveItems(receivedItems)))
       .catch((error) => {
         console.error(error);
