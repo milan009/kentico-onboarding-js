@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
 import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_RECEIVE, FETCH_ITEMS_FAIL } from './actionTypes';
-import { Fetch } from './IFetch';
+import { Fetch } from '../stores/IFetch';
 import { Dispatch } from '../stores/Dispatch';
-import { IItemResponse } from './IItemResponse';
+import { IItemResponse } from '../models/IItemResponse';
 import { IAction } from './IAction';
 import { ErrorMessage } from '../models/ErrorMessage';
 

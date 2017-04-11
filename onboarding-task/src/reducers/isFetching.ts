@@ -7,8 +7,6 @@ const isFetching = (state = true, action: IAction) => {
       return true;
 
     case FETCH_ITEMS_RECEIVE:
-      return false;
-
     case FETCH_ITEMS_FAIL:
       return false;
 

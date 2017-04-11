@@ -1,8 +1,8 @@
 import { POST_ITEM_RECEIVE } from './actionTypes';
 import { Item } from '../models/Item';
-import { Fetch } from './IFetch';
+import { Fetch } from '../stores/IFetch';
 import { Dispatch } from '../stores/Dispatch';
-import { IItemResponse } from './IItemResponse';
+import { IItemResponse } from '../models/IItemResponse';
 import { IAction } from './IAction';
 
 function receivePostItem(receivedItem: IItemResponse) {
