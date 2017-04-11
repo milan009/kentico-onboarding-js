@@ -5,7 +5,7 @@ import { ListItemContainer } from '../containers/ListItemContainer';
 
 const List = ({
     itemIds,
-    onAddLine,
+    onAddItem,
   }) => {
   const renderedRows = itemIds.valueSeq().map((itemId, index) => (
     <li key={itemId} className="list-group-item">
@@ -26,7 +26,7 @@ const List = ({
           <ul id="todo-list" className="list-group">
             {renderedRows}
             <li className="list-group-item">
-              <AddItem onAdd={onAddLine} />
+              <AddItem onAdd={onAddItem} />
             </li>
           </ul>
         </div>
@@ -38,7 +38,7 @@ const List = ({
 List.displayName = 'List';
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
-  onAddLine: PropTypes.func.isRequired,
+  onAddItem: PropTypes.func.isRequired,
 };
 
 export { List };

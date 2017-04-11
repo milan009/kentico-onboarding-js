@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddLine: (text) => dispatch(addItem(text)),
+  onAddItem: (text) => dispatch(addItem(text)),
 });
 
 
