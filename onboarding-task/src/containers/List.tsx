@@ -1,23 +1,18 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List';
-import * as Immutable from 'immutable';
-import { IItemFlags } from '../reducers/itemsFlags';
-import { IItemRecord } from '../models/ItemRecord';
 import {
-        fetchItems,
-        postItem
-      } from '../actions/actionCreators';
+  fetchItems,
+  postItem
+} from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
+import { IAppState } from '../models/IAppState';
 
-interface IListState {
-  itemsById: Immutable.Map<string, IItemRecord>;
-  itemsFlags: Immutable.Map<string, IItemFlags>;
-  itemsOrder: Immutable.OrderedSet<string>;
-}
 
-const mapStateToProps = (state: IListState) => {
+const mapStateToProps = (state: IAppState) => {
   return {
     itemsOrder: state.itemsOrder,
+    loaded: state.loaded,
+    errors: state.errors,
   };
 };
 
@@ -30,5 +25,5 @@ const mapDispatchToProps = (dispatch: Dispatch ) => {
 
 const ListContainer = connect(mapStateToProps, mapDispatchToProps)(List);
 
-export { ListContainer as List, IListState };
+export { ListContainer as List, IAppState };
 

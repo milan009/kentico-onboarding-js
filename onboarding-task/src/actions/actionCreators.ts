@@ -1,4 +1,3 @@
-// import { generateGuid } from '../utils/generateGuid';
 import {
   TOGGLE_EDIT_MODE,
   DELETE_ITEM,
@@ -9,10 +8,10 @@ import {
   POST_ITEM_SUCCESS, POST_ITEM_FAILURE
 } from './actionTypes';
 import { IAction } from './IAction';
-import {IItemServerModel} from '../models/IItemServerModel';
+import { IItemServerModel } from '../models/IItemServerModel';
 import * as fetch from 'isomorphic-fetch';
 import { fetchItemsFactory } from './actionDependencies/fetchItemsFactory';
-import {postItemFactory} from './actionDependencies/postItemFactory';
+import { postItemFactory } from './actionDependencies/postItemFactory';
 
 
 export const toggleEditMode = (guid: string) : IAction => ({

@@ -1,14 +1,14 @@
 import * as Immutable from 'immutable';
 import { generateGuid } from './generateGuid';
 import { ItemRecord } from '../models/ItemRecord';
-import {IListState} from '../containers/List';
+import {IAppState} from '../models/IAppState';
 
-function getInitialState(): IListState {
+function getInitialState(): IAppState {
   const firstItem = new ItemRecord({ guid: generateGuid(), text: 'serus' });
   const secondItem = new ItemRecord({ guid: generateGuid(), text: 'soj' });
   const thirdItem = new ItemRecord({ guid: generateGuid(), text: 'nazdar' });
 
-  const initState: IListState = {
+  const initState: IAppState = {
     itemsById: Immutable.Map({
       [firstItem.guid]: firstItem,
       [secondItem.guid]: secondItem,
@@ -20,6 +20,8 @@ function getInitialState(): IListState {
       [thirdItem.guid]: { isEdited: false },
     }),
     itemsOrder: Immutable.OrderedSet([firstItem.guid, secondItem.guid, thirdItem.guid]),
+    loaded: true,
+    errors: Immutable.Set(),
   };
   return initState;
 }

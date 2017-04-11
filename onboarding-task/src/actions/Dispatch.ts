@@ -1,5 +1,5 @@
 import { IAction } from './IAction';
-import {IAppState} from '../models/IAppState';
+import { IAppState } from '../models/IAppState';
 
 type getStateCallback = () => IAppState;
 

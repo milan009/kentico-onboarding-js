@@ -1,6 +1,6 @@
-import {POST_ITEM_SUCCESS, UPDATE_ITEM_TEXT} from '../actions/actionTypes';
+import { POST_ITEM_SUCCESS, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
-import {IAction} from '../actions/IAction';
+import { IAction } from '../actions/IAction';
 
 function item (state = new ItemRecord({}), action: IAction): ItemRecord {
   switch (action.type) {
