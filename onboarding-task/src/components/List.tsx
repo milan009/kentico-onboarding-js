@@ -31,8 +31,8 @@ class List extends React.PureComponent<IListDataProps & IListCallbacksProps, und
 
       return (
         <div>
-          <StatusMessage message={this.props.error} messageType={'Error'} />
-          <StatusMessage message={this.props.successMessage} messageType={'Success'} />
+          <StatusMessage message={this.props.error} messageType="Error" />
+          <StatusMessage message={this.props.successMessage} messageType="Success" />
           <ul className="list-group">
 
             {listItems}
