@@ -1,4 +1,4 @@
-import { getMemoizedListItemViewModel } from '../src/containers/ListItemContainer';
+import { getMemoizedListItemViewModel } from '../src/containers/ListItemContainer.ts';
 import { ItemRecord } from '../src/models/ItemRecord.ts';
 
 describe('getMemoizedListItemViewModel ', () => {
