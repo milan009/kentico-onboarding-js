@@ -3,12 +3,13 @@ import Immutable from 'immutable';
 import { itemsUiPropsReducer } from '../../src/reducers/itemsReducers/itemsUiPropsReducer.ts';
 import { ItemUiPropsRecord } from '../../src/models/ItemUiPropsRecord.ts';
 import { createListItemAction } from '../../src/actionCreators/createListItemFactory.ts';
-import { switchFormVisibilityForListItem, deleteListItem } from '../../src/actionCreators/actionCreators.ts';
+import { switchFormVisibilityForListItem, deleteListItem, updateListItem } from '../../src/actionCreators/actionCreators.ts';
 import {
   CREATE_ITEM_IN_LIST,
   SWITCH_FORM_VISIBILITY_FOR_ITEM,
   DELETE_ITEM_FROM_LIST,
   FETCH_ITEMS_SUCCESS,
+  UPDATE_TEXT_OF_ITEM,
 } from '../../src/constants/actionTypes.ts';
 import { fetchItemsSuccess } from '../../src/actionCreators/fetchItemsActionCreators.ts';
 
@@ -32,6 +33,14 @@ describe('uiPropsReducer ', () => {
     const prevState = oneItemFalseState;
     const expectedState = oneItemFalseState.set('test-id-2', falseRecord);
     const nextState = itemsUiPropsReducer(prevState, createListItemAction('test-id-2', 'test'));
+
+    expect(nextState).toEqual(expectedState);
+  });
+
+  it(`switches formDisplayed flag from true to false when ${UPDATE_TEXT_OF_ITEM} action is dispatched`, () => {
+    const prevState = oneItemTrueState;
+    const expectedState = oneItemFalseState;
+    const nextState = itemsUiPropsReducer(prevState, updateListItem(id, 'test'));
 
     expect(nextState).toEqual(expectedState);
   });
