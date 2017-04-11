@@ -1,12 +1,19 @@
 import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem.jsx';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
-import { IndexedItem } from '../models/IndexedItem';
+import memoize from 'memoizee';
+
+const itemViewModel = (item, index) => ({
+  ...item.toObject(),
+  index,
+});
+
+const memoizedItem = memoize(itemViewModel);
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.itemId;
   const itemById = state.items.get(id);
-  const indexedItem = new IndexedItem(itemById, ownProps.index);
+  const indexedItem = memoizedItem(itemById, ownProps.index);
   return { item: indexedItem };
 };
 
