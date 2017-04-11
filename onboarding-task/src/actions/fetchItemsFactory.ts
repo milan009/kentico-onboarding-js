@@ -13,11 +13,11 @@ function requestItems() {
   };
 }
 
-function receiveItems(json: IItemResponse[]) {
+function receiveItems(receivedItems: IItemResponse[]) {
   return {
     type: FETCH_ITEMS_RECEIVE,
     payload: {
-      items: json,
+      items: receivedItems,
     }
   };
 }
@@ -42,7 +42,7 @@ function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error
 
     return fetch(url)
       .then((response: Response) => response.json())
-      .then((json: IItemResponse[]) => dispatch(receiveItems(json)))
+      .then((receivedItems: IItemResponse[]) => dispatch(receiveItems(receivedItems)))
       .catch((error) => {
         console.error(error);
         return dispatch(createErrorMessage(new Error('Oh, something went wrong!')));
@@ -51,7 +51,7 @@ function fetchItems(fetch: Fetch, url: string, createErrorMessage: (error: Error
 }
 
 function fetchItemsFactory(fetch: Fetch, url: string, createErrorMessage: (error: Error) => IAction) {
-  return fetchItems(fetch, url, createErrorMessage);
+  return () => fetchItems(fetch, url, createErrorMessage);
 }
 
 const failFetchItems = failFetchItemsFactory(v4);

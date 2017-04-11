@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addItem: (text: string) => dispatch(postItem(text)),
+    addItem: (text: string) => dispatch(postItem()(text)),
     deleteErrorMessage: (id: string) => dispatch(deleteErrorMessage(id)),
   };
 };

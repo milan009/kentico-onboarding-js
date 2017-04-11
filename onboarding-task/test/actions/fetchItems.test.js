@@ -66,7 +66,7 @@ describe('fetchItems', () => {
     it('should dispatch requestItems', () => {
       const fakeDispatch = jest.fn((action) => action);
       const expectedDispatchAction = requestItems();
-      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems);
+      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems)();
 
       testFetchItems(fakeDispatch);
 
@@ -76,7 +76,7 @@ describe('fetchItems', () => {
     it('should call fetch with correct url', () => {
       const fakeDispatch = (action) => action;
       const fetchMock = jest.fn(fakeFetch);
-      const testFetchItems = fetchItemsFactory(fetchMock, 'www.besturl.com', failFetchItems);
+      const testFetchItems = fetchItemsFactory(fetchMock, 'www.besturl.com', failFetchItems)();
 
       testFetchItems(fakeDispatch);
 
@@ -85,7 +85,7 @@ describe('fetchItems', () => {
 
     it('should dispatch receive items', (done) => {
       const expectedDispatchAction = receiveItems(responseBody);
-      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems);
+      const testFetchItems = fetchItemsFactory(fakeFetch, 'www.besturl.com', failFetchItems)();
 
       testFetchItems(dispatchMock)
         .then(() => {
@@ -99,7 +99,7 @@ describe('fetchItems', () => {
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
-      const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', failFetchItems);
+      const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', failFetchItems)();
 
 
       testFetchItems(dispatchMock)

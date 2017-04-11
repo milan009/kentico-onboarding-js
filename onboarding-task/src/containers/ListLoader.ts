@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    fetch: () => dispatch(fetchItems),
+    fetch: () => dispatch(fetchItems()),
   };
 };
 

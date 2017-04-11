@@ -43,7 +43,7 @@ describe('postItem', () => {
     it('should call fetch with correct url', () => {
       const fakeDispatch = (action) => action;
       const fetchMock = jest.fn(fakeFetch);
-      const testPostItem = postItemFactory(fetchMock, 'www.besturl.com', createErrorMessage);
+      const testPostItem = postItemFactory(fetchMock, 'www.besturl.com', createErrorMessage)();
 
       testPostItem(testText)(fakeDispatch);
 
@@ -52,7 +52,7 @@ describe('postItem', () => {
 
     it('should dispatch receive post item', (done) => {
       const expectedDispatchAction = receivePostItem(responseBody);
-      const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com', createErrorMessage);
+      const testPostItem = postItemFactory(fakeFetch, 'www.besturl.com', createErrorMessage)();
 
       testPostItem(testText)(dispatchMock)
         .then(() => {
@@ -66,7 +66,7 @@ describe('postItem', () => {
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
-      const testPostItem = postItemFactory(failFetch, 'www.besturl.com', createErrorMessage);
+      const testPostItem = postItemFactory(failFetch, 'www.besturl.com', createErrorMessage)();
 
 
       testPostItem(testText)(dispatchMock)
