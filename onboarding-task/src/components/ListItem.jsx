@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+// import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ItemEdit } from './ItemEdit.jsx';
 import { ItemRead } from './ItemRead.jsx';
 
 const ListItem = ({
     item,
-    index,
     onSave,
     onCancel,
     onDelete,
@@ -16,7 +15,6 @@ const ListItem = ({
       <ItemEdit
         key={item.id}
         item={item}
-        index={(index)}
         onSave={onSave}
         onCancel={onCancel}
         onDelete={onDelete}
@@ -27,7 +25,6 @@ const ListItem = ({
     <ItemRead
       key={item.id}
       item={item}
-      index={(index)}
       onDoubleClick={onDoubleClick}
     />
   );
@@ -35,12 +32,18 @@ const ListItem = ({
 
 ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
-  item: ImmutablePropTypes.recordOf({
+  // item: ImmutablePropTypes.recordOf({
+  //   id: PropTypes.string.isRequired,
+  //   text: PropTypes.string.isRequired,
+  //   isEdited: PropTypes.bool.isRequired,
+  //   index: PropTypes.number.isRequired,
+  // }).isRequired,
+  item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     isEdited: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
   }).isRequired,
-  index: PropTypes.number.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

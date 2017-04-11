@@ -1,16 +1,22 @@
 import React, { PureComponent, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+// import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ItemEdit extends PureComponent {
   static displayName = 'ItemEdit';
 
   static propTypes = {
-    item: ImmutablePropTypes.recordOf({
+    // item: ImmutablePropTypes.recordOf({
+    //   id: PropTypes.string.isRequired,
+    //   text: PropTypes.string.isRequired,
+    //   isEdited: PropTypes.bool.isRequired,
+    //   index: PropTypes.number.isRequired,
+    // }).isRequired,
+    item: PropTypes.shape({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
+      index: PropTypes.number.isRequired,
     }).isRequired,
-    index: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -36,7 +42,7 @@ class ItemEdit extends PureComponent {
   render() {
     return (
       <div>
-        <span className="form-inline">{this.props.index}.
+        <span className="form-inline">{this.props.item.index}.
           <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
