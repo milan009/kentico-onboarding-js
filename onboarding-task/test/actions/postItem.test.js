@@ -60,7 +60,7 @@ describe('postItem', () => {
     });
 
     it('should fail post item', (done) => {
-      const expectedDispatchAction = createErrorMessage(new Error('Oh, something went wrong!'));
+      const expectedDispatchAction = createErrorMessage(new Error(`Item: ${testItem.text} was not stored. Try again later`));
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });

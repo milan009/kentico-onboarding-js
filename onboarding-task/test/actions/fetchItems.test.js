@@ -84,7 +84,7 @@ describe('fetchItems', () => {
     });
 
     it('should dispatch failFetchItems', (done) => {
-      const expectedDispatchAction = failFetchItems(new Error('Oh, something went wrong!'));
+      const expectedDispatchAction = failFetchItems(new Error('Cannot reach server. Try again later.'));
       const failFetch = () => Promise.resolve({
         json: () => Promise.reject(new Error()),
       });
