@@ -16,8 +16,8 @@ const itemUiPropsDefaultValues: IItemUiPropsDefaultValues = {
 };
 
 class ItemUiPropsRecord extends Record(itemUiPropsDefaultValues) implements IItemUiPropsRecord {
-  formDisplayed: boolean;
-  savedOnServer: boolean;
+  readonly formDisplayed: boolean;
+  readonly savedOnServer: boolean;
 }
 
 export { ItemUiPropsRecord };

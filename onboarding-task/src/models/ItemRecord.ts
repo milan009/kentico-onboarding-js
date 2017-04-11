@@ -16,8 +16,8 @@ const itemDefaultValues: IItemDefaultValues = {
 };
 
 class ItemRecord extends Record(itemDefaultValues) implements IItemRecord {
-  id: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 }
 
 export { ItemRecord };
