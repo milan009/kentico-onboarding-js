@@ -1,6 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { errorMessages } from '../../src/reducers/errorMessages.ts';
-import { createErrorMessageFactory, deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
+import { createErrorMessageFactory } from '../../src/actions/createErrorMessageFactory.ts';
+import { deleteErrorMessage } from '../../src/actions/errorMessageActionCreators.ts';
 import { ErrorMessage } from '../../src/models/ErrorMessage.ts';
 
 describe('errorMessages', () => {
