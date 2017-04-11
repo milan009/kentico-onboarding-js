@@ -1,6 +1,6 @@
-import React = require('react');
+import * as React from 'react';
 
-import {ListItemValidatedInput} from './utilComponents/ListItemValidatedInput';
+import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
 import { isValid } from '../utils/validationHelpers';
 
 interface ICreateListItemDataProps {

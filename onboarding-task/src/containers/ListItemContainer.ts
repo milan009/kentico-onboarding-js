@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import memoize = require('memoizee');
+import * as  memoize from 'memoizee';
 
 import { ListItem, IListItemDataProps, IListItemCallbacksProps } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';

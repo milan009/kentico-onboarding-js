@@ -1,4 +1,4 @@
-import React = require('react');
+import * as React from 'react';
 import { List as ImmutableList } from 'immutable';
 
 import { ListItemContainer } from '../containers/ListItemContainer';

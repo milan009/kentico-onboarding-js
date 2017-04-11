@@ -1,4 +1,4 @@
-import React = require('react');
+import * as React from 'react';
 
 import { IAction } from '../interfaces/IAction';
 import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
