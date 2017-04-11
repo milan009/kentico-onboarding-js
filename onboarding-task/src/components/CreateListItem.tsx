@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
 import { isValid } from '../utils/validationHelpers';
 
-interface ICreateListItemDataProps {
+interface ICreateListItemProps {
   readonly onListItemAdd: (input: string) => void;
 }
 
@@ -12,11 +12,11 @@ interface ICreateListItemState {
   readonly showError: boolean;
 }
 
-class CreateListItem extends React.PureComponent<ICreateListItemDataProps, ICreateListItemState> {
+class CreateListItem extends React.PureComponent<ICreateListItemProps, ICreateListItemState> {
 
   static displayName = 'CreateListItem';
 
-  constructor(props: ICreateListItemDataProps) {
+  constructor(props: ICreateListItemProps) {
     super(props);
 
     this.state = {
