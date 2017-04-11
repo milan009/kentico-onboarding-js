@@ -16,6 +16,8 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
 
   static displayName = 'ListItemValidatedInput';
 
+  private isValid = isValid(this.props.input);
+
   constructor(props: ListItemValidatedInputProps) {
     super(props);
 
@@ -41,12 +43,12 @@ class ListItemValidatedInput extends React.PureComponent<ListItemValidatedInputP
   }
 
   render() {
-    const groupErrorClass = classNames(isValid(this.props.input) ? 'has-success' : 'has-error', ' has-feedback');
+    const groupErrorClass = classNames(this.isValid ? 'has-success' : 'has-error', 'has-feedback');
     const formGroupClass = classNames('form-group col-md-3 ', this.state.showError ? groupErrorClass : '');
     const glyphiconFeedbackClass = classNames(
-      'glyphicon ',
+      'glyphicon',
       isValid(this.props.input) ? 'glyphicon-ok' : 'glyphicon-remove',
-      ' form-control-feedback'
+      'form-control-feedback'
     );
     return (
         <div className={formGroupClass} >
