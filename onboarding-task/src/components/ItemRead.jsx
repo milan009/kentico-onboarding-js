@@ -10,13 +10,12 @@ const ItemRead = (props) => (
 
 ItemRead.displayName = 'ItemRead';
 ItemRead.propTypes = {
-  // item: ImmutablePropTypes.recordOf({
-  //   id: PropTypes.string.isRequired,
-  //   text: PropTypes.string.isRequired,
-  //   isEdited: PropTypes.bool.isRequired,
-  //   index: PropTypes.number.isRequired,
-  // }).isRequired,
-  item: PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    isEdited: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
+  }).isRequired,
   onDoubleClick: PropTypes.func.isRequired,
 };
 

@@ -1,16 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react';
-// import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class ItemEdit extends PureComponent {
   static displayName = 'ItemEdit';
 
   static propTypes = {
-    // item: ImmutablePropTypes.recordOf({
-    //   id: PropTypes.string.isRequired,
-    //   text: PropTypes.string.isRequired,
-    //   isEdited: PropTypes.bool.isRequired,
-    //   index: PropTypes.number.isRequired,
-    // }).isRequired,
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,

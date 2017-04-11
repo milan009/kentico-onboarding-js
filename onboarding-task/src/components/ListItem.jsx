@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-// import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ItemEdit } from './ItemEdit.jsx';
 import { ItemRead } from './ItemRead.jsx';
 
@@ -32,12 +31,6 @@ const ListItem = ({
 
 ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
-  // item: ImmutablePropTypes.recordOf({
-  //   id: PropTypes.string.isRequired,
-  //   text: PropTypes.string.isRequired,
-  //   isEdited: PropTypes.bool.isRequired,
-  //   index: PropTypes.number.isRequired,
-  // }).isRequired,
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
