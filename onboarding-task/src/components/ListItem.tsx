@@ -16,46 +16,35 @@ interface IListItemCallbacksProps {
   onViewChange: () => void;
 }
 
-class ListItem extends React.PureComponent<IListItemDataProps & IListItemCallbacksProps, undefined> {
-  static displayName = 'ListItem';
-
-  static propTypes = {
-    item: React.PropTypes.instanceOf(Item).isRequired,
-    index: React.PropTypes.number.isRequired,
-    isInEditMode: React.PropTypes.bool.isRequired,
-    onItemValueEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired,
-    onViewChange: React.PropTypes.func.isRequired,
-  };
-
-  constructor(props: IListItemDataProps & IListItemCallbacksProps) {
-    super(props);
-  }
-
-  _saveValue = (value: string) => {
-    this.props.onItemValueEdit(value);
-  };
-
-  render() {
-    const value: string = this.props.item.value;
-    if (this.props.isInEditMode) {
-      return (
-        <EditItem
-          value={value}
-          index={this.props.index}
-          onEdit={this._saveValue}
-          onDelete={this.props.onDelete}
-          onCancel={this.props.onViewChange}
-        />);
-    }
+const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacksProps> = (props) => {
+  const value = props.item.value;
+  if (props.isInEditMode) {
     return (
-        <ViewItem
-          value={value}
-          index={this.props.index}
-          onClick={this.props.onViewChange}
-        />
-    );
+      <EditItem
+        value={value}
+        index={props.index}
+        onEdit={props.onItemValueEdit}
+        onDelete={props.onDelete}
+        onCancel={props.onViewChange}
+      />);
   }
-}
+  return (
+    <ViewItem
+      value={value}
+      index={props.index}
+      onClick={props.onViewChange}
+    />
+  );
+};
+
+ListItem.displayName = 'ListItem';
+ListItem.propTypes = {
+  item: React.PropTypes.instanceOf(Item).isRequired,
+  index: React.PropTypes.number.isRequired,
+  isInEditMode: React.PropTypes.bool.isRequired,
+  onItemValueEdit: React.PropTypes.func.isRequired,
+  onDelete: React.PropTypes.func.isRequired,
+  onViewChange: React.PropTypes.func.isRequired,
+};
 
 export { ListItem, IListItemDataProps, IListItemCallbacksProps };
