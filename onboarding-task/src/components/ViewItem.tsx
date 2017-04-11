@@ -6,27 +6,18 @@ interface IAddItemProps {
   index: number;
 }
 
-class ViewItem extends React.PureComponent<IAddItemProps, undefined> {
-  static displayName = 'ViewItem';
+const ViewItem: React.StatelessComponent<IAddItemProps> = (props) => (
+  <div onClick={props.onClick}>
+    {props.index}. {props.value}
+  </div>
+);
 
-  static propTypes = {
-    onClick: React.PropTypes.func.isRequired,
-    value: React.PropTypes.string.isRequired,
-    index: React.PropTypes.number.isRequired,
-  };
+ViewItem.displayName = 'ViewItem';
 
-  constructor(props: IAddItemProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div onClick={this.props.onClick}>
-        {this.props.index}. {this.props.value}
-      </div>
-    );
-
-  }
-}
+ViewItem.propTypes = {
+  onClick: React.PropTypes.func.isRequired,
+  value: React.PropTypes.string.isRequired,
+  index: React.PropTypes.number.isRequired,
+};
 
 export { ViewItem };
