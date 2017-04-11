@@ -1,20 +1,20 @@
-import { ITEM_VIEW_MODE_TOGGLED, ITEM_EDITED, ITEM_DELETED } from './actionTypes';
+import { TOGGLE_ITEM_VIEW_MODE, EDIT_ITEM, DELETE_ITEM } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { createItemFactory } from './createItemFactory';
 import { IAction } from './IAction';
 
 const deleteItem = (id: string): IAction => ({
-  type: ITEM_DELETED,
+  type: DELETE_ITEM,
   payload: { id },
 });
 
 const editItem = (id: string, value: string): IAction => ({
-  type: ITEM_EDITED,
+  type: EDIT_ITEM,
   payload: { id, value },
 });
 
 const toggleItemViewMode = (id: string): IAction => ({
-  type: ITEM_VIEW_MODE_TOGGLED,
+  type: TOGGLE_ITEM_VIEW_MODE,
   payload: { id },
 });
 

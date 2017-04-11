@@ -1,7 +1,7 @@
-import { ITEM_CREATED } from './actionTypes';
+import { CREATE_ITEM } from './actionTypes';
 
 const createItem = (value: string, generateId: () => string) => ({
-  type: ITEM_CREATED,
+  type: CREATE_ITEM,
   payload: {
     id: generateId(),
     value,
