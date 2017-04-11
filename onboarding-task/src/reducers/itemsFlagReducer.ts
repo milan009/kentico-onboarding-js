@@ -1,10 +1,8 @@
 import {Map} from 'immutable';
 
 import {IAction} from '../actions/IAction';
-
 import {ITEM_CREATED, ITEM_DELETED, ITEM_EDITED, ITEM_VIEW_MODE_TOGGLED} from '../actions/actionTypes';
 import {ItemFlags} from '../models/ItemFlags';
-
 
 const itemsFlagReducer = (
   state: Map<string, ItemFlags> = Map<string, ItemFlags>(),
