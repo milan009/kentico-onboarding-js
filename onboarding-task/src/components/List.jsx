@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { AddItem } from './AddItem.tsx';
-import { ListItemContainer } from '../containers/ListItemContainer';
+import { ListItemContainer } from '../containers/ListItemContainer.ts';
 
 const List = ({
     itemIds,

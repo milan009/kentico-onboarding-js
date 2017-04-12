@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IAction } from '../interfaces/IAction';
 
 interface IItemEditDataProps {
   item: IItemViewModel;
 }
 
 interface IItemEditCallbackProps {
-  onSave: (text: string) => void;
-  onCancel: () => void;
-  onDelete: () => void;
+  onSave: (text: string) => IAction;
+  onCancel: () => IAction;
+  onDelete: () => IAction;
 }
 
 interface IItemEditState {

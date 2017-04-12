@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { IAction } from '../interfaces/IAction';
 
 interface IAddItemCallbackProps {
-  onAdd: (text: string) => void;
+  onAdd: (text: string) => IAction;
 }
 
 interface IAddItemState {

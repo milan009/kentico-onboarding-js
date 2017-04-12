@@ -2,16 +2,17 @@ import * as React from 'react';
 import { ItemEdit } from './ItemEdit';
 import { ItemRead } from './ItemRead';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IAction } from '../interfaces/IAction';
 
 interface IListItemDataProps {
   item: IItemViewModel;
 }
 
 interface IListItemCallbackProps{
-  onSave: (text: string) => void;
-  onCancel: () => void;
-  onDelete: () => void;
-  onDoubleClick: () => void;
+  onSave: (text: string) => IAction;
+  onCancel: () => IAction;
+  onDelete: () => IAction;
+  onDoubleClick: () => IAction;
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = ({

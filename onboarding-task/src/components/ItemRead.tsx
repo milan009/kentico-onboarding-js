@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IAction } from '../interfaces/IAction';
 
 interface IItemReadDataProps {
   item: IItemViewModel;
 }
 
 interface IItemReadCallbackProps {
-  onDoubleClick: () => void;
+  onDoubleClick: () => IAction;
 }
 
 const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackProps> = (props) => (
