@@ -84,10 +84,8 @@ describe('fetchItems', () => {
     });
 
     it('should dispatch failFetchItems', (done) => {
-      const expectedDispatchAction = failFetchItems(new Error('Cannot reach server. Try again later.'));
-      const failFetch = () => Promise.resolve({
-        json: () => Promise.reject(new Error()),
-      });
+      const expectedDispatchAction = failFetchItems(new Error());
+      const failFetch = () => Promise.reject(new Error());
       const testFetchItems = fetchItemsFactory(failFetch, 'www.besturl.com', failFetchItems)();
 
 

@@ -60,10 +60,8 @@ describe('postItem', () => {
     });
 
     it('should fail post item', (done) => {
-      const expectedDispatchAction = createErrorMessage(new Error(`Item: ${testItem.text} was not stored. Try again later`));
-      const failFetch = () => Promise.resolve({
-        json: () => Promise.reject(new Error()),
-      });
+      const expectedDispatchAction = createErrorMessage(new Error());
+      const failFetch = () => Promise.reject(new Error());
       const testPostItem = postItemFactory(failFetch, 'www.besturl.com', createErrorMessage)();
 
 
@@ -71,6 +69,8 @@ describe('postItem', () => {
         .then(() => {
           expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
           done();
+        }).catch(error => {
+          console.log(error);
         });
     });
   });

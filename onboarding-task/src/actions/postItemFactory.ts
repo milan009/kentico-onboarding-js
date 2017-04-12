@@ -31,8 +31,7 @@ function postItems(fetch: Fetch, url: string, createErrorMessage: (error: Error)
         .then(parseResponse)
         .then((receivedItem: IItemResponse) => dispatch(receivePostItem(receivedItem)))
         .catch((error) => {
-          console.error(error);
-          return dispatch(createErrorMessage(new Error(`Item: ${item.text} was not stored. Try again later`)));
+          return dispatch(createErrorMessage(error));
         });
     };
   };
