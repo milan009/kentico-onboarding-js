@@ -24,6 +24,8 @@ const ErrorMessageDetail: React.StatelessComponent<IErrorMessageDetailProps> = (
   </div>
 );
 
+ErrorMessageDetail.displayName = 'ErrorMessageDetail';
+
 interface IErrorNotificationProps {
   errorMessages: OrderedMap<string, IErrorMessage>;
   deleteErrorMessage: (id: string) => IAction;
@@ -41,6 +43,8 @@ const ErrorNotification: React.StatelessComponent<IErrorNotificationProps> = ({e
     : <noscript/>
 
 );
+
+ErrorNotification.displayName = 'ErrorNotification';
 
 ErrorNotification.propTypes = {
   errorMessages: ImmutablePropTypes.orderedMapOf(

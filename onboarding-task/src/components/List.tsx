@@ -36,6 +36,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({ i
   </div>
 );
 
+List.displayName = 'List';
 
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSetOf(React.PropTypes.string).isRequired,

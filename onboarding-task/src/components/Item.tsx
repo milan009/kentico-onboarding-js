@@ -24,6 +24,8 @@ const Item: React.StatelessComponent<IItemProps> = ({ item, deleteItem, updateIt
   : <ItemDetail startEditingItem={startEditingItem} index={item.index} text={item.text} />
 );
 
+Item.displayName = 'Item';
+
 Item.propTypes = {
   item: ImmutablePropTypes.recordOf({
     text: React.PropTypes.string,
