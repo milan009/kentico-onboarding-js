@@ -69,8 +69,6 @@ describe('postItem', () => {
         .then(() => {
           expect(dispatchMock.mock.calls[0][0]).toEqual(expectedDispatchAction);
           done();
-        }).catch(error => {
-          console.log(error);
         });
     });
   });
