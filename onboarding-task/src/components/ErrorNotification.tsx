@@ -32,16 +32,17 @@ interface IErrorNotificationProps {
 }
 
 const ErrorNotification: React.StatelessComponent<IErrorNotificationProps> = ({errorMessages, deleteErrorMessage}) => (
-  errorMessages ?
-    (<div>{errorMessages.valueSeq().map((errorMessage: IErrorMessage) =>
-      (<ErrorMessageDetail
+  errorMessages ? (
+    <div>
+      {errorMessages.valueSeq().map((errorMessage: IErrorMessage) => (
+        <ErrorMessageDetail
         errorMessage={errorMessage}
         key={errorMessage.id}
         deleteErrorMessage={deleteErrorMessage}
-      />))}
+        />))
+      }
     </div>)
     : <noscript/>
-
 );
 
 ErrorNotification.displayName = 'ErrorNotification';
