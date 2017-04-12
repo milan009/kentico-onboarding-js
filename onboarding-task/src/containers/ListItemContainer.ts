@@ -11,7 +11,7 @@ interface IListItemContainerProps {
   index: number;
 }
 
-const itemViewModel = (item: IItem, index: string) => ({
+export const itemViewModel = (item: IItem, index: number) => ({
   ...item.toObject(),
   index,
 });

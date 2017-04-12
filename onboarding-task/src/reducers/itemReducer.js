@@ -1,4 +1,4 @@
-import { Item } from '../models/Item.js';
+import { Item } from '../models/Item.ts';
 import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.ts';
 
 const itemReducer = (state = new Item(), action) => {

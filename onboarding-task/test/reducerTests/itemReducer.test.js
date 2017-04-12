@@ -1,6 +1,6 @@
-import { Item } from '../../src/models/Item.js';
+import { Item } from '../../src/models/Item.ts';
 import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
-import { addItemFactory } from '../../src/actionCreators/addItemFactory';
+import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import { itemReducer } from '../../src/reducers/itemReducer.js';
 
 describe('Correctly creates separate item reducers', () => {

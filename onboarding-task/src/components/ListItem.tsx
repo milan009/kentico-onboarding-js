@@ -8,7 +8,7 @@ interface IListItemDataProps {
   item: IItemViewModel;
 }
 
-interface IListItemCallbackProps{
+interface IListItemCallbackProps {
   onSave: (text: string) => IAction;
   onCancel: () => IAction;
   onDelete: () => IAction;

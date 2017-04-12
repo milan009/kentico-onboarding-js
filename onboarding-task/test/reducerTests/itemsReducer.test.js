@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { Item } from '../../src/models/Item.js';
+import { Item } from '../../src/models/Item.ts';
 import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { itemsReducer } from '../../src/reducers/itemsReducer';
