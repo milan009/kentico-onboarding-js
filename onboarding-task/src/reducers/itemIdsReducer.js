@@ -1,5 +1,5 @@
 import { OrderedSet } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM } from '../constants/actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM } from '../constants/actionTypes.ts';
 
 const itemIdsReducer = (state = OrderedSet(), action) => {
   switch (action.type) {

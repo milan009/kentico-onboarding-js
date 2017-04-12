@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ListItem } from '../components/ListItem.tsx';
-import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.js';
+import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators.ts';
 import memoize from 'memoizee';
 
 const itemViewModel = (item, index) => ({

@@ -1,5 +1,5 @@
 import { Item } from '../../src/models/Item.js';
-import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.js';
+import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory';
 import { itemReducer } from '../../src/reducers/itemReducer.js';
 

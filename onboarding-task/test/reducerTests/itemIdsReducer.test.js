@@ -1,5 +1,5 @@
 import { OrderedSet } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM } from '../../src/constants/actionTypes.js';
+import { ADD_ITEM, DELETE_ITEM } from '../../src/constants/actionTypes.ts';
 import { itemIdsReducer } from '../../src/reducers/itemIdsReducer.js';
 
 describe('Correctly adds and removes item Ids: ', () => {

@@ -1,5 +1,5 @@
 import { Item } from '../models/Item.js';
-import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.js';
+import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.ts';
 
 const itemReducer = (state = new Item(), action) => {
   switch (action.type) {
