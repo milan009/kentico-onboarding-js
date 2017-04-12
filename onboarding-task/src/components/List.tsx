@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
+const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { ListItem } from '../containers/ListItemContainer';
 import { AddItem } from './AddItem';
@@ -33,7 +34,9 @@ const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (pr
 
 List.displayName = 'List';
 List.propTypes = {
-  itemsOrder: React.PropTypes.instanceOf(Immutable.OrderedSet).isRequired,
+  itemsOrder: ImmutablePropTypes.orderedSetOf(
+    React.PropTypes.string.isRequired
+  ).isRequired,
   onAddItem: React.PropTypes.func.isRequired,
 };
 
