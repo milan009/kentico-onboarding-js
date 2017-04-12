@@ -1,25 +1,25 @@
 import { connect } from 'react-redux';
 
-import { List } from '../components/List';
-import { createListItem } from '../actionCreators/actionCreators';
-import { IAction } from '../interfaces/IAction';
+import { List, IListDataProps, IListCallbacksProps } from '../components/List';
 import { IAppState } from '../interfaces/IAppState';
+import { dispatchType } from '../utils/dispatchType';
+import { createListItem } from '../actionCreators/actionCreators';
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: IAppState): IListDataProps => {
   return {
     itemsOrder: state.items.orderedIds,
+    error: state.items.error,
+    successMessage: state.items.successMessage,
   };
 };
 
-type dispatchType = (action: IAction) => IAction;
-
-const mapDispatchToProps = (dispatch: dispatchType) => {
+const mapDispatchToProps = (dispatch: dispatchType): IListCallbacksProps => {
   return {
     onListItemAdd: (text: string) => dispatch(createListItem(text)),
   };
 };
 
-const ListContainer = connect(
+const ListContainer: React.ComponentClass<any> = connect(
   mapStateToProps,
   mapDispatchToProps
 )(List);

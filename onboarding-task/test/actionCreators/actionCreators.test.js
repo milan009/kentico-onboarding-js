@@ -7,10 +7,14 @@ describe('action creators ', () => {
   const text = 'Testing...';
 
   it(`createListItem creates ${CREATE_ITEM_IN_LIST} action`, () => {
-    const actualAction = createListItemFactory(() => id)(text);
     const expectedAction = { type: CREATE_ITEM_IN_LIST, payload: { text, id } };
+    const expectedItemToSend = { id: '', value: text, ueid: id };
+    const fakeDispatch = jest.fn(action => action);
 
-    expect(actualAction).toEqual(expectedAction);
+    const actualAction = createListItemFactory(() => id, action => action)(text)(fakeDispatch);
+    expect(fakeDispatch.mock.calls.length).toEqual(2);
+    expect(fakeDispatch.mock.calls[0][0]).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedItemToSend);
   });
 
   it(`switchFormVisibilityForListItem creates ${SWITCH_FORM_VISIBILITY_FOR_ITEM} action`, () => {

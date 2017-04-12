@@ -1,7 +1,14 @@
 import { List } from 'immutable';
 
-import { CREATE_ITEM_IN_LIST, DELETE_ITEM_FROM_LIST } from '../../constants/actionTypes';
+import {
+  CREATE_ITEM_IN_LIST,
+  DELETE_ITEM_FROM_LIST,
+  FETCH_ITEMS_SUCCESS,
+  SEND_ITEM_FAILURE,
+  SEND_ITEM_SUCCESS,
+} from '../../constants/actionTypes';
 import { IAction } from '../../interfaces/IAction';
+import { IFetchedItem } from '../../interfaces/IFetchedItem';
 
 const itemsOrderReducer = (prevState = List<string>(), action: IAction): List<string> => {
   switch (action.type) {
@@ -11,6 +18,16 @@ const itemsOrderReducer = (prevState = List<string>(), action: IAction): List<st
     case DELETE_ITEM_FROM_LIST:
       const index = prevState.indexOf(action.payload.id);
       return prevState.splice(index, 1) as List<string>;
+
+    case FETCH_ITEMS_SUCCESS:
+      const ids = action.payload.response.map((fetchedItem: IFetchedItem) => fetchedItem.id);
+      return List<string>(ids);
+
+    case SEND_ITEM_SUCCESS:
+      return prevState.set(prevState.indexOf(action.payload.item.ueid), action.payload.item.id)
+
+    case SEND_ITEM_FAILURE:
+      return prevState.delete(prevState.indexOf(action.payload.itemId));
 
     default:
       return prevState;

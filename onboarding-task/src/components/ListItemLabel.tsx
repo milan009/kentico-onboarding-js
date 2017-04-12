@@ -1,14 +1,19 @@
-import React = require('react');
+import * as React from 'react';
 
 import { IAction } from '../interfaces/IAction';
+import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
 
 interface ListItemLabelProps {
-  text: string;
-  index: number;
-  onClick: () => IAction;
+  readonly text: string;
+  readonly index: number;
+  readonly savedOnServer: boolean;
+  readonly onClick: () => IAction;
 }
 
-const ListItemLabel = ({ text, index, onClick }: ListItemLabelProps) =>
-  <div onClick={onClick}>{index}. {text}</div>;
+const ListItemLabel = ({ text, index, onClick, savedOnServer }: ListItemLabelProps) =>
+  <div onClick={onClick}>
+    <span className="col-md-10">{index}. {text}</span>
+    <ListItemSavedFlag saved={savedOnServer} />
+  </div>;
 
 export { ListItemLabel };

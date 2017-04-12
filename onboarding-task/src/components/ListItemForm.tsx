@@ -1,36 +1,43 @@
-import React = require('react');
+import * as React from 'react';
 
 import { IAction } from '../interfaces/IAction';
+import { ListItemSavedFlag } from './utilComponents/ListItemSavedFlag';
+import { ListItemValidatedInput } from './utilComponents/ListItemValidatedInput';
+import { isValid } from '../utils/validationHelpers/itemValidationHelpers';
 
-interface IListItemFormProps {
-  index: number;
-  inputValue: string;
-  onFormSubmit: (input: string) => IAction;
-  onFormCancelClick: () => IAction;
-  onFormDeleteClick: () => IAction;
+interface IListItemFormDataProps {
+  readonly index: number;
+  readonly inputValue: string;
+  readonly savedOnServer: boolean;
+}
+
+interface IListItemFormCallbacksProps {
+  readonly onFormSubmit: (input: string) => IAction;
+  readonly onFormCancelClick: () => IAction;
+  readonly onFormDeleteClick: () => IAction;
 }
 
 interface IListItemFormState {
-  input: string;
+  readonly input: string;
 }
 
-class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemFormState> {
+class ListItemForm extends React.PureComponent<IListItemFormDataProps & IListItemFormCallbacksProps, IListItemFormState> {
 
   static displayName = 'ListItemForm';
 
-  constructor(props: IListItemFormProps) {
+  constructor(props: IListItemFormDataProps & IListItemFormCallbacksProps) {
     super(props);
 
     this.state = {
       input: props.inputValue,
     };
 
-    this._onChange = this._onChange.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
   }
 
-  _onChange(event: any) {
-    this.setState({ input: event.target.value });
+  _onInputChange(input: string) {
+    this.setState({ input });
   }
 
   _onSubmit(event: any) {
@@ -40,19 +47,17 @@ class ListItemForm extends React.PureComponent<IListItemFormProps, IListItemForm
 
   render() {
     return (
-      <form className="form-inline" onSubmit={this._onSubmit}>
-        {this.props.index}. <input
-          type="text"
-          className="form-control"
-          value={this.state.input}
-          onChange={this._onChange}
-        />
-        <button type="submit" className="btn btn-primary"> Change</button>
+      <div className="container-fluid">
+        <form className="form-inline col-md-10" onSubmit={this._onSubmit}>
+          {this.props.index}. <ListItemValidatedInput onInputChange={this._onInputChange} input={this.state.input} />
+        <button type="submit" className="btn btn-primary" disabled={!isValid(this.state.input)} > Change</button>
         <button type="button" className="btn btn-default" onClick={this.props.onFormCancelClick}> Cancel</button>
         <button type="button" className="btn btn-danger" onClick={this.props.onFormDeleteClick}> Delete</button>
       </form>
+      <ListItemSavedFlag saved={this.props.savedOnServer}/>
+    </div>
     );
   }
 }
 
-export { ListItemForm };
+export { ListItemForm, IListItemFormDataProps, IListItemFormCallbacksProps };

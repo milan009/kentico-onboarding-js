@@ -5,7 +5,7 @@ import { IItems } from '../interfaces/IItems';
 import { IAction } from '../interfaces/IAction';
 
 interface IState {
-  items: IItems;
+  readonly items: IItems;
 }
 
 type IRootReducer = (state: IState, action: IAction) => IState;

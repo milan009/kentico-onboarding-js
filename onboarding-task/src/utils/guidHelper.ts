@@ -9,4 +9,6 @@ function guid(): string {
     s4() + '-' + s4() + s4() + s4();
 }
 
-export { guid as createGuid };
+type createGuidType = () => string;
+
+export { guid as createGuid, createGuidType };

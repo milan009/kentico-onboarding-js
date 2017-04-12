@@ -1,36 +1,34 @@
 import { connect } from 'react-redux';
-import memoize = require('memoizee');
+import * as  memoize from 'memoizee';
 
-import { ListItem } from '../components/ListItem';
+import { ListItem, IListItemDataProps, IListItemCallbacksProps } from '../components/ListItem';
 import { switchFormVisibilityForListItem } from '../actionCreators/actionCreators';
 import { ItemRecord } from '../models/ItemRecord';
-import { IAction } from '../interfaces/IAction';
 import { IAppState } from '../interfaces/IAppState';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { dispatchType } from '../utils/dispatchType';
 
-const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number): IItemViewModel => {
-  return { id: item.id, text: item.text, formDisplayed, index };
+const getListItemViewModel = (item: ItemRecord, formDisplayed: boolean, index: number, savedOnServer: boolean): IItemViewModel => {
+  return { id: item.id, text: item.text, formDisplayed, index, savedOnServer };
 };
 
 const memoizedListItemViewModel = memoize(getListItemViewModel);
 
 interface IOwnProps {
-  id: string;
+  readonly id: string;
 }
 
-const mapStateToProps = (state: IAppState, ownProps: IOwnProps) => {
+const mapStateToProps = (state: IAppState, ownProps: IOwnProps): IListItemDataProps => {
   const id = ownProps.id;
-  const formDisplayed = state.items.uiPropsById.get(id).formDisplayed;
+  const itemUiProps = state.items.uiPropsById.get(id);
   const item = state.items.byId.get(id);
   const index = state.items.orderedIds.indexOf(id) + 1;
   return {
-    item: memoizedListItemViewModel(item, formDisplayed, index),
+    item: memoizedListItemViewModel(item, itemUiProps.formDisplayed, index, itemUiProps.savedOnServer),
   };
 };
 
-type dispatchType = (action: IAction) => IAction;
-
-const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps) => {
+const mapDispatchToProps = (dispatch: dispatchType, ownProps: IOwnProps): IListItemCallbacksProps => {
   return {
     onLabelClick: () => dispatch(switchFormVisibilityForListItem(ownProps.id)),
   };
