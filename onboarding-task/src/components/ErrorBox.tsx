@@ -4,23 +4,17 @@ interface IErrorBoxProps {
   error: Error;
 }
 
-class ErrorBox extends React.PureComponent<IErrorBoxProps, undefined>  {
-  static displayName = 'ErrorBox';
-  static propTypes = {
-    error: React.PropTypes.any.isRequired,
-  };
+const ErrorBox: React.StatelessComponent<IErrorBoxProps> = (props: IErrorBoxProps) => (
+  <div className="alert alert-danger">
+    {props.error.message}
+  </div>
+);
 
-  constructor(props: IErrorBoxProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="alert alert-danger">
-        {this.props.error.message}
-      </div>
-    );
-  }
-}
+ErrorBox.propTypes = {
+  error: React.PropTypes.any.isRequired,
+};
 
 export { ErrorBox };
+
+
+

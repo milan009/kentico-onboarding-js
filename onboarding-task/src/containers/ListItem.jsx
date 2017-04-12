@@ -19,11 +19,11 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onToggleEditMode: (guid) => dispatch(toggleEditMode(guid)),
-    onUpdateText: (guid, text) => dispatch(updateItemText(guid, text)),
-    onDelete: (guid) => dispatch(deleteItem(guid)),
+    onToggleEditMode: () => dispatch(toggleEditMode(ownProps.guid)),
+    onUpdateText: (guid, text) => dispatch(updateItemText(ownProps.guid, text)),
+    onDelete: () => dispatch(deleteItem(ownProps.guid)),
   };
 };
 

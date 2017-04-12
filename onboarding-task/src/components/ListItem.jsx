@@ -31,8 +31,8 @@ class ListItem extends Component {
     this.props.onToggleEditMode(this.props.item.guid);
   }
 
-  _onDelete(guid) {
-    this.props.onDelete(guid);
+  _onDelete() {
+    this.props.onDelete(this.props.item.guid);
   }
 
   render() {
