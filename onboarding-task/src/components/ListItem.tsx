@@ -1,13 +1,11 @@
 import * as React from 'react';
 
 import { EditItem } from './EditItem';
-import { Item } from '../models/Item';
 import { ViewItem } from './ViewItem';
+import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListItemDataProps {
-  item: Item;
-  index: number;
-  isInEditMode: boolean;
+  itemViewModel: IItemViewModel,
 }
 
 interface IListItemCallbacksProps {
@@ -17,12 +15,12 @@ interface IListItemCallbacksProps {
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacksProps> = (props) => {
-  const value = props.item.value;
-  if (props.isInEditMode) {
+  const viewModel = props.itemViewModel;
+  if (viewModel.isInEditMode) {
     return (
       <EditItem
-        value={value}
-        index={props.index}
+        value={viewModel.value}
+        index={viewModel.index}
         onEdit={props.onItemValueEdit}
         onDelete={props.onDelete}
         onCancel={props.onViewChange}
@@ -30,8 +28,8 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacks
   }
   return (
     <ViewItem
-      value={value}
-      index={props.index}
+      value={viewModel.value}
+      index={viewModel.index}
       onClick={props.onViewChange}
     />
   );
@@ -39,9 +37,12 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacks
 
 ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
-  item: React.PropTypes.instanceOf(Item).isRequired,
-  index: React.PropTypes.number.isRequired,
-  isInEditMode: React.PropTypes.bool.isRequired,
+  itemViewModel: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    value: React.PropTypes.string,
+    index: React.PropTypes.number.isRequired,
+    isInEditMode: React.PropTypes.bool.isRequired,
+  }).isRequired,
   onItemValueEdit: React.PropTypes.func.isRequired,
   onDelete: React.PropTypes.func.isRequired,
   onViewChange: React.PropTypes.func.isRequired,
