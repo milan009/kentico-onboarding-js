@@ -32,7 +32,7 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     return (
       <div className="form-inline">
         <div className="form-group">
-          <input className="form-control" value={value} onChange={this._inputChange} />
+          <input className="form-control" value={value} onChange={this._inputChange}/>
           <button className="btn btn-default" onClick={this._addItem}>Add</button>
         </div>
       </div>
