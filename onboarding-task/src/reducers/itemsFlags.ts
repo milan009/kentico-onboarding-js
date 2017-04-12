@@ -35,6 +35,7 @@ function itemsFlags (state: Map<string, IItemFlags> = emptyItemsFlags, action: I
 
     case POST_ITEM_SUCCESS:
       return state.set(action.payload.item.id, { isEdited: false });
+
     default:
       return state;
   }

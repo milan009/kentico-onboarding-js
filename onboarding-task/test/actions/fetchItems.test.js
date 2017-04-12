@@ -5,17 +5,17 @@ describe('fetch items action creator', () => {
   const fakeApiResponse = [
     {
       id: '12345',
-      text: 'first item'
+      text: 'first item',
     },
     {
       id: '67890',
-      text: 'second item'
+      text: 'second item',
     },
   ];
 
-  const fetchMock = (url) => Promise.resolve(new Response(JSON.stringify(fakeApiResponse), { status: 201 }));
+  const fetchMock = (url) => Promise.resolve(new Response(JSON.stringify(fakeApiResponse), { status: 200 }));
   const fetchFailedMock = (url) => Promise.resolve({
-    json: () => Promise.reject(new Error()),
+    json: () => Promise.reject(new Error('Error in test')),
   });
   const dispatchMock = jest.fn((action) => action);
 
@@ -47,7 +47,7 @@ describe('fetch items action creator', () => {
   });
 
   it('dispatches FETCH_ITEMS_FAILURE action', (done) => {
-    const expectedAction = fetchItemsFailure(new Error());
+    const expectedAction = fetchItemsFailure(new Error('Error in test'));
     const fetchItems = fetchItemsFactory(fetchFailedMock);
     const thunkAction = fetchItems();
 

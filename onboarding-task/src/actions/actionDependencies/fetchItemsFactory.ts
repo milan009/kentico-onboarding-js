@@ -1,4 +1,4 @@
-import { Fetch } from '../IFetch';
+import { Fetch } from '../Fetch';
 import { Dispatch } from '../Dispatch';
 import { fetchItemsFailure, fetchItemsRequest, fetchItemsSuccess } from '../actionCreators';
 import { IItemServerModel } from '../../models/IItemServerModel';

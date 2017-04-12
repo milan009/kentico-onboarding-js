@@ -9,7 +9,7 @@ const emptyItemsById = Map<string, ItemRecord>();
 function itemsById (state = emptyItemsById, action: IAction): Map<string, ItemRecord> {
   switch (action.type) {
     case UPDATE_ITEM_TEXT:
-      const editedItem: ItemRecord = state.get(action.payload.guid);
+      const editedItem = state.get(action.payload.guid);
       return state.set(action.payload.guid, item(editedItem, action));
 
     case DELETE_ITEM:
@@ -26,6 +26,7 @@ function itemsById (state = emptyItemsById, action: IAction): Map<string, ItemRe
 
     case POST_ITEM_SUCCESS:
       return state.set(action.payload.item.id, item(undefined, action));
+
     default:
       return state;
   }

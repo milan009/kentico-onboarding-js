@@ -12,7 +12,7 @@ function itemsOrder (state: OrderedSet<string> = emptyItemsOrder, action: IActio
     case FETCH_ITEMS_SUCCESS:
       const items = action.payload.items;
       const itemsArray: Array<string> = [];
-      items.map( (currentItem: IItemServerModel) => {
+      items.map((currentItem: IItemServerModel) => {
           itemsArray.push(currentItem.id);
         }
       );

@@ -1,5 +1,5 @@
 import { postItemFailure, postItemSuccess } from '../actionCreators';
-import { Fetch } from '../IFetch';
+import { Fetch } from '../Fetch';
 import { Dispatch } from '../Dispatch';
 import { IItemServerModel, IItemServerModelNullable } from '../../models/IItemServerModel';
 import { parseResponse } from '../../utils/ajaxUtils';
@@ -15,13 +15,13 @@ const postItem = (fetch: Fetch, text: string) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newItem)
+      body: JSON.stringify(newItem),
     };
 
     return fetch('api/v1/items', requestData)
-      .then( (response: Response) => parseResponse<IItemServerModel>(response))
-      .then( (json: IItemServerModel) => dispatch(postItemSuccess(json)))
-      .catch( (error: Error) => dispatch(postItemFailure(error)));
+      .then((response: Response) => parseResponse<IItemServerModel>(response))
+      .then((json: IItemServerModel) => dispatch(postItemSuccess(json)))
+      .catch((error: Error) => dispatch(postItemFailure(error)));
   };
 };
 

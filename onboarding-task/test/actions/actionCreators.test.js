@@ -51,17 +51,17 @@ describe('fetch actionCreators tests', () => {
   const json = [
     {
       id: '12345',
-      text: 'first item'
+      text: 'first item',
     },
     {
       id: '67890',
-      text: 'second item'
+      text: 'second item',
     },
   ];
 
   it('should create action for requesting items', () => {
     const expectedAction = {
-      type: types.FETCH_ITEMS_REQUEST
+      type: types.FETCH_ITEMS_REQUEST,
     };
     const actualAction = actions.fetchItemsRequest();
 

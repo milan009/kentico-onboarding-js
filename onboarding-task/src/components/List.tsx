@@ -43,7 +43,7 @@ class List extends React.PureComponent<IListProps, undefined> {
     const errors = this.props.errors;
     return (
     <div className="row">
-      {errors.map( (error,index) =>
+      {errors.map((error, index) =>
           <ErrorBox error={error} key={index} />
         )}
       <div className="col-sm-12 col-md-offset-2 col-md-8">

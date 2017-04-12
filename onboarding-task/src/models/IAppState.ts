@@ -7,5 +7,5 @@ export interface IAppState {
   itemsFlags: Map<string, IItemFlags>;
   itemsOrder: OrderedSet<string>;
   loaded: boolean;
-  errors: Set<any>;
+  errors: Set<Error>;
 }

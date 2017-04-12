@@ -9,7 +9,7 @@ const newItem = {
 describe('post item action creator', () => {
   const postMock = (url, data) => Promise.resolve(new Response(JSON.stringify(newItem), { status: 201 }));
   const fetchPostFailed = (url, data) => Promise.resolve({
-    json: () => Promise.reject(new Error()),
+    json: () => Promise.reject(new Error('Error in test')),
   });
   const dispatchMock = jest.fn((action) => action);
   beforeEach( () => { dispatchMock.mockReset(); });
@@ -27,7 +27,7 @@ describe('post item action creator', () => {
   });
 
   it('dispatches POST_ITEM_FAILURE action', () => {
-    const expectedAction = postItemFailure(new Error());
+    const expectedAction = postItemFailure(new Error('Error in test'));
     const postItem = postItemFactory(fetchPostFailed);
     const thunkAction = postItem();
 
