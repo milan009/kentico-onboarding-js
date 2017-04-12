@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onToggleEditMode: () => dispatch(toggleEditMode(ownProps.guid)),
-    onUpdateText: (guid, text) => dispatch(updateItemText(ownProps.guid, text)),
+    onUpdateText: (text) => dispatch(updateItemText(ownProps.guid, text)),
     onDelete: () => dispatch(deleteItem(ownProps.guid)),
   };
 };

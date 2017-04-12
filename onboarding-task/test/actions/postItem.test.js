@@ -3,41 +3,37 @@ import { postItemFactory } from '../../src/actions/actionDependencies/postItemFa
 
 const newItem = {
   id: '00000000-0000-0000-0000-000000000000',
-  text: 'first item'
+  text: 'first item',
 };
 
 describe('post item action creator', () => {
-  const postMock = (url, data) => Promise.resolve(new Response(JSON.stringify(newItem), { status: 201 }));
-  const fetchPostFailed = (url, data) => Promise.resolve({
-    json: () => Promise.reject(new Error('Error in test')),
-  });
-  const dispatchMock = jest.fn((action) => action);
-  beforeEach( () => { dispatchMock.mockReset(); });
+  const postMock = () => Promise.resolve(new Response(JSON.stringify(newItem), { status: 201 }));
+  const fetchPostFailed = () => Promise.resolve({ ok: false, statusText: 'Error in test' });
+  const dispatchMock = (action) => action;
 
   it('dispatches POST_ITEM_SUCCESS action', (done) => {
+    const dispatchSpy = jest.fn(dispatchMock);
     const expectedAction = postItemSuccess(newItem);
     const postItem = postItemFactory(postMock);
     const thunkAction = postItem();
 
-    thunkAction(dispatchMock).then( () => {
-      const actualActionDispatched = dispatchMock.mock.calls[0][0];
+    thunkAction(dispatchSpy).then(() => {
+      const actualActionDispatched = dispatchSpy.mock.calls[0][0];
       expect(actualActionDispatched).toEqual(expectedAction);
       done();
     });
   });
 
-  it('dispatches POST_ITEM_FAILURE action', () => {
+  it('dispatches POST_ITEM_FAILURE action', (done) => {
+    const dispatchSpy = jest.fn(dispatchMock);
     const expectedAction = postItemFailure(new Error('Error in test'));
     const postItem = postItemFactory(fetchPostFailed);
     const thunkAction = postItem();
 
-    thunkAction(dispatchMock).then( (done) => {
-      const actualActionDispatched = dispatchMock.mock.calls[0][0];
+    thunkAction(dispatchSpy).then(() => {
+      const actualActionDispatched = dispatchSpy.mock.calls[0][0];
       expect(actualActionDispatched).toEqual(expectedAction);
       done();
     });
-
   });
-
 });
-
