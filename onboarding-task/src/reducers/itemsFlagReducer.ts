@@ -12,9 +12,6 @@ const itemsFlagReducer = (state = Map<string, ItemFlags>(),
     case TOGGLE_ITEM_VIEW_MODE:
       return state.set(action.payload.id, itemFlagsReducer(state.get(action.payload.id), action));
 
-    // case EDIT_ITEM:
-    //   return state.set(action.payload.id, itemFlagsReducer(state.get(action.payload.id), action));
-
     case CREATE_ITEM:
       return state.set(action.payload.id, itemFlagsReducer(new ItemFlags(), action));
 
