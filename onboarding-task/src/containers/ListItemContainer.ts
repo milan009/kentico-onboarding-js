@@ -6,24 +6,22 @@ import { ListItem } from '../components/ListItem';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';
 import { IItem } from '../interfaces/IItem';
 
-interface IListItemContainerProps {
-  itemId: string;
-  index: number;
-}
-
 export const itemViewModel = (item: IItem, index: number) => ({
   ...item.toObject(),
   index,
 });
+
+interface IListItemContainerProps {
+  itemId: string;
+  index: number;
+}
 
 const memoizedItem = memoize(itemViewModel);
 
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps) => {
   const id = ownProps.itemId;
   const itemById = state.items.get(id);
-  console.log('ListItemContainer.ts itemById: ', itemById);
   const indexedItem = memoizedItem(itemById, ownProps.index);
-  console.log('ListItemContainer.ts indexedItem: ', indexedItem);
 
   return { item: indexedItem };
 };

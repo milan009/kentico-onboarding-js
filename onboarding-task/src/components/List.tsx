@@ -1,13 +1,23 @@
-import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { AddItem } from './AddItem.tsx';
-import { ListItemContainer } from '../containers/ListItemContainer.ts';
+import * as React from 'react';
+const ImmutablePropTypes = require('react-immutable-proptypes');
+import { OrderedSet } from 'immutable';
+import { AddItem } from './AddItem';
+import { ListItemContainer } from '../containers/ListItemContainer';
+import { IAction } from '../interfaces/IAction';
 
-const List = ({
+interface IListDataProps {
+  itemIds: OrderedSet<string>;
+}
+
+interface IListCallbacksProps {
+  onAddItem: () => IAction;
+}
+
+const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = ({
     itemIds,
     onAddItem,
   }) => {
-  const renderedRows = itemIds.valueSeq().map((itemId, index) => (
+  const renderedRows = itemIds.valueSeq().map((itemId: string, index: number) => (
     <li key={itemId} className="list-group-item">
       <ListItemContainer itemId={itemId} index={index + 1} />
     </li>
@@ -38,7 +48,7 @@ const List = ({
 List.displayName = 'List';
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
-  onAddItem: PropTypes.func.isRequired,
+  onAddItem: React.PropTypes.func.isRequired,
 };
 
 export { List };
