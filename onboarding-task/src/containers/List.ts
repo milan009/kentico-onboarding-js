@@ -1,22 +1,26 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from '../stores/Dispatch';
-import { addItem} from '../actions/itemsActionCreators';
+import { postItem } from '../actions/itemsActionCreators';
 import { List } from '../components/List';
 import { IAppState } from '../stores/IAppState';
+import { deleteErrorMessage } from '../actions/errorMessageActionCreators';
 
 const mapStateToProps = (state: IAppState) => {
   return {
     itemIds: state.itemsOrder,
+    errorMessages: state.errorMessages,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addItem: (text: string) => dispatch(addItem(text)),
+    addItem: (text: string) => dispatch(postItem()(text)),
+    deleteErrorMessage: (id: string) => dispatch(deleteErrorMessage(id)),
   };
 };
 
-const ListContainer = connect(
+const ListContainer: React.ComponentClass<any> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(List);

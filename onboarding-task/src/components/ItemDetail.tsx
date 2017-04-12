@@ -11,4 +11,6 @@ const ItemDetail: React.StatelessComponent<IItemDetailProps> = ({ startEditingIt
   <div onClick={startEditingItem}>{`${index}. ${text}`}</div>
 );
 
+ItemDetail.displayName = 'ItemDetail';
+
 export { ItemDetail };

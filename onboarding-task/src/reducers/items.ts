@@ -1,11 +1,20 @@
 import { OrderedMap } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/actionTypes';
+import { DELETE_ITEM, FETCH_ITEMS_RECEIVE, UPDATE_ITEM, POST_ITEM_RECEIVE } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
+import { Item } from '../models/Item';
+import {IItemResponse} from '../models/IItemResponse';
 
 const items = (state = OrderedMap(), action: IAction) => {
   switch (action.type) {
-    case ADD_ITEM:
-      return state.set(action.payload.item.id, action.payload.item);
+    case FETCH_ITEMS_RECEIVE:
+      const receivedItems: IItemResponse[] = action.payload.items;
+      return OrderedMap (
+        receivedItems.map((item: IItemResponse) => [item.id, new Item({id: item.id, text: item.text})])
+      );
+
+    case POST_ITEM_RECEIVE:
+      const receivedItem: IItemResponse = action.payload.item;
+      return state.set(receivedItem.id, new Item({id: receivedItem.id, text: receivedItem.text}));
 
     case DELETE_ITEM:
       return state.delete(action.payload.id);
