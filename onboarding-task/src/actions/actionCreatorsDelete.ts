@@ -6,6 +6,7 @@ import {
 import { Dispatch } from '../types/Dispatch';
 import { IAction } from './IAction';
 import { checkStatus } from './checkStatus';
+import { ActionAsync } from './ActionAsync';
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
@@ -36,7 +37,7 @@ const deleteItemRequest = (): IAction => {
   };
  };
 
-export const deleteItem = (id: string) => {
+export const deleteItem = (id: string) : ActionAsync => {
   return (dispatch: Dispatch) => {
     dispatch(deleteItemRequest());
 

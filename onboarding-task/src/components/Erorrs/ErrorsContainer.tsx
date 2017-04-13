@@ -1,10 +1,16 @@
 import * as React from 'react';
+import { OrderedMap } from 'immutable';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ErrorMessage } from './ErrorMessage';
 const CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
 import './errorsContainer.css';
 
-class ErrorsContainer extends React.PureComponent<any, any> {
+interface IErrorsContainerProps {
+  errors: OrderedMap<string, string>;
+  onDismissError: (key: string) => void;
+}
+
+class ErrorsContainer extends React.PureComponent<IErrorsContainerProps, null> {
   static displayName = 'ErrorsContainer';
 
   static propTypes = {
@@ -13,10 +19,14 @@ class ErrorsContainer extends React.PureComponent<any, any> {
   };
 
   render() {
-    const messages = this.props.errors.reduce((r: Array<HTMLElement>, v: string, k: string) => {
-      const msg = <ErrorMessage key={k} errorId={k} text={v} onDismissError={this.props.onDismissError} />;
-      return [...r, msg];
-    }, []);
+    const messages = this.props.errors.reduce((r: Array<HTMLElement>, v: string, k: string) =>
+      [...r,
+        (<ErrorMessage
+          key={k}
+          errorId={k}
+          text={v}
+          onDismissError={this.props.onDismissError} />)
+      ], []);
 
     return (
       <div className="alert-container">

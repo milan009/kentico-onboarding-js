@@ -6,22 +6,22 @@ import { OrderedSet, OrderedMap } from 'immutable';
 import TsComponent from './TsComponent';
 import { CreateItem } from './CreateItem';
 import { ListRow } from '../containers/ListRow';
-import { IAction } from '../actions/IAction';
 import { GridLoader } from 'halogen';
 import { ErrorsContainer } from './Erorrs/ErrorsContainer';
+import { IAction } from '../actions/IAction';
 
 interface IListProps {
   itemIds: OrderedSet<string>;
   errors: OrderedMap<string, string>;
   isFetching: boolean;
-  onItemAdd: (text: string) => IAction;
+  onItemAdd: (text: string) => Promise<IAction>;
   onDismissError: (key: string) => IAction;
 }
 
 const List: React.StatelessComponent<IListProps> = (props) => {
-   const loader = !props.isFetching ? null : (
-    <div style={{width: '100%', display: 'flex', marginTop: '10%' }}>
-      <GridLoader color="#26A65B" size="32px" margin="6px" className="center-horizontal"/>
+  const loader = !props.isFetching ? null : (
+    <div style={{width: '100%', display: 'flex', marginTop: '10%'}}>
+      <GridLoader color="#26A65B" size="32px" margin="6px" className="center-horizontal" />
     </div>
   );
 

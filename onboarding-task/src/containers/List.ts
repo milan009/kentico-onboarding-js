@@ -5,6 +5,7 @@ import { IAppState } from '../reducers/IAppState';
 import { createSelector } from 'reselect';
 import { postItem } from '../actions/actionCreatorsPost';
 import { dismissError } from '../actions/actionCreatorsErrors';
+import { Dispatch } from '../types/Dispatch';
 
 const getItemIds = (state: IAppState) => OrderedSet.fromKeys(state.items.byId);
 
@@ -21,7 +22,7 @@ const mapStateToProps = (state: IAppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onItemAdd: (text: string) => dispatch(postItem(text)),
     onDismissError: (key: string) => dispatch(dismissError(key)),

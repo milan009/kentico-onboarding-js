@@ -7,6 +7,7 @@ import { Dispatch } from '../types/Dispatch';
 import { IAction } from './IAction';
 import { IItem } from '../models/IItem';
 import { checkStatus } from './checkStatus';
+import { ActionAsync } from './ActionAsync';
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
@@ -37,7 +38,7 @@ const postItemRequest = (): IAction => {
   };
  };
 
-export const postItem = (text: string) => {
+export const postItem = (text: string) : ActionAsync => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 

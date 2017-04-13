@@ -1,3 +1,7 @@
 import { IAction } from '../actions/IAction';
+import { ActionAsync } from '../actions/ActionAsync';
 
-export type Dispatch = (action: IAction) => IAction;
+type dispatch = (action: IAction) => IAction;
+type dispatchAsync = (actionAsync: ActionAsync) => Promise<IAction>;
+
+export type Dispatch = dispatch & dispatchAsync;

@@ -6,6 +6,7 @@ import { IAction } from './IAction';
 import { IItem } from '../models/IItem';
 import { checkStatus } from './checkStatus';
 import { Item } from '../models/Item';
+import { ActionAsync } from './ActionAsync';
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
@@ -36,7 +37,7 @@ const putItemFailure = (errors: string[]): IAction => {
   };
 };
 
-export const putItem = (id: string, text: string) => {
+export const putItem = (id: string, text: string) : ActionAsync => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 

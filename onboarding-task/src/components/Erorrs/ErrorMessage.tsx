@@ -2,11 +2,16 @@ import * as React from 'react';
 const MdWarning = require('react-icons/lib/md/warning');
 const MdClose = require('react-icons/lib/md/close');
 
-class ErrorMessage extends React.PureComponent<any, any> {
-  static displayName = 'ErrorMessage';
+interface IErrorMessageProps {
+  errorId: string;
+  text: string;
+  onDismissError: (key: string) => void;
+}
 
+class ErrorMessage extends React.PureComponent<IErrorMessageProps, null> {
+  static displayName = 'ErrorMessage';
   static propTypes = {
-    errorId: React.PropTypes.any.isRequired,
+    errorId: React.PropTypes.string.isRequired,
     text: React.PropTypes.string.isRequired,
     onDismissError: React.PropTypes.func.isRequired,
   };
