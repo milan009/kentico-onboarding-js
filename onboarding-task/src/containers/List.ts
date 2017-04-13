@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List';
-import { createItem } from '../actions/actionCreators';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../reducers/IAppState';
-import { Dispatch } from '../types/Dispatch';
 import { createSelector } from 'reselect';
+import { postItem } from '../actions/actionCreatorsPost';
+import { dismissError } from '../actions/actionCreatorsErrors';
 
 const getItemIds = (state: IAppState) => OrderedSet.fromKeys(state.items.byId);
 
@@ -14,12 +14,17 @@ const getListViewModel = createSelector(
 );
 
 const mapStateToProps = (state: IAppState) => {
-  return { itemIds: getListViewModel(state) };
+  return {
+    itemIds: getListViewModel(state),
+    isFetching: state.items.isFetching,
+    errors: state.errors,
+  };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    onItemAdd: (text: string) => dispatch(createItem(text)),
+    onItemAdd: (text: string) => dispatch(postItem(text)),
+    onDismissError: (key: string) => dispatch(dismissError(key)),
   };
 };
 

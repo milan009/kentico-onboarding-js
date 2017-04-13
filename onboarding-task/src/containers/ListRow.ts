@@ -2,15 +2,17 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { ListRow } from '../components/ListRow';
+import { deleteItem } from '../actions/actionCreatorsDelete';
+import { putItem } from '../actions/actionCreatorsPut';
 import {
   toggleEditItem,
-  deleteItem,
-  updateItem,
+  // deleteItem,
+  // updateItem,
 } from '../actions/actionCreators';
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/IItem';
 import { ItemUi } from '../models/ItemUi';
-import { Dispatch } from '../types/Dispatch';
+// import { Dispatch } from '../types/Dispatch';
 import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListRowOwnProps {
@@ -38,11 +40,11 @@ const mapStateToProps = (state: IAppState, props: IListRowOwnProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { id }: IListRowOwnProps) => {
+const mapDispatchToProps = (dispatch: any, { id }: IListRowOwnProps) => {
   return {
     onItemClick: () => dispatch(toggleEditItem(id)),
     onItemDelete: () => dispatch(deleteItem(id)),
-    onItemUpdate: (text: string) => dispatch(updateItem(id, text)),
+    onItemUpdate: (text: string) => dispatch(putItem(id, text)),
     onItemCancel: () => dispatch(toggleEditItem(id)),
   };
 };
