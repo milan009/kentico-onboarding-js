@@ -5,13 +5,18 @@
   "devDependencies": {
     "@types/bootstrap": "^3.3.32",
     "@types/classnames": "0.0.32",
+    "@types/es6-promise": "0.0.32",
+    "@types/halogen": "^0.2.2",
     "@types/immutable": "^3.8.7",
+    "@types/isomorphic-fetch": "0.0.33",
     "@types/jest": "^18.1.1",
     "@types/node": "^7.0.0",
     "@types/react": "^15.0.20",
     "@types/react-dom": "^0.14.23",
+    "@types/react-icons": "^2.2.1",
     "@types/react-redux": "^4.4.38",
     "@types/redux-logger": "^3.0.0",
+    "@types/redux-thunk": "^2.1.0",
     "@types/reselect": "^2.0.27",
     "autoprefixer": "6.5.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
@@ -45,7 +50,6 @@
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
     "postcss-loader": "1.0.0",
-    "promise": "7.1.1",
     "react-dev-utils": "^0.4.2",
     "recursive-readdir": "2.1.0",
     "source-map-loader": "^0.1.6",
@@ -56,20 +60,25 @@
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
-    "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
+    "webpack-manifest-plugin": "1.1.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "es6-promise": "^4.1.0",
+    "halogen": "^0.2.0",
     "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
     "mocha-param": "^1.0.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-icons": "^2.2.3",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.3",
     "react-tooltip": "^3.2.7",
+    "react-transition-group": "^1.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.10.1",
+    "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
     "ts-jest": "^19.0.0"
   },
@@ -114,5 +123,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://localhost:52006"
 }
