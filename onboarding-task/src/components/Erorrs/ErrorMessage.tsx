@@ -13,6 +13,10 @@ class ErrorMessage extends React.PureComponent<any, any> {
 
   _onDismiss = () => {
     this.props.onDismissError(this.props.errorId);
+  };
+
+  componentDidMount() {
+    setTimeout(() => this._onDismiss(), 5000);
   }
 
   render() {
