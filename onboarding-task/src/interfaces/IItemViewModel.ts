@@ -1,6 +1,6 @@
 export interface IItemViewModel {
-  id: string;
-  text: string;
-  isEdited: boolean;
-  index: number;
+  readonly id: string;
+  readonly text: string;
+  readonly isEdited: boolean;
+  readonly index: number;
 }
