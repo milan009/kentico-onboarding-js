@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { itemsReducer } from './itemsReducer.js';
-import { itemIdsReducer } from './itemIdsReducer.js';
+import { itemIdsReducer } from './itemIdsReducer.ts';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
