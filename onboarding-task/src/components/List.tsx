@@ -27,7 +27,10 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     <div className="row">
       <div className="row">
         <div className="col-sm-12">
-          <p className="lead text-center"><b>Note: </b>Try to make the solution easily extensible (e.g. more displayed fields per item).</p>
+          <p className="lead text-center">
+            <b>Note: </b>
+            Try to make the solution easily extensible (e.g. more displayed fields per item).
+          </p>
         </div>
       </div>
 
