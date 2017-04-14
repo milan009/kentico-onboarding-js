@@ -2,24 +2,24 @@ import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { OrderedSet } from 'immutable';
 import { AddItem } from './AddItem';
-import { ListItemContainer } from '../containers/ListItemContainer';
+import { ListItem } from '../containers/ListItemContainer';
 import { IAction } from '../interfaces/IAction';
 
-interface IListDataProps {
+export interface IListDataProps {
   itemIds: OrderedSet<string>;
 }
 
-interface IListCallbacksProps {
-  onAddItem: () => IAction;
+export interface IListCallbackProps {
+  onAddItem: (text: string) => IAction;
 }
 
-const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = ({
+const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     itemIds,
     onAddItem,
   }) => {
   const renderedRows = itemIds.valueSeq().map((itemId: string, index: number) => (
     <li key={itemId} className="list-group-item">
-      <ListItemContainer itemId={itemId} index={index + 1} />
+      <ListItem itemId={itemId} index={index + 1} />
     </li>
   ));
 

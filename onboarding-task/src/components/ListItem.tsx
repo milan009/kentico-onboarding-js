@@ -4,11 +4,11 @@ import { ItemRead } from './ItemRead';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
 import { IAction } from '../interfaces/IAction';
 
-interface IListItemDataProps {
+export interface IListItemDataProps {
   item: IItemViewModel;
 }
 
-interface IListItemCallbackProps {
+export interface IListItemCallbackProps {
   onSave: (text: string) => IAction;
   onCancel: () => IAction;
   onDelete: () => IAction;

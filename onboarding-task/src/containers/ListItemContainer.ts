@@ -4,6 +4,7 @@ import { IAppState } from '../stores/IAppState';
 import { ListItem } from '../components/ListItem';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';
 import { itemViewModel } from '../models/itemViewModel';
+import { IListItemDataProps, IListItemCallbackProps } from '../components/ListItem';
 
 interface IListItemContainerProps {
   itemId: string;
@@ -11,7 +12,7 @@ interface IListItemContainerProps {
 }
 
 
-const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps) => {
+const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps => {
   const id = ownProps.itemId;
   const itemById = state.items.get(id);
   const indexedItem = itemViewModel(itemById, ownProps.index);
@@ -19,7 +20,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps) =>
   return { item: indexedItem };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
   onDelete: () => dispatch(deleteItem(ownProps.itemId)),
   onDoubleClick: () => dispatch(enableEditItem(ownProps.itemId)),
   onSave: (text: string) => dispatch(saveChangesToItem(ownProps.itemId, text)),
@@ -31,4 +32,4 @@ const ListItemContainer: React.ComponentClass<IListItemContainerProps> = connect
   mapDispatchToProps,
 )(ListItem);
 
-export { ListItemContainer };
+export { ListItemContainer as ListItem };
