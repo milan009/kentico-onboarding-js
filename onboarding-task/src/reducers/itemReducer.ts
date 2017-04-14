@@ -1,7 +1,8 @@
-import { Item } from '../models/Item.ts';
-import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.ts';
+import { Item } from '../models/Item';
+import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
+import { IAction } from '../interfaces/IAction';
 
-const itemReducer = (state = new Item(), action) => {
+const itemReducer = (state = new Item(), action: IAction) => {
   switch (action.type) {
     case ADD_ITEM: {
       const item = new Item({ id: action.payload.id, text: action.payload.text, isEdited: false });

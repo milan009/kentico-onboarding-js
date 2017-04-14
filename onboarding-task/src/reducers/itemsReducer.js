@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { itemReducer } from './itemReducer.js';
+import { itemReducer } from './itemReducer.ts';
 import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes.ts';
 
 const itemsReducer = (state = Map(), action) => {
