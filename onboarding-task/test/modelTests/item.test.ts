@@ -1,5 +1,5 @@
 import { Item } from '../../src/models/Item';
-import { itemViewModel } from '../../src/containers/ListItemContainer';
+import { itemViewModel } from '../../src/models/itemViewModel';
 
 describe('Correctly creates items: ', () => {
   const fakeId = '23456899-df58-1bbf-1j8p-4asd582z69d8';
