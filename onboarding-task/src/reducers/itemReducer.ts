@@ -6,10 +6,13 @@ const itemReducer = (state = new Item(), action: IAction) => {
   switch (action.type) {
     case ADD_ITEM: {
       const item = new Item({ id: action.payload.id, text: action.payload.text, isEdited: false });
+      console.log('itemReducer addItem item: ', item);
       return item;
     }
 
     case ENABLE_EDIT_ITEM:
+      const newItem = state.set('isEdited', true);
+      console.log('itemReducer saveChanges item: ', newItem);
       return state.set('isEdited', true);
 
     case SAVE_CHANGES_TO_ITEM: {
