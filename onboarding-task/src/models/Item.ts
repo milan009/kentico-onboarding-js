@@ -16,14 +16,6 @@ class Item extends Record(recordData) implements IItem {
     return super.toObject() as IItemData;
   }
 
-   // set(key: string, value: string | boolean): IItem {
-   //  return new Item(super.set(key, value)) as IItem;
-   // }
-
-  // merge(data: IItemData): IItem {
-  //   return new Item(super.merge(data)) as IItem;
-  // }
-
   with(data: IItemDataParameters): IItem {
     return super.merge(data) as Item;
   }

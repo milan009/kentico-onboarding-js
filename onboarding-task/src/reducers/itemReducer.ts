@@ -7,7 +7,6 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
   switch (action.type) {
     case ADD_ITEM: {
       const item = state.with({ id: action.payload.id, text: action.payload.text, isEdited: false });
-      console.log('itemReducer addItem item: ', item);
       return item;
     }
 

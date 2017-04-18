@@ -6,7 +6,7 @@ export interface IItemDataParameters {
   readonly isEdited?: boolean;
 }
 
-export interface IItemData extends IItemDataParameters{
+export interface IItemData extends IItemDataParameters {
   readonly id: string;
   readonly text: string;
   readonly isEdited: boolean;

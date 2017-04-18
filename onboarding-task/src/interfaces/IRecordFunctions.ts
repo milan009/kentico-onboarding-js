@@ -1,9 +1,6 @@
-// import { Map } from 'immutable';
 import { IItem } from './IItem';
 
-export interface IRecordFunctions<TRecordData, TOptionalRecordData> {
+export interface IRecordFunctions<TRecordData, TItemDataParameters> {
   toObject: () => TRecordData;
-  // set: (key: string, value: string | boolean) => IItem;
-  // merge: (data: TRecordData) => IItem;
-  with: (data: TOptionalRecordData) => IItem;
+  with: (data: TItemDataParameters) => IItem;
 }

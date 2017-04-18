@@ -15,9 +15,7 @@ const itemsReducer = (state = Map<string, IItem>(), action: IAction) => {
     case ENABLE_EDIT_ITEM:
     case SAVE_CHANGES_TO_ITEM:
     case CANCEL_CHANGES_TO_ITEM: {
-      console.log('itemsReducer state: ', state);
       const currentItem = state.get(action.payload.id);
-      console.log('itemsReducer: current item: ', currentItem);
       const editedItem = itemReducer(currentItem, action);
 
       return state.set(action.payload.id, editedItem);
