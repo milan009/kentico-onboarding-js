@@ -1,6 +1,6 @@
 import { errors } from '../../src/reducers/errors.ts';
 import { Set } from 'immutable';
-import { postItemFailure, fetchItemsFailure } from '../../src/actions/actionCreators.ts'
+import { postItemFailure, fetchItemsFailure } from '../../src/actions/actionCreators.ts';
 
 describe('errors reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';

@@ -1,7 +1,7 @@
-import { itemsById } from '../../src/reducers/itemsById';
-import * as actions from '../../src/actions/actionCreators';
+import { itemsById } from '../../src/reducers/itemsById.ts';
+import * as actions from '../../src/actions/actionCreators.ts';
 import * as Immutable from 'immutable';
-import { ItemRecord } from '../../src/models/ItemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord.ts';
 
 describe('itemsById reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -16,21 +16,21 @@ describe('itemsById reducer', () => {
   const json = [
     {
       id: '00000',
-      text: 'serus'
+      text: 'serus',
     },
     {
       id: '11111',
-      text: 'soj'
+      text: 'soj',
     },
     {
       id: '22222',
-      text: 'nazdar'
+      text: 'nazdar',
     },
   ];
 
   const newItem = {
     id: '12345',
-    text: 'text'
+    text: 'text',
   };
   const deleteItemAction = actions.deleteItem('00000');
   const updateItemAction = actions.updateItemText('00000', 'new text');
@@ -45,7 +45,6 @@ describe('itemsById reducer', () => {
   });
 
   it('should return empty immutable emptyItemsById if no state is provided', () => {
-
     const actualState = itemsById(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(Immutable.Map());

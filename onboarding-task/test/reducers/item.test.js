@@ -1,5 +1,5 @@
 import { item } from '../../src/reducers/item.ts';
-import { ItemRecord } from '../../src/models/ItemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord.ts';
 import * as actions from '../../src/actions/actionCreators.ts';
 
 const initialState = new ItemRecord({
@@ -9,8 +9,8 @@ const initialState = new ItemRecord({
 });
 
 const newItem = {
-    id: '00000',
-      text: 'new text'
+  id: '00000',
+  text: 'new text',
 };
 
 const UNKNOWN_ACTION = 'unknown action';

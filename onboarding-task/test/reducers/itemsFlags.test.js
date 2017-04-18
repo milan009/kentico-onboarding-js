@@ -1,6 +1,6 @@
-import { itemsFlags } from '../../src/reducers/itemsFlags';
+import { itemsFlags } from '../../src/reducers/itemsFlags.ts';
 import * as Immutable from 'immutable';
-import * as actions from '../../src/actions/actionCreators';
+import * as actions from '../../src/actions/actionCreators.ts';
 
 describe('itemsFlags reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';
@@ -15,21 +15,21 @@ describe('itemsFlags reducer', () => {
   const json = [
     {
       id: '00000',
-      text: 'serus'
+      text: 'serus',
     },
     {
       id: '11111',
-      text: 'soj'
+      text: 'soj',
     },
     {
       id: '22222',
-      text: 'nazdar'
+      text: 'nazdar',
     },
   ];
 
   const newItem = {
     id: '12345',
-    text: 'text'
+    text: 'text',
   };
   const deleteItemAction = actions.deleteItem('00000');
   const toggleEditModeAction = actions.toggleEditMode('00000');
@@ -76,7 +76,6 @@ describe('itemsFlags reducer', () => {
     const actualState = itemsFlags(undefined, fetchItemsSuccessAction);
 
     expect(actualState).toEqual(expectedState);
-
   });
 
   it('should handle POST_ITEM_SUCCESS action', () => {
@@ -85,6 +84,4 @@ describe('itemsFlags reducer', () => {
 
     expect(actualState).toEqual(expectedState);
   });
-
 });
-

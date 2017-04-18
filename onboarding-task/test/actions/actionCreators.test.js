@@ -1,9 +1,7 @@
 import * as actions from '../../src/actions/actionCreators.ts';
 import * as types from '../../src/actions/actionTypes.ts';
-// import { postItemFactory } from '../../src/actions/actionDependencies/postItemFactory.ts';
 
 describe('actionCreators', () => {
-
   const text = 'New item';
 
   it('should create action for toggling edit mode', () => {
@@ -17,7 +15,6 @@ describe('actionCreators', () => {
 
     expect(actualAction).toEqual(expectedAction);
   });
-
 
   it('should create action for deleting item', () => {
     const expectedAction = {
@@ -43,8 +40,6 @@ describe('actionCreators', () => {
 
     expect(actualAction).toEqual(expectedAction);
   });
-
-
 });
 
 describe('fetch actionCreators tests', () => {
@@ -73,7 +68,7 @@ describe('fetch actionCreators tests', () => {
       type: types.FETCH_ITEMS_SUCCESS,
       payload: {
         items: json,
-      }
+      },
     };
     const actualAction = actions.fetchItemsSuccess(json);
 
@@ -85,8 +80,8 @@ describe('fetch actionCreators tests', () => {
     const expectedAction = {
       type: types.FETCH_ITEMS_FAILURE,
       payload: {
-        error
-      }
+        error,
+      },
     };
     const actualAction = actions.fetchItemsFailure(error);
 
@@ -98,7 +93,7 @@ describe('post actionCreators tests', () => {
   const json = [
     {
       id: undefined,
-      text: 'first item'
+      text: 'first item',
     },
   ];
 
@@ -107,7 +102,7 @@ describe('post actionCreators tests', () => {
       type: types.POST_ITEM_SUCCESS,
       payload: {
         item: json,
-      }
+      },
     };
     const actualAction = actions.postItemSuccess(json);
 
@@ -119,13 +114,11 @@ describe('post actionCreators tests', () => {
     const expectedAction = {
       type: types.POST_ITEM_FAILURE,
       payload: {
-        error
-      }
+        error,
+      },
     };
     const actualAction = actions.postItemFailure(error);
 
     expect(actualAction).toEqual(expectedAction);
   });
-
 });
-

@@ -1,9 +1,5 @@
 import { loaded } from '../../src/reducers/loaded.ts';
-import {
-  FETCH_ITEMS_REQUEST,
-  FETCH_ITEMS_SUCCESS
-} from '../../src/actions/actionTypes';
-import { fetchItemsSuccess, fetchItemsRequest, fetchItemsFailure } from '../../src/actions/actionCreators.ts'
+import { fetchItemsSuccess, fetchItemsRequest, fetchItemsFailure } from '../../src/actions/actionCreators.ts';
 
 describe('loaded reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';

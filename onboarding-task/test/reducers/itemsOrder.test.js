@@ -1,5 +1,5 @@
-import { itemsOrder } from '../../src/reducers/itemsOrder';
-import * as actions from '../../src/actions/actionCreators';
+import { itemsOrder } from '../../src/reducers/itemsOrder.ts';
+import * as actions from '../../src/actions/actionCreators.ts';
 import * as Immutable from 'immutable';
 
 describe('itemsOrder reducer', () => {
@@ -7,20 +7,20 @@ describe('itemsOrder reducer', () => {
   const json = [
     {
       id: '00000',
-      text: 'serus'
+      text: 'serus',
     },
     {
       id: '11111',
-      text: 'soj'
+      text: 'soj',
     },
     {
       id: '22222',
-      text: 'nazdar'
+      text: 'nazdar',
     },
   ];
   const newItem = {
     id: '12345',
-    text: 'text'
+    text: 'text',
   };
   const stateBefore = Immutable.OrderedSet(['00000', '11111', '22222']);
 
@@ -61,4 +61,3 @@ describe('itemsOrder reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 });
-
