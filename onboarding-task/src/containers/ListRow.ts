@@ -2,17 +2,13 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { ListRow } from '../components/ListRow';
-import { deleteItem } from '../actions/actionCreatorsDelete';
-import { putItem } from '../actions/actionCreatorsPut';
+import { deleteItem, putItem } from '../actions/actionCreatorsItems';
 import {
   toggleEditItem,
-  // deleteItem,
-  // updateItem,
 } from '../actions/actionCreators';
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/IItem';
 import { ItemUi } from '../models/ItemUi';
-// import { Dispatch } from '../types/Dispatch';
 import { IItemViewModel } from '../models/IItemViewModel';
 import { Dispatch } from '../types/Dispatch';
 

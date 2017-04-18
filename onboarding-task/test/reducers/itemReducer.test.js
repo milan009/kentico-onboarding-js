@@ -1,7 +1,6 @@
 import {
   createItem,
   updateItem,
-  toggleEditItem,
 } from '../../src/actions/actionCreators.ts';
 import { createItemFactory } from '../../src/actions/createItemFactory.ts';
 import { Item } from '../../src/models/Item.ts';

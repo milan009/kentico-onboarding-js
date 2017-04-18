@@ -9,7 +9,7 @@ import { OrderedMap } from 'immutable';
 import { itemReducer } from './itemReducer';
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
-import { IItem } from "../../models/IItem";
+import { IItem } from '../../models/IItem';
 
 const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): OrderedMap<string, Item> => {
   switch (action.type) {
@@ -33,7 +33,7 @@ const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): 
     }
 
     case PUT_ITEM_SUCCESS: {
-      return state.mergeIn([action.payload.item.id], ...action.payload.item);
+      return state.set(action.payload.item.id,  new Item({...action.payload.item}));
     }
 
     case DELETE_ITEM_SUCCESS: {

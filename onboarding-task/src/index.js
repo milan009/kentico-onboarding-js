@@ -12,7 +12,7 @@ import { rootReducer } from './reducers/rootReducer.ts';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import { getItems } from './actions/actionCreatorsGet.ts';
+import { getItems } from './actions/actionCreatorsItems.ts';
 
 const logger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));

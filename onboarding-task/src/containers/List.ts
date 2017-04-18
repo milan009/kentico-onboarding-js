@@ -3,7 +3,7 @@ import { List } from '../components/List';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../reducers/IAppState';
 import { createSelector } from 'reselect';
-import { postItem } from '../actions/actionCreatorsPost';
+import { postItem } from '../actions/actionCreatorsItems';
 import { dismissError } from '../actions/actionCreatorsErrors';
 import { Dispatch } from '../types/Dispatch';
 

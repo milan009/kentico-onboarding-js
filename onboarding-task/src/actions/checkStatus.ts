@@ -11,7 +11,7 @@ export const checkStatus = (response: Response) => {
   if (response.status < 500) {
     return response.json()
       .then(error => {
-        throw Object.keys(error.modelState).reduce((prev, key) => prev.concat(error.modelState[key]), []);
+        return Promise.reject(Object.keys(error.modelState).reduce((prev, key) => prev.concat(error.modelState[key]), []));
       });
   }
   throw ['Internal server error'];
