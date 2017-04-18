@@ -8,5 +8,3 @@ type thunkDispatch = (thunkAction: ((dispatch: dispatchType, getState: getStateC
 export type dispatchType = basicDispatch & thunkDispatch;
 
 export { dispatchType as Dispatch}
-
-

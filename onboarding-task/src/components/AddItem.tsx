@@ -51,4 +51,3 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
 }
 
 export { AddItem };
-

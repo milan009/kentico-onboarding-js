@@ -26,4 +26,3 @@ const mapDispatchToProps = (dispatch: Dispatch ) => {
 const ListContainer = connect(mapStateToProps, mapDispatchToProps)(List);
 
 export { ListContainer as List, IAppState };
-

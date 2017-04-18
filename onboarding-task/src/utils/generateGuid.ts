@@ -9,4 +9,3 @@ function generateGuid(): string {
 }
 
 export { generateGuid };
-

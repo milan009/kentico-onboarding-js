@@ -15,6 +15,3 @@ ErrorBox.propTypes = {
 };
 
 export { ErrorBox };
-
-
-

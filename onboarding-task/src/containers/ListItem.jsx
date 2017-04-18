@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ListItem as ListItemComponent } from '../components/ListItem';
+import { ListItem as ListItemComponent } from '../components/ListItem.tsx';
 import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCreators.ts';
 import memoize from 'memoizee';
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onToggleEditMode: () => dispatch(toggleEditMode(ownProps.guid)),
-    onUpdateText: (text) => dispatch(updateItemText(ownProps.guid, text)),
+    onUpdateText: (guid, text) => dispatch(updateItemText(ownProps.guid, text)),
     onDelete: () => dispatch(deleteItem(ownProps.guid)),
   };
 };
@@ -30,4 +30,3 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const ListItem = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);
 
 export { ListItem, selectViewItem };
-
