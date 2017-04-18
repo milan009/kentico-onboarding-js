@@ -2,8 +2,9 @@ import { Map } from 'immutable';
 import { itemReducer } from './itemReducer';
 import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
 import { IAction } from '../interfaces/IAction';
+import { IItem } from '../interfaces/IItem';
 
-const itemsReducer = (state = Map(), action: IAction) => {
+const itemsReducer = (state = Map<string, IItem>(), action: IAction) => {
   switch (action.type) {
     case ADD_ITEM:
       return state.set(action.payload.id, itemReducer(undefined, action));
@@ -17,7 +18,7 @@ const itemsReducer = (state = Map(), action: IAction) => {
       console.log('itemsReducer state: ', state);
       const currentItem = state.get(action.payload.id);
       console.log('itemsReducer: current item: ', currentItem);
-      const editedItem = itemReducer(undefined, action);
+      const editedItem = itemReducer(currentItem, action);
 
       return state.set(action.payload.id, editedItem);
     }
