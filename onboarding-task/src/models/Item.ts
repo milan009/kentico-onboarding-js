@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { IItemData, IItem, IItemDataParameters } from '../interfaces/IItem';
+import { IItemData, IItem } from '../interfaces/IItem';
 
 const recordData: IItemData = {
   id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -12,11 +12,11 @@ class Item extends Record(recordData) implements IItem {
   readonly text: string;
   readonly isEdited: boolean;
 
-  toObject() {
+  toObject(): IItemData {
     return super.toObject() as IItemData;
   }
 
-  with(data: IItemDataParameters): IItem {
+  with(data: Partial<IItemData>): IItem {
     return super.merge(data) as Item;
   }
 }

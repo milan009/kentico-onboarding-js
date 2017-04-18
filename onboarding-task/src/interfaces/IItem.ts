@@ -1,17 +1,11 @@
 import { IRecordFunctions } from './IRecordFunctions';
 
-export interface IItemDataParameters {
-  readonly id?: string;
-  readonly text?: string;
-  readonly isEdited?: boolean;
-}
-
-export interface IItemData extends IItemDataParameters {
+export interface IItemData {
   readonly id: string;
   readonly text: string;
   readonly isEdited: boolean;
 }
 
-export interface IItem extends IItemData, IRecordFunctions<IItemData, IItemDataParameters> {}
+export interface IItem extends IItemData, IRecordFunctions<IItemData> {}
 
 
