@@ -41,8 +41,8 @@ const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): 
     }
 
     case GET_ITEMS_SUCCESS: {
-      const receivedItems = action.payload.items.map((val: IItem) => [val.id, new Item({...val})]);
-      return state.merge(receivedItems);
+      const receivedItems = action.payload.items.map((val: IItem) => [val.id, new Item(val)]);
+      return OrderedMap<string, Item>(receivedItems);
     }
 
     default: {

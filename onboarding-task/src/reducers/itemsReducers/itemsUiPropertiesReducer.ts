@@ -22,17 +22,14 @@ const itemsUiPropertiesReducer = (state = Map<string, ItemUi>(), action: IAction
       return state.set(action.payload.id, {...oldItem, editFormVisible: !oldItem.editFormVisible});
     }
 
-    case ITEM_DELETE: {
+    case ITEM_DELETE:
+    case DELETE_ITEM_SUCCESS: {
       return state.delete(action.payload.id);
     }
 
     case POST_ITEM_SUCCESS:
     case PUT_ITEM_SUCCESS: {
       return state.set(action.payload.item.id, {editFormVisible: false});
-    }
-
-    case DELETE_ITEM_SUCCESS: {
-      return state.delete(action.payload.id);
     }
 
     case GET_ITEMS_SUCCESS: {

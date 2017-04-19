@@ -1,7 +1,7 @@
 
 // TODO: check all status codes
 
-export const checkStatus = (response: Response) => {
+export const checkStatus = (response: Response, serverErrorMessage = 'Internal server error') => {
   if (response.status === 200 || response.status === 201) {
     return response.json();
   }
@@ -14,5 +14,5 @@ export const checkStatus = (response: Response) => {
         return Promise.reject(Object.keys(error.modelState).reduce((prev, key) => prev.concat(error.modelState[key]), []));
       });
   }
-  throw ['Internal server error'];
+  return Promise.reject([serverErrorMessage]);
 };
