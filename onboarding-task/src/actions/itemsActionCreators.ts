@@ -25,8 +25,10 @@ function updateItem(id: string, text: string): IAction {
   };
 }
 
+const apiBaseUrl = process.env.NODE_ENV === 'development' ? '/api/v1/items' : 'http://pavelf-list-app.azurewebsites.net/api/v1/items';
+
 const failFetchItems = failFetchItemsFactory(v4);
-const fetchItemsWithDependencies = fetchItemsFactory(fetch, '/api/v1/items', failFetchItems);
-const postItemWithDependencies = postItemFactory(fetch, '/api/v1/items', createErrorMessage);
+const fetchItemsWithDependencies = fetchItemsFactory(fetch, apiBaseUrl, failFetchItems);
+const postItemWithDependencies = postItemFactory(fetch, apiBaseUrl, createErrorMessage);
 
 export { deleteItem, updateItem, failFetchItems, fetchItemsWithDependencies as fetchItems, postItemWithDependencies as postItem };

@@ -117,5 +117,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:50099"
+  "proxy": "http://pavelf-list-app.azurewebsites.net"
 }
