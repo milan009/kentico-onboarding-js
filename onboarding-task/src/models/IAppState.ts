@@ -1,5 +1,5 @@
 import { ItemRecord } from './ItemRecord';
-import { Map, OrderedSet, Set } from 'immutable';
+import { Map, List, OrderedSet } from 'immutable';
 import { IItemFlags } from '../reducers/itemsFlags';
 
 export interface IAppState {
@@ -7,5 +7,5 @@ export interface IAppState {
   itemsFlags: Map<string, IItemFlags>;
   itemsOrder: OrderedSet<string>;
   loaded: boolean;
-  errors: Set<Error>;
+  errors: List<string>;
 }

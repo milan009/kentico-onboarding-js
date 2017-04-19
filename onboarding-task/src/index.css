@@ -8,3 +8,7 @@ body {
   display: flex;
 
 }
+
+.alert {
+  margin-bottom: 5px;
+}

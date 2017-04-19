@@ -21,7 +21,7 @@ function getInitialState(): IAppState {
     }),
     itemsOrder: Immutable.OrderedSet([firstItem.guid, secondItem.guid, thirdItem.guid]),
     loaded: true,
-    errors: Immutable.Set<Error>(),
+    errors: Immutable.List<string>(),
   };
   return initState;
 }

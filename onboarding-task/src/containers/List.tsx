@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List';
 import {
+  deleteError,
   fetchItems,
-  postItem
+  postItem,
 } from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
 import { IAppState } from '../models/IAppState';
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch ) => {
   return {
     fetchItems: () => dispatch(fetchItems()),
     onAddItem: (text: string) => dispatch(postItem(text)),
+    onDeleteError: (guid: number) => dispatch(deleteError(guid)),
   };
 };
 

@@ -2,8 +2,9 @@ import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ListItem } from '../containers/ListItem';
 import { AddItem } from './AddItem';
-import { Set } from 'immutable';
+import { List as ImmutableList, Set } from 'immutable';
 import { ErrorBox } from './ErrorBox';
+import { IAction } from '../actions/IAction';
 const Loader = require('react-loader');
 
 interface IListProps {
@@ -11,7 +12,8 @@ interface IListProps {
   onAddItem: (text: string) => Promise<any>;
   fetchItems: () => Promise<any>;
   loaded: boolean;
-  errors: Set<any>;
+  errors: ImmutableList<string>;
+  onDeleteError: (guid: number) => IAction;
 }
 
 class List extends React.PureComponent<IListProps, undefined> {
@@ -21,7 +23,8 @@ class List extends React.PureComponent<IListProps, undefined> {
     onAddItem: React.PropTypes.func.isRequired,
     fetchItems: React.PropTypes.func.isRequired,
     loaded: React.PropTypes.bool.isRequired,
-    errors: ImmutablePropTypes.set.isRequired,
+    errors: ImmutablePropTypes.list.isRequired,
+    onDeleteError: React.PropTypes.func.isRequired,
   };
 
   constructor(props: IListProps) {
@@ -40,12 +43,11 @@ class List extends React.PureComponent<IListProps, undefined> {
 
   render() {
     const items = this.props.itemsOrder.valueSeq();
-    const errors = this.props.errors;
     return (
     <div className="row">
-      {errors.map((error, index) =>
-          <ErrorBox error={error} key={index} />
-        )}
+      {this.props.errors.map((error: string, index: number) =>
+        <ErrorBox key={index} index={index} error={error} deleteError={this.props.onDeleteError} />
+      )}
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <Loader loaded={this.props.loaded}>
           <table className="table table-bordered">
