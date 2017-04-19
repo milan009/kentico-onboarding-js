@@ -1,6 +1,3 @@
-
-// TODO: check all status codes
-
 export const checkStatus = (response: Response, serverErrorMessage = 'Internal server error') => {
   if (response.status === 200 || response.status === 201) {
     return response.json();
