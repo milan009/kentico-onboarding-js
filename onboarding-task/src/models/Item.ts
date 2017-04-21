@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { IItemData, IItem } from '../interfaces/IItem';
+import { IItemData, IItem } from './IItem';
 
 const recordData: IItemData = {
   id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',

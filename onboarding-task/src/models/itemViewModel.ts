@@ -1,6 +1,6 @@
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from './IItemViewModel';
 const memoize = require('memoizee');
-import { IItem } from '../interfaces/IItem';
+import { IItem } from './IItem';
 
 const itemViewModel = (item: IItem, index: number): IItemViewModel => ({
   ...item.toObject(),

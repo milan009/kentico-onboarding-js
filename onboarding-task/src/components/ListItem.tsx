@@ -2,7 +2,7 @@ import * as React from 'react';
 const PropTypes = require('prop-types');
 import { ItemEdit } from './ItemEdit';
 import { ItemRead } from './ItemRead';
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from '../models/IItemViewModel';
 import { IAction } from '../actionCreators/IAction';
 
 export interface IListItemDataProps {

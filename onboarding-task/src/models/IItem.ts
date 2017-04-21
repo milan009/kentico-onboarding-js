@@ -1,4 +1,4 @@
-import { IRecordFunctions } from './IRecordFunctions';
+import { IRecordFunctions } from '../interfaces/IRecordFunctions';
 
 export interface IItemData {
   readonly id: string;

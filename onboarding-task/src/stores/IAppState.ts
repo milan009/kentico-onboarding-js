@@ -1,5 +1,5 @@
 import { OrderedSet, Map } from 'immutable';
-import { IItemData } from '../interfaces/IItem';
+import { IItemData } from '../models/IItem';
 
 export interface IAppState {
   itemIds: OrderedSet<string>;

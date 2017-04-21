@@ -1,6 +1,6 @@
 import * as React from 'react';
 const PropTypes = require('prop-types');
-import { IItemViewModel } from '../interfaces/IItemViewModel';
+import { IItemViewModel } from '../models/IItemViewModel';
 import { IAction } from '../actionCreators/IAction';
 
 interface IItemEditDataProps {

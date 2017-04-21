@@ -1,4 +1,4 @@
-import { IItem } from './IItem';
+import { IItem } from '../models/IItem';
 
 export interface IRecordFunctions<TRecordData> {
   toObject: () => TRecordData;
