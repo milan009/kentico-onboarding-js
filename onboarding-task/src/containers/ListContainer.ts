@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({
   onAddItem: (text: string) => dispatch(addItem(text)),
 });
 
-
 const ListContainer: React.ComponentClass<IListContainerProps> = connect(
   mapStateToProps,
   mapDispatchToProps,

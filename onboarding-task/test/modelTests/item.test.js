@@ -19,6 +19,7 @@ describe('Correctly creates items: ', () => {
 
     expect(tested).toEqual(expected);
   });
+
   it('Creates correct itemViewModel', () => {
     const item = new Item({
       id: fakeId,

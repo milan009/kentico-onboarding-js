@@ -17,7 +17,6 @@ interface IItemEditState {
   text: string;
 }
 
-
 class ItemEdit extends React.PureComponent<IItemEditDataProps & IItemEditCallbackProps, IItemEditState> {
   static displayName = 'ItemEdit';
 

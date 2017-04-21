@@ -12,7 +12,6 @@ interface IListItemContainerProps {
   index: number;
 }
 
-
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps => {
   const id = ownProps.itemId;
   const itemById = state.items.get(id);
