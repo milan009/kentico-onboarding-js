@@ -1,7 +1,7 @@
 import { DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
 import { addItemFactory } from './addItemFactory';
 import { createGuid } from '../utils/guidHelper';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from './IAction';
 
 export const addItem = addItemFactory(createGuid);
 

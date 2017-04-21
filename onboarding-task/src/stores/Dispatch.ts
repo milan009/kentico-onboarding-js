@@ -1,4 +1,4 @@
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../actionCreators/IAction';
 
 export interface Dispatch {
   (action: IAction): IAction;

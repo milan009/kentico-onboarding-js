@@ -1,8 +1,9 @@
 import * as React from 'react';
+const PropTypes = require('prop-types');
 import { ItemEdit } from './ItemEdit';
 import { ItemRead } from './ItemRead';
 import { IItemViewModel } from '../interfaces/IItemViewModel';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../actionCreators/IAction';
 
 export interface IListItemDataProps {
   item: IItemViewModel;
@@ -44,16 +45,16 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
 
 ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
-  item: React.PropTypes.shape({
-    id: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    isEdited: React.PropTypes.bool.isRequired,
-    index: React.PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    isEdited: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
   }).isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onCancel: React.PropTypes.func.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-  onDoubleClick: React.PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
 };
 
 export { ListItem };

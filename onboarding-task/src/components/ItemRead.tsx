@@ -1,6 +1,8 @@
+///<reference path="../../node_modules/@types/react/index.d.ts"/>
 import * as React from 'react';
+const PropTypes = require('prop-types');
 import { IItemViewModel } from '../interfaces/IItemViewModel';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../actionCreators/IAction';
 
 interface IItemReadDataProps {
   item: IItemViewModel;
@@ -19,13 +21,13 @@ const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackP
 
 ItemRead.displayName = 'ItemRead';
 ItemRead.propTypes = {
-  item: React.PropTypes.shape({
-    id: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    isEdited: React.PropTypes.bool.isRequired,
-    index: React.PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    isEdited: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
   }).isRequired,
-  onDoubleClick: React.PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
 };
 
 export { ItemRead };

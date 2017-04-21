@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import { itemReducer } from './itemReducer';
 import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../interfaces/IItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {

@@ -1,9 +1,10 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import { OrderedSet } from 'immutable';
+const PropTypes = require('prop-types');
 import { AddItem } from './AddItem';
 import { ListItem } from '../containers/ListItemContainer';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../actionCreators/IAction';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
@@ -51,7 +52,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
 List.displayName = 'List';
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
-  onAddItem: React.PropTypes.func.isRequired,
+  onAddItem: PropTypes.func.isRequired,
 };
 
 export { List };

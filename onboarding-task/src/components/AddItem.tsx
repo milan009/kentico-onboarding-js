@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IAction } from '../interfaces/IAction';
+const PropTypes = require('prop-types');
+import { IAction } from '../actionCreators/IAction';
 
 interface IAddItemCallbackProps {
   onAdd: (text: string) => IAction;
@@ -13,7 +14,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
   static displayName = 'AddItem';
 
   static propTypes = {
-    onAdd: React.PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
   };
 
   constructor(props: IAddItemCallbackProps) {
