@@ -39,15 +39,11 @@ class ItemEdit extends React.PureComponent<IItemEditDataProps & IItemEditCallbac
     };
   }
 
-  _handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+  _handleOnChange = (event: React.FormEvent<HTMLInputElement>) =>
     this.setState({ text: event.currentTarget.value });
-  };
 
-  _handleOnSave = () => {
-    this.props.onSave(
-      this.state.text,
-    );
-  };
+  _handleOnSave = () =>
+    this.props.onSave(this.state.text);
 
   render() {
     return (

@@ -22,9 +22,8 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     this.state = { text: '' };
   }
 
-  _handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  _handleChange = (event: React.FormEvent<HTMLInputElement>) =>
     this.setState({ text: event.currentTarget.value });
-  };
 
   _handleClickAdd = () => {
     this.props.onAdd(this.state.text);
