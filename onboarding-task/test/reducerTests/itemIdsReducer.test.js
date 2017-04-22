@@ -43,5 +43,4 @@ describe('Correctly adds and removes item Ids: ', () => {
 
     expect(tested).toEqual(initialState);
   });
-
 });
