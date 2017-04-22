@@ -13,11 +13,13 @@ interface IItemEditCallbackProps {
   onDelete: () => IAction;
 }
 
+type ItemProps = IItemEditDataProps & IItemEditCallbackProps;
+
 interface IItemEditState {
   text: string;
 }
 
-class ItemEdit extends React.PureComponent<IItemEditDataProps & IItemEditCallbackProps, IItemEditState> {
+class ItemEdit extends React.PureComponent<ItemProps, IItemEditState> {
   static displayName = 'ItemEdit';
 
   static propTypes = {
@@ -32,7 +34,7 @@ class ItemEdit extends React.PureComponent<IItemEditDataProps & IItemEditCallbac
     onDelete: PropTypes.func.isRequired,
   };
 
-  constructor(props: IItemEditDataProps & IItemEditCallbackProps) {
+  constructor(props: ItemProps) {
     super(props);
     this.state = {
       text: this.props.item.text,
