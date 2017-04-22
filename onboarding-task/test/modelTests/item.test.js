@@ -1,7 +1,7 @@
 import { Item } from '../../src/models/Item.ts';
 import { itemViewModel } from '../../src/models/itemViewModel.ts';
 
-describe('Correctly creates items: ', () => {
+describe('Correctly operates items: ', () => {
   const fakeId = '23456899-df58-1bbf-1j8p-4asd582z69d8';
   it('Converts Items to Objects', () => {
     const expected = {
@@ -53,5 +53,18 @@ describe('Correctly creates items: ', () => {
     const tested = itemViewModel(item, 2);
 
     expect(tested).toEqual(expected);
+  });
+
+  it('Is in presence of memoization', () => {
+    const item = new Item({
+      id: fakeId,
+      text: 'text',
+      isEdited: false,
+    });
+    const expectedMemoizedItem = itemViewModel(item, 2);
+
+    const testedMemoizedItem = itemViewModel(item, 2);
+
+    expect(testedMemoizedItem).toBe(expectedMemoizedItem);
   });
 });
