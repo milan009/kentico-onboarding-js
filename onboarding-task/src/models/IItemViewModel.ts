@@ -1,6 +1,5 @@
-export interface IItemViewModel {
-  readonly id: string;
-  readonly text: string;
-  readonly isEdited: boolean;
+import { IItemData } from './IItem';
+
+export interface IItemViewModel extends IItemData {
   readonly index: number;
 }
