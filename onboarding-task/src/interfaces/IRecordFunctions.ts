@@ -1,6 +1,4 @@
-import { IItem } from '../models/IItem';
-
-export interface IRecordFunctions<TRecordData> {
+export interface IRecordFunctions<TRecordData, TRecordFunctions> {
   toObject: () => TRecordData;
-  with: (data: Partial<TRecordData>) => IItem;
+  with: (data: Partial<TRecordData>) => TRecordFunctions & TRecordData;
 }

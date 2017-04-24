@@ -6,6 +6,6 @@ export interface IItemData {
   readonly isEdited: boolean;
 }
 
-export interface IItem extends IItemData, IRecordFunctions<IItemData> {}
+export interface IItem extends IItemData, IRecordFunctions<IItemData, IItem> {}
 
 
