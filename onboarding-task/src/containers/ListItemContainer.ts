@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from '../stores/Dispatch';
+import { TDispatch } from '../stores/TDispatch';
 import { IAppState } from '../reducers/IAppState';
 import { ListItem } from '../components/ListItem';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';
@@ -20,7 +20,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): I
   return { item: indexedItem };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: TDispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
   onDelete: () => dispatch(deleteItem(ownProps.itemId)),
   onClick: () => dispatch(enableEditItem(ownProps.itemId)),
   onSave: (text: string) => dispatch(saveChangesToItem(ownProps.itemId, text)),
