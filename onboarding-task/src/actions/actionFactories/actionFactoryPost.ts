@@ -6,7 +6,7 @@ import {
 import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
 import { IItem } from '../../models/IItem';
-import { checkStatus } from '../checkStatus';
+import { checkStatus } from '../../utils/ajaxUtils';
 import { ActionAsync } from '../ActionAsync';
 import { Fetch } from '../Fetch';
 

@@ -1,9 +1,10 @@
-export const checkStatus = (response: Response, serverErrorMessage = 'Internal server error') => {
+import { IItem } from '../models/IItem';
+export const checkStatus = (response: Response, serverErrorMessage = 'Internal server error') : Promise<string[]> | Promise<IItem> | Promise<IItem[]> => {
   if (response.status === 200 || response.status === 201) {
     return response.json();
   }
   if (response.status === 204) {
-    return response.statusText;
+    return Promise.resolve([response.statusText]);
   }
   if (response.status < 500) {
     return response.json()

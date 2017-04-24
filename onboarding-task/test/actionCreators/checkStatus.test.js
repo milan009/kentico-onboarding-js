@@ -1,5 +1,5 @@
 import { itParam } from 'mocha-param';
-import { checkStatus } from '../../src/actions/checkStatus.ts';
+import { checkStatus } from '../../src/utils/ajaxUtils.ts';
 
 describe('checkStatus test', () => {
   const successStatusCodes = [200, 201];

@@ -4,7 +4,7 @@ import {
 } from '../actionTypes';
 import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
-import { checkStatus } from '../checkStatus';
+import { checkStatus } from '../../utils/ajaxUtils';
 import { IItem } from '../../models/IItem';
 import { ActionAsync } from '../ActionAsync';
 import { Fetch } from '../Fetch';
