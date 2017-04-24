@@ -1,9 +1,9 @@
-import { getItemsFactory } from './actionFactories/actionFactoryGet';
+import { getItemsFactory } from './actionFactories/getActionFactory';
 import * as fetch from 'isomorphic-fetch';
 require('es6-promise').polyfill();
-import { deleteItemFactory } from './actionFactories/actionFactoryDelete';
-import { postItemFactory } from './actionFactories/actionFactoryPost';
-import { putItemFactory } from './actionFactories/actionFactoryPut';
+import { deleteItemFactory } from './actionFactories/deleteActionFactory';
+import { postItemFactory } from './actionFactories/postActionFactory';
+import { putItemFactory } from './actionFactories/putActionFactory';
 import { ITEM_TOGGLE_EDIT } from './actionTypes';
 import { IAction } from './IAction';
 

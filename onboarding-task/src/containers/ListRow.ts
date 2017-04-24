@@ -2,7 +2,7 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { ListRow } from '../components/ListRow';
-import { deleteItem, putItem, toggleEditItem } from '../actions/actionCreatorsItems';
+import { deleteItem, putItem, toggleEditItem } from '../actions/itemsActionCreators';
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/IItem';
 import { ItemUi } from '../models/ItemUi';

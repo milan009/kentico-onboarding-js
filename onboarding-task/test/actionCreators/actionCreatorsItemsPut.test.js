@@ -8,7 +8,7 @@ import {
   putItemRequest,
   putItemSuccess,
   putItemFailure,
-} from '../../src/actions/actionFactories/actionFactoryPut.ts';
+} from '../../src/actions/actionFactories/putActionFactory.ts';
 
 describe('actions POST', () => {
   const id = '95AB19B6-455B-469C-83AA-CD505E9389BD';

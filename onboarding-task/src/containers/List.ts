@@ -3,8 +3,8 @@ import { List } from '../components/List';
 import { OrderedSet } from 'immutable';
 import { IAppState } from '../reducers/IAppState';
 import { createSelector } from 'reselect';
-import { postItem } from '../actions/actionCreatorsItems';
-import { dismissError } from '../actions/actionCreatorsErrors';
+import { postItem } from '../actions/itemsActionCreators';
+import { dismissError } from '../actions/errorsActionCreators';
 import { Dispatch } from '../types/Dispatch';
 
 const getItemIds = (state: IAppState) => OrderedSet.fromKeys(state.items.byId);

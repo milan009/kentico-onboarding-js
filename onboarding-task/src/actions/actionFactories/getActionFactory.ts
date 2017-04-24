@@ -6,8 +6,8 @@ import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
 import { checkStatus } from '../../utils/ajaxUtils';
 import { IItem } from '../../models/IItem';
-import { ActionAsync } from '../ActionAsync';
-import { Fetch } from '../Fetch';
+import { AsyncAction } from '../../types/AsyncAction';
+import { Fetch } from '../../types/Fetch';
 
 export const getItemsRequest = (): IAction => {
   return {
@@ -34,7 +34,7 @@ export const getItemsFailure = (errors: string[]): IAction => {
   };
  };
 
-const getItems = (fetch: Fetch, address: string) : ActionAsync => {
+const getItems = (fetch: Fetch, address: string) : AsyncAction => {
   return (dispatch: Dispatch) => {
     dispatch(getItemsRequest());
 

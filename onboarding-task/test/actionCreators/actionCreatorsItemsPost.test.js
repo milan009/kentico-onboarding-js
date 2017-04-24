@@ -8,7 +8,7 @@ import {
   postItemRequest,
   postItemSuccess,
   postItemFailure,
-} from '../../src/actions/actionFactories/actionFactoryPost.ts';
+} from '../../src/actions/actionFactories/postActionFactory.ts';
 
 describe('actions POST', () => {
   const id1 = '95AB19B6-455B-469C-83AA-CD505E9389BD';

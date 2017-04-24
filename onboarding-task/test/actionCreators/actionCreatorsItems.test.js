@@ -3,7 +3,7 @@ import {
 } from '../../src/actions/actionTypes.ts';
 import {
   toggleEditItem,
-} from '../../src/actions/actionCreatorsItems.ts';
+} from '../../src/actions/itemsActionCreators.ts';
 
 describe('actionCreators:', () => {
   const id = 'TestId';

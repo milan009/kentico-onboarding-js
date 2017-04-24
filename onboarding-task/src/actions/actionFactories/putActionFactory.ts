@@ -5,8 +5,8 @@ import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
 import { IItem } from '../../models/IItem';
 import { checkStatus } from '../../utils/ajaxUtils';
-import { ActionAsync } from '../ActionAsync';
-import { Fetch } from '../Fetch';
+import { AsyncAction } from '../../types/AsyncAction';
+import { Fetch } from '../../types/Fetch';
 
 export const putItemRequest = (): IAction => {
   return {
@@ -34,7 +34,7 @@ export const putItemFailure = (errors: string[]): IAction => {
   };
 };
 
-const putItem = (fetch: Fetch, address: string, id: string, text: string) : ActionAsync => {
+const putItem = (fetch: Fetch, address: string, id: string, text: string) : AsyncAction => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 

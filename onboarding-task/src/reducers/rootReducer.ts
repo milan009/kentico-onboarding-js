@@ -4,11 +4,11 @@ import { IAction } from '../actions/IAction';
 import { IAppState } from './IAppState';
 import { errorsReducer } from './errorsReducer';
 
-type IRootReducer = (state: IAppState, action: IAction) => IAppState;
+type rootReducer = (state: IAppState, action: IAction) => IAppState;
 
-const rootReducer: IRootReducer = combineReducers({
+const rootReducer: rootReducer = combineReducers({
   items: itemsReducer,
   errors: errorsReducer,
-}) as IRootReducer;
+}) as rootReducer;
 
 export { rootReducer };

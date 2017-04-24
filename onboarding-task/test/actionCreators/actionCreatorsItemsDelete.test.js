@@ -8,7 +8,7 @@ import {
   deleteItemRequest,
   deleteItemSuccess,
   deleteItemFailure,
-} from '../../src/actions/actionFactories/actionFactoryDelete.ts';
+} from '../../src/actions/actionFactories/deleteActionFactory.ts';
 
 describe('actions DELETE', () => {
   const id = '95AB19B6-455B-469C-83AA-CD505E9389BD';

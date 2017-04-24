@@ -7,10 +7,10 @@ import {
   GET_ITEMS_SUCCESS,
 } from '../../src/actions/actionTypes.ts';
 import { itemsByIdReducer } from '../../src/reducers/itemsReducers/itemsByIdReducer.ts';
-import { postItemSuccess } from '../../src/actions/actionFactories/actionFactoryPost.ts';
-import { putItemSuccess } from '../../src/actions/actionFactories/actionFactoryPut.ts';
-import { deleteItemSuccess } from '../../src/actions/actionFactories/actionFactoryDelete.ts';
-import { getItemsSuccess } from '../../src/actions/actionFactories/actionFactoryGet.ts';
+import { postItemSuccess } from '../../src/actions/actionFactories/postActionFactory.ts';
+import { putItemSuccess } from '../../src/actions/actionFactories/putActionFactory.ts';
+import { deleteItemSuccess } from '../../src/actions/actionFactories/deleteActionFactory.ts';
+import { getItemsSuccess } from '../../src/actions/actionFactories/getActionFactory.ts';
 
 describe('itemsByIdReducer:', () => {
   const testItem = new Item({

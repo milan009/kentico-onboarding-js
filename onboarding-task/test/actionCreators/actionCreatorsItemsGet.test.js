@@ -8,7 +8,7 @@ import {
   getItemsRequest,
   getItemsSuccess,
   getItemsFailure,
-} from '../../src/actions/actionFactories/actionFactoryGet.ts';
+} from '../../src/actions/actionFactories/getActionFactory.ts';
 
 describe('actions GET', () => {
   const id1 = '95AB19B6-455B-469C-83AA-CD505E9389BD';

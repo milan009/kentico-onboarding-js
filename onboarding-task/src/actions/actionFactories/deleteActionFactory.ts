@@ -6,8 +6,8 @@ import {
 import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
 import { checkStatus } from '../../utils/ajaxUtils';
-import { ActionAsync } from '../ActionAsync';
-import { Fetch } from '../Fetch';
+import { AsyncAction } from '../../types/AsyncAction';
+import { Fetch } from '../../types/Fetch';
 
 export const deleteItemRequest = (): IAction => {
   return {
@@ -35,7 +35,7 @@ export const deleteItemFailure = (errors: string[]): IAction => {
   };
  };
 
-const deleteItem = (fetch: Fetch, address: string, id: string) : ActionAsync => {
+const deleteItem = (fetch: Fetch, address: string, id: string) : AsyncAction => {
   return (dispatch: Dispatch) => {
     dispatch(deleteItemRequest());
 
