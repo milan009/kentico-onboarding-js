@@ -6,6 +6,7 @@ import { postItemFactory } from './actionFactories/postActionFactory';
 import { putItemFactory } from './actionFactories/putActionFactory';
 import { ITEM_TOGGLE_EDIT } from './actionTypes';
 import { IAction } from './IAction';
+import { ENDPOINT_URL } from '../utils/urlAdresses';
 
 export const toggleEditItem = (id: string) : IAction => {
   return {
@@ -16,7 +17,7 @@ export const toggleEditItem = (id: string) : IAction => {
   };
 };
 
-export const getItems = getItemsFactory(fetch, 'api/v1/items');
-export const deleteItem = deleteItemFactory(fetch, 'api/v1/items');
-export const postItem = postItemFactory(fetch, 'api/v1/items');
-export const putItem = putItemFactory(fetch, 'api/v1/items');
+export const getItems = getItemsFactory(fetch, ENDPOINT_URL);
+export const deleteItem = deleteItemFactory(fetch, ENDPOINT_URL);
+export const postItem = postItemFactory(fetch, ENDPOINT_URL);
+export const putItem = putItemFactory(fetch, ENDPOINT_URL);
