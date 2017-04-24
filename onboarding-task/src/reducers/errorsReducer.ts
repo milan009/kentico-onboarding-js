@@ -20,9 +20,8 @@ const errorsReducer = (state = OrderedMap<string, string>(), action: IAction): O
     case GET_ITEMS_FAILURE:
     case POST_ITEM_FAILURE:
     case PUT_ITEM_FAILURE:
-    case DELETE_ITEM_FAILURE: {
+    case DELETE_ITEM_FAILURE:
       return state.merge(action.payload.errors.map((v: IErrorResponse) => [v.id, v.text]));
-    }
 
     case DISMISS_ERROR:
       return state.delete(action.payload.key);

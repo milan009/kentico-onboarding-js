@@ -20,15 +20,13 @@ describe('checkStatus test', () => {
   });
 
   itParam(`should return statusText on status codes ${neutralStatusCodes.join(', ')}`, neutralStatusCodes, (done, status) => {
-    const statusText = 'content of the statusText';
     const response = {
       status,
-      statusText,
     };
 
-    const result = checkStatus(response)
+    checkStatus(response)
       .then(errs => {
-        expect(errs).toEqual([statusText]);
+        expect(errs).toBeUndefined();
         done();
       });
   });
@@ -48,22 +46,29 @@ describe('checkStatus test', () => {
       }),
     };
 
-    checkStatus(errorResponse)
+    checkStatus(errorResponse, '', () => 'id')
       .catch(errs => {
-        expect(errs).toEqual(errors);
+        expect(errs).toEqual(errors.map(v => ({
+          id: 'id',
+          text: v,
+        })));
         done();
       });
   });
 
   itParam(`should return promise with error message on status codes ${serverErrorStatusCodes.join(', ')}`, serverErrorStatusCodes, (done, status) => {
+    const key = 'errorKey';
     const errorResponse = {
       status,
     };
-    const errorMessage = 'Internal server error message';
+    const expected = {
+      id: key,
+      text: 'Internal server error message',
+    };
 
-    checkStatus(errorResponse, errorMessage)
+    checkStatus(errorResponse, expected.text, () => key)
       .catch(error => {
-        expect(error).toEqual([errorMessage]);
+        expect(error).toEqual([expected]);
         done();
       });
   });

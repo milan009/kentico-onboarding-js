@@ -10,35 +10,31 @@ interface IErrorsContainerProps {
   onDismissError: (key: string) => void;
 }
 
-class ErrorsContainer extends React.PureComponent<IErrorsContainerProps, null> {
-  static displayName = 'ErrorsContainer';
+const ErrorsContainer: React.StatelessComponent<IErrorsContainerProps> = (props) => {
+  const messages = props.errors.map((v: string, k: string) =>
+    (<ErrorMessage
+      key={k}
+      errorId={k}
+      text={v}
+      onDismissError={props.onDismissError} />)
+  ).toArray();
 
-  static propTypes = {
-    errors: ImmutablePropTypes.orderedMapOf(React.PropTypes.string, React.PropTypes.string),
-    onDismissError: React.PropTypes.func.isRequired,
-  };
-
-  render() {
-    const messages = this.props.errors.reduce((r: Array<HTMLElement>, v: string, k: string) =>
-      [...r,
-        (<ErrorMessage
-          key={k}
-          errorId={k}
-          text={v}
-          onDismissError={this.props.onDismissError} />)
-      ], []);
-
-    return (
-      <div className="alert-container">
-        <CSSTransitionGroup
-          transitionName={'scale'}
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}>
-          {messages}
-        </CSSTransitionGroup>
-      </div>
-    );
-  }
+  return (
+    <div className="alert-container">
+      <CSSTransitionGroup
+        transitionName={'scale'}
+        transitionEnterTimeout={250}
+        transitionLeaveTimeout={250}>
+        {messages}
+      </CSSTransitionGroup>
+    </div>
+  );
 }
+
+ErrorsContainer.displayName = 'ErrorsContainer';
+ErrorsContainer.propTypes = {
+  errors: ImmutablePropTypes.orderedMapOf(React.PropTypes.string, React.PropTypes.string),
+  onDismissError: React.PropTypes.func.isRequired,
+};
 
 export { ErrorsContainer };

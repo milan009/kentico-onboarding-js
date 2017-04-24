@@ -7,7 +7,7 @@ import {
 import { OrderedMap } from 'immutable';
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
-import { IItem } from '../../models/IItem';
+import { IItemServerModel } from '../../models/IItemServerModel';
 
 const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): OrderedMap<string, Item> => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const itemsByIdReducer = (state = OrderedMap<string, Item>(), action: IAction): 
     }
 
     case GET_ITEMS_SUCCESS: {
-      const receivedItems = action.payload.items.map((val: IItem) => [val.id, new Item(val)]);
+      const receivedItems = action.payload.items.map((val: IItemServerModel) => [val.id, new Item(val)]);
       return OrderedMap<string, Item>(receivedItems);
     }
 

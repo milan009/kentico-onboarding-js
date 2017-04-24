@@ -58,14 +58,26 @@ describe('Errors reducer', () => {
       'key 1': 'error 1',
       'key 2': 'error 2',
     });
-    const errors = ['error 3', 'error 4', 'error 5'];
+    const errors = [
+      {
+        id: 1,
+        text: 'error 3',
+      }, {
+        id: 2,
+        text: 'error 4',
+      },
+      {
+        id: 3,
+        text: 'error 5',
+      },
+    ];
     const action = {
       type,
       payload: {
         errors,
       },
     };
-    const expectedErrors = [...state.toArray(), ...errors];
+    const expectedErrors = [...state.toArray(), ...errors.map(v => v.text)];
 
     const resultState = errorsReducer(state, action);
 
