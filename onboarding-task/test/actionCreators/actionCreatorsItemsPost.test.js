@@ -63,13 +63,8 @@ describe('action creator POST', () => {
   };
   const errors = ['error1', 'error2'];
 
-  const dispatchMock = jest.fn((action) => action);
-
-  beforeEach(() => {
-    dispatchMock.mockClear();
-  });
-
   it('should dispatch postItemRequest first', () => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve();
     const expectedDispatch = postItemRequest();
     const getItems = postItemFactory(fetchMock, 'www.google.com');
@@ -80,6 +75,7 @@ describe('action creator POST', () => {
   });
 
   it('should dispatch postItemSuccess', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve({
       status: 201,
       json: () => response,
@@ -95,6 +91,7 @@ describe('action creator POST', () => {
   });
 
   it('should dispatch postItemFailure', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.reject(errors);
     const expectedDispatch = postItemFailure(errors);
     const getItems = postItemFactory(fetchMock, 'www.google.com');
