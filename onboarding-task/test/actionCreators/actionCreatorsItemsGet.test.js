@@ -77,13 +77,8 @@ describe('action creator GET', () => {
   ];
   const errors = ['error1', 'error2'];
 
-  const dispatchMock = jest.fn((action) => action);
-
-  beforeEach(() => {
-    dispatchMock.mockClear();
-  });
-
   it('should dispatch getItemsRequest', () => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve();
     const expectedDispatch = getItemsRequest();
     const getItems = getItemsFactory(fetchMock, 'www.google.com');
@@ -94,6 +89,7 @@ describe('action creator GET', () => {
   });
 
   it('should dispatch getItemsSuccess', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve({
       status: 200,
       json: () => response,
@@ -109,6 +105,7 @@ describe('action creator GET', () => {
   });
 
   it('should dispatch getItemsFailure', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.reject(errors);
     const expectedDispatch = getItemsFailure(errors);
     const getItems = getItemsFactory(fetchMock, 'www.google.com');

@@ -42,7 +42,7 @@ const deleteItem = (fetch: Fetch, address: string, id: string) : AsyncAction => 
     return fetch(`${address}/${id}`, {
       method: 'delete',
     })
-      .then(checkStatus)
+      .then(r => checkStatus<undefined>(r))
       .then(_ => dispatch(deleteItemSuccess(id)))
       .catch(errors => dispatch(deleteItemFailure(errors)));
   };

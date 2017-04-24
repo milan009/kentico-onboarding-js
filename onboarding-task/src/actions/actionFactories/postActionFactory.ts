@@ -5,10 +5,10 @@ import {
 } from '../actionTypes';
 import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
-import { IItem } from '../../models/IItem';
 import { checkStatus } from '../../utils/ajaxUtils';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
+import { IItemServerModel } from '../../models/IItemServerModel';
 
 export const postItemRequest = (): IAction => {
   return {
@@ -18,7 +18,7 @@ export const postItemRequest = (): IAction => {
 };
 
 
-export const postItemSuccess = (item: IItem): IAction => {
+export const postItemSuccess = (item: IItemServerModel): IAction => {
   return {
     type: POST_ITEM_SUCCESS,
     payload: {
@@ -48,8 +48,8 @@ const postItem = (fetch: Fetch, address: string, text: string) : AsyncAction => 
       body: JSON.stringify({text}),
       headers,
     })
-      .then(checkStatus)
-      .then(item => dispatch(postItemSuccess(item)))
+      .then(r => checkStatus<IItemServerModel>(r))
+      .then((item: IItemServerModel) => dispatch(postItemSuccess(item)))
       .catch(errors => dispatch(postItemFailure(errors)));
   };
 };

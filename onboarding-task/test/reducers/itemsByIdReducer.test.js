@@ -88,11 +88,11 @@ describe('itemsByIdReducer:', () => {
         text: 'text 3',
       },
     ];
-    const expected = OrderedMap(receivedItems.map(v => [v.id, v]));
+    const expected = OrderedMap(receivedItems.map(v => [v.id, new Item(v)]));
 
     const result = itemsByIdReducer(undefined, getItemsSuccess(receivedItems));
 
-    expect(result.toJSON()).toEqual(expected.toJSON());
+    expect(result).toEqual(expected);
   });
 
   it(`should replace current items on ${GET_ITEMS_SUCCESS}`, () => {
@@ -111,10 +111,10 @@ describe('itemsByIdReducer:', () => {
         text: 'text 3',
       },
     ];
-    const expected = OrderedMap(receivedItems.map(v => [v.id, v]));
+    const expected = OrderedMap(receivedItems.map(v => [v.id, new Item(v)]));
 
     const result = itemsByIdReducer(initialState, getItemsSuccess(receivedItems));
 
-    expect(result.toJSON()).toEqual(expected.toJSON());
+    expect(result).toEqual(expected);
   });
 });

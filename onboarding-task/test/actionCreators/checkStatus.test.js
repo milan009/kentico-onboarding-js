@@ -19,16 +19,18 @@ describe('checkStatus test', () => {
     expect(result).toEqual(body);
   });
 
-  itParam(`should return statusText on status codes ${neutralStatusCodes.join(', ')}`, neutralStatusCodes, (status) => {
+  itParam(`should return statusText on status codes ${neutralStatusCodes.join(', ')}`, neutralStatusCodes, (done, status) => {
     const statusText = 'content of the statusText';
     const response = {
       status,
       statusText,
     };
 
-    const result = checkStatus(response);
-
-    expect(result).toEqual(statusText);
+    const result = checkStatus(response)
+      .then(errs => {
+        expect(errs).toEqual([statusText]);
+        done();
+      });
   });
 
   itParam(`should return promise with errors array on status codes ${clientErrorStatusCodes.join(', ')}`, clientErrorStatusCodes, (done, status) => {

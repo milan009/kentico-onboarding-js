@@ -55,13 +55,8 @@ describe('action creator DELETE', () => {
   const id = '95AB19B6-455B-469C-83AA-CD505E9389BD';
   const errors = ['error1', 'error2'];
 
-  const dispatchMock = jest.fn((action) => action);
-
-  beforeEach(() => {
-    dispatchMock.mockClear();
-  });
-
   it('should dispatch deleteItemRequest first', () => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve();
     const expectedDispatch = deleteItemRequest();
     const getItems = deleteItemFactory(fetchMock, 'www.google.com');
@@ -72,6 +67,7 @@ describe('action creator DELETE', () => {
   });
 
   it('should dispatch deleteItemSuccess', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.resolve({
       status: 204,
       json: () => id,
@@ -87,6 +83,7 @@ describe('action creator DELETE', () => {
   });
 
   it('should dispatch deleteItemFailure', (done) => {
+    const dispatchMock = jest.fn((action) => action);
     const fetchMock = () => Promise.reject(errors);
     const expectedDispatch = deleteItemFailure(errors);
     const getItems = deleteItemFactory(fetchMock, 'www.google.com');

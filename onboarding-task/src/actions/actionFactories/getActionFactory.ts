@@ -5,9 +5,9 @@ import {
 import { Dispatch } from '../../types/Dispatch';
 import { IAction } from '../IAction';
 import { checkStatus } from '../../utils/ajaxUtils';
-import { IItem } from '../../models/IItem';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
+import { IItemServerModel } from '../../models/IItemServerModel';
 
 export const getItemsRequest = (): IAction => {
   return {
@@ -16,7 +16,7 @@ export const getItemsRequest = (): IAction => {
   };
 };
 
-export const getItemsSuccess = (items: IItem[]): IAction => {
+export const getItemsSuccess = (items: IItemServerModel[]): IAction => {
   return {
     type: GET_ITEMS_SUCCESS,
     payload: {
@@ -39,9 +39,9 @@ const getItems = (fetch: Fetch, address: string) : AsyncAction => {
     dispatch(getItemsRequest());
 
     return fetch(address)
-      .then(checkStatus)
-     .then(content => dispatch(getItemsSuccess(content)))
-     .catch(errors => dispatch(getItemsFailure(errors)));
+      .then(r => checkStatus<IItemServerModel[]>(r))
+       .then((content: IItemServerModel[]) => dispatch(getItemsSuccess(content)))
+       .catch(errors => dispatch(getItemsFailure(errors)));
   };
 };
 

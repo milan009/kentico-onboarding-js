@@ -7,6 +7,7 @@ import { IItem } from '../../models/IItem';
 import { checkStatus } from '../../utils/ajaxUtils';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
+import { IItemServerModel } from '../../models/IItemServerModel';
 
 export const putItemRequest = (): IAction => {
   return {
@@ -46,8 +47,8 @@ const putItem = (fetch: Fetch, address: string, id: string, text: string) : Asyn
       body: JSON.stringify({id, text}),
       headers,
     })
-      .then(checkStatus)
-      .then(body => dispatch(putItemSuccess(body)))
+      .then(r => checkStatus<IItemServerModel>(r))
+      .then((body: IItemServerModel) => dispatch(putItemSuccess(body)))
       .catch(errors => dispatch(putItemFailure(errors)));
   };
 };
