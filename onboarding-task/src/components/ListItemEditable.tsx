@@ -9,7 +9,7 @@ interface IListItemEditableState {
 interface IListItemEditableProps {
   item: IItemView;
   index: number;
-  onUpdateText: (guid: string, text: string) => IAction;
+  onUpdateText: (text: string) => IAction;
   onToggleEditMode: () => IAction;
   onDelete: () => IAction;
 }
@@ -36,7 +36,7 @@ class ListItemEditable extends React.PureComponent<IListItemEditableProps, IList
   }
 
   _onUpdate() {
-    this.props.onUpdateText(this.props.item.guid, this.state.text);
+    this.props.onUpdateText(this.state.text);
   }
 
   _onInputChange(e: React.SyntheticEvent<HTMLInputElement>) {

@@ -30,16 +30,12 @@ class List extends React.PureComponent<IListProps, undefined> {
   constructor(props: IListProps) {
     super(props);
 
-    this._addItem = this._addItem.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchItems();
   }
 
-  _addItem(text: string) {
-    this.props.onAddItem(text);
-  }
 
   render() {
     const items = this.props.itemsOrder.valueSeq();
@@ -55,7 +51,7 @@ class List extends React.PureComponent<IListProps, undefined> {
             {items.map((guid, index) =>
               <ListItem guid={guid} key={guid} index={index + 1} />
             )}
-            <AddItem onItemAdd={this._addItem} />
+            <AddItem onItemAdd={this.props.onAddItem} />
             </tbody>
           </table>
         </Loader>

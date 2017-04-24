@@ -1,7 +1,7 @@
+import memoize from 'memoizee';
 import { connect } from 'react-redux';
 import { ListItem as ListItemComponent } from '../components/ListItem.tsx';
 import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCreators.ts';
-import memoize from 'memoizee';
 
 const selectViewItem = (itemData, itemFlags) => ({
   guid: itemData.guid,
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onToggleEditMode: () => dispatch(toggleEditMode(ownProps.guid)),
-    onUpdateText: (guid, text) => dispatch(updateItemText(ownProps.guid, text)),
+    onUpdateText: (text) => dispatch(updateItemText(ownProps.guid, text)),
     onDelete: () => dispatch(deleteItem(ownProps.guid)),
   };
 };

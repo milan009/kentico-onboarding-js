@@ -31,8 +31,8 @@ export const deleteItem = (guid: string) : IAction => ({
 export const updateItemText = (guid: string, text: string) : IAction => ({
   type: UPDATE_ITEM_TEXT,
   payload: {
-    text,
     guid,
+    text,
   },
 });
 
