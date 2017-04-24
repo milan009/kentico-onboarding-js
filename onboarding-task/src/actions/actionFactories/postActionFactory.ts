@@ -9,6 +9,7 @@ import { checkStatus } from '../../utils/ajaxUtils';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
 import { IItemServerModel } from '../../models/IItemServerModel';
+import { IErrorResponse } from '../../models/IErrorResponse';
 
 export const postItemRequest = (): IAction => {
   return {
@@ -27,7 +28,7 @@ export const postItemSuccess = (item: IItemServerModel): IAction => {
   };
  };
 
-export const postItemFailure = (errors: string[]): IAction => {
+export const postItemFailure = (errors: IErrorResponse[]): IAction => {
   return {
     type: POST_ITEM_FAILURE,
     payload: {

@@ -8,6 +8,7 @@ import { IAction } from '../IAction';
 import { checkStatus } from '../../utils/ajaxUtils';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
+import { IErrorResponse } from '../../models/IErrorResponse';
 
 export const deleteItemRequest = (): IAction => {
   return {
@@ -26,7 +27,7 @@ export const deleteItemSuccess = (id: string): IAction => {
   };
  };
 
-export const deleteItemFailure = (errors: string[]): IAction => {
+export const deleteItemFailure = (errors: IErrorResponse[]): IAction => {
   return {
     type: DELETE_ITEM_FAILURE,
     payload: {

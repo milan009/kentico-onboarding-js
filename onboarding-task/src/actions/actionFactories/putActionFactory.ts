@@ -8,6 +8,7 @@ import { checkStatus } from '../../utils/ajaxUtils';
 import { AsyncAction } from '../../types/AsyncAction';
 import { Fetch } from '../../types/Fetch';
 import { IItemServerModel } from '../../models/IItemServerModel';
+import { IErrorResponse } from '../../models/IErrorResponse';
 
 export const putItemRequest = (): IAction => {
   return {
@@ -26,7 +27,7 @@ export const putItemSuccess = (item: IItem): IAction => {
   };
 };
 
-export const putItemFailure = (errors: string[]): IAction => {
+export const putItemFailure = (errors: IErrorResponse[]): IAction => {
   return {
     type: PUT_ITEM_FAILURE,
     payload: {

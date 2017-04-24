@@ -7,7 +7,7 @@ import {
   POST_ITEM_FAILURE, GET_ITEMS_FAILURE, DISMISS_ERROR
 } from '../actions/actionTypes';
 
-import { generateUuid } from '../utils/idGenerator';
+import { IErrorResponse } from '../models/IErrorResponse';
 
 const errorsReducer = (state = OrderedMap<string, string>(), action: IAction): OrderedMap<string, string> => {
   switch (action.type) {
@@ -21,8 +21,7 @@ const errorsReducer = (state = OrderedMap<string, string>(), action: IAction): O
     case POST_ITEM_FAILURE:
     case PUT_ITEM_FAILURE:
     case DELETE_ITEM_FAILURE: {
-      console.log(action);
-      return state.merge(action.payload.errors.map((v: string) => [generateUuid(), v]));
+      return state.merge(action.payload.errors.map((v: IErrorResponse) => [v.id, v.text]));
     }
 
     case DISMISS_ERROR:
