@@ -11,7 +11,7 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
   itemIds: state.itemIds,
 });
 
-const mapDispatchToProps = (dispatch: TDispatch): IListCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({
   onAddItem: (text: string) => dispatch(addItem(text)),
 });
 

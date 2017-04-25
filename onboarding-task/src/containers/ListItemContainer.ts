@@ -19,7 +19,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): I
   return { item: indexedItem };
 };
 
-const mapDispatchToProps = (dispatch: TDispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
   onDelete: () => dispatch(deleteItem(ownProps.itemId)),
   onClick: () => dispatch(enableEditItem(ownProps.itemId)),
   onSave: (text: string) => dispatch(saveChangesToItem(ownProps.itemId, text)),
