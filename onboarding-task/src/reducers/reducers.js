@@ -1,16 +1,19 @@
 /**
  * Created by VlastimilM on 4.4.2017.
  */
-import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM } from '../actions/actionTypes';
+import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM, UPDATE_ITEM_TEXT } from '../actions/actionTypes';
 import { Item } from '../models/Item';
-function app(state = { items: undefined, orderedIds: undefined }, action) {
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+
+function app(state = { items: ImmutableMap(), orderedIds: ImmutableList() }, action) { // TODO rename
   return {
     items: getItems(state.items, action),
     orderedIds: getOrderedIds(state.orderedIds, action),
   };
 }
 
-function getItems(items, action) { // TODO decompose
+
+function getItems(items, action) {
   switch (action.type) {
 
     case ITEM_ADDED:
@@ -30,12 +33,17 @@ function getItems(items, action) { // TODO decompose
     case ITEM_SAVED:
     case START_EDITING_ITEM:
     case STOP_EDITING_ITEM:
-      return items.set(action.id, getItem(items.get(action.id), action));
+    case UPDATE_ITEM_TEXT: {
+      const originalItem = items.get(action.id);
+      const updatedItem = getItem(originalItem, action);
+      return items.set(action.id, updatedItem);
+    }
 
     default:
       return items;
   }
 }
+
 
 function getOrderedIds(orderedIds, action) {
   switch (action.type) {
@@ -48,11 +56,12 @@ function getOrderedIds(orderedIds, action) {
   }
 }
 
+
 function getItem(item, action) {
   switch (action.type) {
 
     case START_EDITING_ITEM:
-      return item.set('isEditing', 'true'); // TODO update record so it doesnt end up as an object, true or 'true' in set?
+      return item.set('isEditing', true);
 
     case STOP_EDITING_ITEM:
       return item.merge({
@@ -67,8 +76,12 @@ function getItem(item, action) {
         isEditing: false,
       });
 
+    case UPDATE_ITEM_TEXT:
+      return item.set('textShown', action.text);
+
     default:
       return item;
   }
 }
 
+export { app };

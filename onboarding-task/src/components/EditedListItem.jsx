@@ -15,7 +15,7 @@ class EditedListItem extends PureComponent {
   };
 
   _onInputChange = (event) => {
-    this.props.onUpdate(this.props.id, event);
+    this.props.onUpdate(this.props.id, event.target.value);
   };
 
   _onSaveButtonClick = () => {

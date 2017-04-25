@@ -1,14 +1,14 @@
-import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM } from './actionTypes';
-import { generatePseudoUniqueID } from '../utils/keyGenerator';
-const addItem = (text) => (
+import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM, UPDATE_ITEM_TEXT } from './actionTypes';
+import { generateGuid } from '../utils/guidGenerator';
+export const addItem = (text) => (
   {
     type: ITEM_ADDED,
     text,
-    id: generatePseudoUniqueID(),
+    id: generateGuid(),
   }
 );
 
-const saveItem = (id, text) => (
+export const saveItem = (id, text) => (
   {
     type: ITEM_SAVED,
     id,
@@ -16,24 +16,32 @@ const saveItem = (id, text) => (
   }
 );
 
-const deleteItem = (id) => (
+export const deleteItem = (id) => (
   {
     type: ITEM_DELETED,
     id,
   }
 );
 
-const startEditingItem = (id) => (
+export const startEditingItem = (id) => (
   {
     type: START_EDITING_ITEM,
     id,
   }
 );
 
-const stopEditingItem = (id) => (
+export const stopEditingItem = (id) => (
   {
     type: STOP_EDITING_ITEM,
     id,
+  }
+);
+
+export const updateItemText = (id, text) => (
+  {
+    type: UPDATE_ITEM_TEXT,
+    id,
+    text,
   }
 );
 

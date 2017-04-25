@@ -36,4 +36,4 @@ class ItemForm extends PureComponent {
   }
 }
 
-export { ItemForm };
+export { ItemForm }; // TODO inconsistent name
