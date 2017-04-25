@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { TDispatch } from '../stores/TDispatch';
 import { IAppState } from '../reducers/IAppState';
 import { ListItem } from '../components/ListItem';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';

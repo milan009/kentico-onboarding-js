@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 import { addItem } from '../actionCreators/actionCreators';
 import { IAppState } from '../reducers/IAppState';
-import { TDispatch } from '../stores/TDispatch';
 import { IListDataProps, IListCallbackProps } from '../components/List';
 
 interface IListContainerProps {}
