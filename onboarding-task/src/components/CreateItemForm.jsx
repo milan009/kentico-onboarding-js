@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { Button, FormControl, Form } from 'react-bootstrap';
 
-class ItemForm extends PureComponent {
+class CreateItemForm extends PureComponent {
   static displayName = 'NewListItem';
 
   static propTypes = {
@@ -36,4 +36,4 @@ class ItemForm extends PureComponent {
   }
 }
 
-export { ItemForm }; // TODO inconsistent name
+export { CreateItemForm };

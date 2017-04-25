@@ -1,12 +1,15 @@
 import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM, UPDATE_ITEM_TEXT } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
-export const addItem = (text) => (
+
+export const addItemCreator = (guidFunction) => (text) => (
   {
     type: ITEM_ADDED,
     text,
-    id: generateGuid(),
+    id: guidFunction(),
   }
 );
+
+export const addItem = addItemCreator(generateGuid);
 
 export const saveItem = (id, text) => (
   {

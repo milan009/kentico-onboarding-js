@@ -3,7 +3,7 @@
  */
 import { connect } from 'react-redux';
 import { addItem } from '../actions/actionCreators';
-import { ItemForm } from '../components/CreateItemForm';
+import { CreateItemForm } from '../components/CreateItemForm';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -11,6 +11,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const createItemFormContainer = connect(undefined, mapDispatchToProps)(ItemForm);
+const createItemFormContainer = connect(undefined, mapDispatchToProps)(CreateItemForm);
 
-export { createItemFormContainer as ItemForm };
+export { createItemFormContainer as CreateItemForm };

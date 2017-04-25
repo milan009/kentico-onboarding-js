@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
-import { ItemForm } from '../containers/CreateItemFormContainer';
+import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
-// TODO class names should be consistent
 class List extends PureComponent {
   static displayName = 'List';
 
@@ -33,7 +32,7 @@ class List extends PureComponent {
             <ListGroup>
               {listItems}
               <ListGroupItem>
-                <ItemForm />
+                <CreateItemForm />
               </ListGroupItem>
             </ListGroup>
           </div>

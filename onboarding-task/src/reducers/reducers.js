@@ -5,13 +5,12 @@ import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_
 import { Item } from '../models/Item';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 
-function app(state = { items: ImmutableMap(), orderedIds: ImmutableList() }, action) { // TODO rename
+function app(state = { items: ImmutableMap(), orderedIds: ImmutableList() }, action) {
   return {
     items: getItems(state.items, action),
     orderedIds: getOrderedIds(state.orderedIds, action),
   };
 }
-
 
 function getItems(items, action) {
   switch (action.type) {
@@ -44,7 +43,6 @@ function getItems(items, action) {
   }
 }
 
-
 function getOrderedIds(orderedIds, action) {
   switch (action.type) {
     case ITEM_DELETED:
@@ -55,7 +53,6 @@ function getOrderedIds(orderedIds, action) {
       return orderedIds;
   }
 }
-
 
 function getItem(item, action) {
   switch (action.type) {
