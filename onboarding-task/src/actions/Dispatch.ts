@@ -1,6 +1,10 @@
-import { Dispatch } from 'react-redux';
-import {IItemAction} from './IItemAction';
+import { IAction } from './IAction';
+import { IAppState } from '../models/IAppState';
 
-type DispatchAction = Dispatch<IItemAction>;
+type getStateCallback = () => IAppState;
 
-export { DispatchAction as Dispatch}
+type basicDispatch = (action: IAction) => IAction;
+type thunkDispatch = (thunkAction: ((dispatch: dispatchType, getState: getStateCallback) => Promise<IAction>)) => Promise<IAction>;
+export type dispatchType = basicDispatch & thunkDispatch;
+
+export { dispatchType as Dispatch}

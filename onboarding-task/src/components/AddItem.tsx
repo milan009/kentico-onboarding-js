@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PropTypes } from 'react';
 
 interface IAddItemProps {
   onItemAdd: (text: string) => void;
@@ -12,7 +11,7 @@ interface IAddItemState {
 class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
   static propTypes = {
-    onItemAdd: PropTypes.func.isRequired,
+    onItemAdd: React.PropTypes.func.isRequired,
   };
 
   constructor(props: IAddItemProps) {
@@ -51,4 +50,3 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
 }
 
 export { AddItem };
-

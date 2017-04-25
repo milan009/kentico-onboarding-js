@@ -1,13 +1,17 @@
 import { item } from '../../src/reducers/item.ts';
-import { ItemRecord } from '../../src/models/ItemRecord';
+import { ItemRecord } from '../../src/models/ItemRecord.ts';
 import * as actions from '../../src/actions/actionCreators.ts';
-import { addItemFactory } from '../../src/actions/actionDependencies/addItemFactory.ts';
 
 const initialState = new ItemRecord({
   guid: '00000',
   text: 'Redux rocks!',
   isEdited: false,
 });
+
+const newItem = {
+  id: '00000',
+  text: 'new text',
+};
 
 const UNKNOWN_ACTION = 'unknown action';
 
@@ -22,18 +26,6 @@ describe('item reducer', () => {
     const actualState = item(undefined, UNKNOWN_ACTION);
 
     expect(actualState).toEqual(new ItemRecord({}));
-  });
-
-  it('should handle ADD_ITEM action', () => {
-    const addItemAction = addItemFactory(() => '00000')('new text');
-    const actualState = item(initialState, addItemAction);
-    const expectedState = new ItemRecord({
-      text: 'new text',
-      guid: '00000',
-      isEdited: false,
-    });
-
-    expect(actualState).toEqual(expectedState);
   });
 
   it('should handle TOGGLE_EDIT_MODE action', () => {
@@ -57,6 +49,18 @@ describe('item reducer', () => {
       guid: '00000',
       isEdited: false,
     });
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('should handle POST_ITEM_SUCCESS action', () => {
+    const postItemAction = actions.postItemSuccess(newItem);
+    const expectedState = new ItemRecord({
+      text: 'new text',
+      guid: '00000',
+      isEdited: false,
+    });
+    const actualState = item(initialState, postItemAction);
 
     expect(actualState).toEqual(expectedState);
   });

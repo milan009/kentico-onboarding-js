@@ -1,31 +1,30 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List';
-import * as Immutable from 'immutable';
-import { IItemFlags } from '../reducers/itemsFlags';
-import { IItemRecord } from '../models/ItemRecord';
-import { addItem } from '../actions/actionCreators';
+import {
+  deleteError,
+  fetchItems,
+  postItem,
+} from '../actions/actionCreators';
 import { Dispatch } from '../actions/Dispatch';
+import { IAppState } from '../models/IAppState';
 
 
-interface IListState {
-  itemsById: Immutable.Map<string, IItemRecord>;
-  itemsFlags: Immutable.Map<string, IItemFlags>;
-  itemsOrder: Immutable.OrderedSet<string>;
-}
-
-const mapStateToProps = (state: IListState) => {
+const mapStateToProps = (state: IAppState) => {
   return {
     itemsOrder: state.itemsOrder,
+    loaded: state.loaded,
+    errors: state.errors,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch ) => {
   return {
-    onAddItem: (text: string) => dispatch(addItem(text)),
+    fetchItems: () => dispatch(fetchItems()),
+    onAddItem: (text: string) => dispatch(postItem(text)),
+    onDeleteError: (guid: number) => dispatch(deleteError(guid)),
   };
 };
 
 const ListContainer = connect(mapStateToProps, mapDispatchToProps)(List);
 
-export { ListContainer as List, IListState };
-
+export { ListContainer as List, IAppState };

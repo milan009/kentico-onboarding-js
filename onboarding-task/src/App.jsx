@@ -6,21 +6,27 @@ import { List } from './containers/List.tsx';
 import { itemsById } from './reducers/itemsById.ts';
 import { itemsFlags } from './reducers/itemsFlags.ts';
 import { itemsOrder } from './reducers/itemsOrder.ts';
+import { loaded } from './reducers/loaded.ts';
+import { errors } from './reducers/errors.ts';
+
 
 import createLogger from 'redux-logger';
 import { getInitialState } from './utils/getInitialState.ts';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   itemsById,
   itemsFlags,
   itemsOrder,
+  loaded,
+  errors,
 });
 const logger = createLogger();
 const initialState = getInitialState();
 const store = createStore(
   rootReducer,
   initialState,
-  applyMiddleware(logger)
+  applyMiddleware(logger, thunk)
 );
 
 class App extends Component {
