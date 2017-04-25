@@ -1,7 +1,7 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
+import * as PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
-const PropTypes = require('prop-types');
 import { AddItem } from './AddItem';
 import { ListItem } from '../containers/ListItemContainer';
 import { IAction } from '../actionCreators/IAction';

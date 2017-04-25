@@ -1,5 +1,5 @@
 import * as React from 'react';
-const PropTypes = require('prop-types');
+import * as PropTypes from 'prop-types';
 import { ItemEdit } from './ItemEdit';
 import { ItemRead } from './ItemRead';
 import { IItemViewModel } from '../models/IItemViewModel';

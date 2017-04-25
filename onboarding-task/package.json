@@ -61,6 +61,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "@types/prop-types": "^15.5.1",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "memoizee": "^0.4.4",

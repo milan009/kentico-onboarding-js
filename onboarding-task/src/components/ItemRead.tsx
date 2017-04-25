@@ -1,6 +1,5 @@
-///<reference path="../../node_modules/@types/react/index.d.ts"/>
 import * as React from 'react';
-const PropTypes = require('prop-types');
+import * as PropTypes from 'prop-types';
 import { IItemViewModel } from '../models/IItemViewModel';
 import { IAction } from '../actionCreators/IAction';
 
