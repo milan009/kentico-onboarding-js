@@ -20,7 +20,7 @@ describe('Correctly operates items: ', () => {
     expect(tested).toEqual(expected);
   });
 
-  it('Works the with() method correctly', () => {
+  it('Merges through the with() method correctly', () => {
     const expected = new Item({
       id: fakeId,
       text: 'text is changed',
