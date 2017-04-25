@@ -6,8 +6,8 @@ import { IAction } from '../actions/IAction';
 
 interface IListRowProps {
   item: IItemViewModel;
-  onItemUpdate: (text: string) => IAction;
-  onItemDelete: () => IAction;
+  onItemUpdate: (text: string) => Promise<IAction>;
+  onItemDelete: () => Promise<IAction>;
   onItemCancel: () => IAction;
   onItemClick: () => IAction;
 }

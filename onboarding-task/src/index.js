@@ -5,15 +5,18 @@ import {
   createStore,
   applyMiddleware,
 } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { rootReducer } from './reducers/rootReducer.ts';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import { getItems } from './actions/itemsActionCreators.ts';
 
 const logger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+store.dispatch(getItems());
 
 ReactDOM.render(
   <Provider store={store}>
