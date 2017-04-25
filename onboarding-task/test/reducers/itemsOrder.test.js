@@ -1,6 +1,6 @@
+import * as Immutable from 'immutable';
 import { itemsOrder } from '../../src/reducers/itemsOrder.ts';
 import * as actions from '../../src/actions/actionCreators.ts';
-import * as Immutable from 'immutable';
 
 describe('itemsOrder reducer', () => {
   const UNKNOWN_ACTION = 'uknown action';

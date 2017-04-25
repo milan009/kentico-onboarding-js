@@ -1,5 +1,5 @@
-import { itemsFlags } from '../../src/reducers/itemsFlags.ts';
 import * as Immutable from 'immutable';
+import { itemsFlags } from '../../src/reducers/itemsFlags.ts';
 import * as actions from '../../src/actions/actionCreators.ts';
 
 describe('itemsFlags reducer', () => {

@@ -1,7 +1,7 @@
+import { Map } from 'immutable';
 import { DELETE_ITEM, UPDATE_ITEM_TEXT, FETCH_ITEMS_SUCCESS, POST_ITEM_SUCCESS } from '../actions/actionTypes';
 import { item } from './item';
 import { IAction } from '../actions/IAction';
-import { Map } from 'immutable';
 import { ItemRecord } from '../models/ItemRecord';
 import { IItemServerModel } from '../models/IItemServerModel';
 

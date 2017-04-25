@@ -1,5 +1,5 @@
-import { errors } from '../../src/reducers/errors.ts';
 import { List } from 'immutable';
+import { errors } from '../../src/reducers/errors.ts';
 import { postItemFailure, fetchItemsFailure, deleteError } from '../../src/actions/actionCreators.ts';
 
 describe('errors reducer', () => {

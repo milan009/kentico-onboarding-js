@@ -1,4 +1,4 @@
-import { selectViewItem } from '../../src/containers/ListItem.jsx';
+import { selectViewItem } from '../../src/containers/ListItem.tsx';
 
 describe('list item container', () => {
   it('should return valid view item record', () => {

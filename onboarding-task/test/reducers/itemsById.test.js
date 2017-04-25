@@ -1,6 +1,6 @@
+import * as Immutable from 'immutable';
 import { itemsById } from '../../src/reducers/itemsById.ts';
 import * as actions from '../../src/actions/actionCreators.ts';
-import * as Immutable from 'immutable';
 import { ItemRecord } from '../../src/models/ItemRecord.ts';
 
 describe('itemsById reducer', () => {

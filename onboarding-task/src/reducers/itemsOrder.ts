@@ -1,6 +1,6 @@
+import { OrderedSet } from 'immutable';
 import { DELETE_ITEM, FETCH_ITEMS_SUCCESS, POST_ITEM_SUCCESS } from '../actions/actionTypes';
 import { IAction } from '../actions/IAction';
-import { OrderedSet } from 'immutable';
 import { IItemServerModel } from '../models/IItemServerModel';
 
 const emptyItemsOrder = OrderedSet<string>();
