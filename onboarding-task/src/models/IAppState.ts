@@ -1,5 +1,5 @@
-import { ItemRecord } from './ItemRecord';
 import { Map, List, OrderedSet } from 'immutable';
+import { ItemRecord } from './ItemRecord';
 import { IItemFlags } from '../reducers/itemsFlags';
 
 export interface IAppState {

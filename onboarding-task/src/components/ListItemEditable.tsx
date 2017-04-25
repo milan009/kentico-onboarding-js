@@ -8,7 +8,6 @@ interface IListItemEditableState {
 
 interface IListItemEditableProps {
   item: IItemView;
-  index: number;
   onUpdateText: (text: string) => IAction;
   onToggleEditMode: () => IAction;
   onDelete: () => IAction;
@@ -20,8 +19,8 @@ class ListItemEditable extends React.PureComponent<IListItemEditableProps, IList
     item: React.PropTypes.shape({
       guid: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
+      index: React.PropTypes.number.isRequired,
     }),
-    index: React.PropTypes.number.isRequired,
     onUpdateText: React.PropTypes.func.isRequired,
     onToggleEditMode: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired,
@@ -49,7 +48,7 @@ class ListItemEditable extends React.PureComponent<IListItemEditableProps, IList
         <td>
           <div className="form-inline">
             <div className="form-group">
-              {this.props.index}. <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
+              {this.props.item.index + 1}. <input className="form-control" type="text" value={this.state.text} onChange={this._onInputChange} />
             </div>
             <div className="form-group">
               <button className="btn btn-primary" onClick={this._onUpdate}>Save</button>

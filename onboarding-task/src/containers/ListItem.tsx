@@ -2,27 +2,34 @@ import * as memoize from 'memoizee';
 import { connect } from 'react-redux';
 import { ListItem as ListItemComponent } from '../components/ListItem';
 import { toggleEditMode, updateItemText, deleteItem } from '../actions/actionCreators';
-import { ItemRecord } from '../models/ItemRecord';
+import { IItemRecord } from '../models/ItemRecord';
 import { IAppState } from '../models/IAppState';
 import { Dispatch } from '../actions/Dispatch';
 
-const selectViewItem = (itemData: ItemRecord, itemFlags: IItemFlags) => ({
+interface IListItemProps {
+  index: number;
+  guid: string;
+}
+
+const selectViewItem = (itemData: IItemRecord, itemFlags: IItemFlags, index: number) => ({
   guid: itemData.guid,
   text: itemData.text,
   isEdited: itemFlags.isEdited,
+  index,
 });
 const memoizedSelectViewItem = memoize(selectViewItem);
 
-const mapStateToProps = (state: IAppState, ownProps: ItemRecord) => {
+const mapStateToProps = (state: IAppState, ownProps: IListItemProps) => {
   const itemData = state.itemsById.get(ownProps.guid);
   const itemFlags = state.itemsFlags.get(ownProps.guid);
+  const index = ownProps.index;
 
   return {
-    item: memoizedSelectViewItem(itemData, itemFlags),
+    item: memoizedSelectViewItem(itemData, itemFlags, index),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: ItemRecord) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemProps) => {
   return {
     onToggleEditMode: () => dispatch(toggleEditMode(ownProps.guid)),
     onUpdateText: (text: string) => dispatch(updateItemText(ownProps.guid, text)),

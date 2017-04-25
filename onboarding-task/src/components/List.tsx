@@ -1,11 +1,11 @@
 import * as React from 'react';
 const ImmutablePropTypes = require('react-immutable-proptypes');
+const Loader = require('react-loader');
 import { ListItem } from '../containers/ListItem';
 import { AddItem } from './AddItem';
 import { List as ImmutableList, Set } from 'immutable';
 import { ErrorBox } from './ErrorBox';
 import { IAction } from '../actions/IAction';
-const Loader = require('react-loader');
 
 interface IListProps {
   itemsOrder: Set<string>;
@@ -47,9 +47,9 @@ class List extends React.PureComponent<IListProps, undefined> {
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <Loader loaded={this.props.loaded}>
           <table className="table table-bordered">
-            <tbody>
-            {items.map((guid, index) =>
-              <ListItem guid={guid} key={guid} index={index + 1} />
+              <tbody>
+            {items.map((guid: string, index: number) =>
+              <ListItem guid={guid} key={index} index={index} />
             )}
             <AddItem onItemAdd={this.props.onAddItem} />
             </tbody>

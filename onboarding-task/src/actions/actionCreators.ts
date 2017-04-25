@@ -1,3 +1,4 @@
+import * as fetch from 'isomorphic-fetch';
 import {
   TOGGLE_EDIT_MODE,
   DELETE_ITEM,
@@ -9,7 +10,6 @@ import {
 } from './actionTypes';
 import { IAction } from './IAction';
 import { IItemServerModel } from '../models/IItemServerModel';
-import * as fetch from 'isomorphic-fetch';
 import { fetchItemsFactory } from './actionDependencies/fetchItemsFactory';
 import { postItemFactory } from './actionDependencies/postItemFactory';
 

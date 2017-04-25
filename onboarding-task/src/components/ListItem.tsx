@@ -6,7 +6,6 @@ import { IAction } from '../actions/IAction';
 
 interface IListItemProps {
   item: IItemView;
-  index: number;
   onToggleEditMode: () => IAction;
   onUpdateText: (text: string) => IAction;
   onDelete: () => IAction;
@@ -20,13 +19,11 @@ const ListItem: React.StatelessComponent<IListItemProps> = (props: IListItemProp
     onUpdateText={props.onUpdateText}
     onToggleEditMode={props.onToggleEditMode}
     onDelete={props.onDelete}
-    index={props.index}
   />
   : <ListItemStatic
     key={props.item.guid}
     item={props.item}
     onToggleEditMode={props.onToggleEditMode}
-    index={props.index}
   />
 );
 
@@ -35,8 +32,8 @@ ListItem.propTypes = {
     guid: React.PropTypes.string.isRequired,
     text: React.PropTypes.string.isRequired,
     isEdited: React.PropTypes.bool.isRequired,
+    index: React.PropTypes.number.isRequired,
   }),
-  index: React.PropTypes.number.isRequired,
   onToggleEditMode: React.PropTypes.func.isRequired,
   onUpdateText: React.PropTypes.func.isRequired,
   onDelete: React.PropTypes.func.isRequired,
