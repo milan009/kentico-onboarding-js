@@ -34,11 +34,17 @@ class ItemEdit extends React.PureComponent<ItemProps, IItemEditState> {
     onDelete: PropTypes.func.isRequired,
   };
 
+  private input: HTMLInputElement;
+
   constructor(props: ItemProps) {
     super(props);
     this.state = {
       text: this.props.item.text,
     };
+  }
+
+  componentDidMount() {
+    this.input.focus();
   }
 
   _handleOnChange = (event: React.FormEvent<HTMLInputElement>) =>
@@ -51,7 +57,7 @@ class ItemEdit extends React.PureComponent<ItemProps, IItemEditState> {
     return (
       <div>
         <span className="form-inline">{this.props.item.index}.
-          <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
+          <input ref={(input) => {this.input = input; }} className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
             <button type="button" className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
