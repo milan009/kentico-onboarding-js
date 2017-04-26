@@ -8,11 +8,11 @@ interface IItemReadDataProps {
 }
 
 interface IItemReadCallbackProps {
-  onClick: () => IAction;
+  onDoubleClick: () => IAction;
 }
 
 const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackProps> = (props) => (
-  <div onClick={props.onClick} >
+  <div onDoubleClick={props.onDoubleClick} >
     <span>{props.item.index}. </span>
     {props.item.text}
   </div>
@@ -26,7 +26,7 @@ ItemRead.propTypes = {
     isEdited: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
   }).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
 };
 
 export { ItemRead };

@@ -13,7 +13,7 @@ export interface IListItemCallbackProps {
   onSave: (text: string) => IAction;
   onCancel: () => IAction;
   onDelete: () => IAction;
-  onClick: () => IAction;
+  onDoubleClick: () => IAction;
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = ({
@@ -21,7 +21,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
     onSave,
     onCancel,
     onDelete,
-    onClick,
+    onDoubleClick,
 }) => {
   if (item.isEdited) {
     return (
@@ -38,7 +38,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
     <ItemRead
       key={item.id}
       item={item}
-      onClick={onClick}
+      onDoubleClick={onDoubleClick}
     />
   );
 };
@@ -54,7 +54,7 @@ ListItem.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
 };
 
 export { ListItem };
