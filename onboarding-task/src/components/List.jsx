@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
+
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class List extends PureComponent {
   static displayName = 'List';

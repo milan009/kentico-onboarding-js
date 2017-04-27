@@ -1,50 +1,59 @@
-import { ITEM_ADDED, ITEM_DELETED, ITEM_SAVED, START_EDITING_ITEM, STOP_EDITING_ITEM, UPDATE_ITEM_TEXT } from './actionTypes';
+import {
+  ITEM_DELETED,
+  ITEM_SAVED,
+  START_EDITING_ITEM,
+  STOP_EDITING_ITEM,
+  UPDATE_ITEM_TEXT,
+} from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
+import { addItemFactory } from './actionCreatorsFactory';
 
-export const addItemCreator = (guidFunction) => (text) => (
-  {
-    type: ITEM_ADDED,
-    text,
-    id: guidFunction(),
-  }
-);
-
-export const addItem = addItemCreator(generateGuid);
+export const addItem = addItemFactory(generateGuid);
 
 export const saveItem = (id, text) => (
   {
     type: ITEM_SAVED,
-    id,
-    text,
+    payload: {
+      id,
+      text,
+    },
   }
 );
 
 export const deleteItem = (id) => (
   {
     type: ITEM_DELETED,
-    id,
+    payload: {
+      id,
+    },
   }
 );
 
 export const startEditingItem = (id) => (
   {
     type: START_EDITING_ITEM,
-    id,
+    payload: {
+      id,
+    },
   }
 );
 
 export const stopEditingItem = (id) => (
   {
     type: STOP_EDITING_ITEM,
-    id,
+    payload: {
+      id,
+    },
   }
 );
 
 export const updateItemText = (id, text) => (
   {
     type: UPDATE_ITEM_TEXT,
-    id,
-    text,
+    payload: {
+      id,
+      text,
+    },
   }
 );
 

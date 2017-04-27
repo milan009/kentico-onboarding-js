@@ -1,8 +1,12 @@
-/**
- * Created by VlastimilM on 9.4.2017.
- */
 import { connect } from 'react-redux';
-import { saveItem, deleteItem, startEditingItem, stopEditingItem, updateItemText } from '../actions/actionCreators';
+
+import {
+  saveItem,
+  deleteItem,
+  startEditingItem,
+  stopEditingItem,
+  updateItemText,
+} from '../actions/actionCreators';
 import { ListItem } from '../components/ListItem';
 
 const mapDispatchToProps = (dispatch) => {

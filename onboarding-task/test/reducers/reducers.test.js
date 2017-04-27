@@ -1,11 +1,24 @@
-/**
- *
- * Created by VlastimilM on 25.4.2017.
- */
-import { app } from '../../src/reducers/reducers';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
-import { ITEM_ADDED, ITEM_SAVED, ITEM_DELETED, START_EDITING_ITEM, STOP_EDITING_ITEM, UPDATE_ITEM_TEXT } from '../../src/actions/actionTypes';
+
+import { app } from '../../src/reducers/reducers';
 import { Item } from '../../src/models/Item';
+import {
+  ITEM_ADDED,
+  ITEM_SAVED,
+  ITEM_DELETED,
+  START_EDITING_ITEM,
+  STOP_EDITING_ITEM,
+  UPDATE_ITEM_TEXT,
+} from '../../src/actions/actionTypes';
+import {
+  addItem,
+  saveItem,
+  deleteItem,
+  startEditingItem,
+  stopEditingItem,
+  updateItemText,
+} from '../../src/actions/actionCreators';
+import { addItemFactory } from '../../src/actions/actionCreatorsFactory'
 
 describe('app reducer', () => {
   it('returns initial state correctly', () => {
@@ -16,7 +29,7 @@ describe('app reducer', () => {
     const expectedItems = ImmutableMap().set('5', new Item({ id: '5', isEditing: false, textSaved: 'textAdded', textShown: 'textAdded' }));
     const expectedOrderedIds = ImmutableList().push('5');
 
-    const action = { type: ITEM_ADDED, text: 'textAdded', id: '5' };
+    const action = addItemFactory(() => '5')('textAdded');
 
     expect(app({ items: ImmutableMap(), orderedIds: ImmutableList() }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });
@@ -28,7 +41,7 @@ describe('app reducer', () => {
     const originalOrderedIds = ImmutableList().push('5');
     const expectedOrderedIds = originalOrderedIds.filter(x => x !== '5');
 
-    const action = { type: ITEM_DELETED, id: '5' };
+    const action = deleteItem('5');
 
     expect(app({ items: originalItems, orderedIds: originalOrderedIds }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });
@@ -40,7 +53,7 @@ describe('app reducer', () => {
     const originalOrderedIds = ImmutableList().push('5');
     const expectedOrderedIds = originalOrderedIds;
 
-    const action = { type: ITEM_SAVED, id: '5', text: 'updatedText' };
+    const action = saveItem('5', 'updatedText');
 
     expect(app({ items: originalItems, orderedIds: originalOrderedIds }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });
@@ -52,7 +65,7 @@ describe('app reducer', () => {
     const originalOrderedIds = ImmutableList().push('5');
     const expectedOrderedIds = originalOrderedIds;
 
-    const action = { type: START_EDITING_ITEM, id: '5' };
+    const action = startEditingItem('5');
 
     expect(app({ items: originalItems, orderedIds: originalOrderedIds }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });
@@ -64,7 +77,7 @@ describe('app reducer', () => {
     const originalOrderedIds = ImmutableList().push('5');
     const expectedOrderedIds = originalOrderedIds;
 
-    const action = { type: STOP_EDITING_ITEM, id: '5' };
+    const action = stopEditingItem('5');
 
     expect(app({ items: originalItems, orderedIds: originalOrderedIds }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });
@@ -76,7 +89,7 @@ describe('app reducer', () => {
     const originalOrderedIds = ImmutableList().push('5');
     const expectedOrderedIds = originalOrderedIds;
 
-    const action = { type: UPDATE_ITEM_TEXT, id: '5', text: 'textB' };
+    const action = updateItemText('5', 'textB');
 
     expect(app({ items: originalItems, orderedIds: originalOrderedIds }, action)).toEqual({ items: expectedItems, orderedIds: expectedOrderedIds });
   });

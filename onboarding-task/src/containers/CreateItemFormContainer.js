@@ -1,7 +1,5 @@
-/**
- * Created by VlastimilM on 25.4.2017.
- */
 import { connect } from 'react-redux';
+
 import { addItem } from '../actions/actionCreators';
 import { CreateItemForm } from '../components/CreateItemForm';
 

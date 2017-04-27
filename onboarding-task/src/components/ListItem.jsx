@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 
