@@ -1,16 +1,17 @@
 import { PropTypes } from 'react';
 import { Record } from 'immutable';
 
-export const Item = new Record({
+export const ItemViewModel = new Record({
   id: '',
-  textSaved: '',
-  textShown: '',
+  text: '',
+  index: -1,
   isEditing: false,
 });
 
-Item.propTypes = {
+
+ItemViewModel.propTypes = {
   id: PropTypes.string.isRequired,
-  textSaved: PropTypes.string.isRequired,
-  textShown: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   isEditing: PropTypes.bool.isRequired,
 };

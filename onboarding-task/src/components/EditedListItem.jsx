@@ -5,9 +5,7 @@ class EditedListItem extends PureComponent {
   static displayName = 'EditedListItem';
 
   static propTypes = { // TODO define proptypes consistently
-    text: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -18,9 +16,9 @@ class EditedListItem extends PureComponent {
     return (
       <div>
         <Form inline>
-          <span>{this.props.index + 1}. </span>
-          <FormControl value={this.props.text} onChange={(event) => this.props.onUpdate(event.target.value)} />
-          <Button onClick={() => this.props.onSave(this.props.text)} bsStyle="primary">Save</Button>
+          <span>{this.props.item.index + 1}. </span>
+          <FormControl value={this.props.item.text} onChange={(event) => this.props.onUpdate(event.target.value)} />
+          <Button onClick={() => this.props.onSave(this.props.item.text)} bsStyle="primary">Save</Button>
           <Button onClick={() => this.props.onCancel()}>Cancel</Button>
           <Button onClick={() => this.props.onDelete()} bsStyle="danger">Delete</Button>
         </Form>

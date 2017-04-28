@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { ItemViewModel } from '../models/ItemViewModel';
 
 import {
   saveItem,
@@ -20,8 +21,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const item = state.items.itemsByIds.get(ownProps.id);
   return {
-    item: state.items.itemsByIds.get(ownProps.id),
+    item: new ItemViewModel({
+      id: item.id,
+      text: item.textShown,
+      index: ownProps.index,
+      isEditing: item.isEditing,
+    }),
+
   };
 };
 
