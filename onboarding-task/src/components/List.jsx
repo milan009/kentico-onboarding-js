@@ -9,7 +9,7 @@ class List extends PureComponent {
 
   _createListItems = () => {
     return this.props.orderedIds.map((id, index) => {
-      const item = this.props.items.get(id);
+      const item = this.props.itemsByIds.get(id);
 
       return (
         <ListGroupItem key={id}>

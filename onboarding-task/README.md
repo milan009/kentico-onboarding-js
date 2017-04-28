@@ -295,7 +295,7 @@ For example, this:
 .App {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-itemsByIds: center;
 }
 ```
 
@@ -312,7 +312,7 @@ becomes this:
           flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center;
+          align-itemsByIds: center;
 }
 ```
 

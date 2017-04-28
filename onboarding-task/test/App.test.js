@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
 
 import App from '../src/App.jsx';
-import { app } from '../src/reducers/reducers';
+import { app } from '../src/reducers/appReducer';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

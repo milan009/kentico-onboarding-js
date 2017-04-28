@@ -7,8 +7,8 @@ import { List } from '../components/List';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
-    orderedIds: state.orderedIds,
+    itemsByIds: state.items.itemsByIds,
+    orderedIds: state.items.orderedIds,
   };
 };
 

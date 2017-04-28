@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import App from './App.jsx';
 import './index.css';
-import { app } from '../src/reducers/reducers';
+import { app } from './reducers/appReducer';
 
 const store = createStore(app, applyMiddleware(logger));
 
