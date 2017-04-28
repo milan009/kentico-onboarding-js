@@ -1,4 +1,4 @@
-import { getItems } from './itemsReducer';
+import { getItems } from './items/itemsReducer';
 
 export function app(state = { }, action) {
   return {

@@ -1,8 +1,8 @@
 import { Map as ImmutableMap } from 'immutable';
 
 import { Item } from '../../src/models/Item';
-import { getItemsById } from '../../src/reducers/itemsByIdReducer';
-import { getItem } from '../../src/reducers/itemReducer';
+import { getItemsById } from '../../src/reducers/items/itemsByIdReducer';
+import { getItem } from '../../src/reducers/items/itemReducer';
 import {
   saveItem,
   deleteItem,
@@ -12,7 +12,7 @@ import {
 } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
 
-describe('itemsById reducer', () => { // TODO extract
+describe('itemsById reducer', () => { // TODO extract, check for copy paste code
   const defaultItem = new Item({ id: '5', isEditing: false, textSaved: 'text', textShown: 'text' });
   const itemsWithOneElement = ImmutableMap().set('5', defaultItem);
 

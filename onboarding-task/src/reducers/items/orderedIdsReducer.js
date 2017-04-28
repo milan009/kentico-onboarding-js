@@ -1,7 +1,7 @@
 import {
   ITEM_ADDED,
   ITEM_DELETED,
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 
 export function getOrderedIds(orderedIds, action) {
   switch (action.type) {

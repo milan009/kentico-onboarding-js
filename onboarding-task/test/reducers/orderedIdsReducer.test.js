@@ -1,10 +1,9 @@
 import { List as ImmutableList } from 'immutable';
 
-import { getOrderedIds } from '../../src/reducers/orderedIdsReducer';
-import {
-  deleteItem,
-} from '../../src/actions/actionCreators';
+import { getOrderedIds } from '../../src/reducers/items/orderedIdsReducer';
+import { deleteItem } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
+
 describe('orderedIds reducer', () => {
   const defaultOrderedIds = ImmutableList().push('2', '6', '4');
 

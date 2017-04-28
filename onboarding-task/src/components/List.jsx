@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
@@ -7,8 +7,8 @@ import { ListItem } from '../containers/ListItemContainer';
 class List extends PureComponent {
   static displayName = 'List';
 
-  _createListItems = () => {
-    return this.props.orderedIds.map((id, index) => {
+  render() {
+    const listItems = this.props.orderedIds.map((id, index) => {
       const item = this.props.itemsByIds.get(id);
 
       return (
@@ -21,10 +21,6 @@ class List extends PureComponent {
         </ListGroupItem>
       );
     });
-  };
-
-  render() {
-    const listItems = this._createListItems();
 
     return (
       <div className="row">
@@ -42,5 +38,10 @@ class List extends PureComponent {
     );
   }
 }
+
+List.propTypes = {
+  itemsByIds: PropTypes.object.isRequired, // TODO object is too general
+  orderedIds: PropTypes.object.isRequired,
+};
 
 export { List };

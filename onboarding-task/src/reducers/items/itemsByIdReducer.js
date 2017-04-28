@@ -6,8 +6,8 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-} from '../actions/actionTypes';
-import { Item } from '../models/Item';
+} from '../../actions/actionTypes';
+import { Item } from '../../models/Item';
 
 export function getItemsById(items, action) {
   switch (action.type) {

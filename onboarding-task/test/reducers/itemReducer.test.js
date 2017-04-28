@@ -1,5 +1,5 @@
 import { Item } from '../../src/models/Item';
-import { getItem } from '../../src/reducers/itemReducer';
+import { getItem } from '../../src/reducers/items/itemReducer';
 import {
   saveItem,
   startEditingItem,

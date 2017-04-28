@@ -1,6 +1,3 @@
-/**
- * Created by VlastimilM on 9.4.2017.
- */
 import { connect } from 'react-redux';
 
 import { List } from '../components/List';

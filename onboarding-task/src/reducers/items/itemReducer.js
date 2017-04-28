@@ -3,7 +3,7 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 
 export function getItem(item, action) {
   switch (action.type) {
