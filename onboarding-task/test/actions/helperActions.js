@@ -1,4 +1,4 @@
-const UNKNOWN_TYPE = 'UNKNOWN_TYPE'; // TODO rename file
+const UNKNOWN_TYPE = 'UNKNOWN_TYPE';
 export const unknownAction = {
   type: UNKNOWN_TYPE,
   payload: {

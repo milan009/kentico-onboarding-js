@@ -10,7 +10,7 @@ import {
   updateItemText,
 } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
-import { unknownAction } from '../actions/actions';
+import { unknownAction } from '../actions/helperActions';
 
 describe('app reducer', () => {
   const defaultItems = ImmutableMap().set('5', new Item({ id: '5', isEditing: false, textSaved: 'text', textShown: 'text' }));

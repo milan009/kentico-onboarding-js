@@ -6,7 +6,7 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../../src/actions/actionCreators';
-import { unknownAction } from '../actions/actions';
+import { unknownAction } from '../actions/helperActions';
 
 describe('item reducer', () => {
   const defaultItem = new Item({

@@ -3,7 +3,7 @@ import { List as ImmutableList } from 'immutable';
 import { getOrderedIds } from '../../src/reducers/items/orderedIdsReducer';
 import { deleteItem } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
-import { unknownAction } from '../actions/actions';
+import { unknownAction } from '../actions/helperActions';
 
 describe('orderedIds reducer', () => {
   const defaultOrderedIds = ImmutableList().push('2', '6', '4');

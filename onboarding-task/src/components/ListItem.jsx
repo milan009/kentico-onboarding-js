@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 
-const ListItem = (props) => {
+export const ListItem = (props) => {
   if (props.item.isEditing) {
     return (
       <EditedListItem
@@ -35,5 +35,3 @@ ListItem.propTypes = {
 };
 
 ListItem.displayName = 'ListItem';
-
-export { ListItem };
