@@ -10,14 +10,10 @@ class InsertedListItem extends PureComponent {
     onEdit: PropTypes.func.isRequired,
   };
 
-  _onClick = () => {
-    this.props.onEdit(this.props.id);
-  };
-
   render() {
     return (
       <div>
-        <span onClick={this._onClick}>{this.props.index + 1}. {this.props.text}</span>
+        <span onClick={() => this.props.onEdit()}>{this.props.index + 1}. {this.props.text}</span>
       </div>
     );
   }

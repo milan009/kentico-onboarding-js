@@ -9,14 +9,11 @@ class List extends PureComponent {
 
   render() {
     const listItems = this.props.orderedIds.map((id, index) => {
-      const item = this.props.itemsByIds.get(id);
-
       return (
         <ListGroupItem key={id}>
           <ListItem
-            data={item}
-            index={index}
             id={id}
+            index={index}
           />
         </ListGroupItem>
       );
@@ -40,8 +37,7 @@ class List extends PureComponent {
 }
 
 List.propTypes = {
-  itemsByIds: PropTypes.object.isRequired, // TODO object is too general
-  orderedIds: PropTypes.object.isRequired,
+  orderedIds: PropTypes.object.isRequired, // TODO object is too general
 };
 
 export { List };

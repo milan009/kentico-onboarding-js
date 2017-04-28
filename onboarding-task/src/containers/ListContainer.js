@@ -4,7 +4,6 @@ import { List } from '../components/List';
 
 const mapStateToProps = (state) => {
   return {
-    itemsByIds: state.items.itemsByIds,
     orderedIds: state.items.orderedIds,
   };
 };

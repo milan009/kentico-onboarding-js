@@ -9,16 +9,22 @@ import {
 } from '../actions/actionCreators';
 import { ListItem } from '../components/ListItem';
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onSave: (id, text) => dispatch(saveItem(id, text)),
-    onDelete: (id) => dispatch(deleteItem(id)),
-    onUpdate: (id, text) => dispatch(updateItemText(id, text)),
-    onCancel: (id) => dispatch(stopEditingItem(id)),
-    onEdit: (id) => dispatch(startEditingItem(id)),
+    onSave: (text) => dispatch(saveItem(ownProps.id, text)),
+    onDelete: () => dispatch(deleteItem(ownProps.id)),
+    onUpdate: (text) => dispatch(updateItemText(ownProps.id, text)),
+    onCancel: () => dispatch(stopEditingItem(ownProps.id)),
+    onEdit: () => dispatch(startEditingItem(ownProps.id)),
   };
 };
 
-const listItemContainer = connect(undefined, mapDispatchToProps)(ListItem);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    item: state.items.itemsByIds.get(ownProps.id),
+  };
+};
+
+const listItemContainer = connect(mapStateToProps, mapDispatchToProps)(ListItem);
 
 export { listItemContainer as ListItem };

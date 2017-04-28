@@ -4,12 +4,12 @@ import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 
 const ListItem = (props) => {
-  if (props.data.isEditing) {
+  if (props.item.isEditing) {
     return (
       <EditedListItem
         index={props.index}
         id={props.id}
-        text={props.data.textShown}
+        text={props.item.textShown}
         onSave={props.onSave}
         onDelete={props.onDelete}
         onUpdate={props.onUpdate}
@@ -21,7 +21,7 @@ const ListItem = (props) => {
 
   return (
     <InsertedListItem
-      text={props.data.textShown}
+      text={props.item.textShown}
       index={props.index}
       id={props.id}
       onEdit={props.onEdit}
@@ -30,7 +30,7 @@ const ListItem = (props) => {
 };
 
 ListItem.propTypes = {
-  data: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
