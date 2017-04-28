@@ -4,7 +4,7 @@ import { Button, FormControl, Form } from 'react-bootstrap';
 class EditedListItem extends PureComponent {
   static displayName = 'EditedListItem';
 
-  static propTypes = { // TODO define proptypes consistently
+  static propTypes = {
     item: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,

@@ -3,20 +3,13 @@ import { List as ImmutableList } from 'immutable';
 import { getOrderedIds } from '../../src/reducers/items/orderedIdsReducer';
 import { deleteItem } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
+import { unknownAction } from '../actions/actions';
 
 describe('orderedIds reducer', () => {
   const defaultOrderedIds = ImmutableList().push('2', '6', '4');
 
-  it('doenst modify Ids on unknown action', () => {
-    const UNKNOWN_TYPE = 'UNKNOWN_TYPE';
-    const action = {
-      type: UNKNOWN_TYPE,
-      payload: {
-        id: '5',
-        text: 'rushB',
-      },
-    };
-    expect(getOrderedIds(defaultOrderedIds, action)).toEqual(defaultOrderedIds);
+  it('does not modify Ids on unknown action', () => {
+    expect(getOrderedIds(defaultOrderedIds, unknownAction)).toEqual(defaultOrderedIds);
   });
 
   it('deletes item id correctly', () => {

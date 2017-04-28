@@ -7,6 +7,10 @@ import { ListItem } from '../containers/ListItemContainer';
 class List extends PureComponent {
   static displayName = 'List';
 
+  static propTypes = {
+    orderedIds: PropTypes.object.isRequired,
+  };
+
   render() {
     const listItems = this.props.orderedIds.map((id, index) => {
       return (
@@ -35,9 +39,5 @@ class List extends PureComponent {
     );
   }
 }
-
-List.propTypes = {
-  orderedIds: PropTypes.object.isRequired, // TODO object is too general
-};
 
 export { List };

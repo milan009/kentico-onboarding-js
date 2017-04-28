@@ -10,11 +10,12 @@ import {
   updateItemText,
 } from '../../src/actions/actionCreators';
 import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
+import { unknownAction } from '../actions/actions';
 
 describe('app reducer', () => {
-  const itemsWithOneElement = ImmutableMap().set('5', new Item({ id: '5', isEditing: false, textSaved: 'text', textShown: 'text' })); // TODO rename
-  const itemsWithOneEditingElement = ImmutableMap().set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'text' })); // TODO rename
-  const orderedIdsWithOneElement = ImmutableList().push('5');
+  const defaultItems = ImmutableMap().set('5', new Item({ id: '5', isEditing: false, textSaved: 'text', textShown: 'text' }));
+  const itemsWithEditingItem = ImmutableMap().set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'text' }));
+  const defaultOrderedIds = ImmutableList().push('5');
 
   it('returns initial state correctly', () => {
     expect(app(undefined, {})).toEqual({
@@ -25,24 +26,15 @@ describe('app reducer', () => {
     });
   });
   it('does not modify state on unknown action', () => {
-    const UNKNOWN_TYPE = 'UNKNOWN_TYPE';
-    const action = {
-      type: UNKNOWN_TYPE,
-      payload: {
-        id: '5',
-        text: 'rushB',
-      },
-    };
-
     expect(app({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
-    }, action)).toEqual({
+    }, unknownAction)).toEqual({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     });
   });
@@ -57,21 +49,21 @@ describe('app reducer', () => {
       },
     }, action)).toEqual({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     });
   });
 
   it('deletes item from state correctly', () => {
-    const expectedItems = itemsWithOneElement.delete('5');
-    const expectedOrderedIds = orderedIdsWithOneElement.filter(x => x !== '5');
+    const expectedItems = defaultItems.delete('5');
+    const expectedOrderedIds = defaultOrderedIds.filter(x => x !== '5');
     const action = deleteItem('5');
 
     expect(app({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     }, action)).toEqual({
       items: {
@@ -82,14 +74,14 @@ describe('app reducer', () => {
   });
 
   it('saves item correctly', () => {
-    const expectedItems = itemsWithOneElement.set('5', new Item({ id: '5', isEditing: false, textSaved: 'updatedText', textShown: 'updatedText' }));
-    const expectedOrderedIds = orderedIdsWithOneElement;
+    const expectedItems = defaultItems.set('5', new Item({ id: '5', isEditing: false, textSaved: 'updatedText', textShown: 'updatedText' }));
+    const expectedOrderedIds = defaultOrderedIds;
     const action = saveItem('5', 'updatedText');
 
     expect(app({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     }, action)).toEqual({
       items: {
@@ -100,14 +92,14 @@ describe('app reducer', () => {
   });
 
   it('starts editing item correctly', () => {
-    const expectedItems = itemsWithOneElement.set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'text' }));
-    const expectedOrderedIds = orderedIdsWithOneElement;
+    const expectedItems = defaultItems.set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'text' }));
+    const expectedOrderedIds = defaultOrderedIds;
     const action = startEditingItem('5');
 
     expect(app({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     }, action)).toEqual({
       items: {
@@ -122,30 +114,30 @@ describe('app reducer', () => {
 
     expect(app({
       items: {
-        itemsByIds: itemsWithOneEditingElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: itemsWithEditingItem,
+        orderedIds: defaultOrderedIds,
       },
     }, action)).toEqual({
       items: {
-        itemsByIds: itemsWithOneElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: defaultItems,
+        orderedIds: defaultOrderedIds,
       },
     });
   });
 
   it('updates item text correctly', () => {
-    const expectedItems = itemsWithOneElement.set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'completelyDifferentText' }));
+    const expectedItems = defaultItems.set('5', new Item({ id: '5', isEditing: true, textSaved: 'text', textShown: 'completelyDifferentText' }));
     const action = updateItemText('5', 'completelyDifferentText');
 
     expect(app({
       items: {
-        itemsByIds: itemsWithOneEditingElement,
-        orderedIds: orderedIdsWithOneElement,
+        itemsByIds: itemsWithEditingItem,
+        orderedIds: defaultOrderedIds,
       },
     }, action)).toEqual({
       items: {
         itemsByIds: expectedItems,
-        orderedIds: orderedIdsWithOneElement,
+        orderedIds: defaultOrderedIds,
       },
     });
   });

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ItemViewModel } from '../models/ItemViewModel';
+import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
 
 import {
   saveItem,
@@ -23,13 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   const item = state.items.itemsByIds.get(ownProps.id);
   return {
-    item: new ItemViewModel({
-      id: item.id,
-      text: item.textShown,
-      index: ownProps.index,
-      isEditing: item.isEditing,
-    }),
-
+    item: memoizedItemViewModelConstructor(item.id, item.textShown, ownProps.index, item.isEditing),
   };
 };
 

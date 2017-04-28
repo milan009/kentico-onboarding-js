@@ -6,14 +6,16 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../../src/actions/actionCreators';
+import { unknownAction } from '../actions/actions';
 
-describe('item reducer', () => { // TODO extract
+describe('item reducer', () => {
   const defaultItem = new Item({
     id: '5',
     textSaved: 'text',
     textShown: 'text',
     isEditing: false,
   });
+
   const editingItem = new Item({
     id: '5',
     textSaved: 'text',
@@ -21,17 +23,8 @@ describe('item reducer', () => { // TODO extract
     isEditing: true,
   });
 
-  it('doenst modify item on unknown action', () => {
-    const UNKNOWN_TYPE = 'UNKNOWN_TYPE';
-    const action = {
-      type: UNKNOWN_TYPE,
-      payload: {
-        id: '5',
-        text: 'rushB',
-      },
-    };
-
-    expect(getItem(defaultItem, action)).toBe(defaultItem); // TODO toBe/toEqual
+  it('does not modify item on unknown action', () => {
+    expect(getItem(defaultItem, unknownAction)).toEqual(defaultItem);
   });
 
 
@@ -50,7 +43,7 @@ describe('item reducer', () => { // TODO extract
 
   it('saves item correctly', () => {
     const action = saveItem('5', 'newText');
-    const expectedItem = new Item({ // TODO use set instead
+    const expectedItem = new Item({
       id: '5',
       textSaved: 'newText',
       textShown: 'newText',
@@ -61,7 +54,7 @@ describe('item reducer', () => { // TODO extract
   });
 
   it('updates item text correctly', () => {
-    const action = updateItemText('5', 'differentText'); // TODO
+    const action = updateItemText('5', 'differentText');
     const expectedItem = defaultItem.set('textShown', 'differentText');
     expect(getItem(defaultItem, action)).toEqual(expectedItem);
   });
