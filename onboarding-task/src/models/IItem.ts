@@ -5,5 +5,3 @@ export interface IItemData {
 }
 
 export interface IItem extends IItemData, IRecordFunctions<IItemData, IItem> {}
-
-
