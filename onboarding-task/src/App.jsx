@@ -1,6 +1,6 @@
 import './sticky-footer.css';
 import React, { Component } from 'react';
-import { ListContainer } from './containers/ListContainer';
+import { List } from './containers/ListContainer.ts';
 
 class App extends Component {
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
           </div>
 
           <section id="app-content">
-            <ListContainer />
+            <List />
           </section>
         </div>
         <footer className="footer">

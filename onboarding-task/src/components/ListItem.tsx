@@ -1,8 +1,22 @@
-import React, { PropTypes } from 'react';
-import { ItemEdit } from './ItemEdit.jsx';
-import { ItemRead } from './ItemRead.jsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { ItemEdit } from './ItemEdit';
+import { ItemRead } from './ItemRead';
+import { IItemViewModel } from '../models/IItemViewModel';
+import { IAction } from '../actionCreators/IAction';
 
-const ListItem = ({
+export interface IListItemDataProps {
+  item: IItemViewModel;
+}
+
+export interface IListItemCallbackProps {
+  onSave: (text: string) => IAction;
+  onCancel: () => IAction;
+  onDelete: () => IAction;
+  onDoubleClick: () => IAction;
+}
+
+const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = ({
     item,
     onSave,
     onCancel,

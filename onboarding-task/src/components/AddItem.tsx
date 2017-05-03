@@ -1,20 +1,29 @@
-import React, { PureComponent, PropTypes } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { IAction } from '../actionCreators/IAction';
 
-class AddItem extends PureComponent {
+interface IAddItemCallbackProps {
+  onAdd: (text: string) => IAction;
+}
+
+interface IAddItemState {
+  text: string;
+}
+
+class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IAddItemCallbackProps) {
     super(props);
     this.state = { text: '' };
   }
 
-  _handleChange = (event) => {
-    this.setState({ text: event.target.value });
-  };
+  _handleChange = (event: React.FormEvent<HTMLInputElement>) =>
+    this.setState({ text: event.currentTarget.value });
 
   _handleClickAdd = () => {
     this.props.onAdd(this.state.text);

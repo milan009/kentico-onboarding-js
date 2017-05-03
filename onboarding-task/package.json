@@ -5,7 +5,9 @@
   "devDependencies": {
     "@types/immutable": "^3.8.7",
     "@types/jest": "^18.1.1",
+    "@types/memoizee": "^0.4.1",
     "@types/node": "^7.0.0",
+    "@types/prop-types": "^15.5.1",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
     "@types/react-redux": "^4.4.38",
@@ -62,6 +64,7 @@
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "memoizee": "^0.4.4",
+    "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-immutable-proptypes": "^2.1.0",

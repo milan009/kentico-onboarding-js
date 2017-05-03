@@ -1,7 +1,17 @@
-import React, { PropTypes } from 'react';
-// import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { IItemViewModel } from '../models/IItemViewModel';
+import { IAction } from '../actionCreators/IAction';
 
-const ItemRead = (props) => (
+interface IItemReadDataProps {
+  item: IItemViewModel;
+}
+
+interface IItemReadCallbackProps {
+  onDoubleClick: () => IAction;
+}
+
+const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackProps> = (props) => (
   <div onDoubleClick={props.onDoubleClick} >
     <span>{props.item.index}. </span>
     {props.item.text}

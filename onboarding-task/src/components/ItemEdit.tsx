@@ -1,6 +1,25 @@
-import React, { PureComponent, PropTypes } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { IItemViewModel } from '../models/IItemViewModel';
+import { IAction } from '../actionCreators/IAction';
 
-class ItemEdit extends PureComponent {
+interface IItemEditDataProps {
+  item: IItemViewModel;
+}
+
+interface IItemEditCallbackProps {
+  onSave: (text: string) => IAction;
+  onCancel: () => IAction;
+  onDelete: () => IAction;
+}
+
+type ItemProps = IItemEditDataProps & IItemEditCallbackProps;
+
+interface IItemEditState {
+  text: string;
+}
+
+class ItemEdit extends React.PureComponent<ItemProps, IItemEditState> {
   static displayName = 'ItemEdit';
 
   static propTypes = {
@@ -15,28 +34,24 @@ class ItemEdit extends PureComponent {
     onDelete: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: ItemProps) {
     super(props);
     this.state = {
       text: this.props.item.text,
     };
   }
 
-  _handleOnChange = (event) => {
-    this.setState({ text: event.target.value });
-  };
+  _handleOnChange = (event: React.FormEvent<HTMLInputElement>) =>
+    this.setState({ text: event.currentTarget.value });
 
-  _handleOnSave = () => {
-    this.props.onSave(
-      this.state.text,
-    );
-  };
+  _handleOnSave = () =>
+    this.props.onSave(this.state.text);
 
   render() {
     return (
       <div>
         <span className="form-inline">{this.props.item.index}.
-          <input className="form-control" value={this.state.text} onChange={this._handleOnChange} />
+          <input autoFocus className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
             <button type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
             <button type="button" className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
