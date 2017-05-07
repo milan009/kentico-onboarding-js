@@ -1,5 +1,5 @@
 import { Item } from '../../src/models/Item';
-import { getItem } from '../../src/reducers/items/itemReducer';
+import { itemReducer } from '../../src/reducers/items/itemReducer';
 import {
   saveItem,
   startEditingItem,
@@ -23,8 +23,13 @@ describe('item reducer', () => {
     isEditing: true,
   });
 
+  it('returns correct initial state', () => {
+    const expectedItem = new Item();
+    expect(itemReducer(undefined, unknownAction)).toEqual(expectedItem);
+  });
+
   it('does not modify item on unknown action', () => {
-    expect(getItem(defaultItem, unknownAction)).toEqual(defaultItem);
+    expect(itemReducer(defaultItem, unknownAction)).toEqual(defaultItem);
   });
 
 
@@ -32,13 +37,13 @@ describe('item reducer', () => {
     const action = startEditingItem('5');
     const expectedItem = defaultItem.set('isEditing', true);
 
-    expect(getItem(defaultItem, action)).toEqual(expectedItem);
+    expect(itemReducer(defaultItem, action)).toEqual(expectedItem);
   });
 
   it('stops editing item correctly', () => {
     const action = stopEditingItem('5');
 
-    expect(getItem(editingItem, action)).toEqual(defaultItem);
+    expect(itemReducer(editingItem, action)).toEqual(defaultItem);
   });
 
   it('saves item correctly', () => {
@@ -50,12 +55,12 @@ describe('item reducer', () => {
       isEditing: false,
     });
 
-    expect(getItem(editingItem, action)).toEqual(expectedItem);
+    expect(itemReducer(editingItem, action)).toEqual(expectedItem);
   });
 
   it('updates item text correctly', () => {
     const action = updateItemText('5', 'differentText');
     const expectedItem = defaultItem.set('textShown', 'differentText');
-    expect(getItem(defaultItem, action)).toEqual(expectedItem);
+    expect(itemReducer(defaultItem, action)).toEqual(expectedItem);
   });
 });

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';

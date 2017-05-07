@@ -1,11 +1,9 @@
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+import { combineReducers } from 'redux';
 
-import { getOrderedIds } from './orderedIdsReducer';
-import { getItemsById } from './itemsByIdReducer';
+import { orderedIdsReducer } from './orderedIdsReducer';
+import { itemsByIdReducer } from './itemsByIdReducer';
 
-export function getItems(state = { itemsByIds: ImmutableMap(), orderedIds: ImmutableList() }, action) {
-  return {
-    itemsByIds: getItemsById(state.itemsByIds, action),
-    orderedIds: getOrderedIds(state.orderedIds, action),
-  };
-}
+export const itemsReducer = combineReducers({
+  itemsByIds: itemsByIdReducer,
+  orderedIds: orderedIdsReducer,
+});

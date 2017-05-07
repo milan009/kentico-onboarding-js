@@ -1,7 +1,7 @@
-import { getItems } from './items/itemsReducer';
+import { combineReducers } from 'redux';
 
-export function app(state = { }, action) {
-  return {
-    items: getItems(state.items, action),
-  };
-}
+import { itemsReducer } from './items/itemsReducer';
+
+export const app = combineReducers({
+  items: itemsReducer,
+});

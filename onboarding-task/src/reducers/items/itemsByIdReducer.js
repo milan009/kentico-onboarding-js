@@ -1,4 +1,6 @@
-import { getItem } from './itemReducer';
+import { Map as ImmutableMap } from 'immutable';
+
+import { itemReducer } from './itemReducer';
 import {
   ITEM_ADDED,
   ITEM_DELETED,
@@ -9,11 +11,11 @@ import {
 } from '../../actions/actionTypes';
 import { Item } from '../../models/Item';
 
-export function getItemsById(items, action) {
+export function itemsByIdReducer(itemsById = ImmutableMap(), action) {
   switch (action.type) {
 
     case ITEM_ADDED:
-      return items.set(
+      return itemsById.set(
         action.payload.id,
         new Item({
           id: action.payload.id,
@@ -24,18 +26,18 @@ export function getItemsById(items, action) {
       );
 
     case ITEM_DELETED:
-      return items.delete(action.payload.id);
+      return itemsById.delete(action.payload.id);
 
     case ITEM_SAVED:
     case START_EDITING_ITEM:
     case STOP_EDITING_ITEM:
     case UPDATE_ITEM_TEXT: {
-      const originalItem = items.get(action.payload.id);
-      const updatedItem = getItem(originalItem, action);
-      return items.set(action.payload.id, updatedItem);
+      const originalItem = itemsById.get(action.payload.id);
+      const updatedItem = itemReducer(originalItem, action);
+      return itemsById.set(action.payload.id, updatedItem);
     }
 
     default:
-      return items;
+      return itemsById;
   }
 }

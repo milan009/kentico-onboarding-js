@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export const InsertedListItem = (props) => {
   return (
     <div>
-      <span onClick={() => props.onEdit()}>{props.item.index + 1}. {props.item.text}</span>
+      <span onClick={props.onEdit}>{props.item.index + 1}. {props.item.text}</span>
     </div>
   );
 };

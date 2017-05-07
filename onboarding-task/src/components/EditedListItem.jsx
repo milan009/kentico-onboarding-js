@@ -1,26 +1,37 @@
-import React, { PropTypes } from 'react';
+import React, { PureComponent } from 'react';
 import { Button, FormControl, Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-export const EditedListItem = (props) => {
-  return (
-    <div>
-      <Form inline>
-        <span>{props.item.index + 1}. </span>
-        <FormControl value={props.item.text} onChange={(event) => props.onUpdate(event.target.value)} />
-        <Button onClick={() => props.onSave(props.item.text)} bsStyle="primary">Save</Button>
-        <Button onClick={() => props.onCancel()}>Cancel</Button>
-        <Button onClick={() => props.onDelete()} bsStyle="danger">Delete</Button>
-      </Form>
-    </div>
-  );
-};
+class EditedListItem extends PureComponent {
+  static displayName = 'EditedListItem';
 
-EditedListItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-};
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+  };
+  _onKeyPress = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+      this.props.onSave(this.props.item.text);
+    }
+  };
 
-EditedListItem.displayName = 'EditedListItem';
+  render() {
+    return (
+      <div>
+        <Form inline>
+          <span>{this.props.item.index + 1}. </span>
+          <FormControl value={this.props.item.text} onChange={(event) => this.props.onUpdate(event.target.value)} onKeyPress={this._onKeyPress} />
+          <Button onClick={() => this.props.onSave(this.props.item.text)} bsStyle="primary">Save</Button>
+          <Button onClick={this.props.onCancel}>Cancel</Button>
+          <Button onClick={this.props.onDelete} bsStyle="danger">Delete</Button>
+        </Form>
+      </div>
+    );
+  }
+}
+
+export { EditedListItem };

@@ -4,8 +4,9 @@ import {
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
 } from '../../actions/actionTypes';
+import { Item } from '../../models/Item';
 
-export function getItem(item, action) {
+export function itemReducer(item = new Item(), action) {
   switch (action.type) {
 
     case START_EDITING_ITEM:
