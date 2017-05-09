@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
 
 import {
   saveItem,
@@ -9,6 +8,7 @@ import {
   updateItemText,
 } from '../actions/actionCreators';
 import { ListItem } from '../components/ListItem';
+import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
