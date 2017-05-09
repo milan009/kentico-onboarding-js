@@ -3,7 +3,7 @@ import { Button, FormControl, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 class CreateItemForm extends PureComponent {
-  static displayName = 'NewListItem';
+  static displayName = 'CreateItemForm';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
