@@ -19,13 +19,21 @@ class EditedListItem extends PureComponent {
     }
   };
 
+  _onChange = (e) => {
+    this.props.onUpdate(e.target.value);
+  };
+
+  _onSaveButtonClick = () => {
+    this.props.onSave(this.props.item.text);
+  };
+
   render() {
     return (
       <div>
         <Form inline>
           <span>{this.props.item.index + 1}. </span>
-          <FormControl value={this.props.item.text} onChange={(event) => this.props.onUpdate(event.target.value)} onKeyPress={this._onKeyPress} />
-          <Button onClick={() => this.props.onSave(this.props.item.text)} bsStyle="primary">Save</Button>
+          <FormControl value={this.props.item.text} onChange={this._onChange} onKeyPress={this._onKeyPress} />
+          <Button onClick={this._onSaveButtonClick} bsStyle="primary">Save</Button>
           <Button onClick={this.props.onCancel}>Cancel</Button>
           <Button onClick={this.props.onDelete} bsStyle="danger">Delete</Button>
         </Form>

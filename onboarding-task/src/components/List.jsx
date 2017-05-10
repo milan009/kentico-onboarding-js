@@ -19,15 +19,13 @@ export const List = (props) => {
 
   return (
     <div className="row">
-      <div className="row">
-        <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <ListGroup>
-            {listItems}
-            <ListGroupItem>
-              <CreateItemForm />
-            </ListGroupItem>
-          </ListGroup>
-        </div>
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <ListGroup>
+          {listItems}
+          <ListGroupItem>
+            <CreateItemForm />
+          </ListGroupItem>
+        </ListGroup>
       </div>
     </div>
   );
