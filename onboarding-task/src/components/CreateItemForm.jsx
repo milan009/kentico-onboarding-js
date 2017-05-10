@@ -1,8 +1,9 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
 import { Button, FormControl, Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-class ItemForm extends PureComponent {
-  static displayName = 'NewListItem';
+class CreateItemForm extends PureComponent {
+  static displayName = 'CreateItemForm';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
@@ -18,22 +19,29 @@ class ItemForm extends PureComponent {
     this.setState({ text: e.target.value });
   };
 
-  _onAddButtonClick = () => {
+  _onAdd = () => {
     this.props.onAdd(this.state.text);
 
     this.setState({ text: '' });
+  };
+
+  _onKeyPress = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+      this._onAdd();
+    }
   };
 
   render() {
     return (
       <div>
         <Form inline>
-          <FormControl value={this.state.text} onChange={this._onInputChange} type="text" />
-          <Button onClick={this._onAddButtonClick}>Add</Button>
+          <FormControl value={this.state.text} onKeyPress={this._onKeyPress} onChange={this._onInputChange} type="text" />
+          <Button onClick={this._onAdd}>Add</Button>
         </Form>
       </div>
     );
   }
 }
 
-export { ItemForm };
+export { CreateItemForm };

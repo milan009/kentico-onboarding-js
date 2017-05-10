@@ -1,26 +1,17 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class InsertedListItem extends PureComponent {
-  static displayName = 'InsertedListItem';
+export const InsertedListItem = (props) => {
+  return (
+    <div>
+      <span onClick={props.onEdit}>{props.item.index + 1}. {props.item.text}</span>
+    </div>
+  );
+};
 
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired,
-    onEdit: PropTypes.func.isRequired,
-  };
+InsertedListItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};
 
-  _onClick = () => {
-    this.props.onEdit(this.props.id);
-  };
-
-  render() {
-    return (
-      <div>
-        <span onClick={this._onClick}>{this.props.index + 1}. {this.props.text}</span>
-      </div>
-    );
-  }
-}
-
-export { InsertedListItem };
+InsertedListItem.displayName = 'InsertedListItem';

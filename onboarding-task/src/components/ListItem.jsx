@@ -1,14 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 
-const ListItem = (props) => {
-  if (props.data.isEditing) {
+export const ListItem = (props) => {
+  if (props.item.isEditing) {
     return (
       <EditedListItem
-        index={props.index}
-        id={props.id}
-        text={props.data.textShown}
+        item={props.item}
         onSave={props.onSave}
         onDelete={props.onDelete}
         onUpdate={props.onUpdate}
@@ -20,18 +20,14 @@ const ListItem = (props) => {
 
   return (
     <InsertedListItem
-      text={props.data.textShown}
-      index={props.index}
-      id={props.id}
+      item={props.item}
       onEdit={props.onEdit}
     />
   );
 };
 
 ListItem.propTypes = {
-  data: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
@@ -40,5 +36,3 @@ ListItem.propTypes = {
 };
 
 ListItem.displayName = 'ListItem';
-
-export { ListItem };
