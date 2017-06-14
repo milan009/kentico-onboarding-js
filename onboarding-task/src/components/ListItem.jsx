@@ -15,7 +15,7 @@ class ListItem extends Component {
   render() {
     return (
       <div className="row">
-        <li>{ this.state.value }</li>
+        <li>{this.state.text}</li>
       </div>
     );
   }

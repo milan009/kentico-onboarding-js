@@ -25,9 +25,9 @@ class List extends Component {
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
+            <ol>
               <ListItem />
-            </pre>
+            </ol>
           </div>
         </div>
       </div>
