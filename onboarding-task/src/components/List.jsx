@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import assignment from './../../../assignment.gif';
 
 import TsComponent from './TsComponent.tsx';
+import { ListItem } from './ListItem';
 
 class List extends Component {
   render() {
@@ -25,7 +26,7 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
-              // TODO: implement the list here :)
+              <ListItem />
             </pre>
           </div>
         </div>
