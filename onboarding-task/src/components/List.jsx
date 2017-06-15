@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import assignment from './../../../assignment.gif';
 
 import uuidV4 from 'uuid/v4';
 
 import TsComponent from './TsComponent.tsx';
-import { ListItemDisplayer } from './ListItemDisplayer';
-import { ListItemEditor } from './ListItemEditor';
-// import { ListItemEditor } from './ListItemEditor';
+import { ViewItem } from './ViewItem';
+import { EditItem } from './EditItem';
+import { AddItem } from './AddItem';
 
-class List extends Component {
+class List extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -18,35 +18,35 @@ class List extends Component {
     };
   }
 
-  _removeElement(key) {
-    const elId = this.state.elements.indexOf(this.state.elements.find((el) => el.key === key));
-    const els = this.state.elements;
+  _removeElement = (id) => {
+    const els = [...this.state.elements];
+    const elId = els.indexOf(this.state.elements.find((el) => el.id === id));
     els.splice(elId, 1);
     this.setState({ elements: els });
-  }
+  };
 
-  _addNewElement(elementText) {
-    const els = this.state.elements;
-    els.push({ text: elementText, key: uuidV4(), isEdited: false });
+  _addNewElement = (elementText) => {
+    const els = [...this.state.elements];
+    els.push({ text: elementText, id: uuidV4(), isEdited: false });
     this.setState({ elements: els });
     console.debug('Elements: ', this.state.elements);
-  }
+  };
 
-  _toggleEditing(key) {
-  //  console.debug(key);
-    const els = this.state.elements;
-    const element = els.find((e) => e.key === key);
+  _toggleEditing = (id) => {
+    const els = [...this.state.elements];
+    const element = els.find((e) => e.id === id);
+    // TODO: immutabilitz
     element.isEdited = !element.isEdited;
     this.setState({ elements: els });
-  }
+  };
 
-  _saveChange(key, change) {
-    const els = this.state.elements;
-    const element = els.find((e) => e.key === key);
+  _saveChange = (id, change) => {
+    const els = [...this.state.elements];
+    const element = els.find((e) => e.id === id);
     element.text = change;
     element.isEdited = false;
     this.setState({ elements: els });
-  }
+  };
 
   render() {
     console.log(this.state.elements);
@@ -72,35 +72,25 @@ class List extends Component {
             <ol>
               {this.state.elements.map((el) => {
                 if (el.isEdited) {
-                  return (<ListItemEditor
+                  return (<EditItem
                     text={el.text}
-                    key={el.key}
-                    uid={el.key}
-                    removeElement={(key) => this._removeElement(key)}
-                    saveChange={(key, change) => this._saveChange(key, change)}
-                    toggleEdit={(key) => this._toggleEditing(key)}
+                    key={el.id}
+                    uid={el.id}
+                    removeElement={this._removeElement}
+                    saveChange={this._saveChange}
+                    toggleEdit={this._toggleEditing}
                   />);
                 }
 
-                return (<ListItemDisplayer
+                return (<ViewItem
                   text={el.text}
-                  key={el.key}
-                  uid={el.key}
-                  toggleEdit={(key) => this._toggleEditing(key)}
+                  key={el.id}
+                  uid={el.id}
+                  toggleEdit={this._toggleEditing}
                 />);
               })}
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  this._addNewElement(this.state.currentText);
-                  this.setState({ currentText: '' });
-                }}
-              >
-                <input type="text" onChange={(e) => this.setState({ currentText: e.target.value })} value={this.state.currentText} />
-                <button type="submit">Add</button>
-              </form>
             </ol>
+            <AddItem addNewElement={this._addNewElement} />
           </div>
         </div>
       </div>

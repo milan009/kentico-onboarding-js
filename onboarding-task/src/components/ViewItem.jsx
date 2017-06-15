@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ListItemDisplay extends Component {
+class ViewItem extends Component {
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
+    toggleEdit: PropTypes.func.isRequired,
+  };
+
+  _handleClick = () => {
+    console.log(this.props.text);
+    this.props.toggleEdit(this.props.uid);
+  };
 
   render() {
     return (
       <div className="row">
-        <li onClick={() => this.props.toggleEdit(this.props.uid)}>
+        <li onClick={this._handleClick}>
           {this.props.text}
         </li>
       </div>
@@ -14,10 +25,4 @@ class ListItemDisplay extends Component {
   }
 }
 
-ListItemDisplay.propTypes = {
-  text: PropTypes.string,
-  uid: PropTypes.string,
-  toggleEdit: PropTypes.func,
-};
-
-export { ListItemDisplay };
+export { ViewItem };

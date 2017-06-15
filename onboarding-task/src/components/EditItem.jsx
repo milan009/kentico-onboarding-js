@@ -1,33 +1,56 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ListItemEdit extends Component {
+class EditItem extends Component {
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
+    removeElement: PropTypes.func.isRequired,
+    toggleEdit: PropTypes.func.isRequired,
+    saveChange: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      text: props.text || undefined,
+      text: props.text,
     };
   }
+
+  _handleChange = (event) => {
+    this.setState({ text: event.target.value });
+  };
+
+  _handleCancelClick = () => {
+    this.props.toggleEdit(this.props.uid);
+  };
+
+  _handleSaveClick = () => {
+    this.props.saveChange(this.props.uid, this.state.text);
+  };
+
+  _handleRemoveClick = () => {
+    this.props.removeElement(this.props.uid);
+  };
 
   _drawElements() {
     return (
       <span>
-        <input className="inp" type="text" value={this.state.text} onChange={(e) => this.setState({ text: e.target.value })} />
+        <input className="inp" type="text" value={this.state.text} onChange={this._handleChange} />
         <button
           className="btn btn-primary"
-          onClick={() => this.props.saveChange(this.props.uid, this.state.text)}
+          onClick={this._handleSaveClick}
         >Save</button>
-        <button className="btn btn-default" onClick={() => this.props.toggleEdit(this.props.uid)}>Cancel</button>
+        <button className="btn btn-default" onClick={this._handleCancelClick}>Cancel</button>
         <button
           className="btn btn-danger"
-          onClick={() => this.props.removeElement(this.props.uid)}
+          onClick={this._handleRemoveClick}
         >Delete</button>
       </span>
     );
   }
-
 
   render() {
     return (
@@ -40,12 +63,4 @@ class ListItemEdit extends Component {
   }
 }
 
-ListItemEdit.propTypes = {
-  text: PropTypes.string,
-  uid: PropTypes.number,
-  removeElement: PropTypes.func,
-  toggleEdit: PropTypes.func,
-  saveChange: PropTypes.func,
-};
-
-export { ListItemEdit };
+export { EditItem };

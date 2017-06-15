@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ViewItem extends Component {
+class AddItem extends Component {
+
+  static propTypes = {
+    addNewElement: PropTypes.func.isRequired,
+  };
+
+  constructor(props) {
+    super();
+    this.state = {
+      currentText: '',
+    };
+  }
+
+  _handleChange = (event) => {
+    this.setState({ currentText: event.target.value });
+  };
+
+  _handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.addNewElement(this.state.currentText);
+    this.setState({ currentText: '' });
+  };
 
   render() {
     return (
-      <div className="row">
-        <li onClick={() => this.props.toggleEdit(this.props.uid)}>
-          {this.props.text}
-        </li>
-      </div>
+      <form onSubmit={this._handleSubmit}>
+        <input type="text" onChange={this._handleChange} value={this.state.currentText} />
+        <button type="submit">Add</button>
+      </form>
     );
   }
 }
 
-ViewItem.propTypes = {
-  text: PropTypes.string,
-  uid: PropTypes.string,
-  toggleEdit: PropTypes.func,
-};
-
-export { ViewItem };
+export { AddItem };
