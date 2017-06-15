@@ -3,8 +3,33 @@ import assignment from './../../../assignment.gif';
 
 import TsComponent from './TsComponent.tsx';
 import { ListItem } from './ListItem';
+// import { ListItem } from './ListItem';
 
 class List extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      elements: [],
+      currentText: '',
+      idHolder: 0,
+    };
+  }
+
+  _removeElement(elementId) {
+    const elId = this.state.elements.indexOf(this.state.elements.find((el) => el.props.itemId === elementId));
+
+    const els = this.state.elements;
+    els.splice(elId, 1);
+    this.setState({ elements: els });
+  }
+
+  _addNewElement(elementText) {
+    const els = this.state.elements;
+    els.push(<ListItem text={elementText} key={this.state.idHolder} itemId={this.state.idHolder} removeFunction={(elId) => this._removeElement(elId)} />);
+    this.setState({ elements: els, idHolder: this.state.idHolder + 1 });
+  }
+
   render() {
     return (
       <div className="row">
@@ -26,7 +51,17 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ol>
-              <ListItem />
+              {this.state.elements}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  this._addNewElement(this.state.currentText);
+                  this.setState({ currentText: '' });
+                }}
+              >
+                <input type="text" onChange={(e) => this.setState({ currentText: e.target.value })} value={this.state.currentText} />
+                <button type="submit">Add</button>
+              </form>
             </ol>
           </div>
         </div>
