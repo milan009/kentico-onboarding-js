@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import assignment from './../../../assignment.gif';
 
+import uuidV4 from 'uuid/v4';
+
 import TsComponent from './TsComponent.tsx';
-import { ListItem } from './ListItem';
-// import { ListItem } from './ListItem';
+import { ListItemDisplayer } from './ListItemDisplayer';
+import { ListItemEditor } from './ListItemEditor';
+// import { ListItemEditor } from './ListItemEditor';
 
 class List extends Component {
 
@@ -12,13 +15,11 @@ class List extends Component {
     this.state = {
       elements: [],
       currentText: '',
-      idHolder: 0,
     };
   }
 
-  _removeElement(elementId) {
-    const elId = this.state.elements.indexOf(this.state.elements.find((el) => el.props.itemId === elementId));
-
+  _removeElement(key) {
+    const elId = this.state.elements.indexOf(this.state.elements.find((el) => el.key === key));
     const els = this.state.elements;
     els.splice(elId, 1);
     this.setState({ elements: els });
@@ -26,11 +27,29 @@ class List extends Component {
 
   _addNewElement(elementText) {
     const els = this.state.elements;
-    els.push(<ListItem text={elementText} key={this.state.idHolder} itemId={this.state.idHolder} removeFunction={(elId) => this._removeElement(elId)} />);
-    this.setState({ elements: els, idHolder: this.state.idHolder + 1 });
+    els.push({ text: elementText, key: uuidV4(), isEdited: false });
+    this.setState({ elements: els });
+    console.debug('Elements: ', this.state.elements);
+  }
+
+  _toggleEditing(key) {
+  //  console.debug(key);
+    const els = this.state.elements;
+    const element = els.find((e) => e.key === key);
+    element.isEdited = !element.isEdited;
+    this.setState({ elements: els });
+  }
+
+  _saveChange(key, change) {
+    const els = this.state.elements;
+    const element = els.find((e) => e.key === key);
+    element.text = change;
+    element.isEdited = false;
+    this.setState({ elements: els });
   }
 
   render() {
+    console.log(this.state.elements);
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -51,7 +70,26 @@ class List extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ol>
-              {this.state.elements}
+              {this.state.elements.map((el) => {
+                if (el.isEdited) {
+                  return (<ListItemEditor
+                    text={el.text}
+                    key={el.key}
+                    uid={el.key}
+                    removeElement={(key) => this._removeElement(key)}
+                    saveChange={(key, change) => this._saveChange(key, change)}
+                    toggleEdit={(key) => this._toggleEditing(key)}
+                  />);
+                }
+
+                return (<ListItemDisplayer
+                  text={el.text}
+                  key={el.key}
+                  uid={el.key}
+                  toggleEdit={(key) => this._toggleEditing(key)}
+                />);
+              })}
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
