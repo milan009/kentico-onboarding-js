@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ListItemDisplayer extends Component {
+class ViewItem extends Component {
 
   render() {
     return (
@@ -14,10 +14,10 @@ class ListItemDisplayer extends Component {
   }
 }
 
-ListItemDisplayer.propTypes = {
+ViewItem.propTypes = {
   text: PropTypes.string,
   uid: PropTypes.string,
   toggleEdit: PropTypes.func,
 };
 
-export { ListItemDisplayer };
+export { ViewItem };

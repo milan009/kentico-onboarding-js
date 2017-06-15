@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ListItemEditor extends Component {
+class ListItemEdit extends Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,7 @@ class ListItemEditor extends Component {
   }
 }
 
-ListItemEditor.propTypes = {
+ListItemEdit.propTypes = {
   text: PropTypes.string,
   uid: PropTypes.number,
   removeElement: PropTypes.func,
@@ -48,4 +48,4 @@ ListItemEditor.propTypes = {
   saveChange: PropTypes.func,
 };
 
-export { ListItemEditor };
+export { ListItemEdit };
