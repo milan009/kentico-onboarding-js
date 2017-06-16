@@ -7,47 +7,39 @@ import { EditItem } from './EditItem';
 class ListItem extends Component {
 
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
+    element: PropTypes.object,
     toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
-    isEdited: PropTypes.bool.isRequired,
     removeElement: PropTypes.func.isRequired,
   };
 
   _handleClick = () => {
-    if (!this.props.isEdited) {
-      this.props.toggleEdit(this.props.uid);
+    if (!this.props.element.isEdited) {
+      this.props.toggleEdit(this.props.element.id);
     }
   };
 
   _cancelClick = () => {
-    this.props.toggleEdit(this.props.uid);
-  };
-
-  _getCorrectComponent = () => {
-    if (this.props.isEdited) {
-      return (<EditItem
-        text={this.props.text}
-        uid={this.props.uid}
-        key={this.props.uid}
-        removeElement={this.props.removeElement}
-        saveChange={this.props.saveChange}
-        cancelChange={this._cancelClick}
-      />);
-    }
-
-    return (<ViewItem
-      text={this.props.text}
-      uid={this.props.uid}
-      key={this.props.uid}
-    />);
+    this.props.toggleEdit(this.props.element.id);
   };
 
   render() {
+    const getCorrectComponent = () => {
+      if (this.props.element.isEdited) {
+        return (<EditItem
+          element={this.props.element}
+          removeElement={this.props.removeElement}
+          saveChange={this.props.saveChange}
+          cancelChange={this._cancelClick}
+        />);
+      }
+      return (<ViewItem
+        element={this.props.element}
+      />);
+    };
     return (
       <li onClick={this._handleClick}>
-        {this._getCorrectComponent()}
+        {getCorrectComponent()}
       </li>);
   }
 }

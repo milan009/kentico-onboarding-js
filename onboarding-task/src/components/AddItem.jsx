@@ -26,10 +26,12 @@ class AddItem extends Component {
 
   render() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <input type="text" onChange={this._handleChange} value={this.state.currentText} />
-        <button type="submit" className="btn btn-default">Add</button>
-      </form>
+      <span>
+        <form onSubmit={this._handleSubmit}>
+          <input type="text" className="form-control" onChange={this._handleChange} value={this.state.currentText} />
+          <button type="submit" className="btn btn-default">Add</button>
+        </form>
+      </span>
     );
   }
 }

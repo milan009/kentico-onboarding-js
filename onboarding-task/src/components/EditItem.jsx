@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 class EditItem extends Component {
 
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
+    element: PropTypes.object,
     removeElement: PropTypes.func.isRequired,
     cancelChange: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
@@ -15,7 +14,7 @@ class EditItem extends Component {
     super(props);
 
     this.state = {
-      text: props.text,
+      text: props.element.text,
     };
   }
 
@@ -24,15 +23,15 @@ class EditItem extends Component {
   };
 
   _handleCancelClick = () => {
-    this.props.cancelChange(this.props.uid);
+    this.props.cancelChange(this.props.element.id);
   };
 
   _handleSaveClick = () => {
-    this.props.saveChange(this.props.uid, this.state.text);
+    this.props.saveChange(this.props.element.id, this.state.text);
   };
 
   _handleRemoveClick = () => {
-    this.props.removeElement(this.props.uid);
+    this.props.removeElement(this.props.element.id);
   };
 
   render() {

@@ -19,26 +19,28 @@ class List extends PureComponent {
   }
 
   _removeElement = (id) => {
-    const els = [...this.state.elements];
-    const elId = els.indexOf(this.state.elements.find((el) => el.id === id));
-    els.splice(elId, 1);
-
-    this.setState({ elements: els });
+    const removedElement = this.state.elements.find((element) => element.id === id);
+    const removedElementIndex = this.state.elements.indexOf(removedElement);
+    const elements = [
+      ...this.state.elements.slice(0, removedElementIndex),
+      ...this.state.elements.slice(removedElementIndex + 1),
+    ];
+    this.setState({ elements });
   };
 
-  _addNewElement = (elementText) => {
-    const els = [...this.state.elements];
-    els.push({ text: elementText, id: uuidV4(), isEdited: false });
+  _addNewElement = (newElementText) => {
+    const newElement = { text: newElementText, id: uuidV4(), isEdited: false };
+    const elements = [...this.state.elements, newElement];
 
-    this.setState({ elements: els });
+    this.setState({ elements });
   };
 
   _toggleEditing = (id) => {
-    const els = [...this.state.elements];
-    const element = els.find((e) => e.id === id);
-    element.isEdited = !element.isEdited;
+    const elements = [...this.state.elements];
+    const editedElement = elements.find((e) => e.id === id);
+    editedElement.isEdited = !editedElement.isEdited;
 
-    this.setState({ elements: els });
+    this.setState({ elements });
   };
 
   _saveChange = (id, change) => {
@@ -52,6 +54,15 @@ class List extends PureComponent {
   };
 
   render() {
+    const existingItems = this.state.elements.map((element) => {
+      return (<ListItem
+        element={element}
+        removeElement={this._removeElement}
+        saveChange={this._saveChange}
+        toggleEdit={this._toggleEditing}
+      />);
+    });
+
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -71,19 +82,14 @@ class List extends PureComponent {
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <ol>
-              {this.state.elements.map((el) => {
-                return (<ListItem
-                  text={el.text}
-                  uid={el.id}
-                  isEdited={el.isEdited}
-                  removeElement={this._removeElement}
-                  saveChange={this._saveChange}
-                  toggleEdit={this._toggleEditing}
-                />);
-              })}
-            </ol>
-            <AddItem addNewElement={this._addNewElement} />
+            <form>
+              <ol className="form-group">
+                {existingItems}
+              </ol>
+              <div className="form-group">
+                <AddItem addNewElement={this._addNewElement} />
+              </div>
+            </form>
           </div>
         </div>
       </div>
