@@ -14,7 +14,6 @@ class List extends PureComponent {
     super(props);
     this.state = {
       elements: [],
-      currentText: '',
     };
   }
 
