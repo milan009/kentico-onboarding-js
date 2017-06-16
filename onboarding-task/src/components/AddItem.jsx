@@ -8,7 +8,7 @@ class AddItem extends Component {
   };
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       currentText: '',
     };
@@ -28,7 +28,7 @@ class AddItem extends Component {
     return (
       <form onSubmit={this._handleSubmit}>
         <input type="text" onChange={this._handleChange} value={this.state.currentText} />
-        <button type="submit">Add</button>
+        <button type="submit" className="btn btn-default">Add</button>
       </form>
     );
   }

@@ -7,7 +7,7 @@ class EditItem extends Component {
     text: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired,
     removeElement: PropTypes.func.isRequired,
-    toggleEdit: PropTypes.func.isRequired,
+    cancelChange: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
   };
 
@@ -24,7 +24,7 @@ class EditItem extends Component {
   };
 
   _handleCancelClick = () => {
-    this.props.toggleEdit(this.props.uid);
+    this.props.cancelChange(this.props.uid);
   };
 
   _handleSaveClick = () => {
@@ -35,7 +35,7 @@ class EditItem extends Component {
     this.props.removeElement(this.props.uid);
   };
 
-  _drawElements() {
+  render() {
     return (
       <span>
         <input className="inp" type="text" value={this.state.text} onChange={this._handleChange} />
@@ -49,16 +49,6 @@ class EditItem extends Component {
           onClick={this._handleRemoveClick}
         >Delete</button>
       </span>
-    );
-  }
-
-  render() {
-    return (
-      <div className="row">
-        <li>
-          {this._drawElements()}
-        </li>
-      </div>
     );
   }
 }

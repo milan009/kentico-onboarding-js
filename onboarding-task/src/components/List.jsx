@@ -4,9 +4,9 @@ import assignment from './../../../assignment.gif';
 import uuidV4 from 'uuid/v4';
 
 import TsComponent from './TsComponent.tsx';
-import { ViewItem } from './ViewItem';
-import { EditItem } from './EditItem';
+
 import { AddItem } from './AddItem';
+import { ListItem } from './ListItem';
 
 class List extends PureComponent {
 
@@ -22,34 +22,36 @@ class List extends PureComponent {
     const els = [...this.state.elements];
     const elId = els.indexOf(this.state.elements.find((el) => el.id === id));
     els.splice(elId, 1);
+
     this.setState({ elements: els });
   };
 
   _addNewElement = (elementText) => {
     const els = [...this.state.elements];
     els.push({ text: elementText, id: uuidV4(), isEdited: false });
+
     this.setState({ elements: els });
-    console.debug('Elements: ', this.state.elements);
   };
 
   _toggleEditing = (id) => {
     const els = [...this.state.elements];
     const element = els.find((e) => e.id === id);
-    // TODO: immutabilitz
     element.isEdited = !element.isEdited;
+
     this.setState({ elements: els });
   };
 
   _saveChange = (id, change) => {
     const els = [...this.state.elements];
     const element = els.find((e) => e.id === id);
+
     element.text = change;
     element.isEdited = false;
+
     this.setState({ elements: els });
   };
 
   render() {
-    console.log(this.state.elements);
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -71,21 +73,12 @@ class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ol>
               {this.state.elements.map((el) => {
-                if (el.isEdited) {
-                  return (<EditItem
-                    text={el.text}
-                    key={el.id}
-                    uid={el.id}
-                    removeElement={this._removeElement}
-                    saveChange={this._saveChange}
-                    toggleEdit={this._toggleEditing}
-                  />);
-                }
-
-                return (<ViewItem
+                return (<ListItem
                   text={el.text}
-                  key={el.id}
                   uid={el.id}
+                  isEdited={el.isEdited}
+                  removeElement={this._removeElement}
+                  saveChange={this._saveChange}
                   toggleEdit={this._toggleEditing}
                 />);
               })}
