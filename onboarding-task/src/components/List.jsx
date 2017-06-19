@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
-import assignment from './../../../assignment.gif';
 
 import uuidV4 from 'uuid/v4';
-
-import TsComponent from './TsComponent.tsx';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
 
 class List extends PureComponent {
+
+  static displayName = 'List';
 
   constructor(props) {
     super(props);
@@ -24,71 +23,76 @@ class List extends PureComponent {
       ...this.state.elements.slice(0, removedElementIndex),
       ...this.state.elements.slice(removedElementIndex + 1),
     ];
+
     this.setState({ elements });
   };
 
   _addNewElement = (newElementText) => {
-    const newElement = { text: newElementText, id: uuidV4(), isEdited: false };
+    const newElement = {
+      text: newElementText,
+      id: uuidV4(),
+      isEdited: false,
+    };
     const elements = [...this.state.elements, newElement];
 
     this.setState({ elements });
   };
 
   _toggleEditing = (id) => {
-    const elements = [...this.state.elements];
-    const editedElement = elements.find((e) => e.id === id);
-    editedElement.isEdited = !editedElement.isEdited;
+    const element = this.state.elements.find((e) => e.id === id);
+    const elIndex = this.state.elements.indexOf(element);
+    const editedElement = {
+      ...element,
+      isEdited: !element.isEdited,
+    };
 
-    this.setState({ elements });
+    this.setState((prevState) => ({
+      elements: [
+        ...prevState.elements.slice(0, elIndex),
+        editedElement,
+        ...prevState.elements.slice(elIndex + 1),
+      ],
+    }));
   };
 
   _saveChange = (id, change) => {
-    const els = [...this.state.elements];
-    const element = els.find((e) => e.id === id);
+    const element = this.state.elements.find((e) => e.id === id);
+    const elIndex = this.state.elements.indexOf(element);
+    const newElement = {
+      ...element,
+      text: change,
+      isEdited: false,
+    };
 
-    element.text = change;
-    element.isEdited = false;
-
-    this.setState({ elements: els });
+    this.setState((prevState) => ({
+      elements: [
+        ...prevState.elements.slice(0, elIndex),
+        newElement,
+        ...prevState.elements.slice(elIndex + 1),
+      ],
+    }));
   };
 
   render() {
-    const existingItems = this.state.elements.map((element) => {
+    const existingItems = this.state.elements.map((element, index) => {
       return (<ListItem
+        index={index + 1}
         element={element}
         removeElement={this._removeElement}
         saveChange={this._saveChange}
         toggleEdit={this._toggleEditing}
+        key={element.id}
       />);
     });
 
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <form>
-              <ol className="form-group">
-                {existingItems}
-              </ol>
-              <div className="form-group">
-                <AddItem addNewElement={this._addNewElement} />
-              </div>
-            </form>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <div className="list-group">
+            <ol>
+              {existingItems}
+              <AddItem addNewElement={this._addNewElement} />
+            </ol>
           </div>
         </div>
       </div>

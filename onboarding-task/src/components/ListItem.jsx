@@ -6,20 +6,17 @@ import { EditItem } from './EditItem';
 
 class ListItem extends Component {
 
+  static displayName = 'ListItem';
+
   static propTypes = {
+    index: PropTypes.number,
     element: PropTypes.object,
     toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
     removeElement: PropTypes.func.isRequired,
   };
 
-  _handleClick = () => {
-    if (!this.props.element.isEdited) {
-      this.props.toggleEdit(this.props.element.id);
-    }
-  };
-
-  _cancelClick = () => {
+  _toggleEdit = () => {
     this.props.toggleEdit(this.props.element.id);
   };
 
@@ -27,18 +24,21 @@ class ListItem extends Component {
     const getCorrectComponent = () => {
       if (this.props.element.isEdited) {
         return (<EditItem
+          index={this.props.index}
           element={this.props.element}
           removeElement={this.props.removeElement}
           saveChange={this.props.saveChange}
-          cancelChange={this._cancelClick}
+          toggleEdit={this._toggleEdit}
         />);
       }
       return (<ViewItem
+        index={this.props.index}
         element={this.props.element}
+        onClick={this._toggleEdit}
       />);
     };
     return (
-      <li onClick={this._handleClick}>
+      <li className="list-group-item">
         {getCorrectComponent()}
       </li>);
   }

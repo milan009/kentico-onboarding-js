@@ -6,24 +6,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <section id="app-content">
-          <List />
-        </section>
-        <form className="form-inline table-bordered">
-          <div className="form-group" >
-            <ol>
-              <li className="table-bordered">Buy milk</li>
-              <li className="table-bordered">Win lottery</li>
-              <li className="table-bordered">Profit</li>
-            </ol>
-          </div>
-          <div className="form-group table-bordered">
-            <input type="text" className="form-control" />
-            <button type="button" className="form-control btn btn-default" >Add</button>
-          </div>
-        </form>
-      </div>
-     /* <div>
         <div className="container">
           <div className="header clearfix">
             <h3 className="text-muted">Kentico Academy</h3>
@@ -47,7 +29,7 @@ class App extends Component {
         <footer className="footer">
           <p>&copy; 2016 Kentico Software</p>
         </footer>
-      </div>*/
+      </div>
     );
   }
 }

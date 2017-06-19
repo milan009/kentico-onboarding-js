@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 class EditItem extends Component {
 
+  static displayName = 'EditItem';
+
   static propTypes = {
+    index: PropTypes.number,
     element: PropTypes.object,
     removeElement: PropTypes.func.isRequired,
-    cancelChange: PropTypes.func.isRequired,
+    toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
   };
 
@@ -23,7 +26,7 @@ class EditItem extends Component {
   };
 
   _handleCancelClick = () => {
-    this.props.cancelChange(this.props.element.id);
+    this.props.toggleEdit(this.props.element.id);
   };
 
   _handleSaveClick = () => {
@@ -36,18 +39,27 @@ class EditItem extends Component {
 
   render() {
     return (
-      <span>
-        <input className="inp" type="text" value={this.state.text} onChange={this._handleChange} />
+      <div className="form-inline">
+        <span>{this.props.index}. </span>
+        <input
+          className="form-control"
+          type="text"
+          value={this.state.text}
+          onChange={this._handleChange}
+        />
         <button
-          className="btn btn-primary"
+          className="btn btn-primary form-control"
           onClick={this._handleSaveClick}
         >Save</button>
-        <button className="btn btn-default" onClick={this._handleCancelClick}>Cancel</button>
         <button
-          className="btn btn-danger"
+          className="btn btn-default form-control"
+          onClick={this._handleCancelClick}
+        >Cancel</button>
+        <button
+          className="btn btn-danger form-control"
           onClick={this._handleRemoveClick}
         >Delete</button>
-      </span>
+      </div>
     );
   }
 }

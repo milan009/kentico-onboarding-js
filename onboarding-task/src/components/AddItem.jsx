@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 class AddItem extends Component {
 
+  static displayName = 'AddItem';
+
   static propTypes = {
     addNewElement: PropTypes.func.isRequired,
   };
@@ -26,12 +28,20 @@ class AddItem extends Component {
 
   render() {
     return (
-      <span>
-        <form onSubmit={this._handleSubmit}>
-          <input type="text" className="form-control" onChange={this._handleChange} value={this.state.currentText} />
-          <button type="submit" className="btn btn-default">Add</button>
+      <div className="list-group-item">
+        <form onSubmit={this._handleSubmit} className="form-inline">
+          <input
+            type="text"
+            className="form-control"
+            onChange={this._handleChange}
+            value={this.state.currentText}
+          />
+          <button
+            type="submit"
+            className="form-control btn btn-default"
+          >Add</button>
         </form>
-      </span>
+      </div>
     );
   }
 }
