@@ -33,6 +33,11 @@ class List extends PureComponent {
     this.setState({ listElements: newElements });
   };
 
+    /** Expects change object argument in format:
+     {
+     <optional> text: <changedText>,
+     <optional> isEdited: <isEdited flag change>
+     } */
   _saveChange = (id, change) => {
     const editedElements = this.state.listElements.map(element => {
       if (element.id !== id) {

@@ -36,9 +36,26 @@ class ListItem extends Component {
   };
 
   render() {
+    let item;
+    if (this.props.element.isEdited) {
+      item = (<EditItem
+        index={this.props.index}
+        element={this.props.element}
+        removeElement={this.props.removeElement}
+        saveChange={this.props.saveChange}
+      />);
+    }
+    else {
+      item = (<ViewItem
+        index={this.props.index}
+        element={this.props.element}
+        onClick={this.props.saveChange}
+      />);
+    }
+
     return (
       <li className="list-group-item">
-        {this._getCorrectComponent()}
+        {item}
       </li>);
   }
 }
