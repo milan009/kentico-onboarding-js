@@ -36,19 +36,22 @@ class List extends PureComponent {
   };
 
   _toggleEditing = (id) => {
-    const theElement = this.state.elements.get(id);
-    const editedElement = { ...theElement, isEdited: !theElement.isEdited };
-
-    const changedElements = this.state.elements.set(id, editedElement);
+    const changedElements = this.state.elements.update(id, editedElement => (
+      {
+        ...editedElement,
+        isEdited: !editedElement.isEdited,
+      }));
 
     this.setState({ elements: changedElements });
   };
 
   _saveChange = (id, change) => {
-    const theElement = this.state.elements.get(id);
-    const changedElement = { ...theElement, isEdited: false, text: change };
-
-    const changedElements = this.state.elements.set(id, changedElement);
+    const changedElements = this.state.elements.update(id, editedElement => (
+      {
+        ...editedElement,
+        isEdited: false,
+        text: change,
+      }));
 
     this.setState({ elements: changedElements });
   };
