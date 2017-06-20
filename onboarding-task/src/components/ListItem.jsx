@@ -20,26 +20,27 @@ class ListItem extends Component {
     this.props.toggleEdit(this.props.element.id);
   };
 
-  render() {
-    const getCorrectComponent = () => {
-      if (this.props.element.isEdited) {
-        return (<EditItem
-          index={this.props.index}
-          element={this.props.element}
-          removeElement={this.props.removeElement}
-          saveChange={this.props.saveChange}
-          toggleEdit={this._toggleEdit}
-        />);
-      }
-      return (<ViewItem
+  _getCorrectComponent = () => {
+    if (this.props.element.isEdited) {
+      return (<EditItem
         index={this.props.index}
         element={this.props.element}
-        onClick={this._toggleEdit}
+        removeElement={this.props.removeElement}
+        saveChange={this.props.saveChange}
+        toggleEdit={this._toggleEdit}
       />);
-    };
+    }
+    return (<ViewItem
+      index={this.props.index}
+      element={this.props.element}
+      onClick={this._toggleEdit}
+    />);
+  };
+
+  render() {
     return (
       <li className="list-group-item">
-        {getCorrectComponent()}
+        {this._getCorrectComponent()}
       </li>);
   }
 }
