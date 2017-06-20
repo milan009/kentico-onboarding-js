@@ -26,44 +26,41 @@ class List extends PureComponent {
       id: uuidV4(),
       isEdited: false,
     };
+
     const elements = [...this.state.elements, newElement];
 
     this.setState({ elements });
   };
 
   _toggleEditing = (id) => {
-    const element = this.state.elements.find((e) => e.id === id);
-    const elIndex = this.state.elements.indexOf(element);
-    const editedElement = {
-      ...element,
-      isEdited: !element.isEdited,
-    };
+    const editedElements = this.state.elements.map((element) => {
+      if (element.id !== id) {
+        return element;
+      }
 
-    this.setState((prevState) => ({
-      elements: [
-        ...prevState.elements.slice(0, elIndex),
-        editedElement,
-        ...prevState.elements.slice(elIndex + 1),
-      ],
-    }));
+      return {
+        ...element,
+        isEdited: !element.isEdited,
+      };
+    });
+
+    this.setState({ elements: editedElements });
   };
 
   _saveChange = (id, change) => {
-    const element = this.state.elements.find((e) => e.id === id);
-    const elIndex = this.state.elements.indexOf(element);
-    const newElement = {
-      ...element,
-      text: change,
-      isEdited: false,
-    };
+    const editedElements = this.state.elements.map((element) => {
+      if (element.id !== id) {
+        return element;
+      }
 
-    this.setState((prevState) => ({
-      elements: [
-        ...prevState.elements.slice(0, elIndex),
-        newElement,
-        ...prevState.elements.slice(elIndex + 1),
-      ],
-    }));
+      return {
+        ...element,
+        text: change,
+        isEdited: false,
+      };
+    });
+
+    this.setState({ elements: editedElements });
   };
 
   render() {
@@ -81,12 +78,10 @@ class List extends PureComponent {
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <div className="list-group">
-            <ol>
-              {existingItems}
-              <AddItem addNewElement={this._addNewElement} />
-            </ol>
-          </div>
+          <ol className="list-group">
+            {existingItems}
+            <AddItem addNewElement={this._addNewElement} />
+          </ol>
         </div>
       </div>
     );
