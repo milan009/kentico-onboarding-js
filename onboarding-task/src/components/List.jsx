@@ -54,15 +54,15 @@ class List extends PureComponent {
   };
 
   render() {
-    const existingItems = this.state.listElements.map((element, index) => {
-      return (<ListItem
+    const existingItems = this.state.listElements.map((element, index) =>
+      (<ListItem
         index={index + 1}
         element={element}
         onRemove={this._removeElement}
         onSave={this._saveChange}
         key={element.id}
-      />);
-    });
+      />)
+    );
 
     return (
       <div className="row">
