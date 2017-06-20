@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import uuidV4 from 'uuid/v4';
 
 import { AddItem } from './AddItem';
@@ -17,14 +16,8 @@ class List extends PureComponent {
   }
 
   _removeElement = (id) => {
-    const removedElement = this.state.elements.find((element) => element.id === id);
-    const removedElementIndex = this.state.elements.indexOf(removedElement);
-    const elements = [
-      ...this.state.elements.slice(0, removedElementIndex),
-      ...this.state.elements.slice(removedElementIndex + 1),
-    ];
-
-    this.setState({ elements });
+    const newElements = this.state.elements.filter((element => element.id !== id));
+    this.setState({ elements: newElements });
   };
 
   _addNewElement = (newElementText) => {
@@ -100,4 +93,4 @@ class List extends PureComponent {
   }
 }
 
-export default List;
+export { List };
