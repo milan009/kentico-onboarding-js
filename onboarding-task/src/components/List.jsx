@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import uuidV4 from 'uuid/v4';
+import { Map } from 'immutable';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
@@ -12,19 +13,14 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      elements: [],
+      elements: Map(),
     };
   }
 
   _removeElement = (id) => {
-    const removedElement = this.state.elements.find((element) => element.id === id);
-    const removedElementIndex = this.state.elements.indexOf(removedElement);
-    const elements = [
-      ...this.state.elements.slice(0, removedElementIndex),
-      ...this.state.elements.slice(removedElementIndex + 1),
-    ];
+    const changedElements = this.state.elements.delete(id);
 
-    this.setState({ elements });
+    this.setState({ elements: changedElements });
   };
 
   _addNewElement = (newElementText) => {
@@ -33,48 +29,32 @@ class List extends PureComponent {
       id: uuidV4(),
       isEdited: false,
     };
-    const elements = [...this.state.elements, newElement];
 
-    this.setState({ elements });
+    const changedElements = this.state.elements.set(newElement.id, newElement);
+
+    this.setState({ elements: changedElements });
   };
 
   _toggleEditing = (id) => {
-    const element = this.state.elements.find((e) => e.id === id);
-    const elIndex = this.state.elements.indexOf(element);
-    const editedElement = {
-      ...element,
-      isEdited: !element.isEdited,
-    };
+    const theElement = this.state.elements.get(id);
+    const editedElement = { ...theElement, isEdited: !theElement.isEdited };
 
-    this.setState((prevState) => ({
-      elements: [
-        ...prevState.elements.slice(0, elIndex),
-        editedElement,
-        ...prevState.elements.slice(elIndex + 1),
-      ],
-    }));
+    const changedElements = this.state.elements.set(id, editedElement);
+
+    this.setState({ elements: changedElements });
   };
 
   _saveChange = (id, change) => {
-    const element = this.state.elements.find((e) => e.id === id);
-    const elIndex = this.state.elements.indexOf(element);
-    const newElement = {
-      ...element,
-      text: change,
-      isEdited: false,
-    };
+    const theElement = this.state.elements.get(id);
+    const changedElement = { ...theElement, isEdited: false, text: change };
 
-    this.setState((prevState) => ({
-      elements: [
-        ...prevState.elements.slice(0, elIndex),
-        newElement,
-        ...prevState.elements.slice(elIndex + 1),
-      ],
-    }));
+    const changedElements = this.state.elements.set(id, changedElement);
+
+    this.setState({ elements: changedElements });
   };
 
   render() {
-    const existingItems = this.state.elements.map((element, index) => {
+    const existingItems = this.state.elements.toArray().map((element, index) => {
       return (<ListItem
         index={index + 1}
         element={element}
