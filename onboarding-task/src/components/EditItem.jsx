@@ -7,7 +7,11 @@ class EditItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.object,
+    element: PropTypes.shape({
+      text: PropTypes.string,
+      id: PropTypes.string,
+      isEdited: PropTypes.bool,
+    }),
     removeElement: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
   };
