@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import uuidV4 from 'uuid/v4';
-import { Map } from 'immutable';
+import { OrderedMap } from 'immutable';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
@@ -13,7 +13,7 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      elements: Map(),
+      elements: OrderedMap(),
     };
   }
 
