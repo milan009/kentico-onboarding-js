@@ -12,13 +12,13 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      elements: [],
+      listElements: [],
     };
   }
 
   _removeElement = (id) => {
-    const newElements = this.state.elements.filter(element => element.id !== id);
-    this.setState({ elements: newElements });
+    const newElements = this.state.listElements.filter(element => element.id !== id);
+    this.setState({ listElements: newElements });
   };
 
   _addNewElement = (newElementText) => {
@@ -28,13 +28,13 @@ class List extends PureComponent {
       isEdited: false,
     };
 
-    const elements = [...this.state.elements, newElement];
+    const newElements = [...this.state.listElements, newElement];
 
-    this.setState({ elements });
+    this.setState({ listElements: newElements });
   };
 
   _toggleEditing = (id) => {
-    const editedElements = this.state.elements.map(element => {
+    const editedElements = this.state.listElements.map(element => {
       if (element.id !== id) {
         return element;
       }
@@ -45,11 +45,11 @@ class List extends PureComponent {
       };
     });
 
-    this.setState({ elements: editedElements });
+    this.setState({ listElements: editedElements });
   };
 
   _saveChange = (id, change) => {
-    const editedElements = this.state.elements.map(element => {
+    const editedElements = this.state.listElements.map(element => {
       if (element.id !== id) {
         return element;
       }
@@ -61,11 +61,11 @@ class List extends PureComponent {
       };
     });
 
-    this.setState({ elements: editedElements });
+    this.setState({ listElements: editedElements });
   };
 
   render() {
-    const existingItems = this.state.elements.map((element, index) => {
+    const existingItems = this.state.listElements.map((element, index) => {
       return (<ListItem
         index={index + 1}
         element={element}
