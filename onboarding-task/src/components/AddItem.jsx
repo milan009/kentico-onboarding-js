@@ -38,7 +38,9 @@ class AddItem extends Component {
         <button
           type="submit"
           className="form-control btn btn-default"
-        >Add</button>
+        >
+          Add
+        </button>
       </form>
     );
   }

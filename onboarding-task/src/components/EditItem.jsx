@@ -50,15 +50,21 @@ class EditItem extends Component {
         <button
           className="btn btn-primary form-control"
           onClick={this._handleSaveClick}
-        >Save</button>
+        >
+          Save
+        </button>
         <button
           className="btn btn-default form-control"
           onClick={this._handleCancelClick}
-        >Cancel</button>
+        >
+          Cancel
+        </button>
         <button
           className="btn btn-danger form-control"
           onClick={this._handleRemoveClick}
-        >Delete</button>
+        >
+          Delete
+        </button>
       </div>
     );
   }
