@@ -11,7 +11,6 @@ class ListItem extends Component {
   static propTypes = {
     index: PropTypes.number,
     element: PropTypes.shape({
-      text: PropTypes.string,
       id: PropTypes.string,
       isEdited: PropTypes.bool,
     }),
@@ -19,21 +18,14 @@ class ListItem extends Component {
     removeElement: PropTypes.func.isRequired,
   };
 
-  _getCorrectComponent = () => {
-    if (this.props.element.isEdited) {
-      return (<EditItem
-        index={this.props.index}
-        element={this.props.element}
-        removeElement={this.props.removeElement}
-        saveChange={this.props.saveChange}
-      />);
-    }
-    return (<ViewItem
-      index={this.props.index}
-      element={this.props.element}
-      onClick={this.props.saveChange}
-    />);
-  };
+  _removeElement = () =>
+    this.props.removeElement(this.props.element.id);
+
+  _saveChange = (newText) =>
+    this.props.saveChange(this.props.element.id, { text: newText, isEdited: false });
+
+  _toggleEditing = () =>
+    this.props.saveChange(this.props.element.id, { isEdited: !this.props.element.isEdited });
 
   render() {
     let item;
@@ -41,15 +33,16 @@ class ListItem extends Component {
       item = (<EditItem
         index={this.props.index}
         element={this.props.element}
-        removeElement={this.props.removeElement}
-        saveChange={this.props.saveChange}
+        removeElement={this._removeElement}
+        cancelChange={this._toggleEditing}
+        saveChange={this._saveChange}
       />);
     }
     else {
       item = (<ViewItem
         index={this.props.index}
         element={this.props.element}
-        onClick={this.props.saveChange}
+        onClick={this._toggleEditing}
       />);
     }
 

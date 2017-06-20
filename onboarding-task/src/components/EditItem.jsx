@@ -9,11 +9,10 @@ class EditItem extends Component {
     index: PropTypes.number,
     element: PropTypes.shape({
       text: PropTypes.string,
-      id: PropTypes.string,
-      isEdited: PropTypes.bool,
     }),
     removeElement: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
+    cancelChange: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -24,21 +23,11 @@ class EditItem extends Component {
     };
   }
 
-  _handleChange = event => {
+  _handleChange = event =>
     this.setState({ text: event.target.value });
-  };
 
-  _handleCancelClick = () => {
-    this.props.saveChange(this.props.element.id, { isEdited: false });
-  };
-
-  _handleSaveClick = () => {
-    this.props.saveChange(this.props.element.id, { text: this.state.text, isEdited: false });
-  };
-
-  _handleRemoveClick = () => {
-    this.props.removeElement(this.props.element.id);
-  };
+  _handleSaveClick = () =>
+    this.props.saveChange(this.state.text);
 
   render() {
     return (
@@ -58,13 +47,13 @@ class EditItem extends Component {
         </button>
         <button
           className="btn btn-default form-control"
-          onClick={this._handleCancelClick}
+          onClick={this.props.cancelChange}
         >
           Cancel
         </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this._handleRemoveClick}
+          onClick={this.props.removeElement}
         >
           Delete
         </button>
