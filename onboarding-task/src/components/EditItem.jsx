@@ -21,7 +21,7 @@ class EditItem extends Component {
     };
   }
 
-  _handleChange = (event) => {
+  _handleChange = event => {
     this.setState({ text: event.target.value });
   };
 

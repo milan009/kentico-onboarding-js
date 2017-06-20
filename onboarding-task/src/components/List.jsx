@@ -16,12 +16,12 @@ class List extends PureComponent {
     };
   }
 
-  _removeElement = (id) => {
+  _removeElement = id => {
     const newElements = this.state.listElements.filter(element => element.id !== id);
     this.setState({ listElements: newElements });
   };
 
-  _addNewElement = (newElementText) => {
+  _addNewElement = newElementText => {
     const newElement = {
       text: newElementText,
       id: uuidV4(),
@@ -33,7 +33,7 @@ class List extends PureComponent {
     this.setState({ listElements: newElements });
   };
 
-  _toggleEditing = (id) => {
+  _toggleEditing = id => {
     const editedElements = this.state.listElements.map(element => {
       if (element.id !== id) {
         return element;

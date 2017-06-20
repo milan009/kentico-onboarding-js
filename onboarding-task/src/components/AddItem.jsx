@@ -16,11 +16,11 @@ class AddItem extends Component {
     };
   }
 
-  _handleChange = (event) => {
+  _handleChange = event => {
     this.setState({ currentText: event.target.value });
   };
 
-  _handleSubmit = (event) => {
+  _handleSubmit = event => {
     event.preventDefault();
     this.props.addNewElement(this.state.currentText);
     this.setState({ currentText: '' });
