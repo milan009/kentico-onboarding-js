@@ -10,7 +10,11 @@ class ListItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.object,
+    element: PropTypes.object.shape({
+      text: PropTypes.string,
+      id: PropTypes.string,
+      isEdited: PropTypes.bool,
+    }),
     toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
     removeElement: PropTypes.func.isRequired,
