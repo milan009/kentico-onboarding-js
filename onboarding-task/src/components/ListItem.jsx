@@ -10,12 +10,11 @@ class ListItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.object.shape({
+    element: PropTypes.shape({
       text: PropTypes.string,
       id: PropTypes.string,
       isEdited: PropTypes.bool,
     }),
-    toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
     removeElement: PropTypes.func.isRequired,
   };
@@ -27,13 +26,12 @@ class ListItem extends Component {
         element={this.props.element}
         removeElement={this.props.removeElement}
         saveChange={this.props.saveChange}
-        toggleEdit={this.props.toggleEdit}
       />);
     }
     return (<ViewItem
       index={this.props.index}
       element={this.props.element}
-      onClick={this.props.toggleEdit}
+      onClick={this.props.saveChange}
     />);
   };
 

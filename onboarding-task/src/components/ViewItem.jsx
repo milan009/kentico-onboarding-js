@@ -12,7 +12,7 @@ class ViewItem extends Component {
   };
 
   _handleClick = () => {
-    this.props.onClick(this.props.element.id);
+    this.props.onClick(this.props.element.id, { isEdited: true });
   };
 
   render() {

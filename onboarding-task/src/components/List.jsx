@@ -33,21 +33,6 @@ class List extends PureComponent {
     this.setState({ listElements: newElements });
   };
 
-  _toggleEditing = id => {
-    const editedElements = this.state.listElements.map(element => {
-      if (element.id !== id) {
-        return element;
-      }
-
-      return {
-        ...element,
-        isEdited: !element.isEdited,
-      };
-    });
-
-    this.setState({ listElements: editedElements });
-  };
-
   _saveChange = (id, change) => {
     const editedElements = this.state.listElements.map(element => {
       if (element.id !== id) {
@@ -56,8 +41,7 @@ class List extends PureComponent {
 
       return {
         ...element,
-        text: change,
-        isEdited: false,
+        ...change,
       };
     });
 
@@ -71,7 +55,6 @@ class List extends PureComponent {
         element={element}
         removeElement={this._removeElement}
         saveChange={this._saveChange}
-        toggleEdit={this._toggleEditing}
         key={element.id}
       />);
     });

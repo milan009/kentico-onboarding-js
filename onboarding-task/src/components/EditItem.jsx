@@ -9,7 +9,6 @@ class EditItem extends Component {
     index: PropTypes.number,
     element: PropTypes.object,
     removeElement: PropTypes.func.isRequired,
-    toggleEdit: PropTypes.func.isRequired,
     saveChange: PropTypes.func.isRequired,
   };
 
@@ -26,11 +25,11 @@ class EditItem extends Component {
   };
 
   _handleCancelClick = () => {
-    this.props.toggleEdit(this.props.element.id);
+    this.props.saveChange(this.props.element.id, { isEdited: false });
   };
 
   _handleSaveClick = () => {
-    this.props.saveChange(this.props.element.id, this.state.text);
+    this.props.saveChange(this.props.element.id, { text: this.state.text, isEdited: false });
   };
 
   _handleRemoveClick = () => {
