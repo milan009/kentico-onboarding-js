@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+
 import uuidV4 from 'uuid/v4';
 
 import { AddItem } from './AddItem';
@@ -16,7 +17,7 @@ class List extends PureComponent {
   }
 
   _removeElement = (id) => {
-    const newElements = this.state.elements.filter((element => element.id !== id));
+    const newElements = this.state.elements.filter(element => element.id !== id);
     this.setState({ elements: newElements });
   };
 
@@ -33,7 +34,7 @@ class List extends PureComponent {
   };
 
   _toggleEditing = (id) => {
-    const editedElements = this.state.elements.map((element) => {
+    const editedElements = this.state.elements.map(element => {
       if (element.id !== id) {
         return element;
       }
@@ -48,7 +49,7 @@ class List extends PureComponent {
   };
 
   _saveChange = (id, change) => {
-    const editedElements = this.state.elements.map((element) => {
+    const editedElements = this.state.elements.map(element => {
       if (element.id !== id) {
         return element;
       }
