@@ -14,18 +14,18 @@ class ListItem extends Component {
       id: PropTypes.string,
       isEdited: PropTypes.bool,
     }),
-    saveChange: PropTypes.func.isRequired,
-    removeElement: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
 
   _removeElement = () =>
-    this.props.removeElement(this.props.element.id);
+    this.props.onRemove(this.props.element.id);
 
   _saveChange = (newText) =>
-    this.props.saveChange(this.props.element.id, { text: newText, isEdited: false });
+    this.props.onSave(this.props.element.id, { text: newText, isEdited: false });
 
   _toggleEditing = () =>
-    this.props.saveChange(this.props.element.id, { isEdited: !this.props.element.isEdited });
+    this.props.onSave(this.props.element.id, { isEdited: !this.props.element.isEdited });
 
   render() {
     let item;
@@ -33,9 +33,9 @@ class ListItem extends Component {
       item = (<EditItem
         index={this.props.index}
         element={this.props.element}
-        removeElement={this._removeElement}
-        cancelChange={this._toggleEditing}
-        saveChange={this._saveChange}
+        onRemove={this._removeElement}
+        onCancel={this._toggleEditing}
+        onSave={this._saveChange}
       />);
     }
     else {

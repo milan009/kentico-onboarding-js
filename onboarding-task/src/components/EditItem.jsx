@@ -10,9 +10,9 @@ class EditItem extends Component {
     element: PropTypes.shape({
       text: PropTypes.string,
     }),
-    removeElement: PropTypes.func.isRequired,
-    saveChange: PropTypes.func.isRequired,
-    cancelChange: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -23,11 +23,11 @@ class EditItem extends Component {
     };
   }
 
-  _handleChange = event =>
+  _textChange = event =>
     this.setState({ text: event.target.value });
 
-  _handleSaveClick = () =>
-    this.props.saveChange(this.state.text);
+  _saveClick = () =>
+    this.props.onSave(this.state.text);
 
   render() {
     return (
@@ -37,23 +37,23 @@ class EditItem extends Component {
           className="form-control"
           type="text"
           value={this.state.text}
-          onChange={this._handleChange}
+          onChange={this._textChange}
         />
         <button
           className="btn btn-primary form-control"
-          onClick={this._handleSaveClick}
+          onClick={this._saveClick}
         >
           Save
         </button>
         <button
           className="btn btn-default form-control"
-          onClick={this.props.cancelChange}
+          onClick={this.props.onCancel}
         >
           Cancel
         </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this.props.removeElement}
+          onClick={this.props.onRemove}
         >
           Delete
         </button>

@@ -35,8 +35,8 @@ class List extends PureComponent {
 
     /** Expects change object argument in format:
      {
-     <optional> text: <changedText>,
-     <optional> isEdited: <isEdited flag change>
+     <optional string> text:     <changedText>,
+     <optional bool>   isEdited: <isEdited flag change>
      } */
   _saveChange = (id, change) => {
     const editedElements = this.state.listElements.map(element => {
@@ -58,8 +58,8 @@ class List extends PureComponent {
       return (<ListItem
         index={index + 1}
         element={element}
-        removeElement={this._removeElement}
-        saveChange={this._saveChange}
+        onRemove={this._removeElement}
+        onSave={this._saveChange}
         key={element.id}
       />);
     });
