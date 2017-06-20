@@ -16,10 +16,6 @@ class ListItem extends Component {
     removeElement: PropTypes.func.isRequired,
   };
 
-  _toggleEdit = () => {
-    this.props.toggleEdit(this.props.element.id);
-  };
-
   _getCorrectComponent = () => {
     if (this.props.element.isEdited) {
       return (<EditItem
@@ -27,13 +23,13 @@ class ListItem extends Component {
         element={this.props.element}
         removeElement={this.props.removeElement}
         saveChange={this.props.saveChange}
-        toggleEdit={this._toggleEdit}
+        toggleEdit={this.props.toggleEdit}
       />);
     }
     return (<ViewItem
       index={this.props.index}
       element={this.props.element}
-      onClick={this._toggleEdit}
+      onClick={this.props.toggleEdit}
     />);
   };
 

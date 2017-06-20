@@ -11,9 +11,13 @@ class ViewItem extends Component {
     onClick: PropTypes.func,
   };
 
+  _handleClick = () => {
+    this.props.onClick(this.props.element.id);
+  };
+
   render() {
     return (
-      <div onClick={this.props.onClick}>
+      <div onClick={this._handleClick}>
         <span>{this.props.index}. </span>
         {this.props.element.text}
       </div>);
