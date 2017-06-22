@@ -10,36 +10,45 @@ class ListItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.object,
-    toggleEdit: PropTypes.func.isRequired,
-    saveChange: PropTypes.func.isRequired,
-    removeElement: PropTypes.func.isRequired,
+    element: PropTypes.shape({
+      id: PropTypes.string,
+      isEdited: PropTypes.bool,
+    }),
+    onSave: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
 
-  _toggleEdit = () => {
-    this.props.toggleEdit(this.props.element.id);
-  };
+  _removeElement = () =>
+    this.props.onRemove(this.props.element.id);
+
+  _saveChange = (newText) =>
+    this.props.onSave(this.props.element.id, { text: newText, isEdited: false });
+
+  _toggleEditing = () =>
+    this.props.onSave(this.props.element.id, { isEdited: !this.props.element.isEdited });
 
   render() {
-    const getCorrectComponent = () => {
-      if (this.props.element.isEdited) {
-        return (<EditItem
-          index={this.props.index}
-          element={this.props.element}
-          removeElement={this.props.removeElement}
-          saveChange={this.props.saveChange}
-          toggleEdit={this._toggleEdit}
-        />);
-      }
-      return (<ViewItem
+    let item;
+    if (this.props.element.isEdited) {
+      item = (<EditItem
         index={this.props.index}
         element={this.props.element}
-        onClick={this._toggleEdit}
+        onRemove={this._removeElement}
+        onCancel={this._toggleEditing}
+        onSave={this._saveChange}
       />);
-    };
+    }
+    else {
+      item = (<ViewItem
+        index={this.props.index}
+        element={this.props.element}
+        onClick={this._toggleEditing}
+      />);
+    }
+
     return (
       <li className="list-group-item">
-        {getCorrectComponent()}
+        {item}
       </li>);
   }
 }

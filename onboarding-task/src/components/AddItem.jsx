@@ -16,11 +16,11 @@ class AddItem extends Component {
     };
   }
 
-  _handleChange = (event) => {
+  _handleChange = event => {
     this.setState({ currentText: event.target.value });
   };
 
-  _handleSubmit = (event) => {
+  _handleSubmit = event => {
     event.preventDefault();
     this.props.addNewElement(this.state.currentText);
     this.setState({ currentText: '' });
@@ -28,20 +28,20 @@ class AddItem extends Component {
 
   render() {
     return (
-      <div className="list-group-item">
-        <form onSubmit={this._handleSubmit} className="form-inline">
-          <input
-            type="text"
-            className="form-control"
-            onChange={this._handleChange}
-            value={this.state.currentText}
-          />
-          <button
-            type="submit"
-            className="form-control btn btn-default"
-          >Add</button>
-        </form>
-      </div>
+      <form onSubmit={this._handleSubmit} className="form-inline list-group-item">
+        <input
+          type="text"
+          className="form-control"
+          onChange={this._handleChange}
+          value={this.state.currentText}
+        />
+        <button
+          type="submit"
+          className="form-control btn btn-default"
+        >
+          Add
+        </button>
+      </form>
     );
   }
 }

@@ -13,74 +13,65 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      elements: OrderedMap(),
+      listElements: OrderedMap(),
     };
   }
 
-  _removeElement = (id) => {
-    const changedElements = this.state.elements.delete(id);
+  _removeElement = id => {
+    const changedElements = this.state.listElements.delete(id);
 
-    this.setState({ elements: changedElements });
+    this.setState({ listElements: changedElements });
   };
 
-  _addNewElement = (newElementText) => {
+  _addNewElement = newElementText => {
     const newElement = {
       text: newElementText,
       id: uuidV4(),
       isEdited: false,
     };
 
-    const changedElements = this.state.elements.set(newElement.id, newElement);
+    const changedElements = this.state.listElements.set(newElement.id, newElement);
 
-    this.setState({ elements: changedElements });
+    this.setState({ listElements: changedElements });
   };
 
-  _toggleEditing = (id) => {
-    const changedElements = this.state.elements.update(id, editedElement => (
-      {
-        ...editedElement,
-        isEdited: !editedElement.isEdited,
-      }));
-
-    this.setState({ elements: changedElements });
-  };
-
+  /** Expects change object argument in format:
+   {
+   <optional> text:     <changedText>,
+   <optional> isEdited: <isEdited flag change>
+   } */
   _saveChange = (id, change) => {
-    const changedElements = this.state.elements.update(id, editedElement => (
+    const changedElements = this.state.listElements.update(id, editedElement => (
       {
         ...editedElement,
-        isEdited: false,
-        text: change,
+        ...change,
       }));
 
-    this.setState({ elements: changedElements });
+    this.setState({ listElements: changedElements });
   };
 
   render() {
-    const existingItems = this.state.elements.toArray().map((element, index) => {
-      return (<ListItem
+    const existingItems = this.state.listElements.toArray().map((element, index) =>
+      (<ListItem
         index={index + 1}
         element={element}
-        removeElement={this._removeElement}
-        saveChange={this._saveChange}
-        toggleEdit={this._toggleEditing}
+        onRemove={this._removeElement}
+        onSave={this._saveChange}
         key={element.id}
-      />);
-    });
+      />)
+    );
 
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <div className="list-group">
-            <ol>
-              {existingItems}
-              <AddItem addNewElement={this._addNewElement} />
-            </ol>
-          </div>
+          <ol className="list-group">
+            {existingItems}
+            <AddItem addNewElement={this._addNewElement} />
+          </ol>
         </div>
       </div>
     );
   }
 }
 
-export default List;
+export { List };

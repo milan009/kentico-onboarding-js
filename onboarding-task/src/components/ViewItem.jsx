@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class ViewItem extends Component {
+const ViewItem = (props) => (
+  <div onClick={props.onClick}>
+    <span>{props.index}. </span>
+    {props.element.text}
+  </div>);
 
-  static displayName = 'ViewItem';
+ViewItem.displayName = 'ViewItem';
 
-  static propTypes = {
-    index: PropTypes.number,
-    element: PropTypes.object,
-    onClick: PropTypes.func,
-  };
-
-  render() {
-    return (
-      <div onClick={this.props.onClick}>
-        <span>{this.props.index}. </span>
-        {this.props.element.text}
-      </div>);
-  }
-}
+ViewItem.propTypes = {
+  index: PropTypes.number,
+  element: PropTypes.shape({
+    text: PropTypes.string,
+  }),
+  onClick: PropTypes.func,
+};
 
 export { ViewItem };

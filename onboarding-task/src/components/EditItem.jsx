@@ -7,10 +7,12 @@ class EditItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.object,
-    removeElement: PropTypes.func.isRequired,
-    toggleEdit: PropTypes.func.isRequired,
-    saveChange: PropTypes.func.isRequired,
+    element: PropTypes.shape({
+      text: PropTypes.string,
+    }),
+    onRemove: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -21,21 +23,11 @@ class EditItem extends Component {
     };
   }
 
-  _handleChange = (event) => {
+  _textChange = event =>
     this.setState({ text: event.target.value });
-  };
 
-  _handleCancelClick = () => {
-    this.props.toggleEdit(this.props.element.id);
-  };
-
-  _handleSaveClick = () => {
-    this.props.saveChange(this.props.element.id, this.state.text);
-  };
-
-  _handleRemoveClick = () => {
-    this.props.removeElement(this.props.element.id);
-  };
+  _saveClick = () =>
+    this.props.onSave(this.state.text);
 
   render() {
     return (
@@ -45,20 +37,26 @@ class EditItem extends Component {
           className="form-control"
           type="text"
           value={this.state.text}
-          onChange={this._handleChange}
+          onChange={this._textChange}
         />
         <button
           className="btn btn-primary form-control"
-          onClick={this._handleSaveClick}
-        >Save</button>
+          onClick={this._saveClick}
+        >
+          Save
+        </button>
         <button
           className="btn btn-default form-control"
-          onClick={this._handleCancelClick}
-        >Cancel</button>
+          onClick={this.props.onCancel}
+        >
+          Cancel
+        </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this._handleRemoveClick}
-        >Delete</button>
+          onClick={this.props.onRemove}
+        >
+          Delete
+        </button>
       </div>
     );
   }
