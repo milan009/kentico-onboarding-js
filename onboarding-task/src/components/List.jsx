@@ -41,8 +41,7 @@ class List extends PureComponent {
   _addNewItem = newItemText => {
     const newItem = new ItemRecord(
       uuidV4(),
-      newItemText,
-      false);
+      newItemText);
 
     const newItems = this.state.items.set(newItem.id, newItem);
 
