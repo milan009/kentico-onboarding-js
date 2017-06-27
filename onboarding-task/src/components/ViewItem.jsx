@@ -6,7 +6,7 @@ const viewItemStyle = {
 };
 
 const ViewItem = (props) => (
-  <div onClick={props.onClick} style={viewItemStyle}>
+  <div onClick={props.onClick} style={viewItemStyle} title="Click to edit this item">
     <span>{props.index}. </span>
     {props.item.text}
   </div>);
