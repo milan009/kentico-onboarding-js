@@ -1,37 +1,79 @@
-import React, { Component } from 'react';
-import assignment from './../../../assignment.gif';
+import React, { PureComponent } from 'react';
+import uuidV4 from 'uuid/v4';
 
-import TsComponent from './TsComponent.tsx';
+import { AddItem } from './AddItem';
+import { ListItem } from './ListItem';
 
-class List extends Component {
+class List extends PureComponent {
+
+  static displayName = 'List';
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
+
+  _removeItem = id => {
+    const newItems = this.state.items.filter(item => item.id !== id);
+    this.setState({ items: newItems });
+  };
+
+  _addNewItem = newItemText => {
+    const newItem = {
+      text: newItemText,
+      id: uuidV4(),
+      isEdited: false,
+    };
+
+    const newItems = [...this.state.items, newItem];
+
+    this.setState({ items: newItems });
+  };
+
+    /** Expects change object argument in format:
+     {
+     <optional string> text:     <changedText>,
+     <optional bool>   isEdited: <isEdited flag change>
+     } */
+  _saveChange = (id, change) => {
+    const editedItems = this.state.items.map(item => {
+      if (item.id !== id) {
+        return item;
+      }
+
+      return {
+        ...item,
+        ...change,
+      };
+    });
+
+    this.setState({ items: editedItems });
+  };
+
   render() {
+    const existingItems = this.state.items.map((item, index) =>
+      (<ListItem
+        index={index + 1}
+        item={item}
+        onRemove={this._removeItem}
+        onSave={this._saveChange}
+        key={item.id}
+      />)
+    );
+
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured on the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <ol className="list-group">
+            {existingItems}
+            <AddItem addNewItem={this._addNewItem} />
+          </ol>
         </div>
       </div>
     );
   }
 }
 
-export default List;
+export { List };
