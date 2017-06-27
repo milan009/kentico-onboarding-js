@@ -7,7 +7,7 @@ class EditItem extends Component {
 
   static propTypes = {
     index: PropTypes.number,
-    element: PropTypes.shape({
+    item: PropTypes.shape({
       text: PropTypes.string,
     }),
     onRemove: PropTypes.func.isRequired,
@@ -19,7 +19,7 @@ class EditItem extends Component {
     super(props);
 
     this.state = {
-      text: props.element.text,
+      text: props.item.text,
     };
   }
 

@@ -12,25 +12,25 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      listElements: [],
+      items: [],
     };
   }
 
-  _removeElement = id => {
-    const newElements = this.state.listElements.filter(element => element.id !== id);
-    this.setState({ listElements: newElements });
+  _removeItem = id => {
+    const newItems = this.state.items.filter(item => item.id !== id);
+    this.setState({ items: newItems });
   };
 
-  _addNewElement = newElementText => {
-    const newElement = {
-      text: newElementText,
+  _addNewItem = newItemText => {
+    const newItem = {
+      text: newItemText,
       id: uuidV4(),
       isEdited: false,
     };
 
-    const newElements = [...this.state.listElements, newElement];
+    const newItems = [...this.state.items, newItem];
 
-    this.setState({ listElements: newElements });
+    this.setState({ items: newItems });
   };
 
     /** Expects change object argument in format:
@@ -39,28 +39,28 @@ class List extends PureComponent {
      <optional bool>   isEdited: <isEdited flag change>
      } */
   _saveChange = (id, change) => {
-    const editedElements = this.state.listElements.map(element => {
-      if (element.id !== id) {
-        return element;
+    const editedItems = this.state.items.map(item => {
+      if (item.id !== id) {
+        return item;
       }
 
       return {
-        ...element,
+        ...item,
         ...change,
       };
     });
 
-    this.setState({ listElements: editedElements });
+    this.setState({ items: editedItems });
   };
 
   render() {
-    const existingItems = this.state.listElements.map((element, index) =>
+    const existingItems = this.state.items.map((item, index) =>
       (<ListItem
         index={index + 1}
-        element={element}
-        onRemove={this._removeElement}
+        item={item}
+        onRemove={this._removeItem}
         onSave={this._saveChange}
-        key={element.id}
+        key={item.id}
       />)
     );
 
@@ -69,7 +69,7 @@ class List extends PureComponent {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ol className="list-group">
             {existingItems}
-            <AddItem addNewElement={this._addNewElement} />
+            <AddItem addNewItem={this._addNewItem} />
           </ol>
         </div>
       </div>

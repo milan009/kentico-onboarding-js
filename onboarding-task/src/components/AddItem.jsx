@@ -6,7 +6,7 @@ class AddItem extends Component {
   static displayName = 'AddItem';
 
   static propTypes = {
-    addNewElement: PropTypes.func.isRequired,
+    addNewItem: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -22,7 +22,7 @@ class AddItem extends Component {
 
   _handleSubmit = event => {
     event.preventDefault();
-    this.props.addNewElement(this.state.currentText);
+    this.props.addNewItem(this.state.currentText);
     this.setState({ currentText: '' });
   };
 
