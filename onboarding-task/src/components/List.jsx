@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import uuidV4 from 'uuid/v4';
 
 import { AddItem } from './AddItem';
