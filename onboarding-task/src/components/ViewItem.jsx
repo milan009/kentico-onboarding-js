@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 const ViewItem = (props) => (
   <div onClick={props.onClick}>
     <span>{props.index}. </span>
-    {props.element.text}
+    {props.item.text}
   </div>);
 
 ViewItem.displayName = 'ViewItem';
 
 ViewItem.propTypes = {
-  index: PropTypes.number,
-  element: PropTypes.shape({
-    text: PropTypes.string,
-  }),
-  onClick: PropTypes.func,
+  index: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export { ViewItem };

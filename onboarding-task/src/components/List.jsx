@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import uuidV4 from 'uuid/v4';
 import { OrderedMap } from 'immutable';
 
@@ -13,26 +12,25 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      listElements: OrderedMap(),
+      items: OrderedMap(),
     };
   }
 
-  _removeElement = id => {
-    const changedElements = this.state.listElements.delete(id);
-
-    this.setState({ listElements: changedElements });
+  _removeItem = id => {
+    const newItems = this.state.items.delete(id);
+    this.setState({ items: newItems });
   };
 
-  _addNewElement = newElementText => {
-    const newElement = {
-      text: newElementText,
+  _addNewItem = newItemText => {
+    const newItem = {
+      text: newItemText,
       id: uuidV4(),
       isEdited: false,
     };
 
-    const changedElements = this.state.listElements.set(newElement.id, newElement);
+    const newItems = this.state.items.set(newItem.id, newItem);
 
-    this.setState({ listElements: changedElements });
+    this.setState({ items: newItems });
   };
 
   /** Expects change object argument in format:
@@ -41,23 +39,23 @@ class List extends PureComponent {
    <optional> isEdited: <isEdited flag change>
    } */
   _saveChange = (id, change) => {
-    const changedElements = this.state.listElements.update(id, editedElement => (
+    const editedItems = this.state.items.update(id, editedItem => (
       {
-        ...editedElement,
+        ...editedItem,
         ...change,
       }));
 
-    this.setState({ listElements: changedElements });
+    this.setState({ items: editedItems });
   };
 
   render() {
-    const existingItems = this.state.listElements.toArray().map((element, index) =>
+    const existingItems = this.state.items.toArray().map((item, index) =>
       (<ListItem
         index={index + 1}
-        element={element}
-        onRemove={this._removeElement}
+        item={item}
+        onRemove={this._removeItem}
         onSave={this._saveChange}
-        key={element.id}
+        key={item.id}
       />)
     );
 
@@ -66,7 +64,7 @@ class List extends PureComponent {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ol className="list-group">
             {existingItems}
-            <AddItem addNewElement={this._addNewElement} />
+            <AddItem addNewItem={this._addNewItem} />
           </ol>
         </div>
       </div>
