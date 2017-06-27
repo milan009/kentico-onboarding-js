@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const viewItemStyle = {
+  cursor: 'pointer',
+};
+
 const ViewItem = (props) => (
-  <div onClick={props.onClick}>
+  <div onClick={props.onClick} style={viewItemStyle}>
     <span>{props.index}. </span>
     {props.item.text}
   </div>);
