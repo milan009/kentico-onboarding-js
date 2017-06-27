@@ -9,11 +9,11 @@ class ListItem extends Component {
   static displayName = 'ListItem';
 
   static propTypes = {
-    index: PropTypes.number,
+    index: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      id: PropTypes.string,
-      isEdited: PropTypes.bool,
-    }),
+      id: PropTypes.string.isRequired,
+      isEdited: PropTypes.bool.isRequired,
+    }).isRequired,
     onSave: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
   };

@@ -6,10 +6,10 @@ class EditItem extends Component {
   static displayName = 'EditItem';
 
   static propTypes = {
-    index: PropTypes.number,
+    index: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      text: PropTypes.string,
-    }),
+      text: PropTypes.string.isRequired,
+    }).isRequired,
     onRemove: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,

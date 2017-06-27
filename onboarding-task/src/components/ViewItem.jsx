@@ -10,11 +10,11 @@ const ViewItem = (props) => (
 ViewItem.displayName = 'ViewItem';
 
 ViewItem.propTypes = {
-  index: PropTypes.number,
+  index: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    text: PropTypes.string,
-  }),
-  onClick: PropTypes.func,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export { ViewItem };
