@@ -12,6 +12,7 @@ class ListItem extends Component {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onSave: PropTypes.func.isRequired,
@@ -22,10 +23,10 @@ class ListItem extends Component {
     this.props.onRemove(this.props.item.id);
 
   _saveChange = (newText) =>
-    this.props.onSave(this.props.item.id, { text: newText, isEdited: false });
+    this.props.onSave(this.props.item.id, newText, false);
 
   _toggleEditing = () =>
-    this.props.onSave(this.props.item.id, { isEdited: !this.props.item.isEdited });
+    this.props.onSave(this.props.item.id, this.props.item.text, !this.props.item.isEdited);
 
   render() {
     let item;

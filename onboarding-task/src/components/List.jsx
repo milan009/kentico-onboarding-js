@@ -1,9 +1,26 @@
 import React, { PureComponent } from 'react';
 import uuidV4 from 'uuid/v4';
-import { OrderedMap } from 'immutable';
+import {
+  OrderedMap,
+  Record,
+} from 'immutable';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
+
+class ItemRecord extends Record({
+  id: undefined,
+  text: undefined,
+  isEdited: undefined,
+}) {
+  constructor(id, text, isEdited = false) {
+    super({
+      id,
+      text,
+      isEdited,
+    }, 'ItemRecord');
+  }
+}
 
 class List extends PureComponent {
 
@@ -22,28 +39,22 @@ class List extends PureComponent {
   };
 
   _addNewItem = newItemText => {
-    const newItem = {
-      text: newItemText,
-      id: uuidV4(),
-      isEdited: false,
-    };
+    const newItem = new ItemRecord(
+      uuidV4(),
+      newItemText,
+      false);
 
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   };
 
-  /** Expects change object argument in format:
-   {
-   <optional> text:     <changedText>,
-   <optional> isEdited: <isEdited flag change>
-   } */
-  _saveChange = (id, change) => {
-    const editedItems = this.state.items.update(id, editedItem => (
-      {
-        ...editedItem,
-        ...change,
-      }));
+  _saveChange = (id, text, isEdited) => {
+    const editedItems = this.state.items.set(id,
+      new ItemRecord(
+      id,
+      text,
+      isEdited));
 
     this.setState({ items: editedItems });
   };
