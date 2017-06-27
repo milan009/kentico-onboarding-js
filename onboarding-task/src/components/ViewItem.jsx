@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const viewItemStyle = {
-  cursor: 'pointer',
-};
-
 const ViewItem = (props) => (
-  <div onClick={props.onClick} style={viewItemStyle} title="Click to edit this item">
-    <span>{props.index}. </span>
-    {props.item.text}
+  <div className="btn btn-block " onClick={props.onClick} title="Click to edit this item">
+    <div className="text-left">
+      <span>{props.index}. </span>
+      {props.item.text}
+    </div>
   </div>);
 
 ViewItem.displayName = 'ViewItem';
