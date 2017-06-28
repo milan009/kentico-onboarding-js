@@ -14,17 +14,20 @@ export const deleteItem = (id) => ({
   id,
 });
 
-export const cancelChange = (id) => ({
+export const cancelChange = (id, text) => ({
   type: ActionTypes.CHANGE_CANCELLED,
   id,
+  text,
 });
 
-export const saveChange = (id) => ({
+export const saveChange = (id, text) => ({
   type: ActionTypes.CHANGE_SAVED,
   id,
+  text,
 });
 
-export const makeEditable = (id) => ({
+export const makeEditable = (id, text) => ({
   type: ActionTypes.MAKE_EDITABLE,
   id,
+  text,
 });
