@@ -7,20 +7,8 @@ import {
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
-
-class ItemRecord extends Record({
-  id: undefined,
-  text: undefined,
-  isEdited: undefined,
-}) {
-  constructor(id, text, isEdited = false) {
-    super({
-      id,
-      text,
-      isEdited,
-    }, 'ItemRecord');
-  }
-}
+import { ItemRecord } from '../ItemRecord';
+// import * as ActionCreators from '../actionCreators';
 
 class List extends PureComponent {
 
