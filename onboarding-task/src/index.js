@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
+import { Provider } from 'react-redux';
 
 import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -17,6 +18,8 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(logger));
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app-root')
 );
