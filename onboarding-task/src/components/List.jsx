@@ -3,13 +3,11 @@ import uuidV4 from 'uuid/v4';
 import { connect } from 'react-redux';
 import {
   OrderedMap,
-  Record,
 } from 'immutable';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
-import { ItemRecord } from '../ItemRecord';
-// import * as ActionCreators from '../actionCreators';
+import { Item } from '../models/Item';
 
 class List extends PureComponent {
 
@@ -32,27 +30,27 @@ class List extends PureComponent {
   };
 
   _addNewItem = newItemText => {
-    const newItem = new ItemRecord(
-      uuidV4(),
-      newItemText);
+    const newItem = new Item({
+      id: uuidV4(),
+      text: newItemText,
+    });
 
     const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   };
 
-  _saveChange = (id, text, isEdited) => {
-    const editedItems = this.state.items.set(id,
-      new ItemRecord(
-      id,
-      text,
-      isEdited));
+  _saveChange = changedItem => {
+    const editedItems = this.state.items.mergeIn(
+      [changedItem.id],
+      changedItem,
+    );
 
     this.setState({ items: editedItems });
   };
 
   render() {
-    const existingItems = this.state.items.toArray().map((item, index) =>
+    const existingItems = this.state.items.toSeq().map((item, index) =>
       (<ListItem
         index={index + 1}
         item={item}
