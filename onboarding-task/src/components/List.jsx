@@ -35,13 +35,11 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
 
-  _saveChange = (id, text, isEdited) => {
-    const editedItems = this.state.items.set(id,
-      new Item({
-        id,
-        text,
-        isEdited,
-      }));
+  _saveChange = changedItem => {
+    const editedItems = this.state.items.mergeIn(
+      [changedItem.id],
+      changedItem,
+    );
 
     this.setState({ items: editedItems });
   };
