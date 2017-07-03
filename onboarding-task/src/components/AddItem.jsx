@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class AddItem extends Component {
+class AddItem extends PureComponent {
 
   static displayName = 'AddItem';
 

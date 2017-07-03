@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
 
-class ListItem extends Component {
+class ListItem extends PureComponent {
 
   static displayName = 'ListItem';
 
