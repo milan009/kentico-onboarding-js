@@ -45,7 +45,7 @@ class List extends PureComponent {
   };
 
   render() {
-    const existingItems = this.state.items.toArray().map((item, index) =>
+    const existingItems = this.state.items.toSeq().map((item, index) =>
       (<ListItem
         index={index + 1}
         item={item}
