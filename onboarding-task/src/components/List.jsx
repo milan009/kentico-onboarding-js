@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import uuidV4 from 'uuid/v4';
+import { connect } from 'react-redux';
 import {
   OrderedMap,
   Record,
@@ -20,6 +21,10 @@ class List extends PureComponent {
       items: OrderedMap(),
     };
   }
+
+  _mapStateToProps = (state) => ({
+    items: state,
+  });
 
   _removeItem = id => {
     const newItems = this.state.items.delete(id);
