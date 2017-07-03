@@ -40,9 +40,9 @@ class List extends PureComponent {
     this.setState({ items: newItems });
   };
 
-  _saveChange = changedItem => {
+  _saveChange = (id, changedItem) => {
     const editedItems = this.state.items.mergeIn(
-      [changedItem.id],
+      [id],
       changedItem,
     );
 
@@ -50,7 +50,7 @@ class List extends PureComponent {
   };
 
   render() {
-    const existingItems = this.state.items.toSeq().map((item, index) =>
+    const existingItems = this.state.items.valueSeq().map((item, index) =>
       (<ListItem
         index={index + 1}
         item={item}
