@@ -1,12 +1,10 @@
-/**
- * Created by MilanJ on 3.7.2017.
- */
-
 import { Record } from 'immutable';
 
-export const Item = Record({
+const defaultItem = {
   id: 0,
   text: '',
   isEdited: false,
-}, 'Item');
+};
+
+export const Item = Record(defaultItem, 'Item');
 

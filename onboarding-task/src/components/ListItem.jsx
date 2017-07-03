@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
-import { Item } from '../models/Item';
 
 class ListItem extends PureComponent {
 
@@ -23,18 +22,19 @@ class ListItem extends PureComponent {
     this.props.onRemove(this.props.item.id);
 
   _saveChange = (newText) =>
-    this.props.onSave(new Item({
-      id: this.props.item.id,
-      text: newText,
-    }));
+    this.props.onSave(
+      this.props.item.id,
+      {
+        text: newText,
+        isEdited: false,
+      });
 
   _toggleEditing = () => {
-    this.props.onSave(new Item({
-      id: this.props.item.id,
-      text: this.props.item.text,
-      isEdited: !this.props.item.isEdited,
-    }));
-  }
+    this.props.onSave(
+      this.props.item.id,
+      { isEdited: !this.props.item.isEdited }
+    );
+  };
 
   render() {
     let item;
