@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
 
-class ListItem extends Component {
+class ListItem extends PureComponent {
 
   static displayName = 'ListItem';
 
@@ -22,10 +22,19 @@ class ListItem extends Component {
     this.props.onRemove(this.props.item.id);
 
   _saveChange = (newText) =>
-    this.props.onSave(this.props.item.id, { text: newText, isEdited: false });
+    this.props.onSave(
+      this.props.item.id,
+      {
+        text: newText,
+        isEdited: false,
+      });
 
-  _toggleEditing = () =>
-    this.props.onSave(this.props.item.id, { isEdited: !this.props.item.isEdited });
+  _toggleEditing = () => {
+    this.props.onSave(
+      this.props.item.id,
+      { isEdited: !this.props.item.isEdited }
+    );
+  };
 
   render() {
     let item;

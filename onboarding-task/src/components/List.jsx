@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
 import uuidV4 from 'uuid/v4';
+import {
+  OrderedMap,
+} from 'immutable';
 
 import { AddItem } from './AddItem';
 import { ListItem } from './ListItem';
+import { Item } from '../models/Item';
 
 class List extends PureComponent {
 
@@ -11,49 +15,37 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: OrderedMap(),
     };
   }
 
   _removeItem = id => {
-    const newItems = this.state.items.filter(item => item.id !== id);
+    const newItems = this.state.items.delete(id);
     this.setState({ items: newItems });
   };
 
   _addNewItem = newItemText => {
-    const newItem = {
-      text: newItemText,
+    const newItem = new Item({
       id: uuidV4(),
-      isEdited: false,
-    };
+      text: newItemText,
+    });
 
-    const newItems = [...this.state.items, newItem];
+    const newItems = this.state.items.set(newItem.id, newItem);
 
     this.setState({ items: newItems });
   };
 
-    /** Expects change object argument in format:
-     {
-     <optional string> text:     <changedText>,
-     <optional bool>   isEdited: <isEdited flag change>
-     } */
-  _saveChange = (id, change) => {
-    const editedItems = this.state.items.map(item => {
-      if (item.id !== id) {
-        return item;
-      }
-
-      return {
-        ...item,
-        ...change,
-      };
-    });
+  _saveChange = (id, changedItem) => {
+    const editedItems = this.state.items.mergeIn(
+      [id],
+      changedItem,
+    );
 
     this.setState({ items: editedItems });
   };
 
   render() {
-    const existingItems = this.state.items.map((item, index) =>
+    const existingItems = this.state.items.valueSeq().map((item, index) =>
       (<ListItem
         index={index + 1}
         item={item}
