@@ -25,9 +25,10 @@ class List extends PureComponent {
   };
 
   _addNewItem = newItemText => {
-    const newItem = new Item(
-      uuidV4(),
-      newItemText);
+    const newItem = new Item({
+      id: uuidV4(),
+      text: newItemText,
+    });
 
     const newItems = this.state.items.set(newItem.id, newItem);
 
@@ -36,10 +37,11 @@ class List extends PureComponent {
 
   _saveChange = (id, text, isEdited) => {
     const editedItems = this.state.items.set(id,
-      new Item(
-      id,
-      text,
-      isEdited));
+      new Item({
+        id,
+        text,
+        isEdited,
+      }));
 
     this.setState({ items: editedItems });
   };
