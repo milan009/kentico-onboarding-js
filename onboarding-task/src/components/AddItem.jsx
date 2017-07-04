@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as ActionCreators from '../actions/actionCreators';
 
 class AddItem extends PureComponent {
 
   static displayName = 'AddItem';
 
   static propTypes = {
-    addNewItem: PropTypes.func.isRequired,
+    onAddItem: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -20,15 +22,15 @@ class AddItem extends PureComponent {
     this.setState({ currentText: event.target.value });
   };
 
-  _handleSubmit = event => {
+  _addItem = event => {
     event.preventDefault();
-    this.props.addNewItem(this.state.currentText);
+    this.props.onAddItem(this.state.currentText);
     this.setState({ currentText: '' });
   };
 
   render() {
     return (
-      <form onSubmit={this._handleSubmit} className="form-inline list-group-item">
+      <form onSubmit={this._addItem} className="form-inline list-group-item">
         <input
           type="text"
           className="form-control"
@@ -46,4 +48,12 @@ class AddItem extends PureComponent {
   }
 }
 
-export { AddItem };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddItem: (text) => {
+      dispatch(ActionCreators.createItem(text));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddItem);

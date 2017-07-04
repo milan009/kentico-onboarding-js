@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as ActionCreators from '../actions/actionCreators';
 
 class EditItem extends PureComponent {
 
@@ -8,9 +10,10 @@ class EditItem extends PureComponent {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
     }).isRequired,
-    onRemove: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
@@ -27,7 +30,13 @@ class EditItem extends PureComponent {
     this.setState({ text: event.target.value });
 
   _saveClick = () =>
-    this.props.onSave(this.state.text);
+    this.props.onSave(this.props.item.id, this.state.text);
+
+  _cancelClick = () =>
+    this.props.onCancel(this.props.item.id);
+
+  _deleteClick = () =>
+    this.props.onDelete(this.props.item.id);
 
   render() {
     return (
@@ -47,13 +56,13 @@ class EditItem extends PureComponent {
         </button>
         <button
           className="btn btn-default form-control"
-          onClick={this.props.onCancel}
+          onClick={this._cancelClick}
         >
           Cancel
         </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this.props.onRemove}
+          onClick={this._deleteClick}
         >
           Delete
         </button>
@@ -62,4 +71,15 @@ class EditItem extends PureComponent {
   }
 }
 
-export { EditItem };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDelete: (id) =>
+      dispatch(ActionCreators.deleteItem(id)),
+    onSave: (id, newText) =>
+      dispatch(ActionCreators.saveChange(id, newText)),
+    onCancel: (id) =>
+      dispatch(ActionCreators.cancelChange(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(EditItem);

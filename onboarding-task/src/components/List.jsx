@@ -1,61 +1,24 @@
 import React, { PureComponent } from 'react';
-import uuidV4 from 'uuid/v4';
 import { connect } from 'react-redux';
-import {
-  OrderedMap,
-} from 'immutable';
+import PropTypes from 'prop-types';
+import { OrderedMap } from 'immutable';
 
-import { AddItem } from './AddItem';
+import AddItem from './AddItem';
 import { ListItem } from './ListItem';
-import { Item } from '../models/Item';
 
 class List extends PureComponent {
 
   static displayName = 'List';
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: OrderedMap(),
-    };
-  }
-
-  _mapStateToProps = (state) => ({
-    items: state,
-  });
-
-  _removeItem = id => {
-    const newItems = this.state.items.delete(id);
-    this.setState({ items: newItems });
-  };
-
-  _addNewItem = newItemText => {
-    const newItem = new Item({
-      id: uuidV4(),
-      text: newItemText,
-    });
-
-    const newItems = this.state.items.set(newItem.id, newItem);
-
-    this.setState({ items: newItems });
-  };
-
-  _saveChange = (id, changedItem) => {
-    const editedItems = this.state.items.mergeIn(
-      [id],
-      changedItem,
-    );
-
-    this.setState({ items: editedItems });
+  static propTypes = {
+    items: PropTypes.instanceOf(OrderedMap).isRequired,
   };
 
   render() {
-    const existingItems = this.state.items.valueSeq().map((item, index) =>
+    const existingItems = this.props.items.valueSeq().map((item, index) =>
       (<ListItem
         index={index + 1}
         item={item}
-        onRemove={this._removeItem}
-        onSave={this._saveChange}
         key={item.id}
       />)
     );
@@ -65,7 +28,7 @@ class List extends PureComponent {
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ol className="list-group">
             {existingItems}
-            <AddItem addNewItem={this._addNewItem} />
+            <AddItem />
           </ol>
         </div>
       </div>
@@ -73,4 +36,8 @@ class List extends PureComponent {
   }
 }
 
-export { List };
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+export default connect(mapStateToProps)(List);
