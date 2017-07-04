@@ -1,31 +1,27 @@
-/**
- * Created by MilanJ on 28.6.2017.
- */
-
 import { OrderedMap } from 'immutable';
 import uuidV4 from 'uuid';
-import * as ActionTypes from '../actionTypes';
+import * as ActionTypes from '../actions/actionTypes';
 import { Item } from '../models/Item';
 
 const itemsReducer = (state = new OrderedMap(), action) => {
   switch (action.type) {
     case ActionTypes.ITEM_DELETED:
-      return state.remove(action.id);
+      return state.remove(action.payload.id);
 
     case ActionTypes.ITEM_CREATED: {
       const newItem = new Item({
         id: uuidV4(),
-        text: action.text,
+        text: action.payload.text,
       });
       return state.set(newItem.id, newItem);
     }
 
-    case ActionTypes.MAKE_EDITABLE:
-    case ActionTypes.CHANGE_CANCELLED:
-    case ActionTypes.CHANGE_SAVED: {
+    case ActionTypes.ITEM_MAKE_EDITABLE:
+    case ActionTypes.ITEM_CHANGE_CANCELLED:
+    case ActionTypes.ITEM_CHANGE_SAVED: {
       return state.mergeIn(
-        [action.id],
-        itemReducer(state.get(action.id), action)
+        [action.payload.id],
+        itemReducer(state.get(action.payload.id), action)
       );
     }
 
@@ -36,15 +32,15 @@ const itemsReducer = (state = new OrderedMap(), action) => {
 
 const itemReducer = (state = {}, action) => {
   switch (action.type) {
-    case ActionTypes.MAKE_EDITABLE:
+    case ActionTypes.ITEM_MAKE_EDITABLE:
       return { isEdited: true };
 
-    case ActionTypes.CHANGE_CANCELLED:
+    case ActionTypes.ITEM_CHANGE_CANCELLED:
       return { isEdited: false };
 
-    case ActionTypes.CHANGE_SAVED:
+    case ActionTypes.ITEM_CHANGE_SAVED:
       return {
-        text: action.text,
+        text: action.payload.text,
         isEdited: false,
       };
 
