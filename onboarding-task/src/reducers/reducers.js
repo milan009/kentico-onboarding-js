@@ -4,8 +4,8 @@
 
 import { OrderedMap } from 'immutable';
 import uuidV4 from 'uuid';
-import * as ActionTypes from './actionTypes';
-import { Item } from './models/Item';
+import * as ActionTypes from '../actionTypes';
+import { Item } from '../models/Item';
 
 const createItemReducer = (state = new OrderedMap(), action) => {
   switch (action.type) {
