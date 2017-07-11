@@ -12,16 +12,15 @@ export const itemsReducer = (state = defaultState, action) => {
 
     case ActionTypes.ITEM_CREATED: {
       const newItem = new ItemData({
-        id: action.payload.newId,
         text: action.payload.text,
       });
-      return state.set(newItem.id, newItem);
+      return state.set(action.payload.newId, newItem);
     }
 
     case ActionTypes.ITEM_CHANGE_SAVED: {
       const itemToEdit = state.get(action.payload.id);
       const editedItem = itemReducer(itemToEdit, action);
-      return state.set(editedItem.id, editedItem);
+      return state.set(action.payload.id, editedItem);
     }
 
     default:

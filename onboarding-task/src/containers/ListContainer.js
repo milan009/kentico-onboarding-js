@@ -3,7 +3,7 @@ import { ListComponent } from '../components/List';
 
 const buildItems = (itemsData, itemsLocal) => (
   itemsData.map((item, key) => ({
-    id: item.get('id'),
+    id: key,
     text: item.get('text'),
     isEdited: (itemsLocal.get(key).get('isEdited')),
   })));
