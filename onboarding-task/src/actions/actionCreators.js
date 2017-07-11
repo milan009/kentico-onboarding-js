@@ -1,8 +1,12 @@
 import * as ActionTypes from './actionTypes';
+import uuidV4 from 'uuid';
 
 export const createItem = (text) => ({
   type: ActionTypes.ITEM_CREATED,
-  payload: { text },
+  payload: {
+    text,
+    newId: uuidV4(),
+  },
 });
 
 export const deleteItem = (id) => ({
