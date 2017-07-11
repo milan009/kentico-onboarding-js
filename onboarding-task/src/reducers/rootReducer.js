@@ -7,6 +7,9 @@ const defaultState = {
     listState: {
       items: new OrderedMap(),
     },
+    localState: {
+      itemsLocal: new OrderedMap(),
+    },
   },
 };
 
