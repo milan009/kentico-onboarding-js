@@ -7,6 +7,9 @@ const defaultState = new OrderedMap();
 
 export const itemInfosReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case ActionTypes.ITEM_DELETED:
+      return state.remove(action.payload.id);
+
     case ActionTypes.ITEM_CREATED: {
       const newItem = new ItemInfo({
         isEdited: false,
