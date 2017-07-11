@@ -6,10 +6,10 @@ class EditItem extends PureComponent {
   static displayName = 'EditItem';
 
   static propTypes = {
-    index: PropTypes.number.isRequired,
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      index: PropTypes.number.isRequired,
     }).isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
@@ -28,18 +28,12 @@ class EditItem extends PureComponent {
     this.setState({ text: event.target.value });
 
   _saveClick = () =>
-    this.props.onSave(this.props.item.id, this.state.text);
-
-  _cancelClick = () =>
-    this.props.onCancel(this.props.item.id);
-
-  _deleteClick = () =>
-    this.props.onDelete(this.props.item.id);
+    this.props.onSave(this.state.text);
 
   render() {
     return (
       <div className="form-inline">
-        <span>{this.props.index}. </span>
+        <span>{this.props.item.index}. </span>
         <input
           className="form-control"
           type="text"
@@ -54,13 +48,13 @@ class EditItem extends PureComponent {
         </button>
         <button
           className="btn btn-default form-control"
-          onClick={this._cancelClick}
+          onClick={this.props.onCancel}
         >
           Cancel
         </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this._deleteClick}
+          onClick={this.props.onDelete}
         >
           Delete
         </button>
@@ -69,4 +63,4 @@ class EditItem extends PureComponent {
   }
 }
 
-export { EditItem as EditItemComponent };
+export { EditItem };

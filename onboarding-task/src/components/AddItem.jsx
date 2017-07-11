@@ -56,4 +56,4 @@ class AddItem extends PureComponent {
   }
 }
 
-export { AddItem as AddItemComponent };
+export { AddItem };

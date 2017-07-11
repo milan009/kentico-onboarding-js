@@ -1,24 +1,24 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { OrderedMap } from 'immutable';
+import { Seq } from 'immutable';
 
-import { AddItem } from '../containers/AddItemContainer';
-import { ListItem } from './ListItem';
+import { AddItem } from '../containers/AddItem';
+import { ListItem } from '../containers/ListItem';
 
 class List extends PureComponent {
 
   static displayName = 'List';
 
   static propTypes = {
-    items: PropTypes.instanceOf(OrderedMap).isRequired,
+    itemIds: PropTypes.instanceOf(Seq).isRequired,
   };
 
   render() {
-    const existingItems = this.props.items.valueSeq().map((item, index) =>
+    const existingItems = this.props.itemIds.map((id, index) =>
       (<ListItem
         index={index + 1}
-        item={item}
-        key={item.id}
+        id={id}
+        key={id}
       />)
     );
 
@@ -35,4 +35,4 @@ class List extends PureComponent {
   }
 }
 
-export { List as ListComponent };
+export { List };
