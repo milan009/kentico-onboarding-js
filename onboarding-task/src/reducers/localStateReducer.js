@@ -1,9 +1,9 @@
 import * as ActionTypes from '../actions/actionTypes';
-import { itemsLocalReducer } from './itemsLocalReducer';
+import { itemInfosReducer } from './itemInfosReducer';
 import { OrderedMap } from 'immutable';
 
 const defaultState = {
-  listItemsLocal: new OrderedMap(),
+  itemInfos: new OrderedMap(),
 };
 
 export const localStateReducer = (state = defaultState, action) => {
@@ -14,7 +14,7 @@ export const localStateReducer = (state = defaultState, action) => {
     case ActionTypes.ITEM_MAKE_EDITABLE:
       return {
         ...state,
-        itemsLocal: itemsLocalReducer(state.itemsLocal, action),
+        itemInfos: itemInfosReducer(state.itemInfos, action),
       };
     default:
       return state;

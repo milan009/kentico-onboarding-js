@@ -8,7 +8,7 @@ const defaultState = {
       items: new OrderedMap(),
     },
     localState: {
-      itemsLocal: new OrderedMap(),
+      itemInfos: new OrderedMap(),
     },
   },
 };

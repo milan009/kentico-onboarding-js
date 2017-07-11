@@ -1,9 +1,9 @@
 import * as ActionTypes from '../actions/actionTypes';
-import { ItemLocal } from '../models/ItemLocal';
+import { ItemInfo } from '../models/ItemInfo';
 
-const defaultState = new ItemLocal();
+const defaultState = new ItemInfo();
 
-export const itemLocalReducer = (state = defaultState, action) => {
+export const itemInfoReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ActionTypes.ITEM_MAKE_EDITABLE:
       return state.merge({
