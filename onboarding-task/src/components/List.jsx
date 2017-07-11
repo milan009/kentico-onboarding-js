@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Seq } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { AddItem } from '../containers/AddItem';
 import { ListItem } from '../containers/ListItem';
@@ -10,7 +10,7 @@ class List extends PureComponent {
   static displayName = 'List';
 
   static propTypes = {
-    itemIds: PropTypes.instanceOf(Seq).isRequired,
+    itemIds: ImmutablePropTypes.iterableOf(PropTypes.string).isRequired,
   };
 
   render() {
