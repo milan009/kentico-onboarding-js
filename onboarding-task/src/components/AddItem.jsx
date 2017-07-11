@@ -21,11 +21,22 @@ class AddItem extends PureComponent {
 
   _addItem = event => {
     event.preventDefault();
-    this.props.onAddItem(this.state.currentText);
-    this.setState({ currentText: '' });
+
+    if (!this._isItemEmpty()) {
+      this.props.onAddItem(this.state.currentText);
+      this.setState({ currentText: '' });
+    }
   };
 
+  _isItemEmpty = () =>
+    this.state.currentText.trim() === '';
+
   render() {
+    let buttonClasses = 'form-control btn btn-default';
+    if (this._isItemEmpty()) {
+      buttonClasses += ' disabled';
+    }
+
     return (
       <form onSubmit={this._addItem} className="form-inline list-group-item">
         <input
@@ -36,7 +47,7 @@ class AddItem extends PureComponent {
         />
         <button
           type="submit"
-          className="form-control btn btn-default"
+          className={buttonClasses}
         >
           Add
         </button>
