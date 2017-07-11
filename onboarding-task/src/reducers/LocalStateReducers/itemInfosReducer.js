@@ -21,6 +21,11 @@ export const itemInfosReducer = (state = defaultState, action) => {
     case ActionTypes.ITEM_CHANGE_CANCELLED:
     case ActionTypes.ITEM_CHANGE_SAVED: {
       const infoToEdit = state.get(action.payload.id);
+
+      if (!infoToEdit) {
+        return state;
+      }
+
       const editedInfo = itemInfoReducer(infoToEdit, action);
       return state.set(action.payload.id, editedInfo);
     }

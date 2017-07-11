@@ -19,6 +19,11 @@ export const itemsReducer = (state = defaultState, action) => {
 
     case ActionTypes.ITEM_CHANGE_SAVED: {
       const itemToEdit = state.get(action.payload.id);
+
+      if (!itemToEdit) {
+        return state;
+      }
+
       const editedItem = itemReducer(itemToEdit, action);
       return state.set(action.payload.id, editedItem);
     }
