@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { OrderedMap } from 'immutable';
 
-import AddItem from './AddItem';
+import { AddItem } from '../containers/AddItemContainer';
 import { ListItem } from './ListItem';
 
 class List extends PureComponent {
@@ -36,8 +35,4 @@ class List extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
-  items: state.items,
-});
-
-export default connect(mapStateToProps)(List);
+export { List as ListComponent };

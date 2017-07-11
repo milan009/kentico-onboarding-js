@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import ViewItem from './ViewItem';
+import { ViewItem } from '../containers/ViewItemContainer';
 import { EditItem } from '../containers/EditItemContainer';
 
 class ListItem extends PureComponent {

@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as ActionCreators from '../actions/actionCreators';
-
 class AddItem extends PureComponent {
 
   static displayName = 'AddItem';
@@ -48,12 +45,4 @@ class AddItem extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddItem: (text) => {
-      dispatch(ActionCreators.createItem(text));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(AddItem);
+export { AddItem as AddItemComponent };

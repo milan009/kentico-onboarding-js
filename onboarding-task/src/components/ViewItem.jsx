@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as ActionCreators from '../actions/actionCreators';
-import { connect } from 'react-redux';
-
 const ViewItem = (props) => (
   <div className="btn btn-block " onClick={() => props.onClick(props.item.id)} title="Click to edit this item">
     <div className="text-left">
@@ -23,9 +20,4 @@ ViewItem.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onClick: (id) =>
-    dispatch(ActionCreators.makeEditable(id)),
-});
-
-export default connect(null, mapDispatchToProps)(ViewItem);
+export { ViewItem as ViewItemComponent };
