@@ -15,7 +15,7 @@ class AddItem extends PureComponent {
     };
   }
 
-  _handleChange = event => {
+  _onChange = event => {
     this.setState({ currentText: event.target.value });
   };
 
@@ -31,7 +31,7 @@ class AddItem extends PureComponent {
         <input
           type="text"
           className="form-control"
-          onChange={this._handleChange}
+          onChange={this._onChange}
           value={this.state.currentText}
         />
         <button
