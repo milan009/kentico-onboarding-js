@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as ActionCreators from '../actions/actionCreators';
 
 class EditItem extends PureComponent {
 
@@ -71,15 +69,4 @@ class EditItem extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDelete: (id) =>
-      dispatch(ActionCreators.deleteItem(id)),
-    onSave: (id, newText) =>
-      dispatch(ActionCreators.saveChange(id, newText)),
-    onCancel: (id) =>
-      dispatch(ActionCreators.cancelChange(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(EditItem);
+export { EditItem as EditItemComponent };
