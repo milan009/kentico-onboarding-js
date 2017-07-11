@@ -1,5 +1,5 @@
-import * as ActionTypes from '../actions/actionTypes';
-import { ItemInfo } from '../models/ItemInfo';
+import * as ActionTypes from '../../actions/actionTypes';
+import { ItemInfo } from '../../models/ItemInfo';
 
 const defaultState = new ItemInfo();
 

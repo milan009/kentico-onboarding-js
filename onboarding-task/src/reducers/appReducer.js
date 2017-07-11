@@ -1,5 +1,6 @@
-import { listReducer } from './listReducer';
-import { localStateReducer } from './localStateReducer';
+import { listReducer } from './ListReducers/listReducer';
+import { localStateReducer } from './LocalStateReducers/localStateReducer';
+
 import { combineReducers } from 'redux';
 
 export const appReducer = combineReducers({

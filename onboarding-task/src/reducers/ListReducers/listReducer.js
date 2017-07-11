@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions/actionTypes';
+import * as ActionTypes from '../../actions/actionTypes';
 import { itemsReducer } from './itemsReducer';
 import { OrderedMap } from 'immutable';
 

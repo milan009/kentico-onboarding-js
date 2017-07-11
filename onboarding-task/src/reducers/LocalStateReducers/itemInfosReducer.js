@@ -1,6 +1,6 @@
-import * as ActionTypes from '../actions/actionTypes';
+import * as ActionTypes from '../../actions/actionTypes';
 import { itemInfoReducer } from './itemInfoReducer';
-import { ItemInfo } from '../models/ItemInfo';
+import { ItemInfo } from '../../models/ItemInfo';
 import { OrderedMap } from 'immutable';
 
 const defaultState = new OrderedMap();
