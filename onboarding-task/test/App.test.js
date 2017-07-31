@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from '../src/App.jsx';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  if (typeof window !== 'undefined') {
+    const div = document.createElement('div');
+    ReactDOM.render(<App />, div);
+  }
 });

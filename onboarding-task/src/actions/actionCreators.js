@@ -2,11 +2,11 @@ import uuidV4 from 'uuid';
 
 import * as actionTypes from './actionTypes';
 
-export const createItem = (text) => ({
+export const createItem = (text, idGenerator = uuidV4) => ({
   type: actionTypes.ITEM_CREATED,
   payload: {
     text,
-    newId: uuidV4(),
+    newId: idGenerator(),
   },
 });
 
