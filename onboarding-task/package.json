@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "memoizee": "^0.4.5",
     "prop-types": "^15.4.2",
