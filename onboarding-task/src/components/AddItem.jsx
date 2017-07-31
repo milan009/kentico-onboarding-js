@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class AddItem extends PureComponent {
 
@@ -32,11 +33,6 @@ class AddItem extends PureComponent {
   _isItemEmpty = () => this.state.currentText.trim() === '';
 
   render() {
-    let buttonClasses = 'form-control btn btn-default';
-    if (this._isItemEmpty()) {
-      buttonClasses += ' disabled';
-    }
-
     return (
       <form onSubmit={this._addItem} className="form-inline list-group-item">
         <input
@@ -47,7 +43,7 @@ class AddItem extends PureComponent {
         />
         <button
           type="submit"
-          className={buttonClasses}
+          className={classNames('form-control', 'btn', 'btn-default', { disabled: this._isItemEmpty() })}
         >
           Add
         </button>
