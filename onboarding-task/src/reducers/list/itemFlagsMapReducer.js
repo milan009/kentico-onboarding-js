@@ -12,9 +12,7 @@ export const itemFlagsMapReducer = (state = defaultState, action) => {
       return state.remove(action.payload.id);
 
     case actionTypes.ITEM_CREATED: {
-      const newItem = new ItemFlags({
-        isBeingEdited: false,
-      });
+      const newItem = new ItemFlags();
       return state.set(action.payload.newId, newItem);
     }
 
