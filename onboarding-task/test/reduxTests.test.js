@@ -1,46 +1,51 @@
-import * as ActionCreators from '../src/actions/actionCreators';
-import * as ActionTypes from '../src/actions/actionTypes';
-import * as Reducers from '../src/reducers/reducersExport';
-import { ItemData } from '../src/models/ItemData';
-import { ItemInfo } from '../src/models/ItemInfo';
 import { OrderedMap } from 'immutable';
+
+import * as actionCreators from '../src/actions/actionCreators';
+import * as actionTypes from '../src/actions/actionTypes';
+import { listReducer } from '../src/reducers/list/listReducer';
+import { itemFlagsReducer } from '../src/reducers/list/itemFlagsReducer';
+import { itemFlagsMapReducer } from '../src/reducers/list/itemFlagsMapReducer';
+import { itemReducer } from '../src/reducers/list/itemReducer';
+import { itemsReducer } from '../src/reducers/list/itemsReducer';
+import { ItemData } from '../src/models/ItemData';
+import { ItemFlags } from '../src/models/ItemFlags';
 
 describe('Action creators', () => {
   it('creates "ITEM_CREATED" action correctly', () => {
-    const addItemAction = ActionCreators.createItem('New Item');
-    expect(addItemAction.type).toBe(ActionTypes.ITEM_CREATED);
+    const addItemAction = actionCreators.createItem('New Item');
+    expect(addItemAction.type).toBe(actionTypes.ITEM_CREATED);
     expect(addItemAction.payload).toBeDefined();
     expect(addItemAction.payload.newId).toBeDefined();
     expect(addItemAction.payload.text).toBe('New Item');
   });
 
   it('creates "ITEM_DELETED" action correctly', () => {
-    const deleteItemAction = ActionCreators.deleteItem(17);
-    expect(deleteItemAction.type).toBe(ActionTypes.ITEM_DELETED);
+    const deleteItemAction = actionCreators.deleteItem(17);
+    expect(deleteItemAction.type).toBe(actionTypes.ITEM_DELETED);
     expect(deleteItemAction.payload).toBeDefined();
     expect(deleteItemAction.payload.id).toBe(17);
     expect(deleteItemAction.payload.text).toBeUndefined();
   });
 
   it('creates "ITEM_CHANGE_CANCELLED" action correctly', () => {
-    const itemCancelChangeAction = ActionCreators.cancelChange(21);
-    expect(itemCancelChangeAction.type).toBe(ActionTypes.ITEM_CHANGE_CANCELLED);
+    const itemCancelChangeAction = actionCreators.cancelChange(21);
+    expect(itemCancelChangeAction.type).toBe(actionTypes.ITEM_CHANGE_CANCELLED);
     expect(itemCancelChangeAction.payload).toBeDefined();
     expect(itemCancelChangeAction.payload.id).toBe(21);
     expect(itemCancelChangeAction.payload.text).toBeUndefined();
   });
 
   it('creates "ITEM_CHANGE_SAVED" action correctly', () => {
-    const itemSaveChangeAction = ActionCreators.saveChange(42, 'Edited Text');
-    expect(itemSaveChangeAction.type).toBe(ActionTypes.ITEM_CHANGE_SAVED);
+    const itemSaveChangeAction = actionCreators.saveChange(42, 'Edited Text');
+    expect(itemSaveChangeAction.type).toBe(actionTypes.ITEM_CHANGE_SAVED);
     expect(itemSaveChangeAction.payload).toBeDefined();
     expect(itemSaveChangeAction.payload.id).toBe(42);
     expect(itemSaveChangeAction.payload.text).toBe('Edited Text');
   });
 
   it('creates "ITEM_MAKE_EDITABLE" action correctly', () => {
-    const makeEditableItemAction = ActionCreators.makeEditable(25);
-    expect(makeEditableItemAction.type).toBe(ActionTypes.ITEM_MAKE_EDITABLE);
+    const makeEditableItemAction = actionCreators.makeEditable(25);
+    expect(makeEditableItemAction.type).toBe(actionTypes.ITEM_MAKE_EDITABLE);
     expect(makeEditableItemAction.payload).toBeDefined();
     expect(makeEditableItemAction.payload.id).toBe(25);
     expect(makeEditableItemAction.payload.text).toBeUndefined();
@@ -48,95 +53,95 @@ describe('Action creators', () => {
 });
 
 describe('Single object reducers', () => {
-  describe('ItemInfo reducer', () => {
+  describe('ItemFlags reducer', () => {
     describe('"ITEM_MAKE_EDITABLE" action', () => {
-      it('makes ItemInfo edited correctly', () => {
-        const prevState = new ItemInfo(
+      it('makes ItemFlags edited correctly', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: false,
+            isBeingEdited: false,
           }
         );
 
-        const action = ActionCreators.makeEditable('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.makeEditable('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
-        expect(nextState.isEdited).toBe(true);
-        expect(prevState.isEdited).toBe(false);
+        expect(nextState.isBeingEdited).toBe(true);
+        expect(prevState.isBeingEdited).toBe(false);
       });
 
-      it('does not change already edited ItemInfo', () => {
-        const prevState = new ItemInfo(
+      it('does not change already edited ItemFlags', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: true,
+            isBeingEdited: true,
           }
         );
 
-        const action = ActionCreators.makeEditable('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.makeEditable('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
         expect(nextState).toEqual(prevState);
       });
     });
 
     describe('"ITEM_CHANGE_CANCELLED" action', () => {
-      it('does not change ItemInfo that is not being edited', () => {
-        const prevState = new ItemInfo(
+      it('does not change ItemFlags that is not being edited', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: false,
+            isBeingEdited: false,
           }
         );
 
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
         expect(nextState).toEqual(prevState);
       });
 
-      it('makes edited ItemInfo not editable anymore', () => {
-        const prevState = new ItemInfo(
+      it('makes edited ItemFlags not editable anymore', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: true,
+            isBeingEdited: true,
           }
         );
 
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
         expect(nextState.id).toBe(prevState.id);
         expect(nextState.text).toBe(prevState.text);
-        expect(nextState.isEdited).toBe(false);
-        expect(prevState.isEdited).toBe(true);
+        expect(nextState.isBeingEdited).toBe(false);
+        expect(prevState.isBeingEdited).toBe(true);
       });
     });
 
     describe('"ITEM_CHANGE_SAVED" action', () => {
-      it('does not change ItemInfo that is not being edited', () => {
-        const prevState = new ItemInfo(
+      it('does not change ItemFlags that is not being edited', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: false,
+            isBeingEdited: false,
           }
         );
 
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
         expect(nextState).toEqual(prevState);
       });
 
-      it('makes edited ItemInfo not editable anymore', () => {
-        const prevState = new ItemInfo(
+      it('makes edited ItemFlags not editable anymore', () => {
+        const prevState = new ItemFlags(
           {
-            isEdited: true,
+            isBeingEdited: true,
           }
         );
 
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfoReducer(prevState, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsReducer(prevState, action);
 
         expect(nextState.id).toBe(prevState.id);
         expect(nextState.text).toBe(prevState.text);
-        expect(nextState.isEdited).toBe(false);
-        expect(prevState.isEdited).toBe(true);
+        expect(nextState.isBeingEdited).toBe(false);
+        expect(prevState.isBeingEdited).toBe(true);
       });
     });
   });
@@ -150,8 +155,8 @@ describe('Single object reducers', () => {
           }
         );
 
-        const action = ActionCreators.saveChange(42, 'Glock');
-        const nextState = Reducers.itemReducer(prevState, action);
+        const action = actionCreators.saveChange(42, 'Glock');
+        const nextState = itemReducer(prevState, action);
 
         expect(nextState.text).toBe('Glock');
         expect(prevState.text).toBe('Mlok');
@@ -164,8 +169,8 @@ describe('Map reducers', () => {
   describe('Items map reducer', () => {
     describe('"ITEM_CREATED" action', () => {
       it('adds item without passed state', () => {
-        const action = ActionCreators.createItem('Mlok');
-        const nextState = Reducers.itemsReducer(undefined, action);
+        const action = actionCreators.createItem('Mlok');
+        const nextState = itemsReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(1);
@@ -185,8 +190,8 @@ describe('Map reducers', () => {
           text: 'Block',
         }));
 
-        const action = ActionCreators.createItem('Flock');
-        const nextState = Reducers.itemsReducer(prevState, action);
+        const action = actionCreators.createItem('Flock');
+        const nextState = itemsReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(3);
@@ -202,8 +207,8 @@ describe('Map reducers', () => {
 
     describe('"ITEM_DELETED" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.deleteItem('42');
-        const nextState = Reducers.itemsReducer(undefined, action);
+        const action = actionCreators.deleteItem('42');
+        const nextState = itemsReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -222,16 +227,16 @@ describe('Map reducers', () => {
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.deleteItem('42');
-        const nextState = Reducers.itemsReducer(prevState, action);
+        const action = actionCreators.deleteItem('42');
+        const nextState = itemsReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
       it('correctly removes item', () => {
-        const action = ActionCreators.deleteItem('0');
-        const nextState = Reducers.itemsReducer(prevState, action);
+        const action = actionCreators.deleteItem('0');
+        const nextState = itemsReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(1);
@@ -245,8 +250,8 @@ describe('Map reducers', () => {
 
     describe('"ITEM_CHANGE_SAVED" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.saveChange('42', 'Glock');
-        const nextState = Reducers.itemsReducer(undefined, action);
+        const action = actionCreators.saveChange('42', 'Glock');
+        const nextState = itemsReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -265,16 +270,16 @@ describe('Map reducers', () => {
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.saveChange('42', 'Glock');
-        const nextState = Reducers.itemsReducer(prevState, action);
+        const action = actionCreators.saveChange('42', 'Glock');
+        const nextState = itemsReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
       it('correctly changes ItemData', () => {
-        const action = ActionCreators.saveChange('0', 'Glock');
-        const nextState = Reducers.itemsReducer(prevState, action);
+        const action = actionCreators.saveChange('0', 'Glock');
+        const nextState = itemsReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
@@ -287,32 +292,32 @@ describe('Map reducers', () => {
     });
   });
 
-  describe('ItemInfos map reducer', () => {
+  describe('ItemFlagss map reducer', () => {
     describe('"ITEM_CREATED" action', () => {
-      it('adds ItemInfo without passed state', () => {
-        const action = ActionCreators.createItem('Mlok');
-        const nextState = Reducers.itemInfosReducer(undefined, action);
+      it('adds ItemFlags without passed state', () => {
+        const action = actionCreators.createItem('Mlok');
+        const nextState = itemFlagsMapReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(1);
 
-        const newItemInfo = nextState.valueSeq().get(0);
+        const newItemFlags = nextState.valueSeq().get(0);
 
-        expect(newItemInfo.isEdited).toBe(false);
+        expect(newItemFlags.isBeingEdited).toBe(false);
       });
 
-      it('adds ItemInfo to existing map', () => {
+      it('adds ItemFlags to existing map', () => {
         let prevState = new OrderedMap();
 
-        prevState = prevState.set('0', new ItemInfo({
-          isEdited: true,
+        prevState = prevState.set('0', new ItemFlags({
+          isBeingEdited: true,
         }));
-        prevState = prevState.set('1', new ItemInfo({
-          isEdited: false,
+        prevState = prevState.set('1', new ItemFlags({
+          isBeingEdited: false,
         }));
 
-        const action = ActionCreators.createItem('Flock');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.createItem('Flock');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(3);
@@ -322,14 +327,14 @@ describe('Map reducers', () => {
 
         expect(prevItems).toEqual(prevState);
 
-        expect(newItem.isEdited).toBe(false);
+        expect(newItem.isBeingEdited).toBe(false);
       });
     });
 
     describe('"ITEM_DELETED" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.deleteItem('42');
-        const nextState = Reducers.itemInfosReducer(undefined, action);
+        const action = actionCreators.deleteItem('42');
+        const nextState = itemFlagsMapReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -339,25 +344,25 @@ describe('Map reducers', () => {
 
       let prevState = new OrderedMap();
 
-      prevState = prevState.set('0', new ItemInfo({
-        isEdited: true,
+      prevState = prevState.set('0', new ItemFlags({
+        isBeingEdited: true,
       }));
-      prevState = prevState.set('1', new ItemInfo({
-        isEdited: false,
+      prevState = prevState.set('1', new ItemFlags({
+        isBeingEdited: false,
       }));
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.deleteItem('42');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.deleteItem('42');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
       it('correctly removes item', () => {
-        const action = ActionCreators.deleteItem('0');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.deleteItem('0');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(1);
@@ -366,14 +371,14 @@ describe('Map reducers', () => {
 
         expect(infoThatLived).toEqual(nextState.get('1'));
         expect(infoThatLived).toEqual(prevState.get('1'));
-        expect(infoThatLived.isEdited).toEqual(false);
+        expect(infoThatLived.isBeingEdited).toEqual(false);
       });
     });
 
     describe('"ITEM_CHANGE_SAVED" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.saveChange('42', 'Glock');
-        const nextState = Reducers.itemInfosReducer(undefined, action);
+        const action = actionCreators.saveChange('42', 'Glock');
+        const nextState = itemFlagsMapReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -383,40 +388,40 @@ describe('Map reducers', () => {
 
       let prevState = new OrderedMap();
 
-      prevState = prevState.set('0', new ItemInfo({
-        isEdited: true,
+      prevState = prevState.set('0', new ItemFlags({
+        isBeingEdited: true,
       }));
-      prevState = prevState.set('1', new ItemInfo({
-        isEdited: false,
+      prevState = prevState.set('1', new ItemFlags({
+        isBeingEdited: false,
       }));
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.saveChange('42', 'Glock');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.saveChange('42', 'Glock');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
-      it('makes edited ItemInfo no longer editable', () => {
-        const action = ActionCreators.saveChange('0', 'Glock');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+      it('makes edited ItemFlags no longer editable', () => {
+        const action = actionCreators.saveChange('0', 'Glock');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
 
         const itemThatWasChanged = nextState.get('0');
 
-        expect(itemThatWasChanged.isEdited).toEqual(false);
+        expect(itemThatWasChanged.isBeingEdited).toEqual(false);
         expect(nextState.get('1')).toEqual(prevState.get('1'));
       });
     });
 
     describe('"ITEM_MAKE_EDITABLE" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.makeEditable('42');
-        const nextState = Reducers.itemInfosReducer(undefined, action);
+        const action = actionCreators.makeEditable('42');
+        const nextState = itemFlagsMapReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -426,25 +431,25 @@ describe('Map reducers', () => {
 
       let prevState = new OrderedMap();
 
-      prevState = prevState.set('0', new ItemInfo({
-        isEdited: true,
+      prevState = prevState.set('0', new ItemFlags({
+        isBeingEdited: true,
       }));
-      prevState = prevState.set('1', new ItemInfo({
-        isEdited: false,
+      prevState = prevState.set('1', new ItemFlags({
+        isBeingEdited: false,
       }));
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.makeEditable('42');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.makeEditable('42');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
-      it('does nothing to ItemInfo that is already editable', () => {
-        const action = ActionCreators.makeEditable('0');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+      it('does nothing to ItemFlags that is already editable', () => {
+        const action = actionCreators.makeEditable('0');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
@@ -455,24 +460,24 @@ describe('Map reducers', () => {
         expect(nextState.get('1')).toEqual(prevState.get('1'));
       });
 
-      it('makes ItemInfo editable correctly', () => {
-        const action = ActionCreators.makeEditable('1');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+      it('makes ItemFlags editable correctly', () => {
+        const action = actionCreators.makeEditable('1');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
 
         const itemThatWasChanged = nextState.get('1');
 
-        expect(itemThatWasChanged.isEdited).toEqual(true);
+        expect(itemThatWasChanged.isBeingEdited).toEqual(true);
         expect(nextState.get('0')).toEqual(prevState.get('0'));
       });
     });
 
     describe('"ITEM_CHANGE_CANCELLED" action', () => {
       it('does nothing without passed state', () => {
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfosReducer(undefined, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsMapReducer(undefined, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(new OrderedMap());
@@ -482,25 +487,25 @@ describe('Map reducers', () => {
 
       let prevState = new OrderedMap();
 
-      prevState = prevState.set('0', new ItemInfo({
-        isEdited: true,
+      prevState = prevState.set('0', new ItemFlags({
+        isBeingEdited: true,
       }));
-      prevState = prevState.set('1', new ItemInfo({
-        isEdited: false,
+      prevState = prevState.set('1', new ItemFlags({
+        isBeingEdited: false,
       }));
       // endregion
 
       it('does nothing to state not containing given id', () => {
-        const action = ActionCreators.cancelChange('42');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+        const action = actionCreators.cancelChange('42');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState).toEqual(prevState);
       });
 
-      it('does nothing to ItemInfo that is not editable', () => {
-        const action = ActionCreators.cancelChange('1');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+      it('does nothing to ItemFlags that is not editable', () => {
+        const action = actionCreators.cancelChange('1');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
@@ -511,16 +516,16 @@ describe('Map reducers', () => {
         expect(nextState.get('0')).toEqual(prevState.get('0'));
       });
 
-      it('makes ItemInfo not-editable correctly', () => {
-        const action = ActionCreators.cancelChange('0');
-        const nextState = Reducers.itemInfosReducer(prevState, action);
+      it('makes ItemFlags not-editable correctly', () => {
+        const action = actionCreators.cancelChange('0');
+        const nextState = itemFlagsMapReducer(prevState, action);
 
         expect(nextState).toBeInstanceOf(OrderedMap);
         expect(nextState.count()).toBe(2);
 
         const itemThatWasChanged = nextState.get('0');
 
-        expect(itemThatWasChanged.isEdited).toEqual(false);
+        expect(itemThatWasChanged.isBeingEdited).toEqual(false);
         expect(nextState.get('1')).toEqual(prevState.get('1'));
       });
     });
@@ -528,29 +533,29 @@ describe('Map reducers', () => {
 });
 
 describe('List reducer', () => {
-  it('adds item and ItemInfo correctly', () => {
-    const action = ActionCreators.createItem('Mlok');
-    const nextState = Reducers.listReducer(undefined, action);
+  it('adds item and ItemFlags correctly', () => {
+    const action = actionCreators.createItem('Mlok');
+    const nextState = listReducer(undefined, action);
 
     expect(nextState.items).toBeInstanceOf(OrderedMap);
-    expect(nextState.itemInfos).toBeInstanceOf(OrderedMap);
+    expect(nextState.itemFlagsMap).toBeInstanceOf(OrderedMap);
     expect(nextState.items.count()).toBe(1);
-    expect(nextState.itemInfos.count()).toBe(1);
+    expect(nextState.itemFlagsMap.count()).toBe(1);
 
     const newItem = nextState.items.valueSeq().get(0);
-    const newItemInfo = nextState.itemInfos.valueSeq().get(0);
+    const newItemFlags = nextState.itemFlagsMap.valueSeq().get(0);
 
     expect(newItem.text).toEqual('Mlok');
-    expect(newItemInfo.isEdited).toEqual(false);
+    expect(newItemFlags.isBeingEdited).toEqual(false);
 
-    expect(nextState.items.keySeq().get(0)).toEqual(nextState.itemInfos.keySeq().get(0));
+    expect(nextState.items.keySeq().get(0)).toEqual(nextState.itemFlagsMap.keySeq().get(0));
   });
 
   // region Preparing a state
 
   const prevState = {
     items: new OrderedMap(),
-    itemInfos: new OrderedMap(),
+    itemFlagsMap: new OrderedMap(),
   };
 
   prevState.items = prevState.items.set('0', new ItemData({
@@ -559,48 +564,48 @@ describe('List reducer', () => {
   prevState.items = prevState.items.set('1', new ItemData({
     text: 'Block',
   }));
-  prevState.itemInfos = prevState.itemInfos.set('0', new ItemInfo({
-    isEdited: true,
+  prevState.itemFlagsMap = prevState.itemFlagsMap.set('0', new ItemFlags({
+    isBeingEdited: true,
   }));
-  prevState.itemInfos = prevState.itemInfos.set('1', new ItemInfo({
-    isEdited: false,
+  prevState.itemFlagsMap = prevState.itemFlagsMap.set('1', new ItemFlags({
+    isBeingEdited: false,
   }));
 
   // endregion
 
   it('makes an item editable correctly', () => {
-    const action = ActionCreators.makeEditable('1');
-    const nextState = Reducers.listReducer(prevState, action);
+    const action = actionCreators.makeEditable('1');
+    const nextState = listReducer(prevState, action);
 
-    const changedItemInfo = nextState.itemInfos.get('1');
+    const changedItemFlags = nextState.itemFlagsMap.get('1');
 
-    expect(changedItemInfo.isEdited).toEqual(true);
-    expect(prevState.itemInfos.get('0')).toEqual(nextState.itemInfos.get('0'));
+    expect(changedItemFlags.isBeingEdited).toEqual(true);
+    expect(prevState.itemFlagsMap.get('0')).toEqual(nextState.itemFlagsMap.get('0'));
     expect(prevState.items.get('0')).toEqual(nextState.items.get('0'));
   });
 
   it('cancels changes correctly', () => {
-    const action = ActionCreators.cancelChange('0');
-    const nextState = Reducers.listReducer(prevState, action);
+    const action = actionCreators.cancelChange('0');
+    const nextState = listReducer(prevState, action);
 
-    const changedItemInfo = nextState.itemInfos.get('0');
+    const changedItemFlags = nextState.itemFlagsMap.get('0');
 
-    expect(changedItemInfo.isEdited).toEqual(false);
-    expect(prevState.itemInfos.get('1')).toEqual(nextState.itemInfos.get('1'));
+    expect(changedItemFlags.isBeingEdited).toEqual(false);
+    expect(prevState.itemFlagsMap.get('1')).toEqual(nextState.itemFlagsMap.get('1'));
     expect(prevState.items.get('1')).toEqual(nextState.items.get('1'));
   });
 
   it('saves changed item correctly', () => {
-    const action = ActionCreators.saveChange('0', 'Slock');
-    const nextState = Reducers.listReducer(prevState, action);
+    const action = actionCreators.saveChange('0', 'Slock');
+    const nextState = listReducer(prevState, action);
 
     const changedItem = nextState.items.get('0');
-    const changedItemInfo = nextState.itemInfos.get('0');
+    const changedItemFlags = nextState.itemFlagsMap.get('0');
 
     expect(changedItem.text).toEqual('Slock');
-    expect(changedItemInfo.isEdited).toEqual(false);
+    expect(changedItemFlags.isBeingEdited).toEqual(false);
 
-    expect(prevState.itemInfos.get('1')).toEqual(nextState.itemInfos.get('1'));
+    expect(prevState.itemFlagsMap.get('1')).toEqual(nextState.itemFlagsMap.get('1'));
     expect(prevState.items.get('1')).toEqual(nextState.items.get('1'));
   });
 });

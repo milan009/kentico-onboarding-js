@@ -1,7 +1,5 @@
-import { listReducer } from './listReducer';
+import { listReducer } from './list/listReducer';
 
-export const rootReducer = (state = {}, action) => {
-  return {
-    list: listReducer(state.list, action),
-  };
-};
+export const rootReducer = (state = {}, action) => ({
+  list: listReducer(state.list, action),
+});

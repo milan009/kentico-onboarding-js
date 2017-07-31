@@ -11,7 +11,7 @@ class ListItem extends PureComponent {
   static propTypes = {
     item: PropTypes.shape({
       index: PropTypes.number.isRequired,
-      isEdited: PropTypes.bool.isRequired,
+      isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
 
     onClick: PropTypes.func.isRequired,
@@ -22,7 +22,7 @@ class ListItem extends PureComponent {
 
   render() {
     let item;
-    if (this.props.item.isEdited) {
+    if (this.props.item.isBeingEdited) {
       item = (<EditItem
         item={this.props.item}
         onDelete={this.props.onDelete}

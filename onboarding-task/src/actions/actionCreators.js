@@ -1,8 +1,9 @@
-import * as ActionTypes from './actionTypes';
 import uuidV4 from 'uuid';
 
+import * as actionTypes from './actionTypes';
+
 export const createItem = (text) => ({
-  type: ActionTypes.ITEM_CREATED,
+  type: actionTypes.ITEM_CREATED,
   payload: {
     text,
     newId: uuidV4(),
@@ -10,17 +11,17 @@ export const createItem = (text) => ({
 });
 
 export const deleteItem = (id) => ({
-  type: ActionTypes.ITEM_DELETED,
+  type: actionTypes.ITEM_DELETED,
   payload: { id },
 });
 
 export const cancelChange = (id) => ({
-  type: ActionTypes.ITEM_CHANGE_CANCELLED,
+  type: actionTypes.ITEM_CHANGE_CANCELLED,
   payload: { id },
 });
 
 export const saveChange = (id, text) => ({
-  type: ActionTypes.ITEM_CHANGE_SAVED,
+  type: actionTypes.ITEM_CHANGE_SAVED,
   payload: {
     id,
     text,
@@ -28,6 +29,6 @@ export const saveChange = (id, text) => ({
 });
 
 export const makeEditable = (id) => ({
-  type: ActionTypes.ITEM_MAKE_EDITABLE,
+  type: actionTypes.ITEM_MAKE_EDITABLE,
   payload: { id },
 });

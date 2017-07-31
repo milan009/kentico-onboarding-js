@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
 class AddItem extends PureComponent {
 
   static displayName = 'AddItem';
@@ -28,8 +29,7 @@ class AddItem extends PureComponent {
     }
   };
 
-  _isItemEmpty = () =>
-    this.state.currentText.trim() === '';
+  _isItemEmpty = () => this.state.currentText.trim() === '';
 
   render() {
     let buttonClasses = 'form-control btn btn-default';
