@@ -5,26 +5,22 @@ import { ViewItem } from '../components/ViewItem';
 import { EditItem } from '../components/EditItem';
 
 const ListItem = (props) => {
-  let item;
-  if (props.item.isBeingEdited) {
-    item = (<EditItem
+  let item = (props.item.isBeingEdited) ?
+    <EditItem
       item={props.item}
       onDelete={props.onDelete}
       onSave={props.onSave}
       onCancel={props.onCancel}
-    />);
-  }
-  else {
-    item = (<ViewItem
+    /> :
+    <ViewItem
       item={props.item}
       onClick={props.onClick}
-    />);
-  }
+    />;
 
   return (
-    <li className="list-group-item">
+    <span>
       {item}
-    </li>);
+    </span>);
 };
 
 ListItem.displayName = 'ListItem';
