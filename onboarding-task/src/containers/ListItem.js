@@ -18,7 +18,7 @@ const mapStateToProps = (state, { id, index }) => ({
     id,
     index,
     ...state.list.items.get(id).toJS(),
-    ...state.list.itemFlags.get(id).toJS(),
+    ...state.list.itemFlagsMap.get(id).toJS(),
   }),
 });
 
