@@ -29,11 +29,14 @@ class EditItem extends PureComponent {
     };
   }
 
-  _textChange = (event) =>
-    this.setState({ text: event.target.value });
+  _textChange = (event) => {
+    const text = event.target.value;
+    this.setState(() => ({ text }));
+  };
 
   _saveChange = () => {
     const editedText = this.state.text;
+
     if (isStringValid(editedText)) {
       this.props.onSave(editedText);
     }
@@ -54,6 +57,7 @@ class EditItem extends PureComponent {
 
   render() {
     const editedText = this.state.text;
+
     return (
       <div className="form-inline">
         <span>{this.props.item.index}. </span>

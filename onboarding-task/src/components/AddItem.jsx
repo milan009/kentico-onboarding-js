@@ -19,16 +19,18 @@ class AddItem extends PureComponent {
     };
   }
 
-  _onChange = event => {
-    this.setState({ currentText: event.target.value });
+  _onChange = (event) => {
+    const currentText = event.target.value;
+    this.setState(() => ({ currentText }));
   };
 
-  _addItem = event => {
+  _addItem = (event) => {
     event.preventDefault();
+    const currText = this.state.currentText;
 
-    if (isStringValid(this.state.currentText)) {
-      this.props.onAddItem(this.state.currentText);
-      this.setState({ currentText: '' });
+    if (isStringValid(currText)) {
+      this.props.onAddItem(currText);
+      this.setState(() => ({ currentText: '' }));
     }
   };
 
