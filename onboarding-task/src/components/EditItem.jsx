@@ -44,6 +44,7 @@ class EditItem extends PureComponent {
       <div className="form-inline">
         <span>{this.props.item.index}. </span>
         <input
+          autoFocus={true}
           className="form-control"
           type="text"
           value={editedText}
