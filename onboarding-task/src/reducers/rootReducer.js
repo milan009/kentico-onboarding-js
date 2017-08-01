@@ -1,5 +1,5 @@
 import { listReducer } from './list/listReducer';
 
 export const rootReducer = (state = {}, action) => ({
-  itemsById: listReducer(state.itemsById, action),
+  items: listReducer(state.items, action),
 });
