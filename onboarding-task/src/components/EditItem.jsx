@@ -15,6 +15,7 @@ class EditItem extends PureComponent {
       text: PropTypes.string.isRequired,
       index: PropTypes.number.isRequired,
     }).isRequired,
+
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -28,13 +29,26 @@ class EditItem extends PureComponent {
     };
   }
 
-  _textChange = event =>
+  _textChange = (event) =>
     this.setState({ text: event.target.value });
 
-  _saveClick = () => {
+  _saveChange = () => {
     const editedText = this.state.text;
     if (isStringValid(editedText)) {
       this.props.onSave(editedText);
+    }
+  };
+
+  _keyUp = (event) => {
+    switch (event.key) {
+      case 'Enter':
+        this._saveChange();
+        break;
+      case 'Escape':
+        this.props.onCancel();
+        break;
+      default:
+        break;
     }
   };
 
@@ -49,10 +63,11 @@ class EditItem extends PureComponent {
           type="text"
           value={editedText}
           onChange={this._textChange}
+          onKeyUp={this._keyUp}
         />
         <button
           className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isStringValid(editedText) })}
-          onClick={this._saveClick}
+          onClick={this._saveChange}
         >
           Save
         </button>
