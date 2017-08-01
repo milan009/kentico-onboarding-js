@@ -6,7 +6,7 @@ import { List as ListComponent } from '../components/List';
 const getIdsMemoized = memoize((items) => items.keySeq());
 
 const mapStateToProps = (state) => ({
-  itemIds: getIdsMemoized(state.items.itemsById),
+  itemIds: getIdsMemoized(state.list.itemsById),
 });
 
 const List = connect(mapStateToProps)(ListComponent);

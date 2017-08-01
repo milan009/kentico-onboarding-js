@@ -22,8 +22,8 @@ describe('View item memization tests', () => {
     const mockDataObject = { text: 'Mlock' };
     const mockFlagsObject = { isBeingEdited: false };
 
-    const firstViewItem = ViewItem(mockId, 2, mockDataObject, mockFlagsObject);
-    const secondViewItem = ViewItem(mockId, 2, mockDataObject, mockFlagsObject);
+    const firstViewItem = new ViewItem(mockId, 2, mockDataObject, mockFlagsObject);
+    const secondViewItem = new ViewItem(mockId, 2, mockDataObject, mockFlagsObject);
 
     expect(firstViewItem).toBe(secondViewItem);
   });
