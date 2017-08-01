@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
 import classNames from 'classnames';
 
 import { isStringValid } from '../utils/validation';

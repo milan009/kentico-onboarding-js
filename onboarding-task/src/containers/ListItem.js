@@ -8,8 +8,8 @@ const mapStateToProps = (state, { id, index }) => ({
   item: new ViewItem(
     id,
     index,
-    state.items.itemsById.get(id),
-    state.items.itemFlagsMap.get(id),
+    state.itemsById.itemsById.get(id),
+    state.itemsById.itemFlagsMap.get(id),
   ),
 });
 

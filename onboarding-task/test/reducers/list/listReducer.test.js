@@ -7,7 +7,7 @@ import { ItemFlags } from '../../../src/models/ItemFlags';
 
 describe('List reducer', () => {
   const defaultListState = {
-    items: new OrderedMap([
+    itemsById: new OrderedMap([
       [
         '0',
         new ItemData({
@@ -39,7 +39,7 @@ describe('List reducer', () => {
     const mockId = '12345678-0000-0000-0000-000000000000';
     const mockIdCreator = () => mockId;
     const expectedState = {
-      items: new OrderedMap([
+      itemsById: new OrderedMap([
         [
           mockId,
           new ItemData({
@@ -65,7 +65,7 @@ describe('List reducer', () => {
 
   it('makes an item editable correctly', () => {
     const expectedState = {
-      items: new OrderedMap([
+      itemsById: new OrderedMap([
         [
           '0',
           new ItemData({
@@ -103,7 +103,7 @@ describe('List reducer', () => {
 
   it('cancels changes correctly', () => {
     const expectedState = {
-      items: new OrderedMap([
+      itemsById: new OrderedMap([
         [
           '0',
           new ItemData({
@@ -137,7 +137,7 @@ describe('List reducer', () => {
 
   it('saves changed item correctly', () => {
     const expectedState = {
-      items: new OrderedMap([
+      itemsById: new OrderedMap([
         [
           '0',
           new ItemData({
