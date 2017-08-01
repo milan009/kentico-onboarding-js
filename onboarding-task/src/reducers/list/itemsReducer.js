@@ -13,6 +13,7 @@ export const itemsReducer = (state = defaultState, action) => {
 
     case actionTypes.ITEM_CREATED: {
       const newItem = new ItemData({
+        id: action.payload.newId,
         text: action.payload.text,
       });
       return state.set(action.payload.newId, newItem);
