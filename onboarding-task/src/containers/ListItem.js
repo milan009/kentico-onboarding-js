@@ -1,25 +1,16 @@
 import { connect } from 'react-redux';
-import memoize from 'memoizee';
 
 import { ListItem as ListItemComponent } from '../components/ListItem';
 import * as actionCreators from '../actions/actionCreators';
 import { ViewItem } from '../models/ViewItem';
 
-const createItemRecordMemoized = memoize(({ id, index, text, isBeingEdited }) => (
-  new ViewItem({
-    id,
-    index,
-    text,
-    isBeingEdited,
-  })));
-
 const mapStateToProps = (state, { id, index }) => ({
-  item: createItemRecordMemoized({
+  item: new ViewItem(
     id,
     index,
-    ...state.list.items.get(id).toJS(),
-    ...state.list.itemFlagsMap.get(id).toJS(),
-  }),
+    state.list.items.get(id),
+    state.list.itemFlagsMap.get(id),
+  ),
 });
 
 const mapDispatchToProps = (dispatch, { id }) => ({

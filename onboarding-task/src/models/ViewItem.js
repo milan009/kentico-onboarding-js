@@ -1,12 +1,14 @@
-const defaultViewItem = {
-  id: '00000000-0000-0000-0000-000000000000',
-  index: 0,
-  text: '',
-  isBeingEdited: false,
-};
+import memoize from 'memoizee';
 
-export class ViewItem {
-  constructor(props = defaultViewItem) {
-    return { ...props };
+const createViewModel = (id, index, data, flags) => (
+  {
+    id,
+    index,
+    text: data.text,
+    isBeingEdited: flags.isBeingEdited,
   }
-}
+);
+
+const createItemRecordMemoized = memoize(createViewModel);
+
+export { createItemRecordMemoized as ViewItem };
