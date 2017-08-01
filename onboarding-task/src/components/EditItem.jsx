@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import classNames from 'classnames';
+
+import { isStringValid } from '../utils/validation';
+
 class EditItem extends PureComponent {
 
   static displayName = 'EditItem';
@@ -27,21 +31,26 @@ class EditItem extends PureComponent {
   _textChange = event =>
     this.setState({ text: event.target.value });
 
-  _saveClick = () =>
-    this.props.onSave(this.state.text);
+  _saveClick = () => {
+    const editedText = this.state.text;
+    if (isStringValid(editedText)) {
+      this.props.onSave(editedText);
+    }
+  };
 
   render() {
+    const editedText = this.state.text;
     return (
       <div className="form-inline">
         <span>{this.props.item.index}. </span>
         <input
           className="form-control"
           type="text"
-          value={this.state.text}
+          value={editedText}
           onChange={this._textChange}
         />
         <button
-          className="btn btn-primary form-control"
+          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isStringValid(editedText) })}
           onClick={this._saveClick}
         >
           Save
