@@ -10,9 +10,13 @@ const defaultItemData = {
   text: '',
 };
 
-const ItemDataRecord = Record(defaultItemData, 'ItemData');
-
-export class ItemData extends ItemDataRecord implements IItemData {
+export class ItemData extends Record(defaultItemData, 'ItemData') implements IItemData {
   id: string;
   text: string;
+
+  constructor(props: IItemData = defaultItemData) {
+    super(props);
+  }
 }
+
+export interface IItemDataRecord extends ItemData {}

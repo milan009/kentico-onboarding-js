@@ -8,8 +8,13 @@ const defaultItemFlags = {
   isBeingEdited: false,
 };
 
-const ItemFlagsRecord = Record(defaultItemFlags, 'ItemFlags');
-
-export class ItemFlags extends ItemFlagsRecord implements IItemFlags {
+export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements IItemFlags {
   isBeingEdited: boolean;
+
+  constructor(props: IItemFlags = defaultItemFlags) {
+    super(props);
+  }
 }
+
+export interface IItemFlagsRecord extends ItemFlags {}
+
