@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@types/immutable": "^3.8.7",
     "@types/jest": "^18.1.1",
     "@types/memoizee": "^0.4.1",
     "@types/node": "^7.0.0",
