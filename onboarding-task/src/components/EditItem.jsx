@@ -29,8 +29,8 @@ class EditItem extends PureComponent {
   }
 
   _textChange = (event) => {
-    const text = event.target.value;
-    this.setState(() => ({ text }));
+    const setStateText = (text) => (() => ({ text }));
+    this.setState(setStateText(event.target.value));
   };
 
   _saveChange = () => {

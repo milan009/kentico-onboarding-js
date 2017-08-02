@@ -20,8 +20,8 @@ class AddItem extends PureComponent {
   }
 
   _onChange = (event) => {
-    const currentText = event.target.value;
-    this.setState(() => ({ currentText }));
+    const setStateText = (currentText) => (() => ({ currentText }));
+    this.setState(setStateText(event.target.value));
   };
 
   _addItem = (event) => {
