@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { ListItem as ListItemComponent } from '../components/ListItem';
 import * as actionCreators from '../actions/actionCreators.ts';
-import { ViewItem } from '../models/ViewItem';
+import { ViewItem } from '../models/ViewItem.ts';
 
 const mapStateToProps = (state, { id, index }) => ({
   item: new ViewItem(

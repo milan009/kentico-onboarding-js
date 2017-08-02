@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actions/actionTypes.ts';
-import { ItemFlags } from '../../models/ItemFlags';
+import { ItemFlags } from '../../models/ItemFlags.ts';
 
 const defaultState = new ItemFlags();
 

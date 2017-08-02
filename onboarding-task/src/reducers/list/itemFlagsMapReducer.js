@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 
 import * as actionTypes from '../../actions/actionTypes.ts';
 import { itemFlagsReducer } from './itemFlagsReducer';
-import { ItemFlags } from '../../models/ItemFlags';
+import { ItemFlags } from '../../models/ItemFlags.ts';
 
 const defaultState = new OrderedMap();
 

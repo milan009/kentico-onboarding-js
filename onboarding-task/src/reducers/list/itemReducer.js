@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actions/actionTypes.ts';
-import { ItemData } from '../../models/ItemData';
+import { ItemData } from '../../models/ItemData.ts';
 
 const defaultState = new ItemData();
 
