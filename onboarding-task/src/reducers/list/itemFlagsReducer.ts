@@ -1,20 +1,14 @@
 import * as actionTypes from '../../actions/actionTypes';
-import { IItemFlagsRecord, ItemFlags } from '../../models/ItemFlags';
+import { ItemFlags} from '../../models/ItemFlags';
 import { IAction } from '../../actions/actionInterface';
 
-const defaultState = new ItemFlags();
-
-export const itemFlagsReducer = (state: IItemFlagsRecord = defaultState, action: IAction): IItemFlagsRecord => {
+export const itemFlagsReducer = (state: ItemFlags, action: IAction) => {
   switch (action.type) {
     case actionTypes.ITEM_MAKE_EDITABLE:
-      return new ItemFlags({
-        isBeingEdited: true,
-      });
+      return state.typedMerge({isBeingEdited: true});
     case actionTypes.ITEM_CHANGE_CANCELLED:
     case actionTypes.ITEM_CHANGE_SAVED:
-      return new ItemFlags({
-        isBeingEdited: false,
-      });
+      return state.typedMerge({isBeingEdited: false});
 
     default:
       return state;

@@ -2,12 +2,10 @@ import { OrderedMap } from 'immutable';
 
 import * as actionTypes from '../../actions/actionTypes';
 import { itemReducer } from './itemReducer';
-import { IItemDataRecord, ItemData } from '../../models/ItemData';
+import { ItemData } from '../../models/ItemData';
 import { IAction } from '../../actions/actionInterface';
 
-const defaultState = OrderedMap<string, IItemDataRecord>();
-
-export const itemsReducer = (state: OrderedMap<string, IItemDataRecord> = defaultState, action: IAction) => {
+export const itemsReducer = (state: OrderedMap<string, ItemData>, action: IAction) => {
   switch (action.type) {
     case actionTypes.ITEM_DELETED:
       return state.remove(action.payload.id);

@@ -1,16 +1,11 @@
 import * as actionTypes from '../../actions/actionTypes';
-import { IItemDataRecord, ItemData } from '../../models/ItemData';
 import { IAction } from '../../actions/actionInterface';
+import { ItemData } from '../../models/ItemData';
 
-const defaultState = new ItemData();
-
-export const itemReducer = (state: IItemDataRecord = defaultState, action: IAction): IItemDataRecord => {
+export const itemReducer = (state: ItemData, action: IAction) => {
   switch (action.type) {
     case actionTypes.ITEM_CHANGE_SAVED:
-      return new ItemData({
-        id: action.payload.id,
-        text: action.payload.text
-      });
+      return state.typedMerge({ text: action.payload.text });
 
     default:
       return state;
