@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { isStringValid } from '../utils/validation';
+import { isValidItemText } from '../utils/validation';
 
 class EditItem extends PureComponent {
 
@@ -36,7 +36,7 @@ class EditItem extends PureComponent {
   _saveChange = () => {
     const editedText = this.state.text;
 
-    if (isStringValid(editedText)) {
+    if (isValidItemText(editedText)) {
       this.props.onSave(editedText);
     }
   };
@@ -61,7 +61,7 @@ class EditItem extends PureComponent {
       <div className="form-inline">
         <span>{this.props.item.index}. </span>
         <input
-          autoFocus={true}
+          autoFocus
           className="form-control"
           type="text"
           value={editedText}
@@ -69,7 +69,7 @@ class EditItem extends PureComponent {
           onKeyUp={this._keyUp}
         />
         <button
-          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isStringValid(editedText) })}
+          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isValidItemText(editedText) })}
           onClick={this._saveChange}
         >
           Save

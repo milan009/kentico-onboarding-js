@@ -1,4 +1,4 @@
-export const isStringValid = (string) =>
+export const isValidItemText = (string) =>
   isNotFalsy(string) && isNotEmpty(string);
 
 const isNotEmpty = (string) =>

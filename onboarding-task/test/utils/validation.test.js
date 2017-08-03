@@ -1,70 +1,67 @@
-import { isStringValid } from '../../src/utils/validation';
+import { isValidItemText } from '../../src/utils/validation';
 
-describe('Validation utility functions', () => {
-  describe('String validation', () => {
-    it('rejects null string', () => {
-      const string = null;
-      const expectedResult = false;
+describe('"isValidItemText"', () => {
+  it('rejects null string', () => {
+    const string = null;
 
-      const result = isStringValid(string);
+    const result = isValidItemText(string);
 
-      expect(result).toEqual(expectedResult);
-    });
+    expect(result).toBeFalsy();
+  });
 
-    it('rejects undefined string', () => {
-      const string = undefined;
-      const expectedResult = false;
-      const result = isStringValid(string);
+  it('rejects undefined string', () => {
+    const string = undefined;
 
-      expect(result).toEqual(expectedResult);
-    });
+    const result = isValidItemText(string);
 
-    it('rejects empty string', () => {
-      const string = '';
-      const expectedResult = false;
-      const result = isStringValid(string);
+    expect(result).toBeFalsy();
+  });
 
-      expect(result).toEqual(expectedResult);
-    });
+  it('rejects empty string', () => {
+    const string = '';
 
-    it('rejects whitespace-only string', () => {
-      const string = '  \n\n\r ';
-      const expectedResult = false;
-      const result = isStringValid(string);
+    const result = isValidItemText(string);
 
-      expect(result).toEqual(expectedResult);
-    });
+    expect(result).toBeFalsy();
+  });
 
-    it('accepts string with "null" text', () => {
-      const string = 'null';
-      const expectedResult = true;
-      const result = isStringValid(string);
+  it('rejects whitespace-only string', () => {
+    const string = '  \n\n\r ';
 
-      expect(result).toEqual(expectedResult);
-    });
+    const result = isValidItemText(string);
 
-    it('accepts string with "undefined" text', () => {
-      const string = 'undefined';
-      const expectedResult = true;
-      const result = isStringValid(string);
+    expect(result).toBeFalsy();
+  });
 
-      expect(result).toEqual(expectedResult);
-    });
+  it('accepts string with "null" text', () => {
+    const string = 'null';
 
-    it('accepts string with "0" text', () => {
-      const string = '0';
-      const expectedResult = true;
-      const result = isStringValid(string);
+    const result = isValidItemText(string);
 
-      expect(result).toEqual(expectedResult);
-    });
+    expect(result).toBeTruthy();
+  });
 
-    it('accepts string starting with whitespaces', () => {
-      const string = ' \r\nkukuricka ';
-      const expectedResult = true;
-      const result = isStringValid(string);
+  it('accepts string with "undefined" text', () => {
+    const string = 'undefined';
 
-      expect(result).toEqual(expectedResult);
-    });
+    const result = isValidItemText(string);
+
+    expect(result).toBeTruthy();
+  });
+
+  it('accepts string with "0" text', () => {
+    const string = '0';
+
+    const result = isValidItemText(string);
+
+    expect(result).toBeTruthy();
+  });
+
+  it('accepts string starting with whitespaces', () => {
+    const string = ' \r\nkukuricka ';
+
+    const result = isValidItemText(string);
+
+    expect(result).toBeTruthy();
   });
 });
