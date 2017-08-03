@@ -21,5 +21,3 @@ export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements 
   }
 }
 
-export interface IItemFlagsRecord extends ItemFlags {}
-

@@ -23,5 +23,3 @@ export class ItemData extends Record(defaultItemData, 'ItemData') implements IIt
     return this.merge(itemFlags) as this;
   }
 }
-
-export interface IItemDataRecord extends ItemData {}
