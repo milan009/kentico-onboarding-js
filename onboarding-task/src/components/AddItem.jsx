@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { isStringValid } from '../utils/validation';
+import { isValidItemText } from '../utils/validation';
 
 class AddItem extends PureComponent {
 
@@ -28,7 +28,7 @@ class AddItem extends PureComponent {
     event.preventDefault();
     const currText = this.state.currentText;
 
-    if (isStringValid(currText)) {
+    if (isValidItemText(currText)) {
       this.props.onAddItem(currText);
       this.setState(() => ({ currentText: '' }));
     }
@@ -45,7 +45,7 @@ class AddItem extends PureComponent {
         />
         <button
           type="submit"
-          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isStringValid(this.state.currentText) })}
+          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isValidItemText(this.state.currentText) })}
         >
           Add
         </button>
