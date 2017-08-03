@@ -5,7 +5,7 @@ import { ViewItem } from '../components/ViewItem';
 import { EditItem } from '../components/EditItem';
 
 const ListItem = (props) => {
-  let item = (props.item.isBeingEdited) ?
+  const item = (props.item.isBeingEdited) ?
     <EditItem
       item={props.item}
       onDelete={props.onDelete}
