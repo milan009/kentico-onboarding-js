@@ -2,13 +2,18 @@ import uuidV4 from 'uuid';
 
 import * as actionTypes from './actionTypes';
 
-export const createItem = (text, idGenerator = uuidV4) => ({
+const createItem = ({ idGenerator }, text) => ({
   type: actionTypes.ITEM_CREATED,
   payload: {
     text,
     newId: idGenerator(),
   },
 });
+
+export const createItemFactory = (deps) => (createItem.bind(null, deps));
+const createItemWithUuidV4 = createItemFactory({ idGenerator: uuidV4 });
+
+export { createItemWithUuidV4 as createItem };
 
 export const deleteItem = (id) => ({
   type: actionTypes.ITEM_DELETED,
