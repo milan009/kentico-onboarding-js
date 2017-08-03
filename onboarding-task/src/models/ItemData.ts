@@ -19,7 +19,7 @@ export class ItemData extends Record(defaultItemData, 'ItemData') implements IIt
   }
 
   // Typed merge alias
-  typedMerge(itemFlags: IItemData): IItemData {
+  typedMerge(itemFlags: IItemData): ItemData {
     return this.merge(itemFlags) as this;
   }
 }

@@ -16,7 +16,7 @@ export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements 
   }
 
   // Typed merge alias
-  typedMerge(itemFlags: IItemFlags): IItemFlags {
+  typedMerge(itemFlags: IItemFlags): ItemFlags {
     return this.merge(itemFlags) as this;
   }
 }
