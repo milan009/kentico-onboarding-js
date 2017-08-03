@@ -1,21 +1,16 @@
-import { itemsReducer } from './itemsReducer';
-import { itemFlagsMapReducer } from './itemFlagsMapReducer';
-// import { combineReducers } from 'redux';
-import { ItemData } from '../../models/ItemData';
-import { OrderedMap } from 'immutable';
-import { ItemFlags } from '../../models/ItemFlags';
-import { IAction } from '../../actions/actionInterface';
+import { combineReducers } from 'redux';
 
-export const listReducer = (state = {itemsById: OrderedMap<string, ItemData>(), itemFlagsMap: OrderedMap<string, ItemFlags>()}, action: IAction) => ({
-  itemsById: itemsReducer(state.itemsById, action),
-  itemFlagsMap: itemFlagsMapReducer(state.itemFlagsMap, action)
-});
+import { ItemsDataMap, itemsReducer } from './itemsReducer';
+import { ItemsFlagsMap, itemFlagsMapReducer } from './itemFlagsMapReducer';
 
+interface IState {
+  itemsById: ItemsDataMap;
+  itemFlagsMap: ItemsFlagsMap;
+}
 
-/*
-export const listReducer = combineReducers({
+export const listReducer = combineReducers<IState>({
   itemsById: itemsReducer,
   itemFlagsMap: itemFlagsMapReducer,
 });
-*/
+
 

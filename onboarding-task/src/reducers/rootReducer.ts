@@ -1,13 +1,16 @@
-import { listReducer } from './list/listReducer';
-import { IAction } from '../actions/actionInterface';
 import { OrderedMap } from 'immutable';
+
+import { IAction } from '../actions/actionInterface';
 import { ItemData } from '../models/ItemData';
 import { ItemFlags } from '../models/ItemFlags';
+import { ItemsDataMap } from './list/itemsReducer';
+import { ItemsFlagsMap } from './list/itemFlagsMapReducer';
+import { listReducer } from './list/listReducer';
 
 interface IStore {
   list: {
-    itemsById: OrderedMap<string, ItemData>;
-    itemFlagsMap: OrderedMap<string, ItemFlags>;
+    itemsById: ItemsDataMap;
+    itemFlagsMap: ItemsFlagsMap;
   };
 }
 

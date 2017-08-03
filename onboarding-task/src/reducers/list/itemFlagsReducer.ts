@@ -1,8 +1,10 @@
-import * as actionTypes from '../../actions/actionTypes';
 import { ItemFlags} from '../../models/ItemFlags';
 import { IAction } from '../../actions/actionInterface';
+import * as actionTypes from '../../actions/actionTypes';
 
-export const itemFlagsReducer = (state: ItemFlags, action: IAction) => {
+const defaultState = new ItemFlags();
+
+export const itemFlagsReducer = (state: ItemFlags = defaultState, action: IAction): ItemFlags => {
   switch (action.type) {
     case actionTypes.ITEM_MAKE_EDITABLE:
       return state.typedMerge({isBeingEdited: true});
