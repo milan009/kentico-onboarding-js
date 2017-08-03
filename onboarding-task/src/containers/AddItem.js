@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { createItem } from '../actions/actionCreators.ts';
-import { AddItem as AddItemComponent } from '../components/AddItem';
+import { AddItem as AddItemComponent } from '../components/AddItem.tsx';
 
 const mapDispatchToProps = (dispatch) => ({
   onAddItem: (text) => dispatch(createItem(text)),

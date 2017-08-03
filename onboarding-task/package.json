@@ -58,6 +58,8 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.0",
+    "@types/prop-types": "^15.5.1",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
