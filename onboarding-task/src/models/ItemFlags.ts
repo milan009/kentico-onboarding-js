@@ -14,6 +14,11 @@ export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements 
   constructor(params?: IItemFlags) {
     params ? super(params) : super();
   }
+
+  // Typed merge alias
+  typedMerge(itemFlags: IItemFlags): IItemFlags {
+    return this.merge(itemFlags) as this;
+  }
 }
 
 export interface IItemFlagsRecord extends ItemFlags {}

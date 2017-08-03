@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
 export interface IItemData {
-  id: string;
+  id?: string;
   text: string;
 }
 
@@ -16,6 +16,11 @@ export class ItemData extends Record(defaultItemData, 'ItemData') implements IIt
 
   constructor(params?: IItemData) {
     params ? super(params) : super();
+  }
+
+  // Typed merge alias
+  typedMerge(itemFlags: IItemData): IItemData {
+    return this.merge(itemFlags) as this;
   }
 }
 
