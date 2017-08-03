@@ -4,59 +4,61 @@ import * as actionCreators from '../../../src/actions/actionCreators';
 import { listReducer } from '../../../src/reducers/list/listReducer';
 import { ItemData } from '../../../src/models/ItemData';
 import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as testData from '../../testUtils/testData';
 
 describe('List reducer', () => {
   const defaultListState = {
     itemsById: new OrderedMap([
       [
-        '0',
+        testData.mockIds[0],
         new ItemData({
+          id: testData.mockIds[0],
           text: 'Mlock',
         }),
       ],
       [
-        '1',
+        testData.mockIds[1],
         new ItemData({
+          id: testData.mockIds[1],
           text: 'Block',
         }),
       ],
     ]),
     itemFlagsMap: new OrderedMap([
       [
-        '0',
+        testData.mockIds[0],
         new ItemFlags({
           isBeingEdited: true,
         }),
       ],
       [
-        '1',
+        testData.mockIds[1],
         new ItemFlags(),
       ],
     ]),
   };
 
   it('adds item and ItemFlags correctly into undefined list', () => {
-    const mockId = '12345678-0000-0000-0000-000000000000';
-    const mockIdCreator = () => mockId;
     const expectedState = {
       itemsById: new OrderedMap([
         [
-          mockId,
+          testData.mockIds[0],
           new ItemData({
+            id: testData.mockIds[0],
             text: 'Mlok',
           }),
         ],
       ]),
       itemFlagsMap: new OrderedMap([
         [
-          mockId,
+          testData.mockIds[0],
           new ItemFlags({
             isBeingEdited: false,
           }),
         ],
       ]),
     };
-    const action = actionCreators.createItem('Mlok', mockIdCreator);
+    const action = actionCreators.createItemFactory({ idGenerator: testData.mockIdGenerators[0] })('Mlok');
 
     const createdState = listReducer(undefined, action);
 
@@ -67,34 +69,36 @@ describe('List reducer', () => {
     const expectedState = {
       itemsById: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemData({
+            id: testData.mockIds[0],
             text: 'Mlock',
           }),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemData({
+            id: testData.mockIds[1],
             text: 'Block',
           }),
         ],
       ]),
       itemFlagsMap: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemFlags({
             isBeingEdited: true,
           }),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemFlags({
             isBeingEdited: true,
           }),
         ],
       ]),
     };
-    const action = actionCreators.makeEditable('1');
+    const action = actionCreators.makeEditable(testData.mockIds[1]);
 
     const createdState = listReducer(defaultListState, action);
 
@@ -105,30 +109,32 @@ describe('List reducer', () => {
     const expectedState = {
       itemsById: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemData({
+            id: testData.mockIds[0],
             text: 'Mlock',
           }),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemData({
+            id: testData.mockIds[1],
             text: 'Block',
           }),
         ],
       ]),
       itemFlagsMap: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemFlags(),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemFlags(),
         ],
       ]),
     };
-    const action = actionCreators.cancelChange('0');
+    const action = actionCreators.cancelChange(testData.mockIds[0]);
 
     const createdState = listReducer(defaultListState, action);
 
@@ -139,30 +145,32 @@ describe('List reducer', () => {
     const expectedState = {
       itemsById: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemData({
+            id: testData.mockIds[0],
             text: 'Slock',
           }),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemData({
+            id: testData.mockIds[1],
             text: 'Block',
           }),
         ],
       ]),
       itemFlagsMap: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemFlags(),
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemFlags(),
         ],
       ]),
     };
-    const action = actionCreators.saveChange('0', 'Slock');
+    const action = actionCreators.saveChange(testData.mockIds[0], 'Slock');
 
     const createdState = listReducer(defaultListState, action);
 

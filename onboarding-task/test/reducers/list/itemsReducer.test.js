@@ -1,39 +1,17 @@
 import { OrderedMap } from 'immutable';
 
+import * as actionTypes from '../../../src/actions/actionTypes';
 import * as actionCreators from '../../../src/actions/actionCreators';
 import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapReducer';
 import { itemsReducer } from '../../../src/reducers/list/itemsReducer';
 import { ItemData } from '../../../src/models/ItemData';
-import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as testData from '../../testUtils/testData';
 
-describe('Items map reducer', () => {
-  const defaultItemsState = new OrderedMap([
-    [
-      '0',
-      new ItemData({
-        text: 'Mlock',
-      }),
-    ],
-    [
-      '1',
-      new ItemData({
-        text: 'Block',
-      }),
-    ],
-  ]);
-
-  describe('"ITEM_CREATED" action', () => {
-    it('adds item without passed state', () => {
-      const mockId = '12345678-0000-0000-0000-000000000000';
-      const mockIdCreator = () => mockId;
-      const expectedState = new OrderedMap([
-        [
-          mockId, new ItemData({
-            text: 'Mlok',
-          }),
-        ],
-      ]);
-      const action = actionCreators.createItem('Mlok', mockIdCreator);
+describe('Items map reducer with', () => {
+  describe(`"${actionTypes.ITEM_CREATED}" action`, () => {
+    it('adds item with undefined state', () => {
+      const expectedState = testData.mockItemsDataMapWithSingleDataItem;
+      const action = actionCreators.createItemFactory({ idGenerator: testData.mockIdGenerators[0] })(testData.mockTexts[0]);
 
       const createdState = itemsReducer(undefined, action);
 
@@ -41,19 +19,18 @@ describe('Items map reducer', () => {
     });
 
     it('adds item to existing map', () => {
-      const mockId = '12345678-0000-0000-0000-000000000000';
-      const mockIdCreator = () => mockId;
-      const expectedState = new OrderedMap([...defaultItemsState, [mockId, new ItemFlags()]]);
-      const action = actionCreators.createItem('Glock', mockIdCreator);
+      const prevState = testData.mockItemsDataMapWithSingleDataItem;
+      const expectedState = testData.mockItemsDataMapWithTwoDataItems;
+      const action = actionCreators.createItemFactory({ idGenerator: testData.mockIdGenerators[1] })(testData.mockTexts[1]);
 
-      const createdState = itemFlagsMapReducer(defaultItemsState, action);
+      const createdState = itemsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
     });
   });
 
-  describe('"ITEM_DELETED" action', () => {
-    it('does nothing without passed state', () => {
+  describe(`"${actionTypes.ITEM_DELETED}" action`, () => {
+    it('returns default state on undefined', () => {
       const action = actionCreators.deleteItem('42');
       const expectedState = new OrderedMap();
 
@@ -64,31 +41,27 @@ describe('Items map reducer', () => {
 
     it('does nothing to state not containing given id', () => {
       const action = actionCreators.deleteItem('42');
-      const expectedState = defaultItemsState;
+      const prevState = testData.mockItemsDataMapWithSingleDataItem;
+      const expectedState = prevState;
 
-      const createdState = itemsReducer(defaultItemsState, action);
+      const createdState = itemsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
     });
 
     it('correctly removes item', () => {
-      const action = actionCreators.deleteItem('0');
-      const expectedState = new OrderedMap([
-        [
-          '1',
-          new ItemData({
-            text: 'Block',
-          }),
-        ],
-      ]);
-      const createdState = itemFlagsMapReducer(defaultItemsState, action);
+      const action = actionCreators.deleteItem(testData.mockIds[1]);
+      const prevState = testData.mockItemsDataMapWithTwoDataItems;
+      const expectedState = testData.mockItemsDataMapWithSingleDataItem;
+
+      const createdState = itemFlagsMapReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
     });
   });
 
-  describe('"ITEM_CHANGE_SAVED" action', () => {
-    it('does nothing without passed state', () => {
+  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
+    it('returns default state on undefined', () => {
       const action = actionCreators.saveChange('42', 'Glock');
       const expectedState = new OrderedMap();
 
@@ -99,31 +72,31 @@ describe('Items map reducer', () => {
 
     it('does nothing to state not containing given id', () => {
       const action = actionCreators.saveChange('42', 'Glock');
-      const expectedState = defaultItemsState;
+      const expectedState = testData.mockItemsDataMapWithSingleDataItem;
 
-      const createdState = itemsReducer(defaultItemsState, action);
+      const createdState = itemsReducer(testData.mockItemsDataMapWithSingleDataItem, action);
 
       expect(createdState).toEqual(expectedState);
     });
 
     it('correctly changes ItemData', () => {
-      const action = actionCreators.saveChange('0', 'Glock');
+      const action = actionCreators.saveChange(testData.mockIds[1], 'Flock');
+      const prevState = testData.mockItemsDataMapWithTwoDataItems;
       const expectedState = new OrderedMap([
         [
-          '0',
-          new ItemData({
-            text: 'Glock',
-          }),
+          testData.mockIds[0],
+          testData.mockItemDataObjects[0],
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemData({
-            text: 'Block',
+            id: testData.mockIds[1],
+            text: 'Flock',
           }),
         ],
       ]);
 
-      const createdState = itemsReducer(defaultItemsState, action);
+      const createdState = itemsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
     });
