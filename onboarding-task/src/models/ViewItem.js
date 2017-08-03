@@ -1,8 +1,8 @@
 import memoize from 'memoizee';
 
-const createViewModel = (id, index, data, flags) => (
+const createViewModel = (index, data, flags) => (
   {
-    id,
+    id: data.id,
     index,
     text: data.text,
     isBeingEdited: flags.isBeingEdited,
