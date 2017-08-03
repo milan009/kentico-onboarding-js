@@ -11,8 +11,8 @@ const defaultItemFlags = {
 export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements IItemFlags {
   isBeingEdited: boolean;
 
-  constructor(props: IItemFlags = defaultItemFlags) {
-    super(props);
+  constructor(params?: IItemFlags) {
+    params ? super(params) : super();
   }
 }
 

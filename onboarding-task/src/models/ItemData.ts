@@ -14,8 +14,8 @@ export class ItemData extends Record(defaultItemData, 'ItemData') implements IIt
   id: string;
   text: string;
 
-  constructor(props: IItemData = defaultItemData) {
-    super(props);
+  constructor(params?: IItemData) {
+    params ? super(params) : super();
   }
 }
 
