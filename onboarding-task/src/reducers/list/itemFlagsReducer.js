@@ -9,6 +9,7 @@ export const itemFlagsReducer = (state = defaultState, action) => {
       return state.merge({
         isBeingEdited: true,
       });
+
     case actionTypes.ITEM_CHANGE_CANCELLED:
     case actionTypes.ITEM_CHANGE_SAVED:
       return state.merge({
