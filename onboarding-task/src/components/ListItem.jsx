@@ -5,22 +5,19 @@ import { ViewItem } from '../components/ViewItem';
 import { EditItem } from '../components/EditItem';
 
 const ListItem = (props) => {
-  const item = (props.item.isBeingEdited) ?
-    <EditItem
+  if (props.item.isBeingEdited) {
+    return (<EditItem
       item={props.item}
       onDelete={props.onDelete}
       onSave={props.onSave}
       onCancel={props.onCancel}
-    /> :
-    <ViewItem
-      item={props.item}
-      onClick={props.onClick}
-    />;
+    />);
+  }
 
-  return (
-    <span>
-      {item}
-    </span>);
+  return (<ViewItem
+    item={props.item}
+    onClick={props.onClick}
+  />);
 };
 
 ListItem.displayName = 'ListItem';
