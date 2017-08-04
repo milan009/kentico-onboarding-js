@@ -4,7 +4,7 @@ import { ItemsDataMap } from './list/itemsReducer';
 import { ItemsFlagsMap } from './list/itemFlagsMapReducer';
 import { listReducer } from './list/listReducer';
 
-interface IStore {
+export interface IStore {
   list: {
     itemsById: ItemsDataMap;
     itemFlagsMap: ItemsFlagsMap;
