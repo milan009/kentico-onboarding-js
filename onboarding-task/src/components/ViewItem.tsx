@@ -1,14 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
-interface IItem {
-  id: string;
-  text: string;
-  index: number;
-}
+import { IViewItem } from '../models/ViewItem';
 
 export interface IViewItemDataProps {
-  item: IItem;
+  item: IViewItem;
 }
 
 export interface IViewItemCallbackProps {

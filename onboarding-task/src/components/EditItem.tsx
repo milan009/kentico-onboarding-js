@@ -5,15 +5,11 @@ import { FormEvent } from 'react';
 import { KeyboardEvent } from 'react';
 
 import { isValidItemText } from '../utils/validation';
+import { IViewItem } from '../models/ViewItem';
 
-interface IItem {
-  id: string;
-  text: string;
-  index: number;
-}
 
 export interface IEditItemDataProps {
-  item: IItem;
+  item: IViewItem;
 }
 
 export interface IEditItemCallbackProps {
