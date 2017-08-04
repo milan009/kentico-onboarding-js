@@ -2,61 +2,21 @@ import { OrderedMap } from 'immutable';
 
 import * as actionCreators from '../../../src/actions/actionCreators';
 import { listReducer } from '../../../src/reducers/list/listReducer';
-import { ItemData } from '../../../src/models/ItemData';
 import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as testData from '../../testUtils/testData';
 
 describe('List reducer', () => {
-  const defaultListState = {
-    itemsById: new OrderedMap([
-      [
-        '0',
-        new ItemData({
-          text: 'Mlock',
-        }),
-      ],
-      [
-        '1',
-        new ItemData({
-          text: 'Block',
-        }),
-      ],
-    ]),
-    itemFlagsMap: new OrderedMap([
-      [
-        '0',
-        new ItemFlags({
-          isBeingEdited: true,
-        }),
-      ],
-      [
-        '1',
-        new ItemFlags(),
-      ],
-    ]),
+  const mockListState = {
+    itemsById: testData.mockItemsDataMapWithTwoDataItems,
+    itemFlagsMap: testData.mockItemsFlagsMapWithTwoFlagsItems,
   };
 
-  it('adds item and ItemFlags correctly into undefined list', () => {
-    const mockId = '12345678-0000-0000-0000-000000000000';
-    const mockIdCreator = () => mockId;
+  it('adds item and ItemFlags correctly with undefined state', () => {
     const expectedState = {
-      itemsById: new OrderedMap([
-        [
-          mockId,
-          new ItemData({
-            text: 'Mlok',
-          }),
-        ],
-      ]),
-      itemFlagsMap: new OrderedMap([
-        [
-          mockId,
-          new ItemFlags({
-            isBeingEdited: false,
-          }),
-        ],
-      ]),
+      itemsById: testData.mockItemsDataMapWithSingleDataItem,
+      itemFlagsMap: testData.mockItemsFlagsMapWithSingleFlagsItem,
     };
-    const action = actionCreators.createItem('Mlok', mockIdCreator);
+    const action = actionCreators.createItemFactory({ idGenerator: testData.mockIdGenerators[0] })(testData.mockTexts[0]);
 
     const createdState = listReducer(undefined, action);
 
@@ -65,107 +25,58 @@ describe('List reducer', () => {
 
   it('makes an item editable correctly', () => {
     const expectedState = {
-      itemsById: new OrderedMap([
-        [
-          '0',
-          new ItemData({
-            text: 'Mlock',
-          }),
-        ],
-        [
-          '1',
-          new ItemData({
-            text: 'Block',
-          }),
-        ],
-      ]),
+      itemsById: testData.mockItemsDataMapWithTwoDataItems,
       itemFlagsMap: new OrderedMap([
         [
-          '0',
+          testData.mockIds[0],
           new ItemFlags({
             isBeingEdited: true,
           }),
         ],
         [
-          '1',
-          new ItemFlags({
-            isBeingEdited: true,
-          }),
+          testData.mockIds[1],
+          testData.mockItemFlagsObjects[1],
         ],
       ]),
     };
-    const action = actionCreators.makeEditable('1');
+    const action = actionCreators.makeEditable(testData.mockIds[0]);
 
-    const createdState = listReducer(defaultListState, action);
+    const createdState = listReducer(mockListState, action);
 
     expect(createdState).toEqual(expectedState);
   });
 
   it('cancels changes correctly', () => {
     const expectedState = {
-      itemsById: new OrderedMap([
-        [
-          '0',
-          new ItemData({
-            text: 'Mlock',
-          }),
-        ],
-        [
-          '1',
-          new ItemData({
-            text: 'Block',
-          }),
-        ],
-      ]),
+      itemsById: testData.mockItemsDataMapWithTwoDataItems,
       itemFlagsMap: new OrderedMap([
         [
-          '0',
-          new ItemFlags(),
+          testData.mockIds[0],
+          testData.mockItemFlagsObjects[0],
         ],
         [
-          '1',
+          testData.mockIds[1],
           new ItemFlags(),
         ],
       ]),
     };
-    const action = actionCreators.cancelChange('0');
+    const action = actionCreators.cancelChange(testData.mockIds[1]);
 
-    const createdState = listReducer(defaultListState, action);
+    const createdState = listReducer(mockListState, action);
 
     expect(createdState).toEqual(expectedState);
   });
 
   it('saves changed item correctly', () => {
-    const expectedState = {
-      itemsById: new OrderedMap([
-        [
-          '0',
-          new ItemData({
-            text: 'Slock',
-          }),
-        ],
-        [
-          '1',
-          new ItemData({
-            text: 'Block',
-          }),
-        ],
-      ]),
-      itemFlagsMap: new OrderedMap([
-        [
-          '0',
-          new ItemFlags(),
-        ],
-        [
-          '1',
-          new ItemFlags(),
-        ],
-      ]),
-    };
-    const action = actionCreators.saveChange('0', 'Slock');
+    const expectedState = mockListState;
+    const action = testData.unknownAction;
 
-    const createdState = listReducer(defaultListState, action);
+    const createdState = listReducer(mockListState, action);
 
     expect(createdState).toEqual(expectedState);
+  });
+
+  it('does not change state with unknown action', () => {
+
   });
 });

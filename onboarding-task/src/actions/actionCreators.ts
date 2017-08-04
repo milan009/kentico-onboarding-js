@@ -3,13 +3,18 @@ import * as uuidV4 from 'uuid';
 import { IAction } from './actionInterface';
 import * as actionTypes from './actionTypes';
 
-export const createItem = (text: string, idGenerator: () => string = uuidV4): IAction => ({
+export const createItemWithGenerator = ({ idGenerator }: { idGenerator: () => string}, text: string): IAction => ({
   type: actionTypes.ITEM_CREATED,
   payload: {
     text,
     newId: idGenerator(),
   },
 });
+
+export const createItemFactory = (deps) => (createItem.bind(null, deps));
+const createItemWithUuidV4 = createItemFactory({ idGenerator: uuidV4 });
+
+export { createItemWithUuidV4 as createItem };
 
 export const deleteItem = (id: string): IAction => ({
   type: actionTypes.ITEM_DELETED,

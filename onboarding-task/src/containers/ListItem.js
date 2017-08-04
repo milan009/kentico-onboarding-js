@@ -6,7 +6,6 @@ import { ViewItem } from '../models/ViewItem.ts';
 
 const mapStateToProps = (state, { id, index }) => ({
   item: new ViewItem(
-    id,
     index,
     state.list.itemsById.get(id),
     state.list.itemFlagsMap.get(id),

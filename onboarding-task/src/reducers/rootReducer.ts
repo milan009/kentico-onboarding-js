@@ -1,4 +1,5 @@
 import { OrderedMap } from 'immutable';
+import { combineReducers } from 'redux';
 
 import { IAction } from '../actions/actionInterface';
 import { ItemData } from '../models/ItemData';
@@ -21,6 +22,6 @@ const defaultStore = {
   },
 };
 
-export const rootReducer = (state: IStore = defaultStore, action: IAction) => ({
-  list: listReducer(state.list, action),
+export const rootReducer = combineReducers({
+  list: listReducer,
 });

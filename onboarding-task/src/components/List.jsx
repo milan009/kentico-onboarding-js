@@ -7,13 +7,13 @@ import { ListItem } from '../containers/ListItem';
 
 const List = (props) => {
   const existingItems = props.itemIds.map((id, index) =>
-    (<li className="list-group-item" key={id}>
+    <li className="list-group-item" key={id}>
       <ListItem
         index={index + 1}
         id={id}
         key={id}
       />
-    </li>)
+    </li>
   );
 
   return (

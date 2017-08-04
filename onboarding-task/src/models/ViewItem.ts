@@ -9,16 +9,16 @@ export interface IViewItem {
   isBeingEdited: boolean;
 }
 
-const createViewModel = (id: string, index: number, data: IItemData, flags: IItemFlags): IViewItem => (
+const createViewModel = (index: number, data: IItemData, flags: IItemFlags): IViewItem => (
   {
-    id,
+    id: data.id,
     index,
     text: data.text,
     isBeingEdited: flags.isBeingEdited,
   }
 );
 
-const createItemRecordMemoized: (id: string, index: number, data: IItemData, flags: IItemFlags) => IViewItem
+const createItemRecordMemoized: (index: number, data: IItemData, flags: IItemFlags) => IViewItem
   = memoize(createViewModel);
 
 export { createItemRecordMemoized as ViewItem };
