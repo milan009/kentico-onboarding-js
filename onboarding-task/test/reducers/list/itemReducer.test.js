@@ -31,4 +31,20 @@ describe('Item reducer', () => {
       expect(createdState).toEqual(expectedState);
     });
   });
+
+  describe('unknown action type', () => {
+    it('does not change state', () => {
+      const action = testData.unknownAction;
+      const prevState = new ItemData({
+        text: testData.mockTexts[1],
+      });
+      const expectedState = new ItemData({
+        text: testData.mockTexts[1],
+      });
+
+      const createdState = itemReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
 });

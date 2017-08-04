@@ -193,6 +193,13 @@ describe('ItemFlags map reducer with', () => {
   });
 
   describe('unknown action type', () => {
+    it('does not change state', () => {
+      const action = testData.unknownAction;
+      const expectedState = mockFlagsMapState;
 
+      const createdState = itemFlagsMapReducer(mockFlagsMapState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
   });
 });

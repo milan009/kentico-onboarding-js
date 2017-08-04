@@ -62,3 +62,12 @@ export const mockItemsFlagsMapWithTwoFlagsItems = new OrderedMap([
   ],
 ]);
 // endregion
+
+export const unknownAction = {
+  type: 'Whatever',
+  unknownParam: 177,
+  payload: {
+    target: null,
+    undefinedParam: undefined,
+  },
+};

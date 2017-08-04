@@ -101,4 +101,16 @@ describe('Items map reducer with', () => {
       expect(createdState).toEqual(expectedState);
     });
   });
+
+  describe('unknown action type', () => {
+    it('does not change state', () => {
+      const action = testData.unknownAction;
+      const prevState = testData.mockItemsDataMapWithSingleDataItem;
+      const expectedState = testData.mockItemsDataMapWithSingleDataItem;
+
+      const createdState = itemsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
 });
