@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewItem } from '../components/ViewItem';
-import { EditItem } from '../components/EditItem';
+import { EditItem } from './EditItem.tsx';
 
 const ListItem = (props) => {
   if (props.item.isBeingEdited) {
