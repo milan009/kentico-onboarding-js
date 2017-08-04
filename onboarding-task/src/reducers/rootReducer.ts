@@ -1,15 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { ItemsDataMap } from './list/itemsReducer';
-import { ItemsFlagsMap } from './list/itemFlagsMapReducer';
 import { listReducer } from './list/listReducer';
-
-export interface IStore {
-  list: {
-    itemsById: ItemsDataMap;
-    itemFlagsMap: ItemsFlagsMap;
-  };
-}
+import { IStore } from '../interfaces/IStore';
 
 export const rootReducer = combineReducers<IStore>({
   list: listReducer,

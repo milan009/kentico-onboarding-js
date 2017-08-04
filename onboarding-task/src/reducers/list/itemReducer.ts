@@ -1,4 +1,4 @@
-import { IAction } from '../../actions/actionInterface';
+import { IAction } from '../../interfaces/IAction';
 import { ItemData } from '../../models/ItemData';
 import * as actionTypes from '../../actions/actionTypes';
 

@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 
 import { createItem } from '../actions/actionCreators';
 import { AddItem as AddItemComponent, IAddItemCallbackProps } from '../components/AddItem';
-import { IStore } from '../reducers/rootReducer';
+import { IStore } from '../interfaces/IStore';
 
 const mapDispatchToProps = (dispatch: Dispatch<IStore>): IAddItemCallbackProps => ({
   onAddItem: (text: string) => dispatch(createItem(text)),

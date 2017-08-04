@@ -3,7 +3,7 @@ import * as memoize from 'memoizee';
 
 import { List as ListComponent } from '../components/List';
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
-import { IStore } from '../reducers/rootReducer';
+import { IStore } from '../interfaces/IStore';
 
 const getIdsMemoized = memoize((items: ItemsDataMap) => items.keySeq());
 

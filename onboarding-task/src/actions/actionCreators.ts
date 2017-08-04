@@ -1,6 +1,6 @@
 import * as uuidV4 from 'uuid';
 
-import { IAction } from './actionInterface';
+import { IAction } from '../interfaces/IAction';
 import * as actionTypes from './actionTypes';
 
 interface CreateItemFactoryDependecies {

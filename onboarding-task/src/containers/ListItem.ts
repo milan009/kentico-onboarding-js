@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { ListItem as ListItemComponent, IListItemDataProps, IListItemCallbackProps } from '../components/ListItem';
 import * as actionCreators from '../actions/actionCreators';
 import { ViewItem } from '../models/ViewItem';
-import { IStore } from '../reducers/rootReducer';
+import { IStore } from '../interfaces/IStore';
 
 interface IListItemContainerProps {
   id: string;

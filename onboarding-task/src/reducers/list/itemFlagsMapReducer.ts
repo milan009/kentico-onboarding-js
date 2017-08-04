@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 
 import { ItemFlags } from '../../models/ItemFlags';
-import { IAction } from '../../actions/actionInterface';
+import { IAction } from '../../interfaces/IAction';
 import * as actionTypes from '../../actions/actionTypes';
 import { itemFlagsReducer } from './itemFlagsReducer';
 
