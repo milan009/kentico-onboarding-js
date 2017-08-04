@@ -3,6 +3,7 @@ import { OrderedMap } from 'immutable';
 import * as actionCreators from '../../../src/actions/actionCreators.ts';
 import { listReducer } from '../../../src/reducers/list/listReducer.ts';
 import { ItemFlags } from '../../../src/models/ItemFlags.ts';
+import { ItemData } from '../../../src/models/ItemData.ts';
 import * as testData from '../../testUtils/testData';
 
 describe('List reducer', () => {
@@ -68,8 +69,32 @@ describe('List reducer', () => {
   });
 
   it('saves changed item correctly', () => {
-    const expectedState = mockListState;
-    const action = testData.unknownAction;
+    const expectedState = {
+      itemsById: new OrderedMap([
+        [
+          testData.mockIds[0],
+          new ItemData({
+            id: testData.mockIds[0],
+            text: 'Slock',
+          }),
+        ],
+        [
+          testData.mockIds[1],
+          testData.mockItemDataObjects[1],
+        ],
+      ]),
+      itemFlagsMap: new OrderedMap([
+        [
+          testData.mockIds[0],
+          new ItemFlags(),
+        ],
+        [
+          testData.mockIds[1],
+          testData.mockItemFlagsObjects[1],
+        ],
+      ]),
+    };
+    const action = actionCreators.saveChange(testData.mockIds[0], 'Slock');
 
     const createdState = listReducer(mockListState, action);
 
@@ -77,6 +102,11 @@ describe('List reducer', () => {
   });
 
   it('does not change state with unknown action', () => {
+    const expectedState = mockListState;
+    const action = testData.unknownAction;
 
+    const createdState = listReducer(mockListState, action);
+
+    expect(createdState).toEqual(expectedState);
   });
 });
