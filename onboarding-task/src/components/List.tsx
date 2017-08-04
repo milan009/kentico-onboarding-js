@@ -1,12 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+const ImmutablePropTypes = require('react-immutable-proptypes');
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Seq } from 'immutable';
 
 import { AddItem } from '../containers/AddItem';
 import { ListItem } from '../containers/ListItem';
+import { emptyUuid } from '../utils/constants';
 
-const List = (props) => {
-  const existingItems = props.itemIds.map((id, index) =>
+export interface IListDataProps {
+  itemIds: Seq.Indexed<string>;
+}
+
+const List: React.StatelessComponent<IListDataProps> = (props: IListDataProps) => {
+  const existingItems = props.itemIds.map((id = emptyUuid, index = 0) =>
     <li className="list-group-item" key={id}>
       <ListItem
         index={index + 1}
