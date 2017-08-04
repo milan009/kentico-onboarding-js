@@ -1,12 +1,14 @@
 import { Record } from 'immutable';
 
+import { emptyUuid } from '../utils/constants';
+
 export interface IItemData {
   id?: string;
   text: string;
 }
 
 const defaultItemData = {
-  id: '00000000-0000-0000-0000-000000000000',
+  id: emptyUuid,
   text: '',
 };
 

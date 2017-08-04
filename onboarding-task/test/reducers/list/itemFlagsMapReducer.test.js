@@ -1,9 +1,9 @@
 import { OrderedMap } from 'immutable';
 
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
-import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapReducer';
-import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as actionTypes from '../../../src/actions/actionTypes.ts';
+import * as actionCreators from '../../../src/actions/actionCreators.ts';
+import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapReducer.ts';
+import { ItemFlags } from '../../../src/models/ItemFlags.ts';
 import * as testData from '../../testUtils/testData';
 
 describe('ItemFlags map reducer with', () => {

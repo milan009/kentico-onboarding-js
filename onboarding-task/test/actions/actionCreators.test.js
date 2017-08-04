@@ -1,5 +1,5 @@
-import * as actionCreators from '../../src/actions/actionCreators';
-import * as actionTypes from '../../src/actions/actionTypes';
+import * as actionCreators from '../../src/actions/actionCreators.ts';
+import * as actionTypes from '../../src/actions/actionTypes.ts';
 import { mockIdGenerator } from '../testUtils/mockIdGenerator';
 
 describe('CreateItemFactory', () => {

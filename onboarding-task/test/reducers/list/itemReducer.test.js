@@ -1,7 +1,7 @@
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
-import { itemReducer } from '../../../src/reducers/list/itemReducer';
-import { ItemData } from '../../../src/models/ItemData';
+import * as actionTypes from '../../../src/actions/actionTypes.ts';
+import * as actionCreators from '../../../src/actions/actionCreators.ts';
+import { itemReducer } from '../../../src/reducers/list/itemReducer.ts';
+import { ItemData } from '../../../src/models/ItemData.ts';
 import * as testData from '../../testUtils/testData';
 
 describe('Item reducer', () => {
@@ -24,7 +24,7 @@ describe('Item reducer', () => {
       const expectedState = new ItemData({
         text: testData.mockTexts[1],
       });
-      const action = actionCreators.saveChange(42, 'Glock');
+      const action = actionCreators.saveChange('42', 'Glock');
 
       const createdState = itemReducer(prevState, action);
 

@@ -1,4 +1,4 @@
-import { ViewItem } from '../../src/models/ViewItem';
+import { ViewItem } from '../../src/models/ViewItem.ts';
 import * as testData from '../testUtils/testData';
 
 describe('View item memoization tests', () => {

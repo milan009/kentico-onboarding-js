@@ -1,8 +1,8 @@
 import { OrderedMap } from 'immutable';
 
-import * as actionCreators from '../../../src/actions/actionCreators';
-import { listReducer } from '../../../src/reducers/list/listReducer';
-import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as actionCreators from '../../../src/actions/actionCreators.ts';
+import { listReducer } from '../../../src/reducers/list/listReducer.ts';
+import { ItemFlags } from '../../../src/models/ItemFlags.ts';
 import * as testData from '../../testUtils/testData';
 
 describe('List reducer', () => {

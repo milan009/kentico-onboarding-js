@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 
-import { ItemData } from '../../src/models/ItemData';
-import { ItemFlags } from '../../src/models/ItemFlags';
+import { ItemData } from '../../src/models/ItemData.ts';
+import { ItemFlags } from '../../src/models/ItemFlags.ts';
 import { mockIdGenerator } from './mockIdGenerator';
 
 export const mockDefaultId = mockIdGenerator(0);

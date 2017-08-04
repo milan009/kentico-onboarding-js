@@ -1,7 +1,7 @@
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
-import { itemFlagsReducer } from '../../../src/reducers/list/itemFlagsReducer';
-import { ItemFlags } from '../../../src/models/ItemFlags';
+import * as actionTypes from '../../../src/actions/actionTypes.ts';
+import * as actionCreators from '../../../src/actions/actionCreators.ts';
+import { itemFlagsReducer } from '../../../src/reducers/list/itemFlagsReducer.ts';
+import { ItemFlags } from '../../../src/models/ItemFlags.ts';
 import { unknownAction } from '../../testUtils/testData';
 
 describe('ItemFlags reducer with', () => {

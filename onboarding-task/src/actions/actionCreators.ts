@@ -3,7 +3,11 @@ import * as uuidV4 from 'uuid';
 import { IAction } from './actionInterface';
 import * as actionTypes from './actionTypes';
 
-export const createItemWithGenerator = ({ idGenerator }: { idGenerator: () => string}, text: string): IAction => ({
+interface CreateItemFactoryDependecies {
+  idGenerator: () => string;
+}
+
+export const createItemWithGenerator = ({ idGenerator }: CreateItemFactoryDependecies, text: string): IAction => ({
   type: actionTypes.ITEM_CREATED,
   payload: {
     text,
@@ -11,7 +15,7 @@ export const createItemWithGenerator = ({ idGenerator }: { idGenerator: () => st
   },
 });
 
-export const createItemFactory = (deps) => (createItem.bind(null, deps));
+export const createItemFactory = (deps: CreateItemFactoryDependecies) => (createItemWithGenerator.bind(null, deps));
 const createItemWithUuidV4 = createItemFactory({ idGenerator: uuidV4 });
 
 export { createItemWithUuidV4 as createItem };

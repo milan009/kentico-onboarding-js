@@ -4,5 +4,6 @@ const isNotEmpty = (str: string): boolean =>
 const isNotFalsy = (str: string): boolean =>
   !!str;
 
-export const isStringValid = (str: string): boolean =>
+export const isValidItemText = (str: string): boolean =>
   isNotFalsy(str) && isNotEmpty(str);
+

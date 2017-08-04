@@ -1,4 +1,4 @@
-import { isValidItemText } from '../../src/utils/validation';
+import { isValidItemText } from '../../src/utils/validation.ts';
 
 describe('"isValidItemText"', () => {
   it('rejects null string', () => {
