@@ -1,30 +1,18 @@
-import * as actionTypes from '../../../src/actions/actionTypes.ts';
-import * as actionCreators from '../../../src/actions/actionCreators.ts';
 import { itemReducer } from '../../../src/reducers/list/itemReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
-import * as testData from '../../testUtils/testData';
+import { ITEM_CHANGE_SAVED } from '../../../src/actions/actionTypes.ts';
+import { saveChange } from '../../../src/actions/actionCreators.ts';
 
 describe('Item reducer', () => {
-  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
-    it('saves changed default state on undefined', () => {
-      const expectedState = new ItemData({
-        text: testData.mockTexts[1],
-      });
-      const action = actionCreators.saveChange(testData.mockDefaultId, testData.mockTexts[1]);
-
-      const createdState = itemReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
+  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
     it('saves changed text correctly in ItemData', () => {
       const prevState = new ItemData({
-        text: testData.mockTexts[0],
+        text: 'Mlock',
       });
       const expectedState = new ItemData({
-        text: testData.mockTexts[1],
+        text: 'Glock',
       });
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
 
       const createdState = itemReducer(prevState, action);
 
@@ -33,18 +21,24 @@ describe('Item reducer', () => {
   });
 
   describe('unknown action type', () => {
+    const action = { type: 'unknown' };
+
+    it('returns default state on undefined', () => {
+      const expectedState = new ItemData();
+
+      const createdState = itemReducer(undefined, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+
     it('does not change state', () => {
-      const action = testData.unknownAction;
       const prevState = new ItemData({
-        text: testData.mockTexts[1],
-      });
-      const expectedState = new ItemData({
-        text: testData.mockTexts[1],
+        text: 'Mlock',
       });
 
       const createdState = itemReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
   });
 });

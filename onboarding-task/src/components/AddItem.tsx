@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
 
-import { isValidItemText } from '../utils/validation';
+import { isItemTextValid } from '../utils/validation';
 import { FormEvent } from 'react';
 
 export interface IAddItemCallbackProps {
@@ -37,7 +37,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     event.preventDefault();
     const currText = this.state.currentText;
 
-    if (isValidItemText(currText)) {
+    if (isItemTextValid(currText)) {
       this.props.onAddItem(currText);
       this.setState(() => ({ currentText: '' }));
     }
@@ -54,7 +54,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
         />
         <button
           type="submit"
-          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isValidItemText(this.state.currentText) })}
+          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isItemTextValid(this.state.currentText) })}
         >
           Add
         </button>

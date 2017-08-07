@@ -1,28 +1,24 @@
-import * as actionTypes from '../../../src/actions/actionTypes.ts';
-import * as actionCreators from '../../../src/actions/actionCreators.ts';
 import { itemFlagsReducer } from '../../../src/reducers/list/itemFlagsReducer.ts';
 import { ItemFlags } from '../../../src/models/ItemFlags.ts';
-import { unknownAction } from '../../testUtils/testData';
+import {
+  ITEM_CHANGE_CANCELLED,
+  ITEM_CHANGE_SAVED,
+  ITEM_MAKE_EDITABLE,
+} from '../../../src/actions/actionTypes.ts';
+import {
+  cancelChange,
+  makeEditable,
+  saveChange,
+} from '../../../src/actions/actionCreators.ts';
 
 describe('ItemFlags reducer with', () => {
-  describe(`"${actionTypes.ITEM_MAKE_EDITABLE}" action`, () => {
-    it('returns default state on undefined(which was made editable)', () => {
-      const expectedState = new ItemFlags({
-        isBeingEdited: true,
-      });
-      const action = actionCreators.makeEditable('42');
-
-      const createdState = itemFlagsReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
+  describe(`"${ITEM_MAKE_EDITABLE}" action`, () => {
     it('makes ItemFlags edited correctly', () => {
       const prevState = new ItemFlags();
       const expectedState = new ItemFlags({
         isBeingEdited: true,
       });
-      const action = actionCreators.makeEditable('42');
+      const action = makeEditable('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
@@ -33,30 +29,24 @@ describe('ItemFlags reducer with', () => {
       const prevState = new ItemFlags({
         isBeingEdited: true,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: true,
-      });
-      const action = actionCreators.makeEditable('42');
+      const action = makeEditable('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
   });
 
-  describe(`"${actionTypes.ITEM_CHANGE_CANCELLED}" action`, () => {
+  describe(`"${ITEM_CHANGE_CANCELLED}" action`, () => {
     it('does not change ItemFlags that is not being edited', () => {
       const prevState = new ItemFlags({
         isBeingEdited: false,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: false,
-      });
-      const action = actionCreators.cancelChange('42');
+      const action = cancelChange('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
 
     it('makes edited ItemFlags not editable anymore', () => {
@@ -66,7 +56,7 @@ describe('ItemFlags reducer with', () => {
       const expectedState = new ItemFlags({
         isBeingEdited: false,
       });
-      const action = actionCreators.cancelChange('42');
+      const action = cancelChange('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
@@ -74,19 +64,16 @@ describe('ItemFlags reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
+  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
     it('does not change ItemFlags that is not being edited', () => {
       const prevState = new ItemFlags({
         isBeingEdited: false,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: false,
-      });
-      const action = actionCreators.saveChange('42', 'New Text');
+      const action = saveChange('42', 'New Text');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
 
     it('makes edited ItemFlags not editable anymore', () => {
@@ -96,7 +83,7 @@ describe('ItemFlags reducer with', () => {
       const expectedState = new ItemFlags({
         isBeingEdited: false,
       });
-      const action = actionCreators.saveChange('42', 'New Text');
+      const action = saveChange('42', 'New Text');
 
       const createdState = itemFlagsReducer(prevState, action);
 
@@ -105,18 +92,24 @@ describe('ItemFlags reducer with', () => {
   });
 
   describe('unknown action type', () => {
+    const action = { type: 'unknownType' };
+
+    it('returns default state on undefined', () => {
+      const expectedState = new ItemFlags();
+
+      const createdState = itemFlagsReducer(undefined, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+
     it('does not change state', () => {
-      const action = unknownAction;
       const prevState = new ItemFlags({
-        isBeingEdited: true,
-      });
-      const expectedState = new ItemFlags({
         isBeingEdited: true,
       });
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
   });
 });

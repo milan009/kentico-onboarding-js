@@ -4,9 +4,8 @@ import * as classNames from 'classnames';
 import { FormEvent } from 'react';
 import { KeyboardEvent } from 'react';
 
-import { isValidItemText } from '../utils/validation';
+import { isItemTextValid } from '../utils/validation';
 import { IViewItem } from '../models/ViewItem';
-
 
 export interface IEditItemDataProps {
   item: IViewItem;
@@ -53,7 +52,7 @@ class EditItem extends React.PureComponent<IEditItemDataProps & IEditItemCallbac
   _saveChange = () => {
     const editedText = this.state.text;
 
-    if (isValidItemText(editedText)) {
+    if (isItemTextValid(editedText)) {
       this.props.onSave(editedText);
     }
   };
@@ -88,7 +87,7 @@ class EditItem extends React.PureComponent<IEditItemDataProps & IEditItemCallbac
           onKeyUp={this._keyUp}
         />
         <button
-          className={classNames('btn', 'btn-primary', 'form-control', {disabled: !isValidItemText(editedText)})}
+          className={classNames('btn', 'btn-primary', 'form-control', {disabled: !isItemTextValid(editedText)})}
           onClick={this._saveChange}
         >
           Save

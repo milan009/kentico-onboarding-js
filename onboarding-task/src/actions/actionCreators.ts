@@ -1,37 +1,41 @@
 import * as uuidV4 from 'uuid';
 
 import { IAction } from '../interfaces/IAction';
-import * as actionTypes from './actionTypes';
+import {
+  ITEM_CHANGE_CANCELLED,
+  ITEM_CHANGE_SAVED,
+  ITEM_CREATED,
+  ITEM_DELETED,
+  ITEM_MAKE_EDITABLE,
+} from './actionTypes';
 
-interface CreateItemFactoryDependecies {
-  idGenerator: () => string;
-}
-
-export const createItemWithGenerator = ({ idGenerator }: CreateItemFactoryDependecies, text: string): IAction => ({
-  type: actionTypes.ITEM_CREATED,
+const createItem = (idGenerator: () => string, text: string) => ({
+  type: ITEM_CREATED,
   payload: {
     text,
     newId: idGenerator(),
   },
 });
 
-export const createItemFactory = (deps: CreateItemFactoryDependecies) => (createItemWithGenerator.bind(null, deps));
-const createItemWithUuidV4 = createItemFactory({ idGenerator: uuidV4 });
+export const createItemFactory = (idGenerator: () => string) => (
+  (itemText: string) => createItem(idGenerator, itemText)
+);
+const createItemWithUuidV4 = createItemFactory(uuidV4);
 
 export { createItemWithUuidV4 as createItem };
 
 export const deleteItem = (id: string): IAction => ({
-  type: actionTypes.ITEM_DELETED,
+  type: ITEM_DELETED,
   payload: {id},
 });
 
 export const cancelChange = (id: string): IAction => ({
-  type: actionTypes.ITEM_CHANGE_CANCELLED,
+  type: ITEM_CHANGE_CANCELLED,
   payload: {id},
 });
 
 export const saveChange = (id: string, text: string): IAction => ({
-  type: actionTypes.ITEM_CHANGE_SAVED,
+  type: ITEM_CHANGE_SAVED,
   payload: {
     id,
     text,
@@ -39,6 +43,6 @@ export const saveChange = (id: string, text: string): IAction => ({
 });
 
 export const makeEditable = (id: string): IAction => ({
-  type: actionTypes.ITEM_MAKE_EDITABLE,
+  type: ITEM_MAKE_EDITABLE,
   payload: {id},
 });
