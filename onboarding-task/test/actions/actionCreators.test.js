@@ -1,34 +1,20 @@
 import * as actionCreators from '../../src/actions/actionCreators';
 import * as actionTypes from '../../src/actions/actionTypes';
-import { mockIdGenerator } from '../testUtils/mockIdGenerator';
-
-describe('CreateItemFactory', () => {
-  it('creates the creator correctly', () => {
-    const expectedActionCreator = (text) => ({
-      type: actionTypes.ITEM_CREATED,
-      payload: {
-        text,
-        newId: mockIdGenerator(178),
-      },
-    });
-
-    const createdActionCreator = actionCreators.createItemFactory({ idGenerator: () => mockIdGenerator(178) });
-
-    expect(createdActionCreator()).toEqual(expectedActionCreator());
-  });
-});
 
 describe('Action creators', () => {
+  const mockId = '123';
+  const mockIdGenerator = () => mockId;
+
   it(`create "${actionTypes.ITEM_CREATED}" action correctly`, () => {
     const expectedAction = {
       type: actionTypes.ITEM_CREATED,
       payload: {
         text: 'New Item',
-        newId: '17800000-0000-0000-0000-000000000000',
+        newId: mockId,
       },
     };
 
-    const createdAction = actionCreators.createItemFactory({ idGenerator: () => mockIdGenerator(178) })('New Item');
+    const createdAction = actionCreators.createItemFactory(mockIdGenerator)('New Item');
 
     expect(createdAction).toEqual(expectedAction);
   });

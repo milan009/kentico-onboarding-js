@@ -2,7 +2,6 @@ import * as actionTypes from '../../../src/actions/actionTypes';
 import * as actionCreators from '../../../src/actions/actionCreators';
 import { itemFlagsReducer } from '../../../src/reducers/list/itemFlagsReducer';
 import { ItemFlags } from '../../../src/models/ItemFlags';
-import { unknownAction } from '../../testUtils/testData';
 
 describe('ItemFlags reducer with', () => {
   describe(`"${actionTypes.ITEM_MAKE_EDITABLE}" action`, () => {
@@ -79,14 +78,12 @@ describe('ItemFlags reducer with', () => {
       const prevState = new ItemFlags({
         isBeingEdited: false,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: false,
-      });
+      const expectedState = prevState;
       const action = actionCreators.saveChange('42', 'New Text');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(expectedState);
     });
 
     it('makes edited ItemFlags not editable anymore', () => {
@@ -106,17 +103,15 @@ describe('ItemFlags reducer with', () => {
 
   describe('unknown action type', () => {
     it('does not change state', () => {
-      const action = unknownAction;
+      const action = { type: 'unknownType' };
       const prevState = new ItemFlags({
         isBeingEdited: true,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: true,
-      });
+      const expectedState = prevState;
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(expectedState);
     });
   });
 });
