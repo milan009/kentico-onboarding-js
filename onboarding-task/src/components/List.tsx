@@ -3,8 +3,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 
-import { AddItem } from '../containers/AddItem.js';
-import { ListItem } from '../containers/ListItem.js';
+import { AddItem } from '../containers/AddItem';
+import { ListItem } from '../containers/ListItem';
 import { emptyUuid } from '../utils/constants';
 
 export interface IListDataProps {
