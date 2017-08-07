@@ -13,17 +13,6 @@ import {
 
 describe('ItemFlags reducer with', () => {
   describe(`"${ITEM_MAKE_EDITABLE}" action`, () => {
-    it('returns default state on undefined(which was made editable)', () => {
-      const expectedState = new ItemFlags({
-        isBeingEdited: true,
-      });
-      const action = makeEditable('42');
-
-      const createdState = itemFlagsReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('makes ItemFlags edited correctly', () => {
       const prevState = new ItemFlags();
       const expectedState = new ItemFlags({

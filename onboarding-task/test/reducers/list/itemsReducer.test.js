@@ -35,24 +35,7 @@ describe('Items map reducer with', () => {
   const mockIdGenerator = () => mockId;
 
   describe(`"${ITEM_CREATED}" action`, () => {
-    it('adds item with undefined state', () => {
-      const expectedState = new OrderedMap([
-        [
-          mockId,
-          new ItemData({
-            id: mockId,
-            text: 'Mlock',
-          }),
-        ],
-      ]);
-      const action = createItemFactory(mockIdGenerator)('Mlock');
-
-      const createdState = itemsReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
-    it('adds item to existing map', () => {
+    it('adds item to map', () => {
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         ...prevState,
@@ -73,23 +56,13 @@ describe('Items map reducer with', () => {
   });
 
   describe(`"${ITEM_DELETED}" action`, () => {
-    it('returns default state on undefined', () => {
-      const action = deleteItem('42');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemsReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does nothing to state not containing given id', () => {
       const action = deleteItem('42');
       const prevState = testItemsMapState;
-      const expectedState = prevState;
 
       const createdState = itemsReducer(prevState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(prevState);
     });
 
     it('correctly removes item', () => {
@@ -112,22 +85,12 @@ describe('Items map reducer with', () => {
   });
 
   describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
-    it('returns default state on undefined', () => {
-      const action = saveChange('42', 'Glock');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemsReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does nothing to state not containing given id', () => {
       const action = saveChange('42', 'Glock');
-      const expectedState = testItemsMapState;
 
       const createdState = itemsReducer(testItemsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testItemsMapState);
     });
 
     it('correctly changes ItemData', () => {

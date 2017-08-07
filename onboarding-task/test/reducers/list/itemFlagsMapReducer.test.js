@@ -34,21 +34,7 @@ describe('ItemFlags map reducer with', () => {
   const mockIdGenerator = () => mockId;
 
   describe(`"${ITEM_CREATED}" action`, () => {
-    it('adds ItemFlags to default state', () => {
-      const expectedState = new OrderedMap([
-        [
-          mockId,
-          new ItemFlags(),
-        ],
-      ]);
-      const action = createItemFactory(mockIdGenerator)('Mlock');
-
-      const createdState = itemFlagsMapReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
-    it('adds ItemFlags to existing map', () => {
+    it('adds ItemFlags to map', () => {
       const prevState = testFlagsMapState;
       const expectedState = new OrderedMap([...prevState, [mockId, new ItemFlags()]]);
       const action = createItemFactory(mockIdGenerator)('Mlock');
@@ -60,15 +46,6 @@ describe('ItemFlags map reducer with', () => {
   });
 
   describe(`"${ITEM_DELETED}" action`, () => {
-    it('returns default state on "undefined" previous state', () => {
-      const action = deleteItem('42');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemFlagsMapReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does not change the state that does not contain given id', () => {
       const action = deleteItem('42');
 
@@ -93,15 +70,6 @@ describe('ItemFlags map reducer with', () => {
   });
 
   describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
-    it('returns default state on undefined', () => {
-      const action = saveChange('42', 'Glock');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemFlagsMapReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does not change the state that does not contain given id', () => {
       const action = saveChange('42', 'Glock');
 
@@ -130,31 +98,20 @@ describe('ItemFlags map reducer with', () => {
   });
 
   describe(`"${ITEM_MAKE_EDITABLE}" action`, () => {
-    it('returns default state on undefined', () => {
-      const action = makeEditable('42');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemFlagsMapReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does nothing to state not containing given id', () => {
       const action = makeEditable('42');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('does nothing to ItemFlags that is already editable', () => {
       const action = makeEditable('0');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('makes ItemFlags editable correctly', () => {
@@ -181,31 +138,20 @@ describe('ItemFlags map reducer with', () => {
   });
 
   describe(`"${ITEM_CHANGE_CANCELLED}" action`, () => {
-    it('returns default state on undefined', () => {
-      const action = cancelChange('42');
-      const expectedState = new OrderedMap();
-
-      const createdState = itemFlagsMapReducer(undefined, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-
     it('does nothing to state not containing given id', () => {
       const action = cancelChange('42');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('does nothing to ItemFlags that is not editable', () => {
       const action = cancelChange('1');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('makes ItemFlags not-editable correctly', () => {
@@ -235,7 +181,7 @@ describe('ItemFlags map reducer with', () => {
 
       const createdState = itemFlagsMapReducer(undefined, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toEqual(expectedState);
     });
 
     it('does not change state', () => {
