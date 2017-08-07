@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { AddItem } from '../containers/AddItem';
-import { ListItem } from '../containers/ListItem';
+import { AddItem } from '../containers/AddItem.jsx';
+import { ListItem } from '../containers/ListItem.jsx';
 
 const List = (props) => {
   const existingItems = props.itemIds.map((id, index) =>
