@@ -6,18 +6,22 @@ import { EditItem } from '../components/EditItem';
 
 const ListItem = (props) => {
   if (props.item.isBeingEdited) {
-    return (<EditItem
-      item={props.item}
-      onDelete={props.onDelete}
-      onSave={props.onSave}
-      onCancel={props.onCancel}
-    />);
+    return (
+      <EditItem
+        item={props.item}
+        onDelete={props.onDelete}
+        onSave={props.onSave}
+        onCancel={props.onCancel}
+      />
+    );
   }
 
-  return (<ViewItem
-    item={props.item}
-    onClick={props.onClick}
-  />);
+  return (
+    <ViewItem
+      item={props.item}
+      onClick={props.onClick}
+    />
+  );
 };
 
 ListItem.displayName = 'ListItem';
