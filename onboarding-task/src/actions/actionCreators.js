@@ -2,7 +2,7 @@ import uuidV4 from 'uuid';
 
 import * as actionTypes from './actionTypes';
 
-const createItem = ({ idGenerator }, text) => ({
+const createItem = (idGenerator, text) => ({
   type: actionTypes.ITEM_CREATED,
   payload: {
     text,
@@ -10,8 +10,10 @@ const createItem = ({ idGenerator }, text) => ({
   },
 });
 
-export const createItemFactory = (deps) => (createItem.bind(null, deps));
-const createItemWithUuidV4 = createItemFactory({ idGenerator: uuidV4 });
+export const createItemFactory = (idGenerator) => (
+  (itemText) => createItem(idGenerator, itemText)
+);
+const createItemWithUuidV4 = createItemFactory(uuidV4);
 
 export { createItemWithUuidV4 as createItem };
 
