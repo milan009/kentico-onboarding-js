@@ -1,10 +1,10 @@
-import { isValidItemText } from '../../src/utils/validation';
+import { isItemTextValid } from '../../src/utils/validation';
 
-describe('"isValidItemText"', () => {
+describe('"isItemTextValid"', () => {
   it('rejects null string', () => {
     const string = null;
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeFalsy();
   });
@@ -12,7 +12,7 @@ describe('"isValidItemText"', () => {
   it('rejects undefined string', () => {
     const string = undefined;
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeFalsy();
   });
@@ -20,7 +20,7 @@ describe('"isValidItemText"', () => {
   it('rejects empty string', () => {
     const string = '';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeFalsy();
   });
@@ -28,7 +28,7 @@ describe('"isValidItemText"', () => {
   it('rejects whitespace-only string', () => {
     const string = '  \n\n\r ';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeFalsy();
   });
@@ -36,7 +36,7 @@ describe('"isValidItemText"', () => {
   it('accepts string with "null" text', () => {
     const string = 'null';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeTruthy();
   });
@@ -44,7 +44,7 @@ describe('"isValidItemText"', () => {
   it('accepts string with "undefined" text', () => {
     const string = 'undefined';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeTruthy();
   });
@@ -52,7 +52,7 @@ describe('"isValidItemText"', () => {
   it('accepts string with "0" text', () => {
     const string = '0';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeTruthy();
   });
@@ -60,7 +60,7 @@ describe('"isValidItemText"', () => {
   it('accepts string starting with whitespaces', () => {
     const string = ' \r\nkukuricka ';
 
-    const result = isValidItemText(string);
+    const result = isItemTextValid(string);
 
     expect(result).toBeTruthy();
   });

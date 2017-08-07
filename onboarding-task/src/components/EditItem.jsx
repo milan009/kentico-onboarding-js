@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { isValidItemText } from '../utils/validation';
+import { isItemTextValid } from '../utils/validation';
 
 class EditItem extends PureComponent {
 
@@ -36,7 +36,7 @@ class EditItem extends PureComponent {
   _saveChange = () => {
     const editedText = this.state.text;
 
-    if (isValidItemText(editedText)) {
+    if (isItemTextValid(editedText)) {
       this.props.onSave(editedText);
     }
   };
@@ -69,7 +69,7 @@ class EditItem extends PureComponent {
           onKeyUp={this._keyUp}
         />
         <button
-          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isValidItemText(editedText) })}
+          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isItemTextValid(editedText) })}
           onClick={this._saveChange}
         >
           Save
