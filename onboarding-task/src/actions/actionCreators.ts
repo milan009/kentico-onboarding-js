@@ -9,16 +9,14 @@ import {
   ITEM_MAKE_EDITABLE,
 } from './actionTypes';
 
-const createItem = (idGenerator: () => string, text: string) => ({
-  type: ITEM_CREATED,
-  payload: {
-    text,
-    newId: idGenerator(),
-  },
-});
-
 export const createItemFactory = (idGenerator: () => string) => (
-  (itemText: string) => createItem(idGenerator, itemText)
+  (text: string) => ({
+    type: ITEM_CREATED,
+    payload: {
+      text,
+      newId: idGenerator(),
+    },
+  })
 );
 const createItemWithUuidV4 = createItemFactory(uuidV4);
 
