@@ -40,14 +40,11 @@ describe('ItemFlags reducer with', () => {
       const prevState = new ItemFlags({
         isBeingEdited: true,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: true,
-      });
       const action = makeEditable('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
   });
 
@@ -56,14 +53,11 @@ describe('ItemFlags reducer with', () => {
       const prevState = new ItemFlags({
         isBeingEdited: false,
       });
-      const expectedState = new ItemFlags({
-        isBeingEdited: false,
-      });
       const action = cancelChange('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toEqual(expectedState);
+      expect(createdState).toBe(prevState);
     });
 
     it('makes edited ItemFlags not editable anymore', () => {
@@ -86,12 +80,11 @@ describe('ItemFlags reducer with', () => {
       const prevState = new ItemFlags({
         isBeingEdited: false,
       });
-      const expectedState = prevState;
       const action = saveChange('42', 'New Text');
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(prevState);
     });
 
     it('makes edited ItemFlags not editable anymore', () => {
@@ -110,16 +103,24 @@ describe('ItemFlags reducer with', () => {
   });
 
   describe('unknown action type', () => {
+    const action = { type: 'unknownType' };
+
+    it('returns default state on undefined', () => {
+      const expectedState = new ItemFlags();
+
+      const createdState = itemFlagsReducer(undefined, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+
     it('does not change state', () => {
-      const action = { type: 'unknownType' };
       const prevState = new ItemFlags({
         isBeingEdited: true,
       });
-      const expectedState = prevState;
 
       const createdState = itemFlagsReducer(prevState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(prevState);
     });
   });
 });

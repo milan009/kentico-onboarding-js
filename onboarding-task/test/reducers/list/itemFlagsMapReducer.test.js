@@ -71,11 +71,10 @@ describe('ItemFlags map reducer with', () => {
 
     it('does not change the state that does not contain given id', () => {
       const action = deleteItem('42');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('correctly removes item', () => {
@@ -105,11 +104,10 @@ describe('ItemFlags map reducer with', () => {
 
     it('does not change the state that does not contain given id', () => {
       const action = saveChange('42', 'Glock');
-      const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
 
     it('makes edited ItemFlags no longer editable', () => {
@@ -241,11 +239,9 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does not change state', () => {
-      const expectedState = testFlagsMapState;
-
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
-      expect(createdState).toBe(expectedState);
+      expect(createdState).toBe(testFlagsMapState);
     });
   });
 });
