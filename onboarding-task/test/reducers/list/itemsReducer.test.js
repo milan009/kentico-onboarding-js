@@ -1,10 +1,18 @@
 import { OrderedMap } from 'immutable';
 
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
 import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapReducer';
 import { itemsReducer } from '../../../src/reducers/list/itemsReducer';
 import { ItemData } from '../../../src/models/ItemData';
+import {
+  ITEM_CHANGE_SAVED,
+  ITEM_CREATED,
+  ITEM_DELETED,
+} from '../../../src/actions/actionTypes';
+import {
+  createItemFactory,
+  deleteItem,
+  saveChange,
+} from '../../../src/actions/actionCreators';
 
 describe('Items map reducer with', () => {
   const testItemsMapState = new OrderedMap([
@@ -26,7 +34,7 @@ describe('Items map reducer with', () => {
   const mockId = '123';
   const mockIdGenerator = () => mockId;
 
-  describe(`"${actionTypes.ITEM_CREATED}" action`, () => {
+  describe(`"${ITEM_CREATED}" action`, () => {
     it('adds item with undefined state', () => {
       const expectedState = new OrderedMap([
         [
@@ -37,7 +45,7 @@ describe('Items map reducer with', () => {
           }),
         ],
       ]);
-      const action = actionCreators.createItemFactory(mockIdGenerator)('Mlock');
+      const action = createItemFactory(mockIdGenerator)('Mlock');
 
       const createdState = itemsReducer(undefined, action);
 
@@ -56,7 +64,7 @@ describe('Items map reducer with', () => {
           }),
         ],
       ]);
-      const action = actionCreators.createItemFactory(mockIdGenerator)('Block');
+      const action = createItemFactory(mockIdGenerator)('Block');
 
       const createdState = itemsReducer(prevState, action);
 
@@ -64,9 +72,9 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_DELETED}" action`, () => {
+  describe(`"${ITEM_DELETED}" action`, () => {
     it('returns default state on undefined', () => {
-      const action = actionCreators.deleteItem('42');
+      const action = deleteItem('42');
       const expectedState = new OrderedMap();
 
       const createdState = itemsReducer(undefined, action);
@@ -75,7 +83,7 @@ describe('Items map reducer with', () => {
     });
 
     it('does nothing to state not containing given id', () => {
-      const action = actionCreators.deleteItem('42');
+      const action = deleteItem('42');
       const prevState = testItemsMapState;
       const expectedState = prevState;
 
@@ -85,7 +93,7 @@ describe('Items map reducer with', () => {
     });
 
     it('correctly removes item', () => {
-      const action = actionCreators.deleteItem('0');
+      const action = deleteItem('0');
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [
@@ -103,9 +111,9 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
+  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
     it('returns default state on undefined', () => {
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
       const expectedState = new OrderedMap();
 
       const createdState = itemsReducer(undefined, action);
@@ -114,7 +122,7 @@ describe('Items map reducer with', () => {
     });
 
     it('does nothing to state not containing given id', () => {
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
       const expectedState = testItemsMapState;
 
       const createdState = itemsReducer(testItemsMapState, action);
@@ -123,7 +131,7 @@ describe('Items map reducer with', () => {
     });
 
     it('correctly changes ItemData', () => {
-      const action = actionCreators.saveChange('1', 'Flock');
+      const action = saveChange('1', 'Flock');
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [

@@ -1,17 +1,21 @@
 import { OrderedMap } from 'immutable';
 
-import * as actionTypes from '../../actions/actionTypes';
 import { itemReducer } from './itemReducer';
 import { ItemData } from '../../models/ItemData';
+import {
+  ITEM_CHANGE_SAVED,
+  ITEM_CREATED,
+  ITEM_DELETED,
+} from '../../actions/actionTypes';
 
 const defaultState = new OrderedMap();
 
 export const itemsReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case actionTypes.ITEM_DELETED:
+    case ITEM_DELETED:
       return state.remove(action.payload.id);
 
-    case actionTypes.ITEM_CREATED: {
+    case ITEM_CREATED: {
       const newItem = new ItemData({
         id: action.payload.newId,
         text: action.payload.text,
@@ -19,7 +23,7 @@ export const itemsReducer = (state = defaultState, action) => {
       return state.set(action.payload.newId, newItem);
     }
 
-    case actionTypes.ITEM_CHANGE_SAVED: {
+    case ITEM_CHANGE_SAVED: {
       const itemToEdit = state.get(action.payload.id);
 
       if (!itemToEdit) {

@@ -1,9 +1,21 @@
 import { OrderedMap } from 'immutable';
 
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
 import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapReducer';
 import { ItemFlags } from '../../../src/models/ItemFlags';
+import {
+  ITEM_CHANGE_CANCELLED,
+  ITEM_CHANGE_SAVED,
+  ITEM_CREATED,
+  ITEM_DELETED,
+  ITEM_MAKE_EDITABLE,
+} from '../../../src/actions/actionTypes';
+import {
+  cancelChange,
+  createItemFactory,
+  deleteItem,
+  makeEditable,
+  saveChange,
+} from '../../../src/actions/actionCreators';
 
 describe('ItemFlags map reducer with', () => {
   const testFlagsMapState = new OrderedMap([
@@ -21,7 +33,7 @@ describe('ItemFlags map reducer with', () => {
   const mockId = '123';
   const mockIdGenerator = () => mockId;
 
-  describe(`"${actionTypes.ITEM_CREATED}" action`, () => {
+  describe(`"${ITEM_CREATED}" action`, () => {
     it('adds ItemFlags to default state', () => {
       const expectedState = new OrderedMap([
         [
@@ -29,7 +41,7 @@ describe('ItemFlags map reducer with', () => {
           new ItemFlags(),
         ],
       ]);
-      const action = actionCreators.createItemFactory(mockIdGenerator)('Mlock');
+      const action = createItemFactory(mockIdGenerator)('Mlock');
 
       const createdState = itemFlagsMapReducer(undefined, action);
 
@@ -39,7 +51,7 @@ describe('ItemFlags map reducer with', () => {
     it('adds ItemFlags to existing map', () => {
       const prevState = testFlagsMapState;
       const expectedState = new OrderedMap([...prevState, [mockId, new ItemFlags()]]);
-      const action = actionCreators.createItemFactory(mockIdGenerator)('Mlock');
+      const action = createItemFactory(mockIdGenerator)('Mlock');
 
       const createdState = itemFlagsMapReducer(prevState, action);
 
@@ -47,9 +59,9 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_DELETED}" action`, () => {
+  describe(`"${ITEM_DELETED}" action`, () => {
     it('returns default state on "undefined" previous state', () => {
-      const action = actionCreators.deleteItem('42');
+      const action = deleteItem('42');
       const expectedState = new OrderedMap();
 
       const createdState = itemFlagsMapReducer(undefined, action);
@@ -58,7 +70,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does not change the state that does not contain given id', () => {
-      const action = actionCreators.deleteItem('42');
+      const action = deleteItem('42');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -67,7 +79,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('correctly removes item', () => {
-      const action = actionCreators.deleteItem('0');
+      const action = deleteItem('0');
       const expectedState = new OrderedMap([
         [
           '1',
@@ -81,9 +93,9 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
+  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
     it('returns default state on undefined', () => {
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
       const expectedState = new OrderedMap();
 
       const createdState = itemFlagsMapReducer(undefined, action);
@@ -92,7 +104,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does not change the state that does not contain given id', () => {
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -101,7 +113,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('makes edited ItemFlags no longer editable', () => {
-      const action = actionCreators.saveChange('0', 'Glock');
+      const action = saveChange('0', 'Glock');
       const expectedState = new OrderedMap([
         [
           '0',
@@ -119,9 +131,9 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_MAKE_EDITABLE}" action`, () => {
+  describe(`"${ITEM_MAKE_EDITABLE}" action`, () => {
     it('returns default state on undefined', () => {
-      const action = actionCreators.makeEditable('42');
+      const action = makeEditable('42');
       const expectedState = new OrderedMap();
 
       const createdState = itemFlagsMapReducer(undefined, action);
@@ -130,7 +142,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does nothing to state not containing given id', () => {
-      const action = actionCreators.makeEditable('42');
+      const action = makeEditable('42');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -139,7 +151,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does nothing to ItemFlags that is already editable', () => {
-      const action = actionCreators.makeEditable('0');
+      const action = makeEditable('0');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -148,7 +160,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('makes ItemFlags editable correctly', () => {
-      const action = actionCreators.makeEditable('1');
+      const action = makeEditable('1');
       const expectedState = new OrderedMap([
         [
           '0',
@@ -170,9 +182,9 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${actionTypes.ITEM_CHANGE_CANCELLED}" action`, () => {
+  describe(`"${ITEM_CHANGE_CANCELLED}" action`, () => {
     it('returns default state on undefined', () => {
-      const action = actionCreators.cancelChange('42');
+      const action = cancelChange('42');
       const expectedState = new OrderedMap();
 
       const createdState = itemFlagsMapReducer(undefined, action);
@@ -181,7 +193,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does nothing to state not containing given id', () => {
-      const action = actionCreators.cancelChange('42');
+      const action = cancelChange('42');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -190,7 +202,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('does nothing to ItemFlags that is not editable', () => {
-      const action = actionCreators.cancelChange('1');
+      const action = cancelChange('1');
       const expectedState = testFlagsMapState;
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
@@ -199,7 +211,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('makes ItemFlags not-editable correctly', () => {
-      const action = actionCreators.cancelChange('0');
+      const action = cancelChange('0');
       const expectedState = new OrderedMap([
         [
           '0',

@@ -1,15 +1,15 @@
-import * as actionTypes from '../../../src/actions/actionTypes';
-import * as actionCreators from '../../../src/actions/actionCreators';
 import { itemReducer } from '../../../src/reducers/list/itemReducer';
 import { ItemData } from '../../../src/models/ItemData';
+import { ITEM_CHANGE_SAVED } from '../../../src/actions/actionTypes';
+import { saveChange } from '../../../src/actions/actionCreators';
 
 describe('Item reducer', () => {
-  describe(`"${actionTypes.ITEM_CHANGE_SAVED}" action`, () => {
+  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
     it('saves changed default state on undefined', () => {
       const expectedState = new ItemData({
         text: 'Mlock',
       });
-      const action = actionCreators.saveChange('0', 'Mlock');
+      const action = saveChange('0', 'Mlock');
 
       const createdState = itemReducer(undefined, action);
 
@@ -23,7 +23,7 @@ describe('Item reducer', () => {
       const expectedState = new ItemData({
         text: 'Glock',
       });
-      const action = actionCreators.saveChange('42', 'Glock');
+      const action = saveChange('42', 'Glock');
 
       const createdState = itemReducer(prevState, action);
 
