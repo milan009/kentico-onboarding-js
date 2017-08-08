@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import { isItemTextValid } from '../utils/validation';
 
 class AddItem extends PureComponent {
 
   static displayName = 'AddItem';
 
   static propTypes = {
-    addNewItem: PropTypes.func.isRequired,
+    onAddItem: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -16,28 +19,33 @@ class AddItem extends PureComponent {
     };
   }
 
-  _handleChange = event => {
-    this.setState({ currentText: event.target.value });
+  _onChange = (event) => {
+    const setStateText = (currentText) => (() => ({ currentText }));
+    this.setState(setStateText(event.target.value));
   };
 
-  _handleSubmit = event => {
+  _addItem = (event) => {
     event.preventDefault();
-    this.props.addNewItem(this.state.currentText);
-    this.setState({ currentText: '' });
+    const currText = this.state.currentText;
+
+    if (isItemTextValid(currText)) {
+      this.props.onAddItem(currText);
+      this.setState(() => ({ currentText: '' }));
+    }
   };
 
   render() {
     return (
-      <form onSubmit={this._handleSubmit} className="form-inline list-group-item">
+      <form onSubmit={this._addItem} className="form-inline list-group-item">
         <input
           type="text"
           className="form-control"
-          onChange={this._handleChange}
+          onChange={this._onChange}
           value={this.state.currentText}
         />
         <button
           type="submit"
-          className="form-control btn btn-default"
+          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isItemTextValid(this.state.currentText) })}
         >
           Add
         </button>

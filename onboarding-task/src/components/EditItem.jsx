@@ -1,16 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import { isItemTextValid } from '../utils/validation';
 
 class EditItem extends PureComponent {
 
   static displayName = 'EditItem';
 
   static propTypes = {
-    index: PropTypes.number.isRequired,
     item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      index: PropTypes.number.isRequired,
     }).isRequired,
-    onRemove: PropTypes.func.isRequired,
+
+    onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
@@ -23,25 +28,49 @@ class EditItem extends PureComponent {
     };
   }
 
-  _textChange = event =>
-    this.setState({ text: event.target.value });
+  _textChange = (event) => {
+    const setStateText = (text) => (() => ({ text }));
+    this.setState(setStateText(event.target.value));
+  };
 
-  _saveClick = () =>
-    this.props.onSave(this.state.text);
+  _saveChange = () => {
+    const editedText = this.state.text;
+
+    if (isItemTextValid(editedText)) {
+      this.props.onSave(editedText);
+    }
+  };
+
+  _keyUp = (event) => {
+    switch (event.key) {
+      case 'Enter':
+        this._saveChange();
+        break;
+      case 'Escape':
+        this.props.onCancel();
+        break;
+      default:
+        break;
+    }
+  };
 
   render() {
+    const editedText = this.state.text;
+
     return (
       <div className="form-inline">
-        <span>{this.props.index}. </span>
+        <span>{this.props.item.index}. </span>
         <input
+          autoFocus
           className="form-control"
           type="text"
-          value={this.state.text}
+          value={editedText}
           onChange={this._textChange}
+          onKeyUp={this._keyUp}
         />
         <button
-          className="btn btn-primary form-control"
-          onClick={this._saveClick}
+          className={classNames('btn', 'btn-primary', 'form-control', { disabled: !isItemTextValid(editedText) })}
+          onClick={this._saveChange}
         >
           Save
         </button>
@@ -53,7 +82,7 @@ class EditItem extends PureComponent {
         </button>
         <button
           className="btn btn-danger form-control"
-          onClick={this.props.onRemove}
+          onClick={this.props.onDelete}
         >
           Delete
         </button>
