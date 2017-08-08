@@ -1,5 +1,4 @@
-import { Record } from 'immutable';
-
+import { TypedRecord } from './TypedRecord';
 import { emptyUuid } from '../utils/constants';
 
 export interface IItemData {
@@ -7,21 +6,12 @@ export interface IItemData {
   readonly text: string;
 }
 
-const defaultItemData = {
+const defaultItemData: IItemData = {
   id: emptyUuid,
   text: '',
 };
 
-export class ItemData extends Record(defaultItemData, 'ItemData') implements IItemData {
+export class ItemData extends TypedRecord<IItemData, ItemData>(defaultItemData, 'ItemData') implements IItemData {
   readonly id: string;
   readonly text: string;
-
-  constructor(params?: Partial<IItemData>) {
-    params ? super(params) : super();
-  }
-
-  // Typed merge alias
-  typedMerge(itemFlags: Partial<IItemData>): ItemData {
-    return this.merge(itemFlags) as this;
-  }
 }

@@ -1,23 +1,14 @@
-import { Record } from 'immutable';
+import { TypedRecord } from './TypedRecord';
 
 export interface IItemFlags {
   readonly isBeingEdited: boolean;
 }
 
-const defaultItemFlags = {
+const defaultItemFlags: IItemFlags = {
   isBeingEdited: false,
 };
 
-export class ItemFlags extends Record(defaultItemFlags, 'ItemFlags') implements IItemFlags {
+export class ItemFlags extends TypedRecord<IItemFlags, ItemFlags>(defaultItemFlags, 'ItemFlags') implements IItemFlags {
   readonly isBeingEdited: boolean;
-
-  constructor(params?: IItemFlags) {
-    params ? super(params) : super();
-  }
-
-  // Typed merge alias
-  typedMerge(itemFlags: IItemFlags): ItemFlags {
-    return this.merge(itemFlags) as this;
-  }
 }
 
