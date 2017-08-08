@@ -3,8 +3,8 @@ import { Record } from 'immutable';
 import { emptyUuid } from '../utils/constants';
 
 export interface IItemData {
-  id?: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 }
 
 const defaultItemData = {
@@ -13,15 +13,15 @@ const defaultItemData = {
 };
 
 export class ItemData extends Record(defaultItemData, 'ItemData') implements IItemData {
-  id: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 
-  constructor(params?: IItemData) {
+  constructor(params?: Partial<IItemData>) {
     params ? super(params) : super();
   }
 
   // Typed merge alias
-  typedMerge(itemFlags: IItemData): ItemData {
+  typedMerge(itemFlags: Partial<IItemData>): ItemData {
     return this.merge(itemFlags) as this;
   }
 }
