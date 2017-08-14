@@ -11,7 +11,7 @@ export interface IListDataProps {
   itemIds: Seq.Indexed<string>;
 }
 
-const List: React.StatelessComponent<IListDataProps> = (props: IListDataProps) => {
+const List: React.StatelessComponent<IListDataProps> = (props) => {
   const existingItems = props.itemIds.map((id = emptyUuid, index = 0) =>
     <li className="list-group-item" key={id}>
       <ListItem
