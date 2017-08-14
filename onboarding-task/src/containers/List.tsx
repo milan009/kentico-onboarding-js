@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import * as memoize from 'memoizee';
 
@@ -11,5 +12,5 @@ const mapStateToProps = (state: IStore) => ({
   itemIds: getIdsMemoized(state.list.itemsById),
 });
 
-const List = connect(mapStateToProps)(ListComponent);
+const List: React.ComponentClass = connect(mapStateToProps)(ListComponent);
 export { List };
