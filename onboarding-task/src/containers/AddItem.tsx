@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -9,5 +10,5 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>): IAddItemCallbackProps =
   onAddItem: (text: string) => dispatch(createItem(text)),
 });
 
-const AddItem: React.ComponentClass<{}> = connect(null, mapDispatchToProps)(AddItemComponent);
+const AddItem: React.ComponentClass = connect(null, mapDispatchToProps)(AddItemComponent);
 export { AddItem };
