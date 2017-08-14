@@ -9,7 +9,7 @@ import {
   ITEM_MAKE_EDITABLE,
 } from './actionTypes';
 
-export const createItemFactory = (idGenerator: () => string) => (
+export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
   (text: string) => ({
     type: ITEM_CREATED,
     payload: {
