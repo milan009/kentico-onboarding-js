@@ -39,8 +39,7 @@ export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction
     }
 
     case FETCH_SUCCESS: {
-      console.log(action);
-      return state;
+      return action.payload.items;
     }
 
     default:

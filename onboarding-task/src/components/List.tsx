@@ -8,6 +8,7 @@ import { ListItem } from '../containers/ListItem';
 import { emptyUuid } from '../utils/constants';
 
 export interface IListDataProps {
+  isFetching: boolean;
   itemIds: Seq.Indexed<string>;
 }
 
@@ -26,8 +27,16 @@ const List: React.StatelessComponent<IListDataProps> = (props) => {
     <div className="row">
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ol className="list-group">
-          {existingItems}
-          <AddItem />
+          {
+            props.isFetching ?
+              <div>
+                <h1>YO SOY FECHIENDO!</h1>
+              </div> :
+              <div>
+                {existingItems}
+                <AddItem />
+              </div>
+          }
         </ol>
       </div>
     </div>
@@ -37,6 +46,7 @@ const List: React.StatelessComponent<IListDataProps> = (props) => {
 List.displayName = 'List';
 
 List.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
   itemIds: ImmutablePropTypes.iterableOf(PropTypes.string).isRequired,
 };
 

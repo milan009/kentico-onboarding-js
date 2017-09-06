@@ -14,6 +14,7 @@ import {
 } from './actionTypes';
 import { IStore } from '../interfaces/IStore';
 import { parseAPIResponseJson } from '../utils/parsing';
+import { Promise } from 'es6-promise';
 
 export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
   (text: string) => ({
@@ -51,18 +52,18 @@ export const makeEditable = (id: string): IAction => ({
   payload: {id},
 });
 
-export const startFetchingItems = () : IAction => ({
+export const startFetchingItems = (): IAction => ({
   type: FETCH_STARTED,
 });
 
-export const fetchingSucceeded = (json: any) : IAction => ({
+export const fetchingSucceeded = (json: any): IAction => ({
   type: FETCH_SUCCESS,
   payload: {
     items: parseAPIResponseJson(json),
   },
 });
 
-export const fetchingFailed = (error: string) : IAction => ({
+export const fetchingFailed = (error: string): IAction => ({
   type: FETCH_FAIL,
   payload: {
     error
@@ -75,9 +76,14 @@ export const fetchItems = () => {
 
     return fetch('api/v1/items')
       .then(
-        (response) => response.json(),
+        (response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
+          }
+          return response.json();
+        }).then(
+        (json) => dispatch(fetchingSucceeded(json)),
         (error) => dispatch(fetchingFailed(error))
-      ).then(
-        (json) => dispatch(fetchingSucceeded(json)));
+      );
   };
 };
