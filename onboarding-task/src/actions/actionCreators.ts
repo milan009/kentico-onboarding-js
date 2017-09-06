@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import * as uuidV4 from 'uuid';
 
 import { IAction } from '../interfaces/IAction';
@@ -11,9 +12,8 @@ import {
   FETCH_SUCCESS,
   FETCH_FAIL
 } from './actionTypes';
-import Any = jasmine.Any;
-import { Dispatch } from 'redux';
 import { IStore } from '../interfaces/IStore';
+import { parseAPIResponseJson } from '../utils/parsing';
 
 export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
   (text: string) => ({
@@ -55,10 +55,10 @@ export const startFetchingItems = () : IAction => ({
   type: FETCH_STARTED,
 });
 
-export const fetchingSucceeded = (json: Any) : IAction => ({
+export const fetchingSucceeded = (json: any) : IAction => ({
   type: FETCH_SUCCESS,
   payload: {
-    items: json,
+    items: parseAPIResponseJson(json),
   },
 });
 
@@ -68,7 +68,6 @@ export const fetchingFailed = (error: string) : IAction => ({
     error
   }
 });
-
 
 export const fetchItems = () => {
   return function (dispatch: Dispatch<IStore>) {
