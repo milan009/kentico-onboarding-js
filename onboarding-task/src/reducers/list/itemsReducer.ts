@@ -7,6 +7,7 @@ import {
   ITEM_CHANGE_SAVED,
   ITEM_CREATED,
   ITEM_DELETED,
+  FETCH_SUCCESS,
 } from '../../actions/actionTypes';
 
 export type ItemsDataMap = OrderedMap<string, ItemData>;
@@ -35,6 +36,11 @@ export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction
 
       const editedItem = itemReducer(itemToEdit, action);
       return state.set(action.payload.id, editedItem);
+    }
+
+    case FETCH_SUCCESS: {
+      console.log(action);
+      return state;
     }
 
     default:
