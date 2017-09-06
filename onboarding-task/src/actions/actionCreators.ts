@@ -12,6 +12,8 @@ import {
   FETCH_FAIL
 } from './actionTypes';
 import Any = jasmine.Any;
+import { Dispatch } from 'redux';
+import { IStore } from '../interfaces/IStore';
 
 export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
   (text: string) => ({
@@ -66,3 +68,17 @@ export const fetchingFailed = (error: string) : IAction => ({
     error
   }
 });
+
+
+export const fetchItems = () => {
+  return function (dispatch: Dispatch<IStore>) {
+    dispatch(startFetchingItems());
+
+    return fetch('api/v1/items')
+      .then(
+        (response) => response.json(),
+        (error) => dispatch(fetchingFailed(error))
+      ).then(
+        (json) => dispatch(fetchingSucceeded(json)));
+  };
+};
