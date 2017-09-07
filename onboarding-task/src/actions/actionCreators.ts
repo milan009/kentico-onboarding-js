@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import * as uuidV4 from 'uuid';
+import { Promise } from 'es6-promise';
 
 import { IAction } from '../interfaces/IAction';
 import {
@@ -10,11 +11,15 @@ import {
   ITEM_MAKE_EDITABLE,
   FETCH_STARTED,
   FETCH_SUCCESS,
-  FETCH_FAIL
+  FETCH_FAIL,
+  PARSE_RESPONSE_FINISHED,
+  PARSE_RESPONSE_STARTED,
 } from './actionTypes';
 import { IStore } from '../interfaces/IStore';
-import { parseAPIResponseJson } from '../utils/parsing';
-import { Promise } from 'es6-promise';
+
+import { ItemsDataMap } from '../reducers/list/itemsReducer';
+import { OrderedMap } from 'immutable';
+import { ItemData } from '../models/ItemData';
 
 export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
   (text: string) => ({
@@ -59,7 +64,7 @@ export const startFetchingItems = (): IAction => ({
 export const fetchingSucceeded = (json: any): IAction => ({
   type: FETCH_SUCCESS,
   payload: {
-    items: parseAPIResponseJson(json),
+    items: json,
   },
 });
 
@@ -70,8 +75,46 @@ export const fetchingFailed = (error: string): IAction => ({
   }
 });
 
+export const parsingStarted = (jsonResponse: any): IAction => ({
+  type: PARSE_RESPONSE_STARTED,
+  payload: {
+    jsonResponse,
+  }
+});
+
+export const parsingFinished = (parsedItems: ItemsDataMap): IAction => ({
+  type: PARSE_RESPONSE_FINISHED,
+  payload: {
+    parsedItems,
+  }
+});
+
+const parseAPIResponseJson = (json: any) => {
+  return new Promise<ItemsDataMap>((resolve) => {
+    let parsedItems = OrderedMap<string, ItemData>();
+    json.map((item: any) => {
+      parsedItems = parsedItems.set(item.Id, new ItemData(
+        {
+          id: item.Id,
+          text: item.Text
+        }));
+    });
+
+    resolve(parsedItems);
+  });
+};
+
+export const parseItems = (json: any) => {
+    return function (dispatch: Dispatch<IStore>) {
+      dispatch(parsingStarted(json));
+
+      return parseAPIResponseJson(json)
+        .then((parsedItems: any) => dispatch(parsingFinished(parsedItems)));
+    };
+};
+
 export const fetchItems = () => {
-  return function (dispatch: Dispatch<IStore>) {
+  return function (dispatch: any) {
     dispatch(startFetchingItems());
 
     return fetch('api/v1/items')
@@ -81,9 +124,10 @@ export const fetchItems = () => {
             return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
           }
           return response.json();
-        }).then(
-        (json) => dispatch(fetchingSucceeded(json)),
+        })
+      .then(
+        (json) => (dispatch(parseItems(json))),
         (error) => dispatch(fetchingFailed(error))
-      );
+      ).then((parsedItems) => dispatch(fetchingSucceeded(parsedItems)));
   };
 };

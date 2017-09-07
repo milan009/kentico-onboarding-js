@@ -4,7 +4,8 @@ import * as PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 
 import { AddItem } from '../containers/AddItem';
-import { ListItem } from '../containers/ListItem';
+import { ListItem } from '../containers/ListItem'
+import { Spinner } from './Spinner';
 import { emptyUuid } from '../utils/constants';
 
 export interface IListDataProps {
@@ -26,18 +27,14 @@ const List: React.StatelessComponent<IListDataProps> = (props) => {
   return (
     <div className="row">
       <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <ol className="list-group">
-          {
-            props.isFetching ?
-              <div>
-                <h1>YO SOY FECHIENDO!</h1>
-              </div> :
-              <div>
-                {existingItems}
-                <AddItem />
-              </div>
-          }
-        </ol>
+        {
+          props.isFetching ?
+            <Spinner /> :
+            <ol className="list-group">
+              {existingItems}
+              <AddItem />
+            </ol>
+        }
       </div>
     </div>
   );

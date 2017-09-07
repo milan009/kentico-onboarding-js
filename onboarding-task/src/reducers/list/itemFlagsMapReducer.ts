@@ -9,7 +9,7 @@ import {
   ITEM_CREATED,
   ITEM_DELETED,
   ITEM_MAKE_EDITABLE,
-  FETCH_SUCCESS,
+  PARSE_RESPONSE_FINISHED,
 } from '../../actions/actionTypes';
 
 export type ItemsFlagsMap = OrderedMap<string, ItemFlags>;
@@ -39,12 +39,10 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.set(action.payload.id, editedInfo);
     }
 
-    case FETCH_SUCCESS: {
-      action.payload.items.map((item: any) => {
-        console.log(item.id);
+    case PARSE_RESPONSE_FINISHED: {
+      action.payload.parsedItems.map((item: any) => {
         state = state.set(item.id, new ItemFlags());
       });
-      console.log('flagsReducre here ', state);
       return state;
     }
 
