@@ -9,7 +9,8 @@ import {
   ITEM_CREATED,
   ITEM_DELETED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED,
+  PARSE_RESPONSE_FINISHED, PUT_REQUEST_STARTED,
+  PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
 export type ItemsFlagsMap = OrderedMap<string, ItemFlags>;
@@ -22,13 +23,15 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.remove(action.payload.id);
 
     case ITEM_CREATED: {
-      const newItem = new ItemFlags();
+      const newItem = new ItemFlags({isStored: true});
       return state.set(action.payload.newId, newItem);
     }
 
     case ITEM_MAKE_EDITABLE:
     case ITEM_CHANGE_CANCELLED:
-    case ITEM_CHANGE_SAVED: {
+    case ITEM_CHANGE_SAVED:
+    case PUT_REQUEST_STARTED:
+    case PUT_REQUEST_SUCCESS: {
       const flagsToEdit = state.get(action.payload.id);
 
       if (!flagsToEdit) {
@@ -41,7 +44,7 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
 
     case PARSE_RESPONSE_FINISHED: {
       action.payload.parsedItems.map((item: any) => {
-        state = state.set(item.id, new ItemFlags());
+        state = state.set(item.id, new ItemFlags({isStored: true}));
       });
       return state;
     }

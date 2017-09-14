@@ -141,6 +141,7 @@ export const postFailed = (error: string): IAction => ({
 export const putStarted = (item: ItemData): IAction => ({
   type: PUT_REQUEST_STARTED,
   payload: {
+    id: item.id,
     item,
   }
 });
@@ -148,6 +149,7 @@ export const putStarted = (item: ItemData): IAction => ({
 export const putSucceeded = (json: any): IAction => ({
   type: PUT_REQUEST_SUCCESS,
   payload: {
+    id: json.Id,
     item: json,
   },
 });

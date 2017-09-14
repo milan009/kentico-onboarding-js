@@ -16,25 +16,27 @@ export interface IListItemCallbackProps {
   onCancel: () => void;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => {
-  if (props.item.isBeingEdited) {
-    return (
+const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => (
+  <div>
+    {props.item.isStored ? null :
+      <div className="alert alert-warning">
+        <span className="glyphicon glyphicon-warning-sign" />
+        <span> This item has not yet been saved to the database</span>
+      </div>}
+    {props.item.isBeingEdited ? (
       <EditItem
         item={props.item}
         onDelete={props.onDelete}
         onSave={props.onSave}
         onCancel={props.onCancel}
       />
-    );
-  }
-
-  return (
-    <ViewItem
-      item={props.item}
-      onClick={props.onClick}
-    />
-  );
-};
+    ) : (
+      <ViewItem
+        item={props.item}
+        onClick={props.onClick}
+      />)}
+  </div>
+);
 
 ListItem.displayName = 'ListItem';
 
