@@ -6,6 +6,7 @@ import { ListItem as ListItemComponent, IListItemDataProps, IListItemCallbackPro
 import * as actionCreators from '../actions/actionCreators';
 import { ViewItem } from '../models/ViewItem';
 import { IStore } from '../interfaces/IStore';
+import { ItemData } from '../models/ItemData';
 
 interface IListItemContainerProps {
   id: string;
@@ -24,9 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>, { id }: IListItemContain
   onClick: () =>
     dispatch(actionCreators.makeEditable(id)),
   onDelete: () =>
-    dispatch(actionCreators.deleteItem(id)),
+    actionCreators.deleteStoredItem(id)(dispatch), // dispatch(actionCreators.deleteItem(id)),
   onSave: (newText: string) =>
-    dispatch(actionCreators.saveChange(id, newText)),
+    actionCreators.putSavedItem(new ItemData({id, text: newText}))(dispatch), // dispatch(actionCreators.saveChange(id, newText)),
   onCancel: () =>
     dispatch(actionCreators.cancelChange(id)),
 });
