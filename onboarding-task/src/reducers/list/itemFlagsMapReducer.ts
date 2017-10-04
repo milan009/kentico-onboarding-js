@@ -9,7 +9,7 @@ import {
   ITEM_CREATED,
   ITEM_DELETED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED, PUT_REQUEST_STARTED,
+  PARSE_RESPONSE_FINISHED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
@@ -23,7 +23,7 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.remove(action.payload.id);
 
     case ITEM_CREATED: {
-      const newItem = new ItemFlags({isStored: true});
+      const newItem = new ItemFlags({isStored: false});
       return state.set(action.payload.newId, newItem);
     }
 
@@ -40,6 +40,13 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
 
       const editedInfo = itemFlagsReducer(flagsToEdit, action);
       return state.set(action.payload.id, editedInfo);
+    }
+
+    case POST_REQUEST_SUCCESS: {
+      const newItem = new ItemFlags({isStored: true});
+      state = state.remove(action.payload.formerId);
+
+      return state.set(action.payload.item.id, newItem);
     }
 
     case PARSE_RESPONSE_FINISHED: {

@@ -1,7 +1,6 @@
 import { ItemData } from '../../models/ItemData';
 import { putFailed, putStarted, putSucceeded, saveChange } from '../actionCreators';
 import { route } from '../../utils/constants';
-import { IItemDTO } from '../../interfaces/IItemDTO';
 
 export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (item: ItemData) => any => (
   (item: ItemData) =>
@@ -15,6 +14,7 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
         body: JSON.stringify({id: item.id, text: item.text}),
       };
 
+      dispatch(saveChange(item.id, item.text));
       dispatch(putStarted(item));
 
       return fetch(`${route}/${item.id}`, options)
@@ -29,8 +29,23 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
             dispatch(putSucceeded(json));
             return json;
           })
-        .then((receivedItem: IItemDTO) => dispatch(saveChange(receivedItem.id, receivedItem.text)))
         .catch((error) => dispatch(putFailed(error)));
+      /* dispatch(putStarted(item));
+
+      return fetch(`${route}/${item.id}`, options)
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
+          }
+          return response.json();
+        })
+        .then(
+          (json) => {
+            dispatch(putSucceeded(json));
+            return json;
+          })
+        .then((receivedItem: IItemDTO) => dispatch(saveChange(receivedItem.id, receivedItem.text)))
+        .catch((error) => dispatch(putFailed(error)));*/
     });
 
 const putSavedItemWithFetchAPI = putSavedItemFactory(fetch);

@@ -44,7 +44,6 @@ const List: React.StatelessComponent<IListDataProps> = (props) => {
           }
         </div>
       }
-
     </div>
   );
 };

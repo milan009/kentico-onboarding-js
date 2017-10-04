@@ -7,7 +7,7 @@ import {
   ITEM_CHANGE_SAVED,
   ITEM_CREATED,
   ITEM_DELETED,
-  PARSE_RESPONSE_FINISHED,
+  PARSE_RESPONSE_FINISHED, POST_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
 export type ItemsDataMap = OrderedMap<string, ItemData>;
@@ -36,6 +36,13 @@ export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction
 
       const editedItem = itemReducer(itemToEdit, action);
       return state.set(action.payload.id, editedItem);
+    }
+
+    case POST_REQUEST_SUCCESS: {
+      state = state.remove(action.payload.formerId);
+      const newItem = new ItemData(action.payload.item);
+
+      return state.set(newItem.id, newItem);
     }
 
     case PARSE_RESPONSE_FINISHED: {

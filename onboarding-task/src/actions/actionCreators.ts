@@ -120,10 +120,11 @@ export const postStarted = (text: string): IAction => ({
   }
 });
 
-export const postSucceeded = (json: any): IAction => ({
+export const postSucceeded = (formerId: string, json: any): IAction => ({
   type: POST_REQUEST_SUCCESS,
   payload: {
     item: json,
+    formerId
   },
 });
 
