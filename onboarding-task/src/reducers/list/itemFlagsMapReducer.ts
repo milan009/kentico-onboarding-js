@@ -4,12 +4,10 @@ import { ItemFlags } from '../../models/ItemFlags';
 import { IAction } from '../../interfaces/IAction';
 import { itemFlagsReducer } from './itemFlagsReducer';
 import {
+  DELETE_REQUEST_SUCCESS,
   ITEM_CHANGE_CANCELLED,
-  ITEM_CHANGE_SAVED,
-  ITEM_CREATED,
-  ITEM_DELETED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
+  PARSE_RESPONSE_FINISHED, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
@@ -19,17 +17,16 @@ const defaultState = OrderedMap<string, ItemFlags>();
 
 export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action: IAction): ItemsFlagsMap => {
   switch (action.type) {
-    case ITEM_DELETED:
+    case DELETE_REQUEST_SUCCESS:
       return state.remove(action.payload.id);
 
-    case ITEM_CREATED: {
+    case POST_REQUEST_STARTED: {
       const newItem = new ItemFlags({isStored: false});
-      return state.set(action.payload.newId, newItem);
+      return state.set(action.payload.optimisticId, newItem);
     }
 
     case ITEM_MAKE_EDITABLE:
     case ITEM_CHANGE_CANCELLED:
-    case ITEM_CHANGE_SAVED:
     case PUT_REQUEST_STARTED:
     case PUT_REQUEST_SUCCESS: {
       const flagsToEdit = state.get(action.payload.id);

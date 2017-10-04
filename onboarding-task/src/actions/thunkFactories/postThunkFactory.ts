@@ -1,7 +1,7 @@
 import * as uuidV4 from 'uuid';
 
 import { emptyUuid, route } from '../../utils/constants';
-import { createItemFactory, postFailed, postStarted, postSucceeded } from '../actionCreators';
+import { postFailed, postStarted, postSucceeded } from '../actionCreators';
 
 export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>, optimisticUpdatedGenerator: () => string): (newText: string) => any => (
   (newText: string) =>
@@ -16,8 +16,7 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
       };
 
       const optimisticUpdateId = optimisticUpdatedGenerator();
-      dispatch(createItemFactory(() => optimisticUpdateId)(newText));
-      dispatch(postStarted(newText));
+      dispatch(postStarted(optimisticUpdateId, newText));
 
       return fetch(route, options)
         .then((response) => {
@@ -49,5 +48,5 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
         .catch((error) => dispatch(postFailed(error)));*/
     });
 
-const postNewItemWithFetchAPI = postNewItemFactory(fetch, uuidV4);
-export { postNewItemWithFetchAPI as postNewItem };
+const postNewItemWithFetchAPIAndUUIDV4 = postNewItemFactory(fetch, uuidV4);
+export { postNewItemWithFetchAPIAndUUIDV4 as postNewItem };

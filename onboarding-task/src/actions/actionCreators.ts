@@ -1,14 +1,10 @@
 import { Dispatch } from 'redux';
-import * as uuidV4 from 'uuid';
 import { Promise } from 'es6-promise';
 import { OrderedMap } from 'immutable';
 
 import { IAction } from '../interfaces/IAction';
 import {
   ITEM_CHANGE_CANCELLED,
-  ITEM_CHANGE_SAVED,
-  ITEM_CREATED,
-  ITEM_DELETED,
   ITEM_MAKE_EDITABLE,
 
   FETCH_STARTED,
@@ -37,35 +33,9 @@ import { IItemDTO } from '../interfaces/IItemDTO';
 
 // region Frontend related action creators
 
-export const createItemFactory = (idGenerator: () => string): (text: string) => IAction => (
-  (text: string) => ({
-    type: ITEM_CREATED,
-    payload: {
-      text,
-      newId: idGenerator(),
-    },
-  })
-);
-const createItemWithUuidV4 = createItemFactory(uuidV4);
-
-export { createItemWithUuidV4 as createItem };
-
-export const deleteItem = (id: string): IAction => ({
-  type: ITEM_DELETED,
-  payload: {id},
-});
-
 export const cancelChange = (id: string): IAction => ({
   type: ITEM_CHANGE_CANCELLED,
   payload: {id},
-});
-
-export const saveChange = (id: string, text: string): IAction => ({
-  type: ITEM_CHANGE_SAVED,
-  payload: {
-    id,
-    text,
-  },
 });
 
 export const makeEditable = (id: string): IAction => ({
@@ -113,10 +83,11 @@ export const parsingFinished = (parsedItems: ItemsDataMap): IAction => ({
 
 // region POST related action creators
 
-export const postStarted = (text: string): IAction => ({
+export const postStarted = (optimisticId: string, text: string): IAction => ({
   type: POST_REQUEST_STARTED,
   payload: {
     text,
+    optimisticId,
   }
 });
 
@@ -124,7 +95,7 @@ export const postSucceeded = (formerId: string, json: any): IAction => ({
   type: POST_REQUEST_SUCCESS,
   payload: {
     item: json,
-    formerId
+    formerId,
   },
 });
 

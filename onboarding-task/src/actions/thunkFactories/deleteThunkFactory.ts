@@ -1,4 +1,4 @@
-import { deleteFailed, deleteItem, deleteStarted, deleteSucceeded } from '../actionCreators';
+import { deleteFailed, deleteStarted, deleteSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
 
 export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (id: string) => any => (
@@ -20,8 +20,7 @@ export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: Reque
           return response;
         })
         .then(() => {
-          dispatch(deleteSucceeded(id));
-          return dispatch(deleteItem(id));
+          return dispatch(deleteSucceeded(id));
         })
         .catch((error) => dispatch(deleteFailed(error)));
     });

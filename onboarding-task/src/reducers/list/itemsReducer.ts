@@ -4,10 +4,8 @@ import { ItemData } from '../../models/ItemData';
 import { IAction } from '../../interfaces/IAction';
 import { itemReducer } from './itemReducer';
 import {
-  ITEM_CHANGE_SAVED,
-  ITEM_CREATED,
-  ITEM_DELETED,
-  PARSE_RESPONSE_FINISHED, POST_REQUEST_SUCCESS,
+  DELETE_REQUEST_SUCCESS,
+  PARSE_RESPONSE_FINISHED, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
 } from '../../actions/actionTypes';
 
 export type ItemsDataMap = OrderedMap<string, ItemData>;
@@ -16,18 +14,18 @@ const defaultState = OrderedMap<string, ItemData>();
 
 export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction): ItemsDataMap => {
   switch (action.type) {
-    case ITEM_DELETED:
+    case DELETE_REQUEST_SUCCESS:
       return state.remove(action.payload.id);
 
-    case ITEM_CREATED: {
+    case POST_REQUEST_STARTED: {
       const newItem = new ItemData({
-        id: action.payload.newId,
+        id: action.payload.optimisticId,
         text: action.payload.text,
       });
-      return state.set(action.payload.newId, newItem);
+      return state.set(action.payload.optimisticId, newItem);
     }
 
-    case ITEM_CHANGE_SAVED: {
+    case PUT_REQUEST_STARTED: {
       const itemToEdit = state.get(action.payload.id);
 
       if (!itemToEdit) {

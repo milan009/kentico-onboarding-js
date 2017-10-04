@@ -1,5 +1,5 @@
 import { ItemData } from '../../models/ItemData';
-import { putFailed, putStarted, putSucceeded, saveChange } from '../actionCreators';
+import { putFailed, putStarted, putSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
 
 export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (item: ItemData) => any => (
@@ -14,7 +14,6 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
         body: JSON.stringify({id: item.id, text: item.text}),
       };
 
-      dispatch(saveChange(item.id, item.text));
       dispatch(putStarted(item));
 
       return fetch(`${route}/${item.id}`, options)
