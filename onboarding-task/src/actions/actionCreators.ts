@@ -31,9 +31,9 @@ import {
   PARSE_RESPONSE_STARTED,
 } from './actionTypes';
 import { IStore } from '../interfaces/IStore';
-
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
+import { IItemDTO } from '../interfaces/IItemDTO';
 
 // region Frontend related action creators
 
@@ -149,7 +149,7 @@ export const putStarted = (item: ItemData): IAction => ({
 export const putSucceeded = (json: any): IAction => ({
   type: PUT_REQUEST_SUCCESS,
   payload: {
-    id: json.Id,
+    id: json.id,
     item: json,
   },
 });
@@ -191,12 +191,8 @@ export const deleteFailed = (error: string): IAction => ({
 const parseAPIResponseJson = (json: any) => {
   return new Promise<ItemsDataMap>((resolve) => {
     let parsedItems = OrderedMap<string, ItemData>();
-    json.map((item: any) => {
-      parsedItems = parsedItems.set(item.Id, new ItemData(
-        {
-          id: item.Id,
-          text: item.Text
-        }));
+    json.map((item: IItemDTO) => {
+      parsedItems = parsedItems.set(item.id, new ItemData(item));
     });
 
     resolve(parsedItems);
@@ -210,113 +206,6 @@ export const parseItems = (json: any) => {
 
     return parseAPIResponseJson(json)
       .then((parsedItems: any) => dispatch(parsingFinished(parsedItems)));
-  };
-};
-
-export const putSavedItem = (item: ItemData) => {
-  return function (dispatch: any) {
-    const headers = new Headers();
-    headers.append('Content-type', 'Application/json');
-
-    const init = {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify({Id: item.id, Text: item.text}),
-    };
-
-    dispatch(putStarted(item));
-
-    return fetch(`api/v1/items/${item.id}`, init)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-        }
-        return response.json();
-      })
-      .then(
-        (json) => {
-          dispatch(putSucceeded(json));
-          return json;
-        },
-        (error) => dispatch(putFailed(error)))
-      .then((receivedItem: any) => dispatch(saveChange(receivedItem.Id, receivedItem.Text)));
-  };
-};
-
-export const postNewItem = (newText: string) => {
-  return function (dispatch: any) {
-    const headers = new Headers();
-    headers.append('Content-type', 'Application/json');
-
-    const guid = '00000000-0000-0000-0000-000000000000';
-
-    const init = {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({Id: guid, Text: newText}),
-    };
-
-    dispatch(postStarted(newText));
-
-    return fetch(`api/v1/items`, init)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-        }
-        return response.json();
-      })
-      .then(
-        (json) => {
-          dispatch(postSucceeded(json));
-          return json.Id;
-        },
-        (error) => dispatch(postFailed(error)))
-      .then((id) => dispatch(createItemFactory(() => id)(newText)));
-  };
-};
-
-export const deleteStoredItem = (id: string) => {
-  return function (dispatch: any) {
-    const headers = new Headers();
-    const init = {
-      method: 'DELETE',
-      headers,
-    };
-
-    dispatch(deleteStarted(id));
-
-    return fetch(`api/v1/items/${id}`, init)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-        }
-        return response;
-      })
-      .then(
-        () => {
-          dispatch(deleteSucceeded(id));
-          return dispatch(deleteItem(id));
-        },
-        (error) => dispatch(deleteFailed(error)));
-  };
-};
-
-export const fetchItems = () => {
-  return function (dispatch: any) {
-    dispatch(startFetchingItems());
-
-    return fetch('api/v1/items')
-      .then(
-        (response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
-          return response.json();
-        })
-      .then(
-        (json) => (dispatch(parseItems(json))),
-        (error) => dispatch(fetchingFailed(error))
-      ).then((parsedItems) => dispatch(fetchingSucceeded(parsedItems)));
   };
 };
 // endregion

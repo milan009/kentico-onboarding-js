@@ -7,6 +7,8 @@ import * as actionCreators from '../actions/actionCreators';
 import { ViewItem } from '../models/ViewItem';
 import { IStore } from '../interfaces/IStore';
 import { ItemData } from '../models/ItemData';
+import { putSavedItem } from '../actions/thunkFactories/putThunkFactory';
+import { deleteStoredItem } from '../actions/thunkFactories/deleteThunkFactory';
 
 interface IListItemContainerProps {
   id: string;
@@ -25,9 +27,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>, { id }: IListItemContain
   onClick: () =>
     dispatch(actionCreators.makeEditable(id)),
   onDelete: () =>
-    actionCreators.deleteStoredItem(id)(dispatch), // dispatch(actionCreators.deleteItem(id)),
+    deleteStoredItem(id)(dispatch), // dispatch(actionCreators.deleteItem(id)),
   onSave: (newText: string) =>
-    actionCreators.putSavedItem(new ItemData({id, text: newText}))(dispatch), // dispatch(actionCreators.saveChange(id, newText)),
+    putSavedItem(new ItemData({id, text: newText}))(dispatch), // dispatch(actionCreators.saveChange(id, newText)),
   onCancel: () =>
     dispatch(actionCreators.cancelChange(id)),
 });
