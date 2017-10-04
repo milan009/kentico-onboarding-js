@@ -10,6 +10,7 @@ import { emptyUuid } from '../utils/constants';
 
 export interface IListDataProps {
   isFetching: boolean;
+  error?: any;
   itemIds: Seq.Indexed<string>;
 }
 
@@ -26,16 +27,24 @@ const List: React.StatelessComponent<IListDataProps> = (props) => {
 
   return (
     <div className="row">
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        {
-          props.isFetching ?
-            <Spinner /> :
-            <ol className="list-group">
-              {existingItems}
-              <AddItem />
-            </ol>
-        }
-      </div>
+      {props.error ?
+        <div className="alert alert-danger">
+          <span className="glyphicon glyphicon-warning-sign" />
+          <span> Following error was encountered: {props.error.message}</span>
+        </div>
+        :
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          {
+            props.isFetching ?
+              <Spinner /> :
+              <ol className="list-group">
+                {existingItems}
+                <AddItem />
+              </ol>
+          }
+        </div>
+      }
+
     </div>
   );
 };

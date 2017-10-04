@@ -3,7 +3,7 @@ import { IAction } from '../../interfaces/IAction';
 import {
   ITEM_CHANGE_CANCELLED,
   ITEM_CHANGE_SAVED,
-  ITEM_MAKE_EDITABLE, POST_REQUEST_SUCCESS,
+  ITEM_MAKE_EDITABLE, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS,
   PUT_REQUEST_STARTED, PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
@@ -19,11 +19,13 @@ export const itemFlagsReducer = (state: ItemFlags = defaultState, action: IActio
       return state.typedMerge({isBeingEdited: false});
 
     case PUT_REQUEST_STARTED:
+    case POST_REQUEST_STARTED:
       return state.typedMerge({isBeingEdited: false, isStored: false});
 
     case PUT_REQUEST_SUCCESS:
-    case POST_REQUEST_SUCCESS:
+    case POST_REQUEST_SUCCESS: {
       return state.typedMerge({isStored: true});
+    }
 
     default:
       return state;

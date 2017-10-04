@@ -10,6 +10,7 @@ const getIdsMemoized = memoize((items: ItemsDataMap) => items.keySeq());
 
 const mapStateToProps = (state: IStore) => ({
   isFetching: state.list.isFetching,
+  error: state.status.error,
   itemIds: getIdsMemoized(state.list.itemsById),
 });
 
