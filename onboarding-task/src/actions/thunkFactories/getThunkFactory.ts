@@ -14,11 +14,12 @@ export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) 
           if (!response.ok) {
             return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
           }
+
           return response.json();
         })
-        .then((json) => (dispatch(parseItems(json))))
-        .then((parsedItems) => dispatch(fetchingSucceeded(parsedItems)))
-        .catch((error) => dispatch(fetchingFailed(error)));
+        .then((json) => dispatch(fetchingSucceeded(json)))
+        .catch((error) => dispatch(fetchingFailed(error)))
+        .then((action) => dispatch(parseItems(action.payload.items)));
     });
 
 const getItemsWithFetchAPI = getItemsFactory(fetch);

@@ -17,6 +17,7 @@ export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: Reque
           if (!response.ok) {
             return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
           }
+
           return response;
         })
         .then(() => {
