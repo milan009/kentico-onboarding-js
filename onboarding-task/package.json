@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "@deebloo/worker": "^1.0.7",
+    "@types/redux-mock-store": "0.0.11",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "es6-promise": "^4.1.1",
