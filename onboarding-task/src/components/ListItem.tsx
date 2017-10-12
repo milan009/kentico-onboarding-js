@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as classNames from 'classnames';
 
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
@@ -17,12 +18,7 @@ export interface IListItemCallbackProps {
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => (
-  <div>
-    {props.item.isStored ? null :
-      <div className="alert alert-warning">
-        <span className="glyphicon glyphicon-warning-sign" />
-        <span> This item has not yet been saved to the database</span>
-      </div>}
+  <li className={classNames('list-group-item', {'list-group-item-warning': !props.item.isStored})}>
     {props.item.isBeingEdited ? (
       <EditItem
         item={props.item}
@@ -35,7 +31,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
         item={props.item}
         onClick={props.onClick}
       />)}
-  </div>
+  </li>
 );
 
 ListItem.displayName = 'ListItem';

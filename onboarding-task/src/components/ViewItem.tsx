@@ -12,12 +12,13 @@ export interface IViewItemCallbackProps {
 }
 
 const ViewItem: React.StatelessComponent<IViewItemDataProps & IViewItemCallbackProps> = (props) => (
-  <div className="btn btn-block " onClick={props.onClick} title="Click to edit this item">
+  <div className="btn btn-block" onClick={props.onClick} title="Click to edit this item">
     <div className="text-left">
-      <span>
-        {props.item.index}.
+      <span className="font-weight-bold">
+        {props.item.index}.{' '}
       </span>
-      {props.item.text}
+      {!props.item.isStored ? <span className="glyphicon glyphicon-warning-sign text-warning bg-warning" /> : ''}
+      { props.item.text}
     </div>
   </div>);
 
