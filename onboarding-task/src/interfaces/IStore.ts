@@ -4,7 +4,6 @@ import { IStatus } from './IStatus';
 
 export interface IStore {
   list: {
-    isFetching: boolean;
     itemsById: ItemsDataMap;
     itemFlagsMap: ItemsFlagsMap;
   };

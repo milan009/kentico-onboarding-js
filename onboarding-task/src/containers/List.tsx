@@ -9,7 +9,7 @@ import { IStore } from '../interfaces/IStore';
 const getIdsMemoized = memoize((items: ItemsDataMap) => items.keySeq());
 
 const mapStateToProps = (state: IStore) => ({
-  isFetching: state.list.isFetching,
+  isFetching: state.status.isFetching,
   error: state.status.error,
   itemIds: getIdsMemoized(state.list.itemsById),
 });
