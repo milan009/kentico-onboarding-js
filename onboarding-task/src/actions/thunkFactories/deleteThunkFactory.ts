@@ -27,7 +27,7 @@ export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: Reque
         .then(() => {
           return dispatch(deleteSucceeded(id));
         })
-        .catch((error) => dispatch(deleteFailed(error)));
+        .catch((error) => dispatch(deleteFailed(error, deleteStoredItemFactory(fetch)(id))));
     });
 
 const deleteStoredItemWithFetchAPI: (id: string) => ThunkAction = deleteStoredItemFactory(fetch);

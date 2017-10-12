@@ -22,8 +22,8 @@ export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) 
           return response.json();
         })
         .then((json) => dispatch(fetchingSucceeded(json)))
-        .catch((error) => dispatch(fetchingFailed(error)))
-        .then((action) => dispatch(parseItems(action.payload.items)));
+        .then((action) => dispatch(parseItems(action.payload.items)))
+        .catch((error) => dispatch(fetchingFailed(error, getItemsFactory(fetch)())));
     });
 
 const getItemsWithFetchAPI: () => ThunkAction = getItemsFactory(fetch);

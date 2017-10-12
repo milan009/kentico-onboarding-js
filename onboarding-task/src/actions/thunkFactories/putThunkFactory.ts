@@ -32,23 +32,7 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
             dispatch(putSucceeded(json));
             return json;
           })
-        .catch((error) => dispatch(putFailed(error)));
-      /* dispatch(putStarted(item));
-
-      return fetch(`${route}/${item.id}`, options)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
-          return response.json();
-        })
-        .then(
-          (json) => {
-            dispatch(putSucceeded(json));
-            return json;
-          })
-        .then((receivedItem: IItemDTO) => dispatch(saveChange(receivedItem.id, receivedItem.text)))
-        .catch((error) => dispatch(putFailed(error)));*/
+        .catch((error) => dispatch(putFailed(error, putSavedItemFactory(fetch)(item))));
     });
 
 const putSavedItemWithFetchAPI: (item: ItemData) => ThunkAction

@@ -33,23 +33,7 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
           dispatch(postSucceeded(optimisticUpdateId, json));
           return json.id;
         })
-        .catch((error) => dispatch(postFailed(error)));
-
-      /* dispatch(postStarted(newText));
-
-      return fetch(route, options)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
-          return response.json();
-        })
-        .then((json) => {
-          dispatch(postSucceeded(json));
-          return json.id;
-        })
-        .then((id) => dispatch(createItemFactory(() => id)(newText)))
-        .catch((error) => dispatch(postFailed(error)));*/
+        .catch((error) => dispatch(postFailed(error, postNewItemFactory(fetch, uuidV4)(newText))));
     }
   );
 

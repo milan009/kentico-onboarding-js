@@ -5,7 +5,7 @@ import { errorReducer } from './status/errorReducer';
 
 export const statusReducer = combineReducers<IStatus>({
   isFetching: fetchingReducer,
-  error: errorReducer,
+  requestError: errorReducer,
 });
 
 

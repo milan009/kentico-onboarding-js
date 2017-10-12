@@ -1,47 +1,60 @@
+import { ThunkAction } from '../interfaces/IAction';
+
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 
 import { AddItem } from '../containers/AddItem';
-import { ListItem } from '../containers/ListItem'
+import { ListItem } from '../containers/ListItem';
+import { Error } from './Error';
 import { Spinner } from './Spinner';
 import { emptyUuid } from '../utils/constants';
+import { IRequestError } from '../interfaces/IRequestError';
 
 export interface IListDataProps {
   isFetching: boolean;
-  error?: any;
+  requestError?: IRequestError;
   itemIds: Seq.Indexed<string>;
 }
 
-const List: React.StatelessComponent<IListDataProps> = (props) => {
+export interface IListCallbackProps {
+  onResendRequest: (action: ThunkAction) => void;
+}
+
+const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = (props) => {
   const existingItems = props.itemIds.map((id = emptyUuid, index = 0) =>
-      <ListItem
-        index={index + 1}
-        id={id}
-        key={id}
-      />
+    <ListItem
+      index={index + 1}
+      id={id}
+      key={id}
+    />
   );
+
+  let errorComponent, listComponent;
+
+  listComponent =
+    <div className="col-sm-12 col-md-offset-2 col-md-8">
+      {
+        props.isFetching ?
+          <Spinner /> :
+          <ol className="list-group">
+            {existingItems}
+            <AddItem />
+          </ol>
+      }
+    </div>;
+
+  if (props.requestError) {
+    errorComponent = <Error
+      requestError={props.requestError}
+      onResendRequest={props.onResendRequest} />;
+  }
 
   return (
     <div className="row">
-      {props.error ?
-        <div className="alert alert-danger">
-          <span className="glyphicon glyphicon-warning-sign" />
-          <span> Following error was encountered: {props.error.message}</span>
-        </div>
-        :
-        <div className="col-sm-12 col-md-offset-2 col-md-8">
-          {
-            props.isFetching ?
-              <Spinner /> :
-              <ol className="list-group">
-                {existingItems}
-                <AddItem />
-              </ol>
-          }
-        </div>
-      }
+      {errorComponent}
+      {!props.requestError || props.requestError.displayList ? listComponent : ''}
     </div>
   );
 };

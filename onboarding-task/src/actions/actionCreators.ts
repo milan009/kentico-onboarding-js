@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { Promise } from 'es6-promise';
 import { OrderedMap } from 'immutable';
 
-import { IAction } from '../interfaces/IAction';
+import { IAction, ThunkAction } from '../interfaces/IAction';
 import {
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
@@ -58,10 +58,12 @@ export const fetchingSucceeded = (json: any): IAction => ({
   },
 });
 
-export const fetchingFailed = (error: string): IAction => ({
+export const fetchingFailed = (error: Error, action: ThunkAction): IAction => ({
   type: FETCH_FAIL,
   payload: {
-    error
+    displayList: false,
+    error,
+    action,
   }
 });
 
@@ -99,10 +101,12 @@ export const postSucceeded = (formerId: string, json: any): IAction => ({
   },
 });
 
-export const postFailed = (error: string): IAction => ({
+export const postFailed = (error: Error, action: ThunkAction): IAction => ({
   type: POST_REQUEST_FAIL,
   payload: {
-    error
+    displayList: true,
+    error,
+    action,
   }
 });
 
@@ -126,10 +130,12 @@ export const putSucceeded = (json: any): IAction => ({
   },
 });
 
-export const putFailed = (error: string): IAction => ({
+export const putFailed = (error: Error, action: ThunkAction): IAction => ({
   type: PUT_REQUEST_FAIL,
   payload: {
-    error
+    displayList: true,
+    error,
+    action
   }
 });
 
@@ -151,10 +157,12 @@ export const deleteSucceeded = (id: string): IAction => ({
   },
 });
 
-export const deleteFailed = (error: string): IAction => ({
+export const deleteFailed = (error: Error, action: ThunkAction): IAction => ({
   type: DELETE_REQUEST_FAIL,
   payload: {
-    error
+    displayList: true,
+    error,
+    action
   }
 });
 

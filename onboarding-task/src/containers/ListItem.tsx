@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>, {id}: IListItemContainer
     dispatch(deleteStoredItem(id)),
   onSave: (newText: string) =>
     dispatch(putSavedItem(new ItemData({id, text: newText}))),
-  // putSavedItem(new ItemData({id, text: newText}))(dispatch), // dispatch(actionCreators.saveChange(id, newText)),
   onCancel: () =>
     dispatch(actionCreators.cancelChange(id)),
 });

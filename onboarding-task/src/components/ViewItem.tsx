@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as classNames from 'classnames';
 
 import { IViewItem } from '../models/ViewItem';
 
@@ -12,13 +13,16 @@ export interface IViewItemCallbackProps {
 }
 
 const ViewItem: React.StatelessComponent<IViewItemDataProps & IViewItemCallbackProps> = (props) => (
-  <div className="btn btn-block" onClick={props.onClick} title="Click to edit this item">
+  <div className={classNames('btn', 'btn-block', {disabled: !props.item.isStored })}
+       onClick={props.onClick}
+       title={props.item.isStored ? 'Click to edit this item' : 'This item has not yet been stored'}>
     <div className="text-left">
       <span className="font-weight-bold">
         {props.item.index}.{' '}
       </span>
-      {!props.item.isStored ? <span className="glyphicon glyphicon-warning-sign text-warning bg-warning" /> : ''}
-      { props.item.text}
+      {!props.item.isStored ?
+        <span className="glyphicon glyphicon-warning-sign text-warning bg-warning" /> : ''}
+      {' '}{props.item.text}
     </div>
   </div>);
 
