@@ -1,7 +1,7 @@
 import { ThunkAction } from './IAction';
 
 export interface IRequestError {
-  readonly displayList: boolean;
+  readonly id?: string;
   readonly error: Error;
   readonly action: ThunkAction;
 }

@@ -54,7 +54,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = (pro
   return (
     <div className="row">
       {errorComponent}
-      {!props.requestError || props.requestError.displayList ? listComponent : ''}
+      {!props.requestError || props.requestError.id ? listComponent : ''}
     </div>
   );
 };

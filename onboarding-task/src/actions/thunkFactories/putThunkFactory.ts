@@ -32,7 +32,7 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
             dispatch(putSucceeded(json));
             return json;
           })
-        .catch((error) => dispatch(putFailed(error, putSavedItemFactory(fetch)(item))));
+        .catch((error) => dispatch(putFailed(item.id, error, putSavedItemFactory(fetch)(item))));
     });
 
 const putSavedItemWithFetchAPI: (item: ItemData) => ThunkAction

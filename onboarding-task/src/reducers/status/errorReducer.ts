@@ -15,7 +15,7 @@ export const errorReducer = (state: any = defaultState, action: IAction): any =>
     case DELETE_REQUEST_FAIL:
     case FETCH_FAIL: {
       return {
-        displayList: action.payload.displayList,
+        id: action.payload.id,
         error: action.payload.error,
         action: action.payload.action,
       };

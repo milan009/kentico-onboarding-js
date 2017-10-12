@@ -4,10 +4,13 @@ import { ItemFlags } from '../../models/ItemFlags';
 import { IAction } from '../../interfaces/IAction';
 import { itemFlagsReducer } from './itemFlagsReducer';
 import {
+  DELETE_REQUEST_FAIL,
   DELETE_REQUEST_SUCCESS,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
+  PARSE_RESPONSE_FINISHED, POST_REQUEST_FAIL, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS,
+  PUT_REQUEST_FAIL,
+  PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 
@@ -53,6 +56,18 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state;
     }
 
+    case PUT_REQUEST_FAIL:
+    case DELETE_REQUEST_FAIL:
+    case POST_REQUEST_FAIL: {
+      const flagsToEdit = state.get(action.payload.id);
+
+      if (!flagsToEdit) {
+        return state;
+      }
+
+      const editedInfo = itemFlagsReducer(flagsToEdit, action);
+      return state.set(action.payload.id, editedInfo);
+    }
     default:
       return state;
   }

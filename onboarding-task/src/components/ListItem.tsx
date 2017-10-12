@@ -18,7 +18,7 @@ export interface IListItemCallbackProps {
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => (
-  <li className={classNames('list-group-item', {'list-group-item-warning': !props.item.isStored})}>
+  <li className={classNames('list-group-item', {'list-group-item-danger': props.item.error})}>
     {props.item.isBeingEdited ? (
       <EditItem
         item={props.item}

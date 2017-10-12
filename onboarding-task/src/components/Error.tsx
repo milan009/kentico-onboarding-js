@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { Retry } from './Retry';
 import { ThunkAction } from '../interfaces/IAction';
 import { IRequestError } from '../interfaces/IRequestError';
 
@@ -34,13 +35,7 @@ class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps
           <strong> Following error was encountered: </strong>
           {this.props.requestError.error.message}
         </span>
-        <button
-          className="btn btn-default btn-primary col-md-3 col-md-push-1"
-          onClick={this._resendAction}
-        >
-          <span className="glyphicon glyphicon-repeat" />
-          <span> Resend request</span>
-        </button>
+        <Retry onResendRequest={this._resendAction} />
       </div>
     );
   }

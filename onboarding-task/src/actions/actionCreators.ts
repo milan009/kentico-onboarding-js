@@ -61,7 +61,6 @@ export const fetchingSucceeded = (json: any): IAction => ({
 export const fetchingFailed = (error: Error, action: ThunkAction): IAction => ({
   type: FETCH_FAIL,
   payload: {
-    displayList: false,
     error,
     action,
   }
@@ -101,10 +100,10 @@ export const postSucceeded = (formerId: string, json: any): IAction => ({
   },
 });
 
-export const postFailed = (error: Error, action: ThunkAction): IAction => ({
+export const postFailed = (id: string, error: Error, action: ThunkAction): IAction => ({
   type: POST_REQUEST_FAIL,
   payload: {
-    displayList: true,
+    id,
     error,
     action,
   }
@@ -130,10 +129,10 @@ export const putSucceeded = (json: any): IAction => ({
   },
 });
 
-export const putFailed = (error: Error, action: ThunkAction): IAction => ({
+export const putFailed = (id: string, error: Error, action: ThunkAction): IAction => ({
   type: PUT_REQUEST_FAIL,
   payload: {
-    displayList: true,
+    id,
     error,
     action
   }
@@ -157,10 +156,10 @@ export const deleteSucceeded = (id: string): IAction => ({
   },
 });
 
-export const deleteFailed = (error: Error, action: ThunkAction): IAction => ({
+export const deleteFailed = (id: string, error: Error, action: ThunkAction): IAction => ({
   type: DELETE_REQUEST_FAIL,
   payload: {
-    displayList: true,
+    id,
     error,
     action
   }

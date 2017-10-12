@@ -33,7 +33,7 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
           dispatch(postSucceeded(optimisticUpdateId, json));
           return json.id;
         })
-        .catch((error) => dispatch(postFailed(error, postNewItemFactory(fetch, uuidV4)(newText))));
+        .catch((error) => dispatch(postFailed(optimisticUpdateId, error, postNewItemFactory(fetch, uuidV4)(newText))));
     }
   );
 
