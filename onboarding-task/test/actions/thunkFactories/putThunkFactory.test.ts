@@ -18,7 +18,7 @@ describe('Put thunk factory', () => {
   const mockOkResponse = new Response(JSON.stringify(mockItem), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  const mockFetchFactory = (response: any) => (_: any, __: any) => Promise.resolve(response);
+  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
 
   it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_SUCCESS}" action with given item and OK response`, () => {
     const store = mockStore({});

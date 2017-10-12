@@ -3,10 +3,14 @@ import {
   startFetchingItems
 } from '../actionCreators';
 import { route } from '../../utils/constants';
+import { Dispatch } from 'react-redux';
+import { ThunkAction } from '../../interfaces/IAction';
+import { IStore } from '../../interfaces/IStore';
 
-export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): () => any => (
+export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): () =>
+  ThunkAction => (
   () =>
-    function (dispatch: any) {
+    function (dispatch: Dispatch<IStore>) {
       dispatch(startFetchingItems());
 
       return fetch(route)
@@ -22,5 +26,5 @@ export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) 
         .then((action) => dispatch(parseItems(action.payload.items)));
     });
 
-const getItemsWithFetchAPI = getItemsFactory(fetch);
+const getItemsWithFetchAPI: () => ThunkAction = getItemsFactory(fetch);
 export { getItemsWithFetchAPI as getItems }

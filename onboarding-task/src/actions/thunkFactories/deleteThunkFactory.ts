@@ -1,9 +1,13 @@
 import { deleteFailed, deleteStarted, deleteSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
+import { Dispatch } from 'react-redux';
+import { ThunkAction } from '../../interfaces/IAction';
+import { IStore } from '../../interfaces/IStore';
 
-export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (id: string) => any => (
+export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (id: string) =>
+  ThunkAction => (
   (id: string) =>
-    function (dispatch: any) {
+    function (dispatch: Dispatch<IStore>) {
       const headers = new Headers();
       const init = {
         method: 'DELETE',
@@ -26,5 +30,5 @@ export const deleteStoredItemFactory = (fetch: (input: RequestInfo, init?: Reque
         .catch((error) => dispatch(deleteFailed(error)));
     });
 
-const deleteStoredItemWithFetchAPI = deleteStoredItemFactory(fetch);
+const deleteStoredItemWithFetchAPI: (id: string) => ThunkAction = deleteStoredItemFactory(fetch);
 export { deleteStoredItemWithFetchAPI as deleteStoredItem }

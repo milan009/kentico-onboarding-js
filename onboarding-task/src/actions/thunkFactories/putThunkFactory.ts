@@ -1,10 +1,14 @@
 import { ItemData } from '../../models/ItemData';
 import { putFailed, putStarted, putSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
+import { ThunkAction } from '../../interfaces/IAction';
+import { Dispatch } from 'react-redux';
+import { IStore } from '../../interfaces/IStore';
 
-export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (item: ItemData) => any => (
+export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): (item: ItemData) =>
+  ThunkAction => (
   (item: ItemData) =>
-    function (dispatch: any) {
+    function (dispatch: Dispatch<IStore>) {
       const headers = new Headers();
       headers.append('Content-type', 'Application/json');
 
@@ -47,5 +51,6 @@ export const putSavedItemFactory = (fetch: (input: RequestInfo, init?: RequestIn
         .catch((error) => dispatch(putFailed(error)));*/
     });
 
-const putSavedItemWithFetchAPI = putSavedItemFactory(fetch);
+const putSavedItemWithFetchAPI: (item: ItemData) => ThunkAction
+  = putSavedItemFactory(fetch);
 export { putSavedItemWithFetchAPI as putSavedItem }

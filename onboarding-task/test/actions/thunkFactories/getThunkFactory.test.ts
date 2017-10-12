@@ -36,7 +36,7 @@ describe('Get thunk factory', () => {
   const middleware = [thunk];
   const mockStore = configureMockStore(middleware);
 
-  const mockFetchFactory = (response: any) => (_: any, __: any) => Promise.resolve(response);
+  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
 
   const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});

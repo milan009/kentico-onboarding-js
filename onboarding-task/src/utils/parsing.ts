@@ -2,14 +2,15 @@ import { OrderedMap } from 'immutable';
 
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
+import { IItemDTO } from '../interfaces/IItemDTO';
 
-export const parseAPIResponseJson = (json: any): ItemsDataMap => {
+export const parseAPIResponseJson = (json: IItemDTO[] /*any*/): ItemsDataMap => {
   let parsedItems = OrderedMap<string, ItemData>();
-  json.map((item: any) => {
-    parsedItems = parsedItems.set(item.Id, new ItemData(
+  json.map((item: IItemDTO) => {
+    parsedItems = parsedItems.set(item.id, new ItemData(
       {
-        id: item.Id,
-        text: item.Text
+        id: item.id,
+        text: item.text
       }));
   });
 

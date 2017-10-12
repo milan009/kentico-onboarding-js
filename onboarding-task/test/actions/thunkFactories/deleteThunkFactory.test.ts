@@ -17,7 +17,7 @@ describe('Delete thunk factory', () => {
   const mockOkResponse = new Response(null, {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  const mockFetchFactory = (response: any) => (_: any, __: any) => Promise.resolve(response);
+  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
 
   it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_SUCCESS}" action with given id and OK response`, () => {
     const store = mockStore({});
