@@ -7,9 +7,15 @@ import { Dispatch } from 'react-redux';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 
-export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>): () =>
-  ThunkAction => (
-  () =>
+export type GetThunkActionFactory = (deps: IFactoryDependencies) => () => ThunkAction;
+
+interface IFactoryDependencies {
+  fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  getThunkActionFactory: GetThunkActionFactory;
+}
+
+export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory}: IFactoryDependencies) =>
+  () => (
     function (dispatch: Dispatch<IStore>) {
       dispatch(startFetchingItems());
 
@@ -23,8 +29,17 @@ export const getItemsFactory = (fetch: (input: RequestInfo, init?: RequestInit) 
         })
         .then((json) => dispatch(fetchingSucceeded(json)))
         .then((action) => dispatch(parseItems(action.payload.items)))
-        .catch((error) => dispatch(fetchingFailed(error, getItemsFactory(fetch)())));
+        .catch((error) => {
+          const deps: IFactoryDependencies = {
+            fetch,
+            getThunkActionFactory,
+          };
+          return dispatch(fetchingFailed(error, getThunkActionFactory(deps)()));
+        });
     });
 
-const getItemsWithFetchAPI: () => ThunkAction = getItemsFactory(fetch);
+const getItemsWithFetchAPI: () => ThunkAction = getItemsFactory({
+  fetch,
+  getThunkActionFactory: getItemsFactory,
+});
 export { getItemsWithFetchAPI as getItems }
