@@ -19,6 +19,9 @@ describe('Post thunk factory', () => {
 
   const mockOptimisticIdGenerator = () => mockOptimisticId;
   const mockFetchFactory = (response: any) => (_: any, __: any) => Promise.resolve(response);
+  const mockFailActionFactory = (_: any, __: any, ___: any) => ({
+    type: POST_REQUEST_FAIL,
+  });
 
   const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
@@ -45,7 +48,7 @@ describe('Post thunk factory', () => {
       },
     ];
 
-    const postItemThunk = postNewItemFactory(mockFetchFactory(mockOkResponse), mockOptimisticIdGenerator);
+    const postItemThunk = postNewItemFactory(mockFetchFactory(mockOkResponse), mockOptimisticIdGenerator, mockFailActionFactory);
     const resultingPromise = store.dispatch(postItemThunk(mockNewText));
 
     return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -53,6 +56,7 @@ describe('Post thunk factory', () => {
 
   it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_FAIL}" action with given text and NOK response`, () => {
     const store = mockStore({});
+
     const expectedActions = [
       {
         type: POST_REQUEST_STARTED,
@@ -63,13 +67,10 @@ describe('Post thunk factory', () => {
       },
       {
         type: POST_REQUEST_FAIL,
-        payload: {
-          error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
-        },
       },
     ];
 
-    const postItemThunk = postNewItemFactory(mockFetchFactory(mockNokResponse), mockOptimisticIdGenerator);
+    const postItemThunk = postNewItemFactory(mockFetchFactory(mockNokResponse), mockOptimisticIdGenerator, mockFailActionFactory);
     const resultingPromise = store.dispatch(postItemThunk(mockNewText));
 
     return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));

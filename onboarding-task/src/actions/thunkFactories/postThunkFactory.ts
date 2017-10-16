@@ -2,11 +2,13 @@ import * as uuidV4 from 'uuid';
 
 import { emptyUuid, route } from '../../utils/constants';
 import { postFailed, postStarted, postSucceeded } from '../actionCreators';
-import { ThunkAction } from '../../interfaces/IAction';
+import { IAction, ThunkAction } from '../../interfaces/IAction';
 import { Dispatch } from 'react-redux';
 import { IStore } from '../../interfaces/IStore';
 
-export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>, optimisticUpdatedGenerator: () => string): (newText: string) =>
+export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>,
+                                   optimisticUpdatedGenerator: () => string,
+                                   failActionFactory: (id: string, error: Error, action: ThunkAction) => IAction): (newText: string) =>
   ThunkAction =>
   (newText: string) => (
     function (dispatch: Dispatch<IStore>) {
@@ -33,12 +35,15 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
           dispatch(postSucceeded(optimisticUpdateId, json));
           return json.id;
         })
-        .catch((error) => dispatch(postFailed(optimisticUpdateId, error,
-                                              postNewItemFactory(fetch, () =>
-                                                optimisticUpdateId)(newText))));
+        .catch((error) => (
+          dispatch((() => failActionFactory(optimisticUpdateId, error, postNewItemFactory(fetch, () => optimisticUpdateId, failActionFactory)(newText)))()))
+        );
+          // postFailed(optimisticUpdateId, error,
+          // postNewItemFactory(fetch, () =>
+          // optimisticUpdateId)(newText))));
     }
   );
 
 const postNewItemWithFetchAPIAndUUIDV4: (newText: string) => ThunkAction
-  = postNewItemFactory(fetch, uuidV4);
+  = postNewItemFactory(fetch, uuidV4, postFailed);
 export { postNewItemWithFetchAPIAndUUIDV4 as postNewItem };
