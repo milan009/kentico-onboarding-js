@@ -2,14 +2,19 @@ import * as uuidV4 from 'uuid';
 
 import { emptyUuid, route } from '../../utils/constants';
 import { postFailed, postStarted, postSucceeded } from '../actionCreators';
-import { IAction, ThunkAction } from '../../interfaces/IAction';
+import { ThunkAction } from '../../interfaces/IAction';
 import { Dispatch } from 'react-redux';
 import { IStore } from '../../interfaces/IStore';
 
-export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>,
-                                   optimisticUpdatedGenerator: () => string,
-                                   failActionFactory: (id: string, error: Error, action: ThunkAction) => IAction): (newText: string) =>
-  ThunkAction =>
+export type PostThunkActionFactory = (deps: IFactoryDependencies) => (newText: string) => ThunkAction;
+
+interface IFactoryDependencies {
+  fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  optimisticUpdatedGenerator: () => string;
+  postThunkActionFactory: PostThunkActionFactory;
+}
+
+export const postNewItemFactory: PostThunkActionFactory = ({fetch, optimisticUpdatedGenerator, postThunkActionFactory}: IFactoryDependencies) =>
   (newText: string) => (
     function (dispatch: Dispatch<IStore>) {
       const headers = new Headers();
@@ -35,15 +40,21 @@ export const postNewItemFactory = (fetch: (input: RequestInfo, init?: RequestIni
           dispatch(postSucceeded(optimisticUpdateId, json));
           return json.id;
         })
-        .catch((error) => (
-          dispatch((() => failActionFactory(optimisticUpdateId, error, postNewItemFactory(fetch, () => optimisticUpdateId, failActionFactory)(newText)))()))
-        );
-          // postFailed(optimisticUpdateId, error,
-          // postNewItemFactory(fetch, () =>
-          // optimisticUpdateId)(newText))));
+        .catch((error) => {
+          const deps: IFactoryDependencies = {
+            fetch,
+            optimisticUpdatedGenerator: () => optimisticUpdateId,
+            postThunkActionFactory
+          };
+
+          return dispatch(postFailed(optimisticUpdateId, error, postThunkActionFactory(deps)(newText)));
+        });
     }
   );
 
-const postNewItemWithFetchAPIAndUUIDV4: (newText: string) => ThunkAction
-  = postNewItemFactory(fetch, uuidV4, postFailed);
+const postNewItemWithFetchAPIAndUUIDV4: (newText: string) => ThunkAction = postNewItemFactory({
+  fetch,
+  optimisticUpdatedGenerator: uuidV4,
+  postThunkActionFactory: postNewItemFactory
+});
 export { postNewItemWithFetchAPIAndUUIDV4 as postNewItem };
