@@ -10,7 +10,7 @@ export interface IViewItem {
   text: string;
   isBeingEdited: boolean;
   isStored: boolean;
-  error?: any;
+  requestError?: any;
 }
 
 const createViewModel = (index: number, data: IItemData, flags: IItemFlags): IViewItem => (
@@ -20,7 +20,7 @@ const createViewModel = (index: number, data: IItemData, flags: IItemFlags): IVi
     text: data.text,
     isBeingEdited: flags.isBeingEdited,
     isStored: flags.isStored,
-    error: flags.error,
+    requestError: flags.requestError,
   }
 );
 
