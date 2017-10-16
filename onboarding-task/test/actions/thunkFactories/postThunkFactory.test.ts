@@ -26,13 +26,12 @@ describe('Post thunk factory', () => {
 
   const mockPostThunk: ThunkAction = (_: never) => Promise.resolve({
     type: POST_REQUEST_STARTED, payload: {
-      mockNewText,
+      text: mockNewText,
       optimisticId: mockOptimisticId,
     }
   });
-
-  const mockPostThunkFactory: PostThunkActionFactory = (_: any) =>
-    (____: never) => mockPostThunk;
+  const mockPostThunkFactory: PostThunkActionFactory = (_: never) =>
+    (___: never) => mockPostThunk;
 
   const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});

@@ -2,7 +2,10 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
-import { getItemsFactory } from '../../../src/actions/thunkFactories/getThunkFactory';
+import {
+  getItemsFactory,
+  GetThunkActionFactory
+} from '../../../src/actions/thunkFactories/getThunkFactory';
 import {
   FETCH_STARTED,
   FETCH_FAIL,
@@ -10,6 +13,7 @@ import {
 } from '../../../src/actions/actionTypes';
 import { OrderedMap } from 'immutable';
 import { ItemData } from '../../../src/models/ItemData';
+import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Get thunk factory', () => {
   const mockItems = [
@@ -36,7 +40,13 @@ describe('Get thunk factory', () => {
   const middleware = [thunk];
   const mockStore = configureMockStore(middleware);
 
-  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
+  const mockFetchFactory = (response: Response) => (_: never, __: never) => Promise.resolve(response);
+
+  const mockGetThunk: ThunkAction = () => Promise.resolve({
+    type: FETCH_STARTED,
+  });
+  const mockGetThunkFactory: GetThunkActionFactory = (_: never) =>
+    () => mockGetThunk;
 
   const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
@@ -67,7 +77,10 @@ describe('Get thunk factory', () => {
       },
     ];
 
-    const getItemsThunk = getItemsFactory(mockFetchFactory(mockOkResponse));
+    const getItemsThunk = getItemsFactory({
+      fetch: mockFetchFactory(mockOkResponse),
+      getThunkActionFactory: getItemsFactory,
+    });
     const resultingPromise = store.dispatch(getItemsThunk());
 
     return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -82,15 +95,19 @@ describe('Get thunk factory', () => {
       {
         type: FETCH_FAIL,
         payload: {
+          action: mockGetThunk,
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
         },
       },
     ];
 
-    const getSavedItemThunk = getItemsFactory(mockFetchFactory(mockNokResponse));
+    const getSavedItemThunk = getItemsFactory({
+      fetch: mockFetchFactory(mockNokResponse),
+      getThunkActionFactory: mockGetThunkFactory,
+    });
     const resultingPromise = store.dispatch(getSavedItemThunk());
 
-    resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });
 

@@ -2,13 +2,17 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
-import { putSavedItemFactory } from '../../../src/actions/thunkFactories/putThunkFactory';
+import {
+  putSavedItemFactory,
+  PutThunkActionFactory
+} from '../../../src/actions/thunkFactories/putThunkFactory';
 import {
   PUT_REQUEST_STARTED,
   PUT_REQUEST_FAIL,
-  PUT_REQUEST_SUCCESS
+  PUT_REQUEST_SUCCESS, POST_REQUEST_STARTED
 } from '../../../src/actions/actionTypes';
 import { ItemData } from '../../../src/models/ItemData';
+import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Put thunk factory', () => {
   const middleware = [thunk];
@@ -19,6 +23,16 @@ describe('Put thunk factory', () => {
   const mockNokResponse = new Response(null, {status: 500});
 
   const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
+
+  const mockPutThunk: ThunkAction = (_: never) => Promise.resolve({
+    type: POST_REQUEST_STARTED, payload: {
+      item: mockItem,
+      id: mockItem.id,
+    }
+  });
+
+  const mockPutThunkFactory: PutThunkActionFactory = (_: never) =>
+    (___: never) => mockPutThunk;
 
   it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_SUCCESS}" action with given item and OK response`, () => {
     const store = mockStore({});
@@ -42,7 +56,10 @@ describe('Put thunk factory', () => {
       },
     ];
 
-    const putSavedItemThunk = putSavedItemFactory(mockFetchFactory(mockOkResponse));
+    const putSavedItemThunk = putSavedItemFactory({
+      fetch: mockFetchFactory(mockOkResponse),
+      putThunkActionFactory: putSavedItemFactory,
+    });
     const resultingPromise = store.dispatch(putSavedItemThunk(mockItem));
 
     return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -66,10 +83,12 @@ describe('Put thunk factory', () => {
       },
     ];
 
-    const putSavedItemThunk = putSavedItemFactory(mockFetchFactory(mockNokResponse));
+    const putSavedItemThunk = putSavedItemFactory({
+      fetch: mockFetchFactory(mockNokResponse),
+      putThunkActionFactory: mockPutThunkFactory,
+    });
     const resultingPromise = store.dispatch(putSavedItemThunk(mockItem));
 
     resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });
-
