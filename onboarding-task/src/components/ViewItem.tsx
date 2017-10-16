@@ -14,15 +14,13 @@ export interface IViewItemCallbackProps {
 
 const ViewItem: React.StatelessComponent<IViewItemDataProps & IViewItemCallbackProps> = (props) => (
   <div className={classNames('btn', 'btn-block', {disabled: !props.item.isStored })}
-       onClick={props.onClick}
+       onClick={props.item.isStored ? props.onClick : undefined}
        title={props.item.isStored ? 'Click to edit this item' : 'This item has not yet been stored'}>
     <div className="text-left">
       <span className="font-weight-bold">
         {props.item.index}.{' '}
       </span>
-      {!props.item.isStored ?
-        <span className="glyphicon glyphicon-warning-sign text-warning bg-warning" /> : ''}
-      {' '}{props.item.text}
+      {props.item.text}
     </div>
   </div>);
 
