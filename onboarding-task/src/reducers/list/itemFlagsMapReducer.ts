@@ -4,7 +4,7 @@ import { ItemFlags } from '../../models/ItemFlags';
 import { IAction } from '../../interfaces/IAction';
 import { itemFlagsReducer } from './itemFlagsReducer';
 import {
-  DELETE_REQUEST_FAIL,
+  DELETE_REQUEST_FAIL, DELETE_REQUEST_STARTED,
   DELETE_REQUEST_SUCCESS,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
@@ -30,6 +30,7 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
 
     case ITEM_MAKE_EDITABLE:
     case ITEM_CHANGE_CANCELLED:
+    case DELETE_REQUEST_STARTED:
     case PUT_REQUEST_STARTED:
     case PUT_REQUEST_SUCCESS: {
       const flagsToEdit = state.get(action.payload.id);
