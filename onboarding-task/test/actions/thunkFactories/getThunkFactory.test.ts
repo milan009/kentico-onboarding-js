@@ -95,7 +95,7 @@ describe('Get thunk factory', () => {
       {
         type: FETCH_FAIL,
         payload: {
-          action: mockGetThunk,
+          retryAction: mockGetThunk,
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
         },
       },

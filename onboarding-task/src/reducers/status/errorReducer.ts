@@ -17,7 +17,7 @@ export const errorReducer = (state: any = defaultState, action: IAction): any =>
       return {
         id: action.payload.id,
         error: action.payload.error,
-        action: action.payload.action,
+        retryAction: action.payload.retryAction,
       };
     }
 

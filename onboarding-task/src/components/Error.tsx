@@ -25,7 +25,7 @@ class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps
     super(props);
   }
 
-  _resendAction = () => this.props.onResendRequest(this.props.requestError.action);
+  _resendAction = () => this.props.onResendRequest(this.props.requestError.retryAction);
 
   render() {
     return (

@@ -79,6 +79,8 @@ describe('Put thunk factory', () => {
         type: PUT_REQUEST_FAIL,
         payload: {
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
+          id: mockItem.id,
+          retryAction : mockPutThunk,
         },
       },
     ];
@@ -89,6 +91,6 @@ describe('Put thunk factory', () => {
     });
     const resultingPromise = store.dispatch(putSavedItemThunk(mockItem));
 
-    resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });

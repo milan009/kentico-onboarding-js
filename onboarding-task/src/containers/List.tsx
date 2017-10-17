@@ -16,7 +16,7 @@ const mapStateToProps = (state: IStore) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStore>): IListCallbackProps => ({
-  onResendRequest: (action: ThunkAction) => dispatch(action)
+  onResendRequest: (retryAction: ThunkAction) => dispatch(retryAction)
 });
 
 const List: React.ComponentClass = connect(mapStateToProps, mapDispatchToProps)(ListComponent);

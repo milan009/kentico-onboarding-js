@@ -81,7 +81,7 @@ describe('Post thunk factory', () => {
       {
         type: POST_REQUEST_FAIL,
         payload: {
-          action: mockPostThunk,
+          retryAction: mockPostThunk,
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
           id: mockOptimisticId,
         }

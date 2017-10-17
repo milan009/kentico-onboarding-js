@@ -10,6 +10,6 @@ export const Retry: React.StatelessComponent<IRetryCallbackProps> = (props) => (
     onClick={props.onResendRequest}
   >
     <span className="glyphicon glyphicon-repeat" />
-    <span> Resend request</span>
+    <span> Retry</span>
   </button>
 );
