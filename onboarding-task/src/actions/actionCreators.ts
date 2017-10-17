@@ -1,7 +1,3 @@
-import { Dispatch } from 'redux';
-import { Promise } from 'es6-promise';
-import { OrderedMap } from 'immutable';
-
 import { IAction, ThunkAction } from '../interfaces/IAction';
 import {
   ITEM_CHANGE_CANCELLED,
@@ -26,10 +22,8 @@ import {
   PARSE_RESPONSE_FINISHED,
   PARSE_RESPONSE_STARTED,
 } from './actionTypes';
-import { IStore } from '../interfaces/IStore';
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
-import { IItemDTO } from '../interfaces/IItemDTO';
 
 // region Frontend related action creators
 
@@ -165,26 +159,4 @@ export const deleteFailed = (id: string, error: Error, retryAction: ThunkAction)
   }
 });
 
-// endregion
-
-const parseAPIResponseJson = (json: any) => {
-  return new Promise<ItemsDataMap>((resolve) => {
-    let parsedItems = OrderedMap<string, ItemData>();
-    json.map((item: IItemDTO) => {
-      parsedItems = parsedItems.set(item.id, new ItemData(item));
-    });
-
-    resolve(parsedItems);
-  });
-};
-
-// region THUNKS
-export const parseItems = (json: any) => {
-  return function (dispatch: Dispatch<IStore>) {
-    dispatch(parsingStarted(json));
-
-    return parseAPIResponseJson(json)
-      .then((parsedItems: any) => dispatch(parsingFinished(parsedItems)));
-  };
-};
 // endregion

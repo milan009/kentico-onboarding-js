@@ -1,7 +1,8 @@
 import {
-  fetchingFailed, fetchingSucceeded, parseItems,
+  fetchingFailed, fetchingSucceeded,
   startFetchingItems
 } from '../actionCreators';
+import { parseItems } from './parseThunkFactory';
 import { route } from '../../utils/constants';
 import { Dispatch } from 'react-redux';
 import { ThunkAction } from '../../interfaces/IAction';

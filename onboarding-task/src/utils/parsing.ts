@@ -4,17 +4,13 @@ import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
 
-export const parseAPIResponseJson = (json: IItemDTO[] /*any*/): ItemsDataMap => {
-  let parsedItems = OrderedMap<string, ItemData>();
-  json.map((item: IItemDTO) => {
-    parsedItems = parsedItems.set(item.id, new ItemData(
-      {
-        id: item.id,
-        text: item.text
-      }));
+export const parseAPIResponseJson = (json: IItemDTO[] /*any*/): Promise<ItemsDataMap> => {
+  return new Promise<ItemsDataMap>((resolve) => {
+    let parsedItems = OrderedMap<string, ItemData>();
+    json.map((item: IItemDTO) => {
+      parsedItems = parsedItems.set(item.id, new ItemData(item));
+    });
+
+    resolve(parsedItems);
   });
-
-  console.log(parsedItems);
-  return parsedItems;
 };
-
