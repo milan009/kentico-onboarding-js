@@ -1,19 +1,21 @@
 import {
-  FETCH_FAIL,
-  FETCH_STARTED, FETCH_SUCCESS,
-  ITEM_CHANGE_CANCELLED,
-  ITEM_MAKE_EDITABLE, PUT_REQUEST_STARTED, PUT_REQUEST_SUCCESS, PUT_REQUEST_FAIL,
-  DELETE_REQUEST_STARTED, DELETE_REQUEST_SUCCESS, DELETE_REQUEST_FAIL, POST_REQUEST_STARTED,
-  POST_REQUEST_SUCCESS, POST_REQUEST_FAIL,
+  FETCH_STARTED, FETCH_SUCCESS, FETCH_FAIL,
+  ITEM_MAKE_EDITABLE, ITEM_CHANGE_CANCELLED,
+  PUT_REQUEST_STARTED, PUT_REQUEST_SUCCESS, PUT_REQUEST_FAIL,
+  DELETE_REQUEST_STARTED, DELETE_REQUEST_SUCCESS, DELETE_REQUEST_FAIL,
+  POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, POST_REQUEST_FAIL,
 } from '../../src/actions/actionTypes';
 import {
-  cancelChange, deleteFailed, deleteStarted, deleteSucceeded, fetchingFailed, fetchingSucceeded,
-  makeEditable, postFailed, postStarted, postSucceeded, putFailed, putStarted, putSucceeded,
-  startFetchingItems,
+  // TODO: Unify names of action creators
+  cancelChange, makeEditable,
+  deleteFailed, deleteStarted, deleteSucceeded,
+  fetchingFailed, fetchingSucceeded, startFetchingItems,
+  postFailed, postStarted, postSucceeded,
+  putFailed, putStarted, putSucceeded,
 } from '../../src/actions/actionCreators';
 import { ItemData } from '../../src/models/ItemData';
 import { IAction, ThunkAction } from '../../src/interfaces/IAction';
-
+// TODO: Add types
 describe('Action creators', () => {
   const error = new Error('500: Internal server error');
   const mockRetryThunk: ThunkAction = () => Promise.reject(error);
