@@ -1,21 +1,24 @@
+import { Dispatch } from 'react-redux';
+
 import {
   fetchingFailed, fetchingSucceeded,
   startFetchingItems
 } from '../actionCreators';
-import { parseItems } from './parseThunkFactory';
 import { route } from '../../utils/constants';
-import { Dispatch } from 'react-redux';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
+import { IItemDTO } from '../../interfaces/IItemDTO';
+import { parseItems } from './parseThunkFactory';
 
 export type GetThunkActionFactory = (deps: IFactoryDependencies) => () => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
   getThunkActionFactory: GetThunkActionFactory;
+  parseThunkAction: (json: IItemDTO[]) => ThunkAction;
 }
 
-export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory}: IFactoryDependencies) =>
+export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory, parseThunkAction}: IFactoryDependencies) =>
   () => (
     function (dispatch: Dispatch<IStore>) {
       dispatch(startFetchingItems());
@@ -29,18 +32,20 @@ export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFac
           return response.json();
         })
         .then((json) => dispatch(fetchingSucceeded(json)))
-        .then((action) => dispatch(parseItems(action.payload.items)))
+        .then((action) => dispatch(parseThunkAction(action.payload.items)))
         .catch((error) => {
           const deps: IFactoryDependencies = {
             fetch,
             getThunkActionFactory,
+            parseThunkAction
           };
           return dispatch(fetchingFailed(error, getThunkActionFactory(deps)()));
         });
     });
 
-const getItemsWithFetchAPI: () => ThunkAction = getItemsFactory({
+const getItemsWithFetchAPIAndResponseParser: () => ThunkAction = getItemsFactory({
   fetch,
   getThunkActionFactory: getItemsFactory,
+  parseThunkAction: parseItems,
 });
-export { getItemsWithFetchAPI as getItems }
+export { getItemsWithFetchAPIAndResponseParser as getItems }
