@@ -13,6 +13,7 @@ import {
   PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
+import { IItemData } from '../../models/ItemData';
 
 export type ItemsFlagsMap = OrderedMap<string, ItemFlags>;
 
@@ -28,21 +29,6 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.set(action.payload.optimisticId, newItem);
     }
 
-    case ITEM_MAKE_EDITABLE:
-    case ITEM_CHANGE_CANCELLED:
-    case DELETE_REQUEST_STARTED:
-    case PUT_REQUEST_STARTED:
-    case PUT_REQUEST_SUCCESS: {
-      const flagsToEdit = state.get(action.payload.id);
-
-      if (!flagsToEdit) {
-        return state;
-      }
-
-      const editedInfo = itemFlagsReducer(flagsToEdit, action);
-      return state.set(action.payload.id, editedInfo);
-    }
-
     case POST_REQUEST_SUCCESS: {
       const newItem = new ItemFlags({isStored: true});
       state = state.remove(action.payload.formerId);
@@ -51,12 +37,17 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
     }
 
     case PARSE_RESPONSE_FINISHED: {
-      action.payload.parsedItems.map((item: any) => {
+      action.payload.parsedItems.map((item: IItemData) => {
         state = state.set(item.id, new ItemFlags({isStored: true}));
       });
       return state;
     }
 
+    case ITEM_MAKE_EDITABLE:
+    case ITEM_CHANGE_CANCELLED:
+    case DELETE_REQUEST_STARTED:
+    case PUT_REQUEST_STARTED:
+    case PUT_REQUEST_SUCCESS:
     case PUT_REQUEST_FAIL:
     case DELETE_REQUEST_FAIL:
     case POST_REQUEST_FAIL: {
@@ -69,6 +60,19 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       const editedInfo = itemFlagsReducer(flagsToEdit, action);
       return state.set(action.payload.id, editedInfo);
     }
+
+    /* case PUT_REQUEST_FAIL:
+       case DELETE_REQUEST_FAIL:
+       case POST_REQUEST_FAIL: {
+         const flagsToEdit = state.get(action.payload.id);
+
+         if (!flagsToEdit) {
+           return state;
+         }
+
+         const editedInfo = itemFlagsReducer(flagsToEdit, action);
+         return state.set(action.payload.id, editedInfo);
+       }*/
     default:
       return state;
   }

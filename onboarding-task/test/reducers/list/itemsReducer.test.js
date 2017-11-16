@@ -4,14 +4,16 @@ import { itemFlagsMapReducer } from '../../../src/reducers/list/itemFlagsMapRedu
 import { itemsReducer } from '../../../src/reducers/list/itemsReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
 import {
-  ITEM_CHANGE_SAVED,
-  ITEM_CREATED,
-  ITEM_DELETED,
+  DELETE_REQUEST_SUCCESS,
+  POST_REQUEST_STARTED, POST_REQUEST_SUCCESS,
+  PUT_REQUEST_STARTED, PARSE_RESPONSE_FINISHED,
 } from '../../../src/actions/actionTypes.ts';
 import {
-  createItemFactory,
-  deleteItem,
-  saveChange,
+  deleteSucceeded,
+  postSucceeded,
+  postStarted,
+  putStarted,
+  parsingFinished,
 } from '../../../src/actions/actionCreators.ts';
 
 describe('Items map reducer with', () => {
@@ -34,7 +36,7 @@ describe('Items map reducer with', () => {
   const mockId = '123';
   const mockIdGenerator = () => mockId;
 
-  describe(`"${ITEM_CREATED}" action`, () => {
+  describe(`"${POST_REQUEST_STARTED}" action`, () => {
     it('adds item to map', () => {
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
@@ -47,7 +49,7 @@ describe('Items map reducer with', () => {
           }),
         ],
       ]);
-      const action = createItemFactory(mockIdGenerator)('Block');
+      const action = postStarted(mockId, 'Block');
 
       const createdState = itemsReducer(prevState, action);
 
@@ -55,9 +57,40 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${ITEM_DELETED}" action`, () => {
+  describe(`"${POST_REQUEST_SUCCESS}" action`, () => {
+    it('removes optimistic item and replaces it with a new one', () => {
+      const prevState = testItemsMapState;
+      const expectedState = new OrderedMap([
+        [
+          '0',
+          new ItemData({
+            id: '0',
+            text: 'Mlock',
+          }),
+        ],
+        [
+          '2',
+          new ItemData({
+            id: '2',
+            text: 'Glock',
+          }),
+        ],
+      ]);
+      const jsonResponseItem = {
+        id: '2',
+        text: 'Glock',
+      };
+      const action = postSucceeded('1', jsonResponseItem);
+
+      const createdState = itemsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
+
+  describe(`"${DELETE_REQUEST_SUCCESS}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = deleteItem('42');
+      const action = deleteSucceeded('42');
       const prevState = testItemsMapState;
 
       const createdState = itemsReducer(prevState, action);
@@ -66,7 +99,7 @@ describe('Items map reducer with', () => {
     });
 
     it('correctly removes item', () => {
-      const action = deleteItem('0');
+      const action = deleteSucceeded('0');
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [
@@ -84,9 +117,13 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${ITEM_CHANGE_SAVED}" action`, () => {
+  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = saveChange('42', 'Glock');
+      const putItem = new ItemData({
+        id: '41',
+        text: 'Glock',
+      });
+      const action = putStarted(putItem);
 
       const createdState = itemsReducer(testItemsMapState, action);
 
@@ -94,7 +131,11 @@ describe('Items map reducer with', () => {
     });
 
     it('correctly changes ItemData', () => {
-      const action = saveChange('1', 'Flock');
+      const putItem = new ItemData({
+        id: '1',
+        text: 'Flock',
+      });
+      const action = putStarted(putItem);
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [
@@ -116,6 +157,32 @@ describe('Items map reducer with', () => {
       const createdState = itemsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
+    });
+  });
+
+  describe(`"${PARSE_RESPONSE_FINISHED}" action`, () => {
+    it('correctly returns parsed state', () => {
+      const parsedItems = OrderedMap([
+        [
+          '17',
+          new ItemData({
+            id: '17',
+            text: 'Popcorn bucket',
+          }),
+        ],
+        [
+          '71',
+          new ItemData({
+            id: '71',
+            text: 'Not-so-much-popcorn bucket',
+          }),
+        ],
+      ]);
+      const action = parsingFinished(parsedItems);
+
+      const createdState = itemsReducer(testItemsMapState, action);
+
+      expect(createdState).toEqual(parsedItems);
     });
   });
 
