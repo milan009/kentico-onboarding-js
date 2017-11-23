@@ -13,39 +13,37 @@ interface IFactoryDependencies {
 }
 
 export const putSavedItemFactory: PutThunkActionFactory = ({fetch, putThunkActionFactory}: IFactoryDependencies) =>
-  (item: ItemData) => (
-    function (dispatch: Dispatch<IStore>) {
-      const headers = new Headers();
-      headers.append('Content-type', 'Application/json');
+  (item: ItemData) => async (dispatch: Dispatch<IStore>) => {
+    const headers = new Headers();
+    headers.append('Content-type', 'Application/json');
 
-      const options = {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify({id: item.id, text: item.text}),
+    const options = {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({id: item.id, text: item.text}),
+    };
+
+    dispatch(putStarted(item));
+
+    try {
+      const response = await fetch(`${route}/${item.id}`, options);
+
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`);
+      }
+
+      const json = await response.json();
+      return dispatch(putSucceeded(json));
+
+    } catch (error) {
+      const deps: IFactoryDependencies = {
+        fetch,
+        putThunkActionFactory,
       };
 
-      dispatch(putStarted(item));
-
-      return fetch(`${route}/${item.id}`, options)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
-          return response.json();
-        })
-        .then(
-          (json) => {
-            dispatch(putSucceeded(json));
-            return json;
-          })
-        .catch((error) => {
-          const deps: IFactoryDependencies = {
-            fetch,
-            putThunkActionFactory,
-          };
-          return dispatch(putFailed(item.id, error, putThunkActionFactory(deps)(item)));
-        });
-    });
+      return dispatch(putFailed(item.id, error, putThunkActionFactory(deps)(item)));
+    }
+  };
 
 const putSavedItemWithFetchAPI: (item: ItemData) => ThunkAction = putSavedItemFactory({
   fetch,

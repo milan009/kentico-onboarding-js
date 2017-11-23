@@ -15,42 +15,39 @@ interface IFactoryDependencies {
 }
 
 export const postNewItemFactory: PostThunkActionFactory = ({fetch, optimisticUpdatedGenerator, postThunkActionFactory}: IFactoryDependencies) =>
-  (newText: string) => (
-    function (dispatch: Dispatch<IStore>) {
-      const headers = new Headers();
-      headers.append('Content-type', 'Application/json');
+  (newText: string) => async (dispatch: Dispatch<IStore>) => {
+    const headers = new Headers();
+    headers.append('Content-type', 'Application/json');
 
-      const options = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({id: emptyUuid, text: newText}),
+    const options = {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({id: emptyUuid, text: newText}),
+    };
+
+    const optimisticUpdateId = optimisticUpdatedGenerator();
+    dispatch(postStarted(optimisticUpdateId, newText));
+
+    try {
+      const response = await fetch(route, options);
+
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`);
+      }
+
+      const json = await response.json();
+      return dispatch(postSucceeded(optimisticUpdateId, json));
+
+    } catch (error) {
+      const deps: IFactoryDependencies = {
+        fetch,
+        optimisticUpdatedGenerator: () => optimisticUpdateId,
+        postThunkActionFactory
       };
 
-      const optimisticUpdateId = optimisticUpdatedGenerator();
-      dispatch(postStarted(optimisticUpdateId, newText));
-
-      return fetch(route, options)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
-          return response.json();
-        })
-        .then((json) => {
-          dispatch(postSucceeded(optimisticUpdateId, json));
-          return json.id;
-        })
-        .catch((error) => {
-          const deps: IFactoryDependencies = {
-            fetch,
-            optimisticUpdatedGenerator: () => optimisticUpdateId,
-            postThunkActionFactory
-          };
-
-          return dispatch(postFailed(optimisticUpdateId, error, postThunkActionFactory(deps)(newText)));
-        });
+      return dispatch(postFailed(optimisticUpdateId, error, postThunkActionFactory(deps)(newText)));
     }
-  );
+  };
 
 const postNewItemWithFetchAPIAndUUIDV4: (newText: string) => ThunkAction = postNewItemFactory({
   fetch,

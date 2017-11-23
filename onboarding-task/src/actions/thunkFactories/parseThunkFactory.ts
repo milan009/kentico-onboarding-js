@@ -10,13 +10,11 @@ import { ThunkAction } from '../../interfaces/IAction';
 export type ParseThunkActionFactory = (parser: (json: IItemDTO[]) => Promise<ItemsDataMap>) => (json: IItemDTO[]) => ThunkAction;
 
 export const parseItemsFactory: ParseThunkActionFactory = (parser) =>
-  (json: IItemDTO[]) => {
-    return function (dispatch: Dispatch<IStore>) {
-      dispatch(parsingStarted(json));
+  (json: IItemDTO[]) => async (dispatch: Dispatch<IStore>) => {
+    dispatch(parsingStarted(json));
 
-      return parser(json)
-        .then((parsedItems: any) => dispatch(parsingFinished(parsedItems)));
-    };
+    const parsedItems: ItemsDataMap = await parser(json);
+    return dispatch(parsingFinished(parsedItems));
   };
 
 const parseItemsWithResponseParser = parseItemsFactory(parseAPIResponseJson);

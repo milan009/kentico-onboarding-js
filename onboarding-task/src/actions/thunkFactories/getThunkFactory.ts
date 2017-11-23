@@ -1,8 +1,9 @@
 import { Dispatch } from 'react-redux';
 
 import {
-  fetchingFailed, fetchingSucceeded,
-  startFetchingItems
+  fetchingFailed,
+  fetchingSucceeded,
+  startFetchingItems,
 } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
@@ -19,33 +20,34 @@ interface IFactoryDependencies {
 }
 
 export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory, parseThunkAction}: IFactoryDependencies) =>
-  () => (
-    function (dispatch: Dispatch<IStore>) {
-      dispatch(startFetchingItems());
+  () => async (dispatch: Dispatch<IStore>) => {
+    dispatch(startFetchingItems());
 
-      return fetch(route)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
-          }
+    try {
+      const response = await fetch(route);
 
-          return response.json();
-        })
-        .then((json) => dispatch(fetchingSucceeded(json)))
-        .then((action) => dispatch(parseThunkAction(action.payload.items)))
-        .catch((error) => {
-          const deps: IFactoryDependencies = {
-            fetch,
-            getThunkActionFactory,
-            parseThunkAction
-          };
-          return dispatch(fetchingFailed(error, getThunkActionFactory(deps)()));
-        });
-    });
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`);
+      }
+
+      const json = await response.json();
+      dispatch(fetchingSucceeded(json));
+      return await dispatch(parseThunkAction(json));
+
+    } catch (error) {
+      const deps: IFactoryDependencies = {
+        fetch,
+        getThunkActionFactory,
+        parseThunkAction
+      };
+      return dispatch(fetchingFailed(error, getThunkActionFactory(deps)()));
+    }
+  };
 
 const getItemsWithFetchAPIAndResponseParser: () => ThunkAction = getItemsFactory({
   fetch,
   getThunkActionFactory: getItemsFactory,
   parseThunkAction: parseItems,
 });
+
 export { getItemsWithFetchAPIAndResponseParser as getItems }
