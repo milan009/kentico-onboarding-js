@@ -1,10 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
 import {
   deleteStoredItemFactory,
-  DeleteThunkActionFactory
 } from '../../../src/actions/thunkFactories/deleteThunkFactory';
 import {
   DELETE_REQUEST_FAIL,
@@ -14,14 +11,9 @@ import {
 import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Delete thunk factory', () => {
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
-
   const mockId = '17';
   const mockOkResponse = new Response(null, {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
-
-  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
 
   const mockDeleteThunk: ThunkAction = (_: never) => Promise.resolve({
     type: DELETE_REQUEST_STARTED,
@@ -30,11 +22,7 @@ describe('Delete thunk factory', () => {
     },
   });
 
-  const mockDeleteThunkFactory: DeleteThunkActionFactory = (_: never) =>
-    (___: never) => mockDeleteThunk;
-
-  it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_SUCCESS}" action with given id and OK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_SUCCESS}" actions with given id and OK response`, async () => {
     const expectedActions = [
       {
         type: DELETE_REQUEST_STARTED,
@@ -49,18 +37,19 @@ describe('Delete thunk factory', () => {
         },
       },
     ];
-
     const deleteStoredItemThunk = deleteStoredItemFactory({
-      fetch: mockFetchFactory(mockOkResponse),
+      fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
       deleteThunkActionFactory: deleteStoredItemFactory,
     });
-    const resultingPromise = store.dispatch(deleteStoredItemThunk(mockId));
+    const dispatch = jest.fn();
 
-    resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await deleteStoredItemThunk(mockId)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 
-  it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_FAIL}" action with given id and NOK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_FAIL}" action with given id and NOK response`, async () => {
     const expectedActions = [
       {
         type: DELETE_REQUEST_STARTED,
@@ -77,14 +66,16 @@ describe('Delete thunk factory', () => {
         },
       },
     ];
-
     const deleteItemThunk = deleteStoredItemFactory({
-      fetch: mockFetchFactory(mockNokResponse),
-      deleteThunkActionFactory: mockDeleteThunkFactory
+      fetch: jest.fn(() => Promise.resolve(mockNokResponse)),
+      deleteThunkActionFactory: jest.fn(() => () => mockDeleteThunk),
     });
-    const resultingPromise = store.dispatch(deleteItemThunk(mockId));
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await deleteItemThunk(mockId)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 });
 

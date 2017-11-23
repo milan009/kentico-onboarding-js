@@ -1,10 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
 import {
   getItemsFactory,
-  GetThunkActionFactory
 } from '../../../src/actions/thunkFactories/getThunkFactory';
 import {
   FETCH_STARTED,
@@ -19,25 +16,15 @@ describe('Get thunk factory', () => {
     {id: '71', text: 'Not-so-much-popcorn bucket'}
   ];
 
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
-
-  const mockFetchFactory = (response: Response) => (_: never, __: never) => Promise.resolve(response);
-
   const mockGetThunk: ThunkAction = () => Promise.resolve({
     type: FETCH_STARTED,
   });
-  const mockGetThunkFactory: GetThunkActionFactory = (_: never) =>
-    () => mockGetThunk;
-
   const mockParseThunk: ThunkAction = () => Promise.resolve();
-  const mockParseThunkFactory = (_: never) => mockParseThunk;
 
   const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  it(`dispatches "${FETCH_STARTED}","${FETCH_SUCCESS}" action with OK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${FETCH_STARTED}","${FETCH_SUCCESS} and the parseThunk actions with OK response`, async () => {
     const expectedActions = [
       {
         type: FETCH_STARTED,
@@ -49,19 +36,21 @@ describe('Get thunk factory', () => {
         },
       },
     ];
-
     const getItemsThunk = getItemsFactory({
-      fetch: mockFetchFactory(mockOkResponse),
+      fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
       getThunkActionFactory: getItemsFactory,
-      parseThunkAction: mockParseThunkFactory,
+      parseThunkAction: jest.fn((_) => mockParseThunk),
     });
-    const resultingPromise = store.dispatch(getItemsThunk());
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await getItemsThunk()(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
+    expect(dispatch.mock.calls[2][0]).toEqual(mockParseThunk);
   });
 
-  it(`dispatches "${FETCH_STARTED}" and "${FETCH_FAIL}" action with NOK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${FETCH_STARTED}" and "${FETCH_FAIL}" action with NOK response`, async () => {
     const expectedActions = [
       {
         type: FETCH_STARTED,
@@ -74,15 +63,17 @@ describe('Get thunk factory', () => {
         },
       },
     ];
-
     const getSavedItemThunk = getItemsFactory({
-      fetch: mockFetchFactory(mockNokResponse),
-      getThunkActionFactory: mockGetThunkFactory,
-      parseThunkAction: mockParseThunkFactory,
+      fetch: jest.fn(() => mockNokResponse),
+      getThunkActionFactory: jest.fn(() => () => mockGetThunk),
+      parseThunkAction: jest.fn(() => mockParseThunk),
     });
-    const resultingPromise = store.dispatch(getSavedItemThunk());
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await getSavedItemThunk()(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 });
 

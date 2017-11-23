@@ -1,5 +1,3 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
 import {
@@ -15,14 +13,9 @@ import { ItemData } from '../../../src/models/ItemData';
 import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Put thunk factory', () => {
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
-
   const mockItem = new ItemData({id: '17', text: 'Popcorn bucket'});
   const mockOkResponse = new Response(JSON.stringify(mockItem), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
-
-  const mockFetchFactory = (response: Response) => (_: any, __: ResponseInit) => Promise.resolve(response);
 
   const mockPutThunk: ThunkAction = (_: never) => Promise.resolve({
     type: POST_REQUEST_STARTED, payload: {
@@ -34,8 +27,7 @@ describe('Put thunk factory', () => {
   const mockPutThunkFactory: PutThunkActionFactory = (_: never) =>
     (___: never) => mockPutThunk;
 
-  it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_SUCCESS}" action with given item and OK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_SUCCESS}" action with given item and OK response`, async () => {
     const expectedActions = [
       {
         type: PUT_REQUEST_STARTED,
@@ -55,18 +47,19 @@ describe('Put thunk factory', () => {
         },
       },
     ];
-
     const putSavedItemThunk = putSavedItemFactory({
-      fetch: mockFetchFactory(mockOkResponse),
+      fetch: jest.fn(() => (mockOkResponse)),
       putThunkActionFactory: putSavedItemFactory,
     });
-    const resultingPromise = store.dispatch(putSavedItemThunk(mockItem));
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await putSavedItemThunk(mockItem)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 
-  it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_FAIL}" action with given item and NOK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_FAIL}" action with given item and NOK response`, async () => {
     const expectedActions = [
       {
         type: PUT_REQUEST_STARTED,
@@ -80,17 +73,19 @@ describe('Put thunk factory', () => {
         payload: {
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
           id: mockItem.id,
-          retryAction : mockPutThunk,
+          retryAction: mockPutThunk,
         },
       },
     ];
-
     const putSavedItemThunk = putSavedItemFactory({
-      fetch: mockFetchFactory(mockNokResponse),
+      fetch: jest.fn(() => mockNokResponse),
       putThunkActionFactory: mockPutThunkFactory,
     });
-    const resultingPromise = store.dispatch(putSavedItemThunk(mockItem));
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await putSavedItemThunk(mockItem)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 });

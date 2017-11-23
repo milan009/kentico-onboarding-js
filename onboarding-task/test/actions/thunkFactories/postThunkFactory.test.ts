@@ -1,5 +1,3 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
 import {
@@ -14,15 +12,9 @@ import {
 import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Post thunk factory', () => {
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
-
   const mockNewText = 'Blop';
   const mockOptimisticId = '17';
   const mockBackendId = '71';
-
-  const mockOptimisticIdGenerator = () => mockOptimisticId;
-  const mockFetchFactory = (response: Response) => (_: never, __: never) => Promise.resolve(response);
 
   const mockPostThunk: ThunkAction = (_: never) => Promise.resolve({
     type: POST_REQUEST_STARTED, payload: {
@@ -36,9 +28,7 @@ describe('Post thunk factory', () => {
   const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_SUCCESS}" action with given text and OK response`, () => {
-    const store = mockStore({});
-
+  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_SUCCESS}" action with given text and OK response`, async () => {
     const expectedActions = [
       {
         type: POST_REQUEST_STARTED,
@@ -58,18 +48,20 @@ describe('Post thunk factory', () => {
         },
       },
     ];
-
     const postItemThunk = postNewItemFactory({
-      fetch: mockFetchFactory(mockOkResponse),
-      optimisticUpdatedGenerator: mockOptimisticIdGenerator,
-      postThunkActionFactory: postNewItemFactory});
-    const resultingPromise = store.dispatch(postItemThunk(mockNewText));
+      fetch: jest.fn(() => mockOkResponse),
+      optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
+      postThunkActionFactory: postNewItemFactory
+    });
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await postItemThunk(mockNewText)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 
-  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_FAIL}" action with given text and NOK response`, () => {
-    const store = mockStore({});
+  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_FAIL}" action with given text and NOK response`, async () => {
     const expectedActions = [
       {
         type: POST_REQUEST_STARTED,
@@ -87,15 +79,17 @@ describe('Post thunk factory', () => {
         }
       },
     ];
-
     const postItemThunk = postNewItemFactory({
-      fetch: mockFetchFactory(mockNokResponse),
-      optimisticUpdatedGenerator: mockOptimisticIdGenerator,
+      fetch: jest.fn(() => mockNokResponse),
+      optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
       postThunkActionFactory: mockPostThunkFactory
     });
-    const resultingPromise = store.dispatch(postItemThunk(mockNewText));
+    const dispatch = jest.fn();
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await postItemThunk(mockNewText)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 });
 

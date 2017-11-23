@@ -1,5 +1,3 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import 'isomorphic-fetch';
 
 import {
@@ -33,13 +31,9 @@ describe('ParseItems thunk factory', () => {
     ],
   ]);
 
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
-
   const mockParser = (_: IItemDTO[]) => Promise.resolve(mockParsedItems);
 
-  it(`dispatches "${PARSE_RESPONSE_STARTED}" and "${PARSE_RESPONSE_FINISHED}" action with valid json`, () => {
-    const store = mockStore({});
+  it(`dispatches "${PARSE_RESPONSE_STARTED}" and "${PARSE_RESPONSE_FINISHED}" action with valid json`, async () => {
     const expectedActions = [
       {
         type: PARSE_RESPONSE_STARTED,
@@ -54,11 +48,13 @@ describe('ParseItems thunk factory', () => {
         },
       },
     ];
-
+    const dispatch = jest.fn();
     const parseItemsThunk = parseItemsFactory(mockParser);
-    const resultingPromise = store.dispatch(parseItemsThunk(mockItems));
 
-    return resultingPromise.then(() => expect(store.getActions()).toEqual(expectedActions));
+    await parseItemsThunk(mockItems)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 });
 
