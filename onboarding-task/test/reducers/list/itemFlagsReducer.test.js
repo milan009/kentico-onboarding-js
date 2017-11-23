@@ -1,28 +1,31 @@
 import { itemFlagsReducer } from '../../../src/reducers/list/itemFlagsReducer.ts';
 import { ItemFlags } from '../../../src/models/ItemFlags.ts';
 import {
+  DELETE_REQUEST_FAIL,
+  DELETE_REQUEST_STARTED,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  DELETE_REQUEST_STARTED,
-  DELETE_REQUEST_SUCCESS,
-  DELETE_REQUEST_FAIL,
-
+  POST_REQUEST_FAIL,
+  PUT_REQUEST_FAIL,
   PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
-  PUT_REQUEST_FAIL,
-
-  POST_REQUEST_SUCCESS,
-  POST_REQUEST_STARTED,
-  POST_REQUEST_FAIL,
 } from '../../../src/actions/actionTypes.ts';
 import {
   cancelChange,
   makeEditable,
-  saveChange,
   deleteStarted,
+  putStarted,
+  deleteFailed,
+  putFailed,
+  postFailed,
+  putSucceeded,
 } from '../../../src/actions/actionCreators.ts';
+import { ItemData } from '../../../src/models/ItemData.ts';
 
 describe('ItemFlags reducer with', () => {
+  const mockId = '42';
+  const mockText = 'Yay';
+
   describe(`"${ITEM_MAKE_EDITABLE}" action`, () => {
     it('makes ItemFlags edited correctly', () => {
       const prevState = new ItemFlags();
@@ -76,7 +79,7 @@ describe('ItemFlags reducer with', () => {
   });
 
   describe(`"${DELETE_REQUEST_STARTED}" action`, () => {
-    it('sets item flags correctly on edited item', () => {
+    it('sets item flags correctly on item', () => {
       const prevState = new ItemFlags({
         isBeingEdited: true,
         isStored: true,
@@ -93,21 +96,135 @@ describe('ItemFlags reducer with', () => {
 
       expect(createdState).toEqual(expectedState);
     });
+  });
 
-    it('makes edited ItemFlags not editable anymore', () => {
+  describe(`"${DELETE_REQUEST_FAIL}" action`, () => {
+    it('stores the error', () => {
+      const error = new Error('Error while deleting!', '42');
+      const mockDeleteThunk = (_) => Promise.resolve({
+        type: DELETE_REQUEST_STARTED,
+        payload: {
+          id: '42',
+        },
+      });
+      const action = deleteFailed('42', error, mockDeleteThunk);
       const prevState = new ItemFlags({
-        isBeingEdited: true,
+        isBeingEdited: false,
+        isStored: true,
+        requestError: null,
       });
       const expectedState = new ItemFlags({
         isBeingEdited: false,
+        isStored: true,
+        requestError: action.payload,
       });
-      const action = saveChange('42', 'New Text');
 
       const createdState = itemFlagsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
     });
   });
+
+  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
+    it('sets item flags correctly on item', () => {
+      const prevState = new ItemFlags({
+        isBeingEdited: true,
+        isStored: true,
+        requestError: null,
+      });
+      const expectedState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: false,
+        requestError: null,
+      });
+      const putItem = new ItemData({
+        id: '42',
+        text: 'Mlock',
+      });
+
+      const action = putStarted(putItem);
+
+      const createdState = itemFlagsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
+
+  describe(`"${PUT_REQUEST_FAIL}" action`, () => {
+    it('stores the error', () => {
+      const error = new Error('Error while putting!', '42');
+      const mockPutThunk = (_) => Promise.resolve({
+        type: PUT_REQUEST_STARTED,
+        payload: {
+          id: '42',
+        },
+      });
+      const action = putFailed('42', error, mockPutThunk);
+      const prevState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: true,
+        requestError: null,
+      });
+      const expectedState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: true,
+        requestError: action.payload,
+      });
+
+      const createdState = itemFlagsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
+
+  describe(`"${POST_REQUEST_FAIL}" action`, () => {
+    it('stores the error', () => {
+      const error = new Error('Error while posting!', mockId);
+      const mockPostThunk = (_) => Promise.resolve({
+        payload: {
+          text: mockText,
+          optimisticId: mockId,
+        },
+      });
+      const action = postFailed(mockId, error, mockPostThunk);
+      const prevState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: false,
+        requestError: null,
+      });
+      const expectedState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: false,
+        requestError: action.payload,
+      });
+
+      const createdState = itemFlagsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
+
+  describe(`"${PUT_REQUEST_SUCCESS}" action`, () => {
+    it('makes edited ItemFlags stored and not editable anymore', () => {
+      const mockJsonResponseItem = {
+        id: mockId,
+        text: mockText,
+      };
+      const prevState = new ItemFlags({
+        isBeingEdited: true,
+      });
+      const expectedState = new ItemFlags({
+        isBeingEdited: false,
+        isStored: true,
+      });
+      const action = putSucceeded(mockJsonResponseItem);
+
+      const createdState = itemFlagsReducer(prevState, action);
+
+      expect(createdState).toEqual(expectedState);
+    });
+  });
+
 
   describe('unknown action type', () => {
     const action = { type: 'unknownType' };

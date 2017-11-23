@@ -24,12 +24,10 @@ import {
   parsingFinished,
   makeEditable,
   cancelChange,
-} from '../../../src/actions/actionCreators.ts';
-import {
   deleteStarted,
   putStarted,
-  putSucceeded
-} from '../../../src/actions/actionCreators';
+  putSucceeded,
+} from '../../../src/actions/actionCreators.ts';
 
 describe('ItemFlags map reducer with', () => {
   const testFlagsMapState = new OrderedMap([
