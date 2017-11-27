@@ -45,7 +45,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
 
   render() {
     return (
-      <form onSubmit={this._addItem} className="form-inline list-group-item">
+      <form onSubmit={this._addItem} className="form-inline list-group-item row">
         <input
           type="text"
           className="form-control"
