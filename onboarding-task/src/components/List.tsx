@@ -14,7 +14,7 @@ import { IRequestError } from '../interfaces/IRequestError';
 
 export interface IListDataProps {
   isFetching: boolean;
-  requestError?: IRequestError;
+  requestError: IRequestError | null;
   itemIds: Seq.Indexed<string>;
 }
 

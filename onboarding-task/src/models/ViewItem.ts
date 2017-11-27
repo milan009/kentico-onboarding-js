@@ -3,6 +3,7 @@ import * as memoize from 'memoizee';
 import { IItemFlags } from './ItemFlags';
 import { IItemData } from './ItemData';
 import { emptyUuid } from '../utils/constants';
+import { IRequestError } from '../interfaces/IRequestError';
 
 export interface IViewItem {
   id: string;
@@ -10,7 +11,7 @@ export interface IViewItem {
   text: string;
   isBeingEdited: boolean;
   isStored: boolean;
-  requestError?: any;
+  requestError: IRequestError | null;
 }
 
 const createViewModel = (index: number, data: IItemData, flags: IItemFlags): IViewItem => (

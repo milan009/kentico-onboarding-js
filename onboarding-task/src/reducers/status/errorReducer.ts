@@ -5,10 +5,11 @@ import {
   PUT_REQUEST_FAIL, PUT_REQUEST_STARTED,
 } from '../../actions/actionTypes';
 import { IAction } from '../../interfaces/IAction';
+import { IRequestError } from '../../interfaces/IRequestError';
 
 const defaultState = null;
 
-export const errorReducer = (state: any = defaultState, action: IAction): any => {
+export const errorReducer = (state: IRequestError | null = defaultState, action: IAction): any => {
   switch (action.type) {
     case POST_REQUEST_FAIL:
     case PUT_REQUEST_FAIL:
