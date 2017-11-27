@@ -13,6 +13,7 @@ import { ItemData } from '../models/ItemData';
 import { putSavedItem } from '../actions/thunkFactories/putThunkFactory';
 import { deleteStoredItem } from '../actions/thunkFactories/deleteThunkFactory';
 import { IThunkDispatch as Dispatch } from '../interfaces/IThunkDispatch';
+import { ThunkAction } from '../interfaces/IAction';
 
 interface IListItemContainerProps {
   id: string;
@@ -36,6 +37,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>, {id}: IListItemContainer
     dispatch(putSavedItem(new ItemData({id, text: newText}))),
   onCancel: () =>
     dispatch(actionCreators.cancelChange(id)),
+  onRetry: (retryAction: ThunkAction) =>
+    dispatch(retryAction),
 });
 
 export const ListItem: React.ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);

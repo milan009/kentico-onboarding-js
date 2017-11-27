@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import { Retry } from './Retry';
 import { ThunkAction } from '../interfaces/IAction';
 import { IRequestError } from '../interfaces/IRequestError';
+import { isUndefined } from 'util';
 
 export interface IErrorCallbackProps {
   onResendRequest: (action: ThunkAction) => void;
@@ -35,7 +36,10 @@ class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps
           <strong> Following error was encountered: </strong>
           {this.props.requestError.error.message}
         </span>
-        <Retry onResendRequest={this._resendAction} />
+        {
+          isUndefined(this.props.requestError.id) ?
+            <Retry onResendRequest={this._resendAction} /> : ''
+        }
       </div>
     );
   }
