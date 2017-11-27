@@ -4,7 +4,7 @@ import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
 
-export const parseAPIResponseJson = (json: IItemDTO[] /*any*/): Promise<ItemsDataMap> => {
+export const parseAPIResponseJson = (json: IItemDTO[]): Promise<ItemsDataMap> => {
   return new Promise<ItemsDataMap>((resolve) => {
     let parsedItems = OrderedMap<string, ItemData>();
     json.map((item: IItemDTO) => {
