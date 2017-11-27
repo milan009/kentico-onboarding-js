@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
+import { FormEvent } from 'react';
 
 import { isItemTextValid } from '../utils/validation';
-import { FormEvent } from 'react';
 
 export interface IAddItemCallbackProps {
   onAddItem: (text: string) => void;

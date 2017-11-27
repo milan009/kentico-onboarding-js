@@ -1,5 +1,3 @@
-import { ThunkAction } from '../interfaces/IAction';
-
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
@@ -11,6 +9,7 @@ import { Error } from './Error';
 import { Spinner } from './Spinner';
 import { emptyUuid } from '../utils/constants';
 import { IRequestError } from '../interfaces/IRequestError';
+import { ThunkAction } from '../interfaces/IAction';
 
 export interface IListDataProps {
   isFetching: boolean;

@@ -9,7 +9,7 @@ import { IRequestError } from '../../interfaces/IRequestError';
 
 const defaultState = null;
 
-export const errorReducer = (state: IRequestError | null = defaultState, action: IAction): any => {
+export const errorReducer = (state: IRequestError | null = defaultState, action: IAction): IRequestError | null => {
   switch (action.type) {
     case POST_REQUEST_FAIL:
     case PUT_REQUEST_FAIL:

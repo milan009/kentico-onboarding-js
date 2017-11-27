@@ -1,4 +1,5 @@
 import { Dispatch } from 'react-redux';
+
 import { IStore } from './IStore';
 
 export interface IAction {
@@ -7,4 +8,3 @@ export interface IAction {
 }
 
 export type ThunkAction = (dispatch: Dispatch<IStore>) => Promise<IAction>;
-

@@ -1,8 +1,9 @@
+import { Dispatch } from 'react-redux';
+
 import { ItemData } from '../../models/ItemData';
 import { putFailed, putStarted, putSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
-import { Dispatch } from 'react-redux';
 import { IStore } from '../../interfaces/IStore';
 
 export type PutThunkActionFactory = (deps: IFactoryDependencies) => (item: ItemData) => ThunkAction;

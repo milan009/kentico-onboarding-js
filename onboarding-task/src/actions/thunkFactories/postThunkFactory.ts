@@ -1,9 +1,9 @@
 import * as uuidV4 from 'uuid';
+import { Dispatch } from 'react-redux';
 
 import { emptyUuid, route } from '../../utils/constants';
 import { postFailed, postStarted, postSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
-import { Dispatch } from 'react-redux';
 import { IStore } from '../../interfaces/IStore';
 
 export type PostThunkActionFactory = (deps: IFactoryDependencies) => (newText: string) => ThunkAction;
