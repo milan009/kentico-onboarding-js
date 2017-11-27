@@ -7,3 +7,4 @@ export interface IAction {
 }
 
 export type ThunkAction = (dispatch: Dispatch<IStore>) => Promise<IAction>;
+

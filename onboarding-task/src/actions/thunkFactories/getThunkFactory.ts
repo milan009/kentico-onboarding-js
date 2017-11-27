@@ -1,5 +1,3 @@
-import { Dispatch } from 'react-redux';
-
 import {
   fetchingFailed,
   fetchingSucceeded,
@@ -10,6 +8,7 @@ import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 import { parseItems } from './parseThunkFactory';
+import { IThunkDispatch } from '../../interfaces/IThunkDispatch';
 
 export type GetThunkActionFactory = (deps: IFactoryDependencies) => () => ThunkAction;
 
@@ -20,7 +19,7 @@ interface IFactoryDependencies {
 }
 
 export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory, parseThunkAction}: IFactoryDependencies) =>
-  () => async (dispatch: Dispatch<IStore>) => {
+  () => async (dispatch: IThunkDispatch<IStore>) => {
     dispatch(startFetchingItems());
 
     try {

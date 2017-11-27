@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
 import {
   ListItem as ListItemComponent,
@@ -13,6 +12,7 @@ import { IStore } from '../interfaces/IStore';
 import { ItemData } from '../models/ItemData';
 import { putSavedItem } from '../actions/thunkFactories/putThunkFactory';
 import { deleteStoredItem } from '../actions/thunkFactories/deleteThunkFactory';
+import { IThunkDispatch as Dispatch } from '../interfaces/IThunkDispatch';
 
 interface IListItemContainerProps {
   id: string;
