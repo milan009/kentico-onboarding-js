@@ -1,4 +1,4 @@
-import { Dispatch } from 'react-redux';
+import { ThunkAction } from 'redux-thunk';
 
 import { IStore } from './IStore';
 
@@ -7,4 +7,4 @@ export interface IAction {
   payload?: any;
 }
 
-export type ThunkAction = (dispatch: Dispatch<IStore>) => Promise<IAction>;
+export type ThunkAction = ThunkAction<Promise<IAction>, IStore, {}>;
