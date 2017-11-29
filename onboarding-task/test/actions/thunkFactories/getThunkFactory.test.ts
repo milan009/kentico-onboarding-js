@@ -42,8 +42,9 @@ describe('Get thunk factory', () => {
       parseThunkAction: jest.fn((_) => mockParseThunk),
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await getItemsThunk()(dispatch);
+    await getItemsThunk()(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
@@ -69,8 +70,9 @@ describe('Get thunk factory', () => {
       parseThunkAction: jest.fn(() => mockParseThunk),
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await getSavedItemThunk()(dispatch);
+    await getSavedItemThunk()(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);

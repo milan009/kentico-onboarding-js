@@ -49,9 +49,10 @@ describe('ParseItems thunk factory', () => {
       },
     ];
     const dispatch = jest.fn();
+    const getState = jest.fn();
     const parseItemsThunk = parseItemsFactory(mockParser);
 
-    await parseItemsThunk(mockItems)(dispatch);
+    await parseItemsThunk(mockItems)(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);

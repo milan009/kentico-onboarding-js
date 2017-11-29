@@ -54,8 +54,9 @@ describe('Post thunk factory', () => {
       postThunkActionFactory: postNewItemFactory
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await postItemThunk(mockNewText)(dispatch);
+    await postItemThunk(mockNewText)(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
@@ -85,8 +86,9 @@ describe('Post thunk factory', () => {
       postThunkActionFactory: mockPostThunkFactory
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await postItemThunk(mockNewText)(dispatch);
+    await postItemThunk(mockNewText)(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);

@@ -42,8 +42,9 @@ describe('Delete thunk factory', () => {
       deleteThunkActionFactory: deleteStoredItemFactory,
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await deleteStoredItemThunk(mockId)(dispatch);
+    await deleteStoredItemThunk(mockId)(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
@@ -71,8 +72,9 @@ describe('Delete thunk factory', () => {
       deleteThunkActionFactory: jest.fn(() => () => mockDeleteThunk),
     });
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    await deleteItemThunk(mockId)(dispatch);
+    await deleteItemThunk(mockId)(dispatch, getState, {});
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
