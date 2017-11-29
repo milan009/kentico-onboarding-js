@@ -9,6 +9,7 @@ import { route } from '../../utils/constants';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ThunkAction } from '../../interfaces/IAction';
+import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
 
 export type GetThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
@@ -24,13 +25,7 @@ export const getItemsFactory: GetThunkActionFactory = (dependencies) =>
     dispatch(startFetchingItems());
 
     try {
-      const response = await dependencies.fetch(route);
-
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
-
-      const json = await response.json();
+      const json: IItemDTO[] = await fetchJsonResponse({fetch: dependencies.fetch, input: route});
       dispatch(fetchingSucceeded(json));
       return await dispatch(dependencies.parseThunkAction(json));
 

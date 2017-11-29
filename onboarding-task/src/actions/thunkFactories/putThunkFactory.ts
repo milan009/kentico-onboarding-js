@@ -5,6 +5,8 @@ import { putFailed, putStarted, putSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
+import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
+import { IItemDTO } from '../../interfaces/IItemDTO';
 
 export type PutThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
 
@@ -23,17 +25,12 @@ export const putSavedItemFactory: PutThunkActionFactory = (dependencies) =>
       headers,
       body: JSON.stringify({id: item.id, text: item.text}),
     };
+    const url = `${route}/${item.id}`;
 
     dispatch(putStarted(item));
 
     try {
-      const response = await dependencies.fetch(`${route}/${item.id}`, options);
-
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
-
-      const json = await response.json();
+      const json: IItemDTO = await fetchJsonResponse({fetch: dependencies.fetch, input: url, init: options});
       return dispatch(putSucceeded(json));
 
     } catch (error) {

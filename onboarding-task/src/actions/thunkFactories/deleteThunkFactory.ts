@@ -8,6 +8,7 @@ import {
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
+import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
 export type DeleteThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
 
@@ -23,15 +24,12 @@ export const deleteStoredItemFactory: DeleteThunkActionFactory = (dependencies) 
       method: 'DELETE',
       headers,
     };
+    const url = `${route}/${id}`;
 
     dispatch(deleteStarted(id));
 
     try {
-      const response = await dependencies.fetch(`${route}/${id}`, init);
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
-
+      await fetchJsonResponse({fetch: dependencies.fetch, input: url, init});
       return dispatch(deleteSucceeded(id));
 
     } catch (error) {

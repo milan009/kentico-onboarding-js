@@ -4,6 +4,8 @@ import { emptyUuid, route } from '../../utils/constants';
 import { postFailed, postStarted, postSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
+import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
+import { IItemDTO } from '../../interfaces/IItemDTO';
 
 export type PostThunkActionFactory = (dependencies: IFactoryDependencies) => (newText: string) => ThunkAction;
 
@@ -28,13 +30,7 @@ export const postNewItemFactory: PostThunkActionFactory = (dependencies) =>
     dispatch(postStarted(optimisticUpdateId, newText));
 
     try {
-      const response = await dependencies.fetch(route, options);
-
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
-
-      const json = await response.json();
+      const json: IItemDTO = await fetchJsonResponse({fetch: dependencies.fetch, input: route, init: options});
       return dispatch(postSucceeded(optimisticUpdateId, json));
 
     } catch (error) {
