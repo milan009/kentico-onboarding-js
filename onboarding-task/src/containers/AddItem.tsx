@@ -10,5 +10,4 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>): IAddItemCallbackProps =
   onAddItem: (text: string) => dispatch(postNewItem(text))
 });
 
-const AddItem: React.ComponentClass = connect(null, mapDispatchToProps)(AddItemComponent);
-export { AddItem };
+export const AddItem: React.ComponentClass = connect(null, mapDispatchToProps)(AddItemComponent);

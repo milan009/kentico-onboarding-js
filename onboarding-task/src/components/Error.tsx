@@ -14,7 +14,7 @@ export interface IEditItemDataProps {
   requestError: IRequestError;
 }
 
-class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps> {
+export class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps> {
 
   static displayName = 'Error';
 
@@ -44,5 +44,3 @@ class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps
     );
   }
 }
-
-export { Error };

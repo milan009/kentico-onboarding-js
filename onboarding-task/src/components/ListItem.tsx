@@ -20,7 +20,7 @@ export interface IListItemCallbackProps {
   onRetry: (action: ThunkAction) => void;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => (
+export const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps> = (props) => (
   <li className={classNames('list-group-item', 'row', {'list-group-item-danger': props.item.requestError != null})}>
     {props.item.requestError == null ? (
       props.item.isBeingEdited ? (
@@ -39,7 +39,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
         item={props.item}
         onRetry={props.onRetry}
       />
-        )}
+    )}
   </li>
 );
 
@@ -56,5 +56,3 @@ ListItem.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
-
-export { ListItem };

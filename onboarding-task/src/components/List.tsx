@@ -21,7 +21,7 @@ export interface IListCallbackProps {
   onResendRequest: (action: ThunkAction) => void;
 }
 
-const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = (props) => {
+export const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = (props) => {
   const existingItems = props.itemIds.map((id = emptyUuid, index = 0) =>
     <ListItem
       index={index + 1}
@@ -64,5 +64,3 @@ List.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   itemIds: ImmutablePropTypes.iterableOf(PropTypes.string).isRequired,
 };
-
-export { List };

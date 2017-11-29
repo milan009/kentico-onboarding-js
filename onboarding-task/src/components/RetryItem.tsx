@@ -13,14 +13,14 @@ export interface IRetryItemCallbackProps {
   onRetry: (action: ThunkAction) => void;
 }
 
-const RetryItem: React.StatelessComponent<IRetryItemDataProps & IRetryItemCallbackProps> = (props) => (
-  <div title="An error has occurred" >
+export const RetryItem: React.StatelessComponent<IRetryItemDataProps & IRetryItemCallbackProps> = (props) => (
+  <div title="An error has occurred">
     <div className="text-left">
-        <span className="font-weight-bold">
-          {props.item.index}.{' '}
-        </span>
-        {props.item.text}
-        <Retry onResendRequest={() => props.onRetry(props.item.requestError!.retryAction)} />
+      <span className="font-weight-bold">
+        {props.item.index}.{' '}
+      </span>
+      {props.item.text}
+      <Retry onResendRequest={() => props.onRetry(props.item.requestError!.retryAction)} />
     </div>
   </div>);
 
@@ -34,5 +34,3 @@ RetryItem.propTypes = {
   }).isRequired,
   onRetry: PropTypes.func.isRequired,
 };
-
-export { RetryItem };

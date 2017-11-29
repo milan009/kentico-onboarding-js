@@ -21,7 +21,7 @@ interface IEditItemState {
   text: string;
 }
 
-class EditItem extends React.PureComponent<IEditItemDataProps & IEditItemCallbackProps, IEditItemState> {
+export class EditItem extends React.PureComponent<IEditItemDataProps & IEditItemCallbackProps, IEditItemState> {
   static displayName = 'EditItem';
 
   static propTypes = {
@@ -108,5 +108,3 @@ class EditItem extends React.PureComponent<IEditItemDataProps & IEditItemCallbac
     );
   }
 }
-
-export { EditItem };

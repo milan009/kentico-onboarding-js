@@ -12,8 +12,8 @@ export interface IViewItemCallbackProps {
   onClick: () => void;
 }
 
-const ViewItem: React.StatelessComponent<IViewItemDataProps & IViewItemCallbackProps> = (props) => (
-  <div className={classNames('btn', 'btn-block', {disabled: !props.item.isStored })}
+export const ViewItem: React.StatelessComponent<IViewItemDataProps & IViewItemCallbackProps> = (props) => (
+  <div className={classNames('btn', 'btn-block', {disabled: !props.item.isStored})}
        onClick={props.item.isStored ? props.onClick : undefined}
        title={props.item.isStored ? 'Click to edit this item' : 'This item has not yet been stored'}>
     <div className="text-left">
@@ -35,5 +35,3 @@ ViewItem.propTypes = {
 
   onClick: PropTypes.func.isRequired,
 };
-
-export { ViewItem };

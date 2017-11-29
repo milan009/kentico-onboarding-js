@@ -65,18 +65,6 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.set(action.payload.id, editedInfo);
     }
 
-    /* case PUT_REQUEST_FAIL:
-       case DELETE_REQUEST_FAIL:
-       case POST_REQUEST_FAIL: {
-         const flagsToEdit = state.get(action.payload.id);
-
-         if (!flagsToEdit) {
-           return state;
-         }
-
-         const editedInfo = itemFlagsReducer(flagsToEdit, action);
-         return state.set(action.payload.id, editedInfo);
-       }*/
     default:
       return state;
   }

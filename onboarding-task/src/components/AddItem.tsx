@@ -13,7 +13,7 @@ interface IAddItemState {
   currentText: string;
 }
 
-class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> {
+export class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> {
 
   static displayName = 'AddItem';
 
@@ -29,7 +29,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
   }
 
   _onChange = (event: FormEvent<HTMLInputElement>): void => {
-    const setStateText = (currentText: string) => (() => ({ currentText }));
+    const setStateText = (currentText: string) => (() => ({currentText}));
     this.setState(setStateText(event.currentTarget.value));
   };
 
@@ -39,7 +39,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
 
     if (isItemTextValid(currText)) {
       this.props.onAddItem(currText);
-      this.setState(() => ({ currentText: '' }));
+      this.setState(() => ({currentText: ''}));
     }
   };
 
@@ -54,7 +54,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
         />
         <button
           type="submit"
-          className={classNames('form-control', 'btn', 'btn-default', { disabled: !isItemTextValid(this.state.currentText) })}
+          className={classNames('form-control', 'btn', 'btn-default', {disabled: !isItemTextValid(this.state.currentText)})}
         >
           Add
         </button>
@@ -62,5 +62,3 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     );
   }
 }
-
-export { AddItem };

@@ -6,7 +6,7 @@ import { IListCallbackProps, List as ListComponent } from '../components/List';
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { IStore } from '../interfaces/IStore';
 import { ThunkAction } from '../interfaces/IAction';
-import { IThunkDispatch as Dispatch} from '../interfaces/IThunkDispatch';
+import { IThunkDispatch as Dispatch } from '../interfaces/IThunkDispatch';
 
 const getIdsMemoized = memoize((items: ItemsDataMap) => items.keySeq());
 
@@ -20,5 +20,4 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>): IListCallbackProps => (
   onResendRequest: (retryAction: ThunkAction) => dispatch(retryAction)
 });
 
-const List: React.ComponentClass = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
-export { List };
+export const List: React.ComponentClass = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
