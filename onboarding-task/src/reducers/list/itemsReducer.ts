@@ -4,9 +4,10 @@ import { ItemData } from '../../models/ItemData';
 import { IAction } from '../../interfaces/IAction';
 import { itemReducer } from './itemReducer';
 import {
-  DELETE_REQUEST_SUCCESS,
-  PARSE_RESPONSE_FINISHED, POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
+  DELETE_REQUEST_SUCCESS, FETCH_SUCCESS,
+  POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, PUT_REQUEST_STARTED,
 } from '../../actions/actionTypes';
+import { parseAPIResponseJson } from '../../utils/parsing';
 
 export type ItemsDataMap = OrderedMap<string, ItemData>;
 
@@ -43,8 +44,8 @@ export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction
       return state.set(newItem.id, newItem);
     }
 
-    case PARSE_RESPONSE_FINISHED: {
-      return action.payload.parsedItems;
+    case FETCH_SUCCESS: {
+      return parseAPIResponseJson(action.payload.items);
     }
 
     default:

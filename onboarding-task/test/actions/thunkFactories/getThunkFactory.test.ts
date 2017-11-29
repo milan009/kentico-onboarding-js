@@ -19,7 +19,6 @@ describe('Get thunk factory', () => {
   const mockGetThunk: ThunkAction = () => Promise.resolve({
     type: FETCH_STARTED,
   });
-  const mockParseThunk: ThunkAction = () => Promise.resolve();
 
   const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
@@ -39,7 +38,6 @@ describe('Get thunk factory', () => {
     const getItemsThunk = getItemsFactory({
       fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
       getThunkActionFactory: getItemsFactory,
-      parseThunkAction: jest.fn((_) => mockParseThunk),
     });
     const dispatch = jest.fn();
     const getState = jest.fn();
@@ -48,7 +46,6 @@ describe('Get thunk factory', () => {
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedActions[0]);
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
-    expect(dispatch.mock.calls[2][0]).toEqual(mockParseThunk);
   });
 
   it(`dispatches "${FETCH_STARTED}" and "${FETCH_FAIL}" action with NOK response`, async () => {
@@ -67,7 +64,6 @@ describe('Get thunk factory', () => {
     const getSavedItemThunk = getItemsFactory({
       fetch: jest.fn(() => mockNokResponse),
       getThunkActionFactory: jest.fn(() => () => mockGetThunk),
-      parseThunkAction: jest.fn(() => mockParseThunk),
     });
     const dispatch = jest.fn();
     const getState = jest.fn();

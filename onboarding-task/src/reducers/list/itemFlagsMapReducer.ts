@@ -7,9 +7,9 @@ import {
   DELETE_REQUEST_FAIL,
   DELETE_REQUEST_STARTED,
   DELETE_REQUEST_SUCCESS,
+  FETCH_SUCCESS,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED,
   POST_REQUEST_FAIL,
   POST_REQUEST_STARTED,
   POST_REQUEST_SUCCESS,
@@ -17,7 +17,7 @@ import {
   PUT_REQUEST_STARTED,
   PUT_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
-import { IItemData } from '../../models/ItemData';
+import { IItemDTO } from '../../interfaces/IItemDTO';
 
 export type ItemsFlagsMap = OrderedMap<string, ItemFlags>;
 
@@ -40,8 +40,8 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       return state.set(action.payload.item.id, newItem);
     }
 
-    case PARSE_RESPONSE_FINISHED: {
-      action.payload.parsedItems.map((item: IItemData) => {
+    case FETCH_SUCCESS: {
+      action.payload.items.map((item: IItemDTO) => {
         state = state.set(item.id, new ItemFlags({isStored: true}));
       });
       return state;
