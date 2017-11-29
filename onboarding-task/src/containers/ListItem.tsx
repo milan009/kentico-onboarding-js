@@ -10,8 +10,7 @@ import * as actionCreators from '../actions/actionCreators';
 import { ViewItem } from '../models/ViewItem';
 import { IStore } from '../interfaces/IStore';
 import { ItemData } from '../models/ItemData';
-import { putSavedItem } from '../actions/thunkFactories/putThunkFactory';
-import { deleteStoredItem } from '../actions/thunkFactories/deleteThunkFactory';
+import { putSavedItem, deleteStoredItem } from '../actions/thunkActionsCreators';
 import { IThunkDispatch as Dispatch } from '../interfaces/IThunkDispatch';
 import { ThunkAction } from '../interfaces/IAction';
 
