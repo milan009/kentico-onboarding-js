@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 
 import { parsingFinished, parsingStarted } from '../actionCreators';
-import { parseAPIResponseJson } from '../../utils/parsing';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ItemsDataMap } from '../../reducers/list/itemsReducer';
 import { IStore } from '../../interfaces/IStore';
@@ -16,6 +15,3 @@ export const parseItemsFactory: ParseThunkActionFactory = (parser) =>
     const parsedItems: ItemsDataMap = await parser(json);
     return dispatch(parsingFinished(parsedItems));
   };
-
-const parseItemsWithResponseParser = parseItemsFactory(parseAPIResponseJson);
-export { parseItemsWithResponseParser as parseItems }

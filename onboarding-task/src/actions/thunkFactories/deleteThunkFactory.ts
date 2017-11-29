@@ -1,4 +1,4 @@
-import { Dispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import {
   deleteFailed,
@@ -9,14 +9,14 @@ import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 
-export type DeleteThunkActionFactory = (deps: IFactoryDependencies) => (id: string) => ThunkAction;
+export type DeleteThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
   deleteThunkActionFactory: DeleteThunkActionFactory;
 }
 
-export const deleteStoredItemFactory: DeleteThunkActionFactory = ({fetch, deleteThunkActionFactory}) =>
+export const deleteStoredItemFactory: DeleteThunkActionFactory = (dependencies) =>
   (id: string) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     const init = {
@@ -27,7 +27,7 @@ export const deleteStoredItemFactory: DeleteThunkActionFactory = ({fetch, delete
     dispatch(deleteStarted(id));
 
     try {
-      const response = await fetch(`${route}/${id}`, init);
+      const response = await dependencies.fetch(`${route}/${id}`, init);
       if (!response.ok) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
@@ -35,17 +35,7 @@ export const deleteStoredItemFactory: DeleteThunkActionFactory = ({fetch, delete
       return dispatch(deleteSucceeded(id));
 
     } catch (error) {
-      const deps: IFactoryDependencies = {
-        fetch,
-        deleteThunkActionFactory,
-      };
 
-      return dispatch(deleteFailed(id, error, deleteThunkActionFactory(deps)(id)));
+      return dispatch(deleteFailed(id, error, dependencies.deleteThunkActionFactory(dependencies)(id)));
     }
   };
-
-const deleteStoredItemWithFetchAPI: (id: string) => ThunkAction = deleteStoredItemFactory({
-  fetch,
-  deleteThunkActionFactory: deleteStoredItemFactory,
-});
-export { deleteStoredItemWithFetchAPI as deleteStoredItem }

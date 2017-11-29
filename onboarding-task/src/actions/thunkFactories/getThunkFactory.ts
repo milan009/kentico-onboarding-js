@@ -1,16 +1,17 @@
+import { Dispatch } from 'redux';
+
 import {
   fetchingFailed,
   fetchingSucceeded,
   startFetchingItems,
 } from '../actionCreators';
 import { route } from '../../utils/constants';
-import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
-import { parseItems } from './parseThunkFactory';
-import { IThunkDispatch } from '../../interfaces/IThunkDispatch';
+import { ThunkAction } from '../../interfaces/IAction';
 
-export type GetThunkActionFactory = (deps: IFactoryDependencies) => () => ThunkAction;
+
+export type GetThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -18,12 +19,12 @@ interface IFactoryDependencies {
   parseThunkAction: (json: IItemDTO[]) => ThunkAction;
 }
 
-export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFactory, parseThunkAction}: IFactoryDependencies) =>
-  () => async (dispatch: IThunkDispatch<IStore>) => {
+export const getItemsFactory: GetThunkActionFactory = (dependencies) =>
+  () => async (dispatch: Dispatch<IStore>) => {
     dispatch(startFetchingItems());
 
     try {
-      const response = await fetch(route);
+      const response = await dependencies.fetch(route);
 
       if (!response.ok) {
         throw new Error(`${response.status}: ${response.statusText}`);
@@ -31,22 +32,9 @@ export const getItemsFactory: GetThunkActionFactory = ({fetch, getThunkActionFac
 
       const json = await response.json();
       dispatch(fetchingSucceeded(json));
-      return await dispatch(parseThunkAction(json));
+      return await dispatch(dependencies.parseThunkAction(json));
 
     } catch (error) {
-      const deps: IFactoryDependencies = {
-        fetch,
-        getThunkActionFactory,
-        parseThunkAction
-      };
-      return dispatch(fetchingFailed(error, getThunkActionFactory(deps)()));
+      return dispatch(fetchingFailed(error, dependencies.getThunkActionFactory(dependencies)()));
     }
   };
-
-const getItemsWithFetchAPIAndResponseParser: () => ThunkAction = getItemsFactory({
-  fetch,
-  getThunkActionFactory: getItemsFactory,
-  parseThunkAction: parseItems,
-});
-
-export { getItemsWithFetchAPIAndResponseParser as getItems }
