@@ -23,8 +23,8 @@ export const getItemsFactory: GetThunkActionFactory = (dependencies) =>
     dispatch(startFetchingItems());
 
     try {
-      const json = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: route});
-      return dispatch(fetchingSucceeded(json));
+      const items = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: route});
+      return dispatch(fetchingSucceeded(items));
 
     } catch (error) {
       return dispatch(fetchingFailed(error, dependencies.getThunkActionFactory(dependencies)()));

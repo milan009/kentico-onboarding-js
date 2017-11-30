@@ -30,8 +30,8 @@ export const putSavedItemFactory: PutThunkActionFactory = (dependencies) =>
     dispatch(putStarted(item));
 
     try {
-      const json = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: url, init: options});
-      return dispatch(putSucceeded(json));
+      const responseItem = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: url, init: options});
+      return dispatch(putSucceeded(responseItem));
 
     } catch (error) {
       return dispatch(putFailed(item.id, error, dependencies.putThunkActionFactory(dependencies)(item)));

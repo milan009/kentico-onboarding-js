@@ -30,8 +30,8 @@ export const postNewItemFactory: PostThunkActionFactory = (dependencies) =>
     dispatch(postStarted(optimisticUpdateId, newText));
 
     try {
-      const json = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: route, init: options});
-      return dispatch(postSucceeded(optimisticUpdateId, json));
+      const item = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: route, init: options});
+      return dispatch(postSucceeded(optimisticUpdateId, item));
 
     } catch (error) {
       return dispatch(postFailed(optimisticUpdateId, error, dependencies.postThunkActionFactory(dependencies)(newText)));

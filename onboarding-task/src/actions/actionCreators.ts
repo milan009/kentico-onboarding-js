@@ -18,11 +18,7 @@ import {
   PUT_REQUEST_FAIL,
   PUT_REQUEST_SUCCESS,
   PUT_REQUEST_STARTED,
-
-  PARSE_RESPONSE_FINISHED,
-  PARSE_RESPONSE_STARTED,
 } from './actionTypes';
-import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
 
@@ -46,10 +42,10 @@ export const startFetchingItems = (): IAction => ({
   type: FETCH_STARTED,
 });
 
-export const fetchingSucceeded = (json: IItemDTO[]): IAction => ({
+export const fetchingSucceeded = (items: IItemDTO[]): IAction => ({
   type: FETCH_SUCCESS,
   payload: {
-    items: json,
+    items,
   },
 });
 
@@ -58,20 +54,6 @@ export const fetchingFailed = (error: Error, retryAction: ThunkAction): IAction 
   payload: {
     error,
     retryAction,
-  }
-});
-
-export const parsingStarted = (jsonResponse: IItemDTO[]): IAction => ({
-  type: PARSE_RESPONSE_STARTED,
-  payload: {
-    jsonResponse,
-  }
-});
-
-export const parsingFinished = (parsedItems: ItemsDataMap): IAction => ({
-  type: PARSE_RESPONSE_FINISHED,
-  payload: {
-    parsedItems,
   }
 });
 
@@ -87,10 +69,10 @@ export const postStarted = (optimisticId: string, text: string): IAction => ({
   }
 });
 
-export const postSucceeded = (formerId: string, json: IItemDTO): IAction => ({
+export const postSucceeded = (formerId: string, item: IItemDTO): IAction => ({
   type: POST_REQUEST_SUCCESS,
   payload: {
-    item: json,
+    item,
     formerId,
   },
 });
@@ -116,11 +98,11 @@ export const putStarted = (item: ItemData): IAction => ({
   }
 });
 
-export const putSucceeded = (json: IItemDTO): IAction => ({
+export const putSucceeded = (item: IItemDTO): IAction => ({
   type: PUT_REQUEST_SUCCESS,
   payload: {
-    id: json.id,
-    item: json,
+    id: item.id,
+    item,
   },
 });
 
