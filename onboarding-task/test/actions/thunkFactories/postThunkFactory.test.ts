@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 
 import {
   postNewItemFactory,
-  PostThunkActionFactory
 } from '../../../src/actions/thunkFactories/postThunkFactory';
 import {
   POST_REQUEST_STARTED,
@@ -22,7 +21,7 @@ describe('Post thunk factory', () => {
       optimisticId: mockOptimisticId,
     }
   });
-  const mockPostThunkFactory: PostThunkActionFactory = (_: never) =>
+  const mockPostThunkFactory = (_: never) =>
     (___: never) => mockPostThunk;
 
   const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});

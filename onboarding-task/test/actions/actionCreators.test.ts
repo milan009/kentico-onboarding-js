@@ -6,7 +6,6 @@ import {
   POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, POST_REQUEST_FAIL,
 } from '../../src/actions/actionTypes';
 import {
-  // TODO: Unify names of action creators
   cancelChange, makeEditable,
   deleteFailed, deleteStarted, deleteSucceeded,
   fetchingFailed, fetchingSucceeded, startFetchingItems,
@@ -15,7 +14,7 @@ import {
 } from '../../src/actions/actionCreators';
 import { ItemData } from '../../src/models/ItemData';
 import { IAction, ThunkAction } from '../../src/interfaces/IAction';
-// TODO: Add types
+
 describe('Action creators', () => {
   const error = new Error('500: Internal server error');
   const mockRetryThunk: ThunkAction = () => Promise.reject(error);

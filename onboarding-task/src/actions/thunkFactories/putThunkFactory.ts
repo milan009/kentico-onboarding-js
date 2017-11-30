@@ -8,7 +8,7 @@ import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
-export type PutThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
+type PutThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -30,7 +30,7 @@ export const putSavedItemFactory: PutThunkActionFactory = (dependencies) =>
     dispatch(putStarted(item));
 
     try {
-      const json: IItemDTO = await fetchJsonResponse({fetch: dependencies.fetch, input: url, init: options});
+      const json = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: url, init: options});
       return dispatch(putSucceeded(json));
 
     } catch (error) {

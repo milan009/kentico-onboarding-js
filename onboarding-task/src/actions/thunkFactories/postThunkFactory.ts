@@ -1,13 +1,13 @@
 import { Dispatch } from 'redux';
 
-import { emptyUuid, route } from '../../utils/constants';
+import {/* emptyUuid,*/ route } from '../../utils/constants';
 import { postFailed, postStarted, postSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
-export type PostThunkActionFactory = (dependencies: IFactoryDependencies) => (newText: string) => ThunkAction;
+type PostThunkActionFactory = (dependencies: IFactoryDependencies) => (newText: string) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -23,14 +23,14 @@ export const postNewItemFactory: PostThunkActionFactory = (dependencies) =>
     const options = {
       method: 'POST',
       headers,
-      body: JSON.stringify({id: emptyUuid, text: newText}),
+      body: JSON.stringify({/*id: emptyUuid, */text: newText}),
     };
 
     const optimisticUpdateId = dependencies.optimisticUpdatedGenerator();
     dispatch(postStarted(optimisticUpdateId, newText));
 
     try {
-      const json: IItemDTO = await fetchJsonResponse({fetch: dependencies.fetch, input: route, init: options});
+      const json = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: route, init: options});
       return dispatch(postSucceeded(optimisticUpdateId, json));
 
     } catch (error) {

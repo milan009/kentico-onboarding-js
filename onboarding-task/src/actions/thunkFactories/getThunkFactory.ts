@@ -11,7 +11,7 @@ import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ThunkAction } from '../../interfaces/IAction';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
-export type GetThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
+type GetThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -23,7 +23,7 @@ export const getItemsFactory: GetThunkActionFactory = (dependencies) =>
     dispatch(startFetchingItems());
 
     try {
-      const json: IItemDTO[] = await fetchJsonResponse({fetch: dependencies.fetch, input: route});
+      const json = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: route});
       return dispatch(fetchingSucceeded(json));
 
     } catch (error) {

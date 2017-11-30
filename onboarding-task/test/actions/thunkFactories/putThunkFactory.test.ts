@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 
 import {
   putSavedItemFactory,
-  PutThunkActionFactory
 } from '../../../src/actions/thunkFactories/putThunkFactory';
 import {
   PUT_REQUEST_STARTED,
@@ -24,7 +23,7 @@ describe('Put thunk factory', () => {
     }
   });
 
-  const mockPutThunkFactory: PutThunkActionFactory = (_: never) =>
+  const mockPutThunkFactory = (_: never) =>
     (___: never) => mockPutThunk;
 
   it(`dispatches "${PUT_REQUEST_STARTED}" and "${PUT_REQUEST_SUCCESS}" action with given item and OK response`, async () => {

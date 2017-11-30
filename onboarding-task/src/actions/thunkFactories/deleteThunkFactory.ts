@@ -10,7 +10,7 @@ import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
-export type DeleteThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
+type DeleteThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;

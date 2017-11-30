@@ -4,7 +4,7 @@ export interface IFetchDependencies {
   init?: RequestInit;
 }
 
-export const fetchJsonResponse = async (dependencies: IFetchDependencies): Promise<any> => {
+export const fetchJsonResponse = async <ReturnType>(dependencies: IFetchDependencies): Promise<ReturnType> => {
     const response = await dependencies.fetch(dependencies.input, dependencies.init);
 
     if (!response.ok) {
