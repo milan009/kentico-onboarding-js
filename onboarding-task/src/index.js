@@ -12,7 +12,7 @@ import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import { rootReducer } from './reducers/rootReducer.ts';
-import { getItems } from './actions/thunkActionsCreators.ts';
+import { getItems } from './actions/publicActionCreators.ts';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
