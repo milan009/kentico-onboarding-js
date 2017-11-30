@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import {/* emptyUuid,*/ route } from '../../utils/constants';
+import { route } from '../../utils/constants';
 import { createItemFailed, createItemStarted, createItemSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
@@ -23,7 +23,7 @@ export const postItemThunkFactory: PostThunkActionFactory = (dependencies) =>
     const options = {
       method: 'POST',
       headers,
-      body: JSON.stringify({/*id: emptyUuid, */text: newText}),
+      body: JSON.stringify({text: newText}),
     };
 
     const optimisticUpdateId = dependencies.optimisticUpdatedGenerator();
