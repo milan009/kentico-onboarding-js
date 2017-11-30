@@ -6,7 +6,7 @@ import { IListCallbackProps, List as ListComponent } from '../components/List';
 import { ItemsDataMap } from '../reducers/list/itemsReducer';
 import { IStore } from '../interfaces/IStore';
 import { ThunkAction } from '../interfaces/IAction';
-import { IThunkDispatch as Dispatch } from '../interfaces/IThunkDispatch';
+import { Dispatch } from 'redux';
 
 const getIdsMemoized = memoize((items: ItemsDataMap) => items.keySeq());
 
