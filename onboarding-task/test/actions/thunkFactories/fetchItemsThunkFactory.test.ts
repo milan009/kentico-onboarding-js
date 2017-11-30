@@ -4,9 +4,9 @@ import {
   fetchItemsThunkFactory,
 } from '../../../src/actions/thunkFactories/fetchItemsThunkFactory';
 import {
-  FETCH_STARTED,
-  FETCH_FAIL,
-  FETCH_SUCCESS,
+  FETCH_REQUEST_STARTED,
+  FETCH_REQUEST_FAIL,
+  FETCH_REQUEST_SUCCESS,
 } from '../../../src/actions/actionTypes';
 import { ThunkAction } from '../../../src/interfaces/IAction';
 
@@ -17,19 +17,19 @@ describe('Get thunk factory', () => {
   ];
 
   const mockGetThunk: ThunkAction = () => Promise.resolve({
-    type: FETCH_STARTED,
+    type: FETCH_REQUEST_STARTED,
   });
 
   const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  it(`dispatches "${FETCH_STARTED}","${FETCH_SUCCESS} and the parseThunk actions with OK response`, async () => {
+  it(`dispatches "${FETCH_REQUEST_STARTED}","${FETCH_REQUEST_SUCCESS} and the parseThunk actions with OK response`, async () => {
     const expectedActions = [
       {
-        type: FETCH_STARTED,
+        type: FETCH_REQUEST_STARTED,
       },
       {
-        type: FETCH_SUCCESS,
+        type: FETCH_REQUEST_SUCCESS,
         payload: {
           items: mockItems,
         },
@@ -48,13 +48,13 @@ describe('Get thunk factory', () => {
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 
-  it(`dispatches "${FETCH_STARTED}" and "${FETCH_FAIL}" action with NOK response`, async () => {
+  it(`dispatches "${FETCH_REQUEST_STARTED}" and "${FETCH_REQUEST_FAIL}" action with NOK response`, async () => {
     const expectedActions = [
       {
-        type: FETCH_STARTED,
+        type: FETCH_REQUEST_STARTED,
       },
       {
-        type: FETCH_FAIL,
+        type: FETCH_REQUEST_FAIL,
         payload: {
           retryAction: mockGetThunk,
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),

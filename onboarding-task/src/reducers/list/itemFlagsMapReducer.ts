@@ -7,15 +7,15 @@ import {
   DELETE_REQUEST_FAIL,
   DELETE_REQUEST_STARTED,
   DELETE_REQUEST_SUCCESS,
-  FETCH_SUCCESS,
+  FETCH_REQUEST_SUCCESS,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  POST_REQUEST_FAIL,
-  POST_REQUEST_STARTED,
-  POST_REQUEST_SUCCESS,
-  PUT_REQUEST_FAIL,
-  PUT_REQUEST_STARTED,
-  PUT_REQUEST_SUCCESS,
+  CREATE_REQUEST_FAIL,
+  CREATE_REQUEST_STARTED,
+  CREATE_REQUEST_SUCCESS,
+  UPDATE_REQUEST_FAIL,
+  UPDATE_REQUEST_STARTED,
+  UPDATE_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
@@ -28,19 +28,19 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
     case DELETE_REQUEST_SUCCESS:
       return state.remove(action.payload.id);
 
-    case POST_REQUEST_STARTED: {
+    case CREATE_REQUEST_STARTED: {
       const newItem = new ItemFlags({isStored: false});
       return state.set(action.payload.optimisticId, newItem);
     }
 
-    case POST_REQUEST_SUCCESS: {
+    case CREATE_REQUEST_SUCCESS: {
       const newItem = new ItemFlags({isStored: true});
       state = state.remove(action.payload.formerId);
 
       return state.set(action.payload.item.id, newItem);
     }
 
-    case FETCH_SUCCESS: {
+    case FETCH_REQUEST_SUCCESS: {
       action.payload.items.map((item: IItemDTO) => {
         state = state.set(item.id, new ItemFlags({isStored: true}));
       });
@@ -50,11 +50,11 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
     case ITEM_MAKE_EDITABLE:
     case ITEM_CHANGE_CANCELLED:
     case DELETE_REQUEST_STARTED:
-    case PUT_REQUEST_STARTED:
-    case PUT_REQUEST_SUCCESS:
-    case PUT_REQUEST_FAIL:
+    case UPDATE_REQUEST_STARTED:
+    case UPDATE_REQUEST_SUCCESS:
+    case UPDATE_REQUEST_FAIL:
     case DELETE_REQUEST_FAIL:
-    case POST_REQUEST_FAIL: {
+    case CREATE_REQUEST_FAIL: {
       const flagsToEdit = state.get(action.payload.id);
 
       if (!flagsToEdit) {

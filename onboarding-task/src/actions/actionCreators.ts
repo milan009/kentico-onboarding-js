@@ -3,21 +3,21 @@ import {
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
 
-  FETCH_STARTED,
-  FETCH_SUCCESS,
-  FETCH_FAIL,
+  FETCH_REQUEST_STARTED,
+  FETCH_REQUEST_SUCCESS,
+  FETCH_REQUEST_FAIL,
 
-  POST_REQUEST_FAIL,
-  POST_REQUEST_STARTED,
-  POST_REQUEST_SUCCESS,
+  CREATE_REQUEST_FAIL,
+  CREATE_REQUEST_STARTED,
+  CREATE_REQUEST_SUCCESS,
 
   DELETE_REQUEST_FAIL,
   DELETE_REQUEST_SUCCESS,
   DELETE_REQUEST_STARTED,
 
-  PUT_REQUEST_FAIL,
-  PUT_REQUEST_SUCCESS,
-  PUT_REQUEST_STARTED,
+  UPDATE_REQUEST_FAIL,
+  UPDATE_REQUEST_SUCCESS,
+  UPDATE_REQUEST_STARTED,
 } from './actionTypes';
 import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
@@ -39,18 +39,18 @@ export const makeEditable = (id: string): IAction => ({
 // region GET related action creators
 
 export const startFetchingItems = (): IAction => ({
-  type: FETCH_STARTED,
+  type: FETCH_REQUEST_STARTED,
 });
 
 export const fetchingSucceeded = (items: IItemDTO[]): IAction => ({
-  type: FETCH_SUCCESS,
+  type: FETCH_REQUEST_SUCCESS,
   payload: {
     items,
   },
 });
 
 export const fetchingFailed = (error: Error, retryAction: ThunkAction): IAction => ({
-  type: FETCH_FAIL,
+  type: FETCH_REQUEST_FAIL,
   payload: {
     error,
     retryAction,
@@ -62,7 +62,7 @@ export const fetchingFailed = (error: Error, retryAction: ThunkAction): IAction 
 // region POST related action creators
 
 export const postStarted = (optimisticId: string, text: string): IAction => ({
-  type: POST_REQUEST_STARTED,
+  type: CREATE_REQUEST_STARTED,
   payload: {
     text,
     optimisticId,
@@ -70,7 +70,7 @@ export const postStarted = (optimisticId: string, text: string): IAction => ({
 });
 
 export const postSucceeded = (formerId: string, item: IItemDTO): IAction => ({
-  type: POST_REQUEST_SUCCESS,
+  type: CREATE_REQUEST_SUCCESS,
   payload: {
     item,
     formerId,
@@ -78,7 +78,7 @@ export const postSucceeded = (formerId: string, item: IItemDTO): IAction => ({
 });
 
 export const postFailed = (id: string, error: Error, retryAction: ThunkAction): IAction => ({
-  type: POST_REQUEST_FAIL,
+  type: CREATE_REQUEST_FAIL,
   payload: {
     id,
     error,
@@ -91,7 +91,7 @@ export const postFailed = (id: string, error: Error, retryAction: ThunkAction): 
 // region PUT related action creators
 
 export const putStarted = (item: ItemData): IAction => ({
-  type: PUT_REQUEST_STARTED,
+  type: UPDATE_REQUEST_STARTED,
   payload: {
     id: item.id,
     item,
@@ -99,7 +99,7 @@ export const putStarted = (item: ItemData): IAction => ({
 });
 
 export const putSucceeded = (item: IItemDTO): IAction => ({
-  type: PUT_REQUEST_SUCCESS,
+  type: UPDATE_REQUEST_SUCCESS,
   payload: {
     id: item.id,
     item,
@@ -107,7 +107,7 @@ export const putSucceeded = (item: IItemDTO): IAction => ({
 });
 
 export const putFailed = (id: string, error: Error, retryAction: ThunkAction): IAction => ({
-  type: PUT_REQUEST_FAIL,
+  type: UPDATE_REQUEST_FAIL,
   payload: {
     id,
     error,

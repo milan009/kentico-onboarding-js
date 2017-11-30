@@ -10,12 +10,12 @@ import {
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
   PARSE_RESPONSE_FINISHED,
-  POST_REQUEST_FAIL,
-  POST_REQUEST_STARTED,
-  POST_REQUEST_SUCCESS,
-  PUT_REQUEST_FAIL,
-  PUT_REQUEST_STARTED,
-  PUT_REQUEST_SUCCESS,
+  CREATE_REQUEST_FAIL,
+  CREATE_REQUEST_STARTED,
+  CREATE_REQUEST_SUCCESS,
+  UPDATE_REQUEST_FAIL,
+  UPDATE_REQUEST_STARTED,
+  UPDATE_REQUEST_SUCCESS,
 } from '../../../src/actions/actionTypes.ts';
 import {
   postSucceeded,
@@ -69,7 +69,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${POST_REQUEST_SUCCESS}" action`, () => {
+  describe(`"${CREATE_REQUEST_SUCCESS}" action`, () => {
     it('replaces optimistic ItemFlags with returned one', () => {
       const prevState = testFlagsMapState;
       const formerId = '1';
@@ -96,7 +96,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${POST_REQUEST_STARTED}" action`, () => {
+  describe(`"${CREATE_REQUEST_STARTED}" action`, () => {
     it('adds new ItemFlags with optimistic id to state', () => {
       const expectedState = new OrderedMap([
         ...testFlagsMapState,
@@ -248,7 +248,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
+  describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
     it('does nothing to state not containing given id', () => {
       const action = putStarted(new ItemData({ id: '42' }));
 
@@ -278,7 +278,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_SUCCESS}" action`, () => {
+  describe(`"${UPDATE_REQUEST_SUCCESS}" action`, () => {
     it('does nothing to state not containing given id', () => {
       const action = putSucceeded('42');
 
@@ -318,7 +318,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_FAIL}" action`, () => {
+  describe(`"${UPDATE_REQUEST_FAIL}" action`, () => {
     it('does nothing to state not containing given id', () => {
       const action = cancelChange('42');
 
@@ -390,7 +390,7 @@ describe('ItemFlags map reducer with', () => {
     });
   });
 
-  describe(`"${POST_REQUEST_FAIL}" action`, () => {
+  describe(`"${CREATE_REQUEST_FAIL}" action`, () => {
     it('does nothing to state not containing given id', () => {
       const action = cancelChange('42');
 

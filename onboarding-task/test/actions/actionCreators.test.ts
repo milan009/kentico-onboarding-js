@@ -1,9 +1,9 @@
 import {
-  FETCH_STARTED, FETCH_SUCCESS, FETCH_FAIL,
+  FETCH_REQUEST_STARTED, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAIL,
   ITEM_MAKE_EDITABLE, ITEM_CHANGE_CANCELLED,
-  PUT_REQUEST_STARTED, PUT_REQUEST_SUCCESS, PUT_REQUEST_FAIL,
+  UPDATE_REQUEST_STARTED, UPDATE_REQUEST_SUCCESS, UPDATE_REQUEST_FAIL,
   DELETE_REQUEST_STARTED, DELETE_REQUEST_SUCCESS, DELETE_REQUEST_FAIL,
-  POST_REQUEST_STARTED, POST_REQUEST_SUCCESS, POST_REQUEST_FAIL,
+  CREATE_REQUEST_STARTED, CREATE_REQUEST_SUCCESS, CREATE_REQUEST_FAIL,
 } from '../../src/actions/actionTypes';
 import {
   cancelChange, makeEditable,
@@ -45,9 +45,9 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${FETCH_STARTED}" action correctly`, () => {
+  it(`creates "${FETCH_REQUEST_STARTED}" action correctly`, () => {
     const expectedAction = {
-      type: FETCH_STARTED,
+      type: FETCH_REQUEST_STARTED,
     };
 
     const createdAction = startFetchingItems();
@@ -55,7 +55,7 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${FETCH_SUCCESS}" action correctly`, () => {
+  it(`creates "${FETCH_REQUEST_SUCCESS}" action correctly`, () => {
     const fetchResultJSON = [
       {
         id: 'caf18adc-519f-46e6-a03b-f0106165bad1',
@@ -63,7 +63,7 @@ describe('Action creators', () => {
       }
     ];
     const expectedAction = {
-      type: FETCH_SUCCESS,
+      type: FETCH_REQUEST_SUCCESS,
       payload: {
         items: fetchResultJSON,
       }
@@ -74,9 +74,9 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${FETCH_FAIL}" action correctly`, () => {
+  it(`creates "${FETCH_REQUEST_FAIL}" action correctly`, () => {
     const expectedAction: IAction = {
-      type: FETCH_FAIL,
+      type: FETCH_REQUEST_FAIL,
       payload: {
         error,
         retryAction: mockRetryThunk
@@ -88,13 +88,13 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${PUT_REQUEST_STARTED}" action correctly`, () => {
+  it(`creates "${UPDATE_REQUEST_STARTED}" action correctly`, () => {
     const item: ItemData = new ItemData({
       id: 'caf18adc-519f-46e6-a03b-f0106165bad1',
       text: 'Mlok',
     });
     const expectedAction = {
-      type: PUT_REQUEST_STARTED,
+      type: UPDATE_REQUEST_STARTED,
       payload: {
         id: item.id,
         item,
@@ -106,13 +106,13 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${PUT_REQUEST_SUCCESS}" action correctly`, () => {
+  it(`creates "${UPDATE_REQUEST_SUCCESS}" action correctly`, () => {
     const JSONItem = {
       id: 'caf18adc-519f-46e6-a03b-f0106165bad1',
       text: 'Mlok',
     };
     const expectedAction = {
-      type: PUT_REQUEST_SUCCESS,
+      type: UPDATE_REQUEST_SUCCESS,
       payload: {
         id: JSONItem.id,
         item: JSONItem,
@@ -124,10 +124,10 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${PUT_REQUEST_FAIL}" action correctly`, () => {
+  it(`creates "${UPDATE_REQUEST_FAIL}" action correctly`, () => {
     const putId = 'caf18adc-519f-46e6-a03b-f0106165bad1';
     const expectedAction: IAction = {
-      type: PUT_REQUEST_FAIL,
+      type: UPDATE_REQUEST_FAIL,
       payload: {
         id: putId,
         error,
@@ -185,11 +185,11 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${POST_REQUEST_STARTED}" action correctly`, () => {
+  it(`creates "${CREATE_REQUEST_STARTED}" action correctly`, () => {
     const postOptimisticId = 'caf18adc-519f-46e6-a03b-f0106165bad1';
     const textToPost = 'Mlok';
     const expectedAction = {
-      type: POST_REQUEST_STARTED,
+      type: CREATE_REQUEST_STARTED,
       payload: {
         text: textToPost,
         optimisticId: postOptimisticId,
@@ -201,7 +201,7 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${POST_REQUEST_SUCCESS}" action correctly`, () => {
+  it(`creates "${CREATE_REQUEST_SUCCESS}" action correctly`, () => {
     const formerId = '00000000-aaaa-aaaa-aaaa-000000000000';
     const JSONItem = {
       id: 'caf18adc-519f-46e6-a03b-f0106165bad1',
@@ -209,7 +209,7 @@ describe('Action creators', () => {
     };
 
     const expectedAction = {
-      type: POST_REQUEST_SUCCESS,
+      type: CREATE_REQUEST_SUCCESS,
       payload: {
         formerId,
         item: JSONItem,
@@ -221,10 +221,10 @@ describe('Action creators', () => {
     expect(createdAction).toEqual(expectedAction);
   });
 
-  it(`creates "${POST_REQUEST_FAIL}" action correctly`, () => {
+  it(`creates "${CREATE_REQUEST_FAIL}" action correctly`, () => {
     const putId = 'caf18adc-519f-46e6-a03b-f0106165bad1';
     const expectedAction: IAction = {
-      type: POST_REQUEST_FAIL,
+      type: CREATE_REQUEST_FAIL,
       payload: {
         id: putId,
         error,

@@ -5,8 +5,8 @@ import { itemsReducer } from '../../../src/reducers/list/itemsReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
 import {
   DELETE_REQUEST_SUCCESS,
-  POST_REQUEST_STARTED, POST_REQUEST_SUCCESS,
-  PUT_REQUEST_STARTED, PARSE_RESPONSE_FINISHED,
+  CREATE_REQUEST_STARTED, CREATE_REQUEST_SUCCESS,
+  UPDATE_REQUEST_STARTED, PARSE_RESPONSE_FINISHED,
 } from '../../../src/actions/actionTypes.ts';
 import {
   deleteSucceeded,
@@ -36,7 +36,7 @@ describe('Items map reducer with', () => {
   const mockId = '123';
   const mockIdGenerator = () => mockId;
 
-  describe(`"${POST_REQUEST_STARTED}" action`, () => {
+  describe(`"${CREATE_REQUEST_STARTED}" action`, () => {
     it('adds item to map', () => {
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
@@ -57,7 +57,7 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${POST_REQUEST_SUCCESS}" action`, () => {
+  describe(`"${CREATE_REQUEST_SUCCESS}" action`, () => {
     it('removes optimistic item and replaces it with a new one', () => {
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
@@ -117,7 +117,7 @@ describe('Items map reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
+  describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
     it('does nothing to state not containing given id', () => {
       const putItem = new ItemData({
         id: '41',

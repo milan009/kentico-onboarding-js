@@ -4,9 +4,9 @@ import {
   postItemThunkFactory,
 } from '../../../src/actions/thunkFactories/createItemThunkFactory';
 import {
-  POST_REQUEST_STARTED,
-  POST_REQUEST_FAIL,
-  POST_REQUEST_SUCCESS
+  CREATE_REQUEST_STARTED,
+  CREATE_REQUEST_FAIL,
+  CREATE_REQUEST_SUCCESS
 } from '../../../src/actions/actionTypes';
 import { ThunkAction } from '../../../src/interfaces/IAction';
 
@@ -16,7 +16,7 @@ describe('Post thunk factory', () => {
   const mockBackendId = '71';
 
   const mockPostThunk: ThunkAction = (_: never) => Promise.resolve({
-    type: POST_REQUEST_STARTED, payload: {
+    type: CREATE_REQUEST_STARTED, payload: {
       text: mockNewText,
       optimisticId: mockOptimisticId,
     }
@@ -27,17 +27,17 @@ describe('Post thunk factory', () => {
   const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
-  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_SUCCESS}" action with given text and OK response`, async () => {
+  it(`dispatches "${CREATE_REQUEST_STARTED}" and "${CREATE_REQUEST_SUCCESS}" action with given text and OK response`, async () => {
     const expectedActions = [
       {
-        type: POST_REQUEST_STARTED,
+        type: CREATE_REQUEST_STARTED,
         payload: {
           optimisticId: mockOptimisticId,
           text: mockNewText,
         },
       },
       {
-        type: POST_REQUEST_SUCCESS,
+        type: CREATE_REQUEST_SUCCESS,
         payload: {
           formerId: mockOptimisticId,
           item: {
@@ -61,17 +61,17 @@ describe('Post thunk factory', () => {
     expect(dispatch.mock.calls[1][0]).toEqual(expectedActions[1]);
   });
 
-  it(`dispatches "${POST_REQUEST_STARTED}" and "${POST_REQUEST_FAIL}" action with given text and NOK response`, async () => {
+  it(`dispatches "${CREATE_REQUEST_STARTED}" and "${CREATE_REQUEST_FAIL}" action with given text and NOK response`, async () => {
     const expectedActions = [
       {
-        type: POST_REQUEST_STARTED,
+        type: CREATE_REQUEST_STARTED,
         payload: {
           optimisticId: mockOptimisticId,
           text: mockNewText,
         },
       },
       {
-        type: POST_REQUEST_FAIL,
+        type: CREATE_REQUEST_FAIL,
         payload: {
           retryAction: mockPostThunk,
           error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),

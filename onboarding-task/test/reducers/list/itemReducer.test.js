@@ -1,10 +1,10 @@
 import { itemReducer } from '../../../src/reducers/list/itemReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
-import { PUT_REQUEST_STARTED } from '../../../src/actions/actionTypes.ts';
+import { UPDATE_REQUEST_STARTED } from '../../../src/actions/actionTypes.ts';
 import { putStarted } from '../../../src/actions/actionCreators.ts';
 
 describe('Item reducer', () => {
-  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
+  describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
     it('saves changed text correctly in ItemData', () => {
       const prevState = new ItemData({
         text: 'Mlock',

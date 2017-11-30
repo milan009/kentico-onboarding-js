@@ -5,10 +5,10 @@ import {
   DELETE_REQUEST_STARTED,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  POST_REQUEST_FAIL,
-  PUT_REQUEST_FAIL,
-  PUT_REQUEST_STARTED,
-  PUT_REQUEST_SUCCESS,
+  CREATE_REQUEST_FAIL,
+  UPDATE_REQUEST_FAIL,
+  UPDATE_REQUEST_STARTED,
+  UPDATE_REQUEST_SUCCESS,
 } from '../../../src/actions/actionTypes.ts';
 import {
   cancelChange,
@@ -125,7 +125,7 @@ describe('ItemFlags reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_STARTED}" action`, () => {
+  describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
     it('sets item flags correctly on item', () => {
       const prevState = new ItemFlags({
         isBeingEdited: true,
@@ -150,11 +150,11 @@ describe('ItemFlags reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_FAIL}" action`, () => {
+  describe(`"${UPDATE_REQUEST_FAIL}" action`, () => {
     it('stores the error', () => {
       const error = new Error('Error while putting!', '42');
       const mockPutThunk = (_) => Promise.resolve({
-        type: PUT_REQUEST_STARTED,
+        type: UPDATE_REQUEST_STARTED,
         payload: {
           id: '42',
         },
@@ -177,7 +177,7 @@ describe('ItemFlags reducer with', () => {
     });
   });
 
-  describe(`"${POST_REQUEST_FAIL}" action`, () => {
+  describe(`"${CREATE_REQUEST_FAIL}" action`, () => {
     it('stores the error', () => {
       const error = new Error('Error while posting!', mockId);
       const mockPostThunk = (_) => Promise.resolve({
@@ -204,7 +204,7 @@ describe('ItemFlags reducer with', () => {
     });
   });
 
-  describe(`"${PUT_REQUEST_SUCCESS}" action`, () => {
+  describe(`"${UPDATE_REQUEST_SUCCESS}" action`, () => {
     it('makes edited ItemFlags stored and not editable anymore', () => {
       const mockJsonResponseItem = {
         id: mockId,
