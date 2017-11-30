@@ -3,10 +3,10 @@ import * as fetch from 'isomorphic-fetch';
 
 import { ThunkAction } from '../interfaces/IAction';
 import { ItemData } from '../models/ItemData';
-import { deleteStoredItemFactory } from './thunkFactories/deleteThunkFactory';
-import { getItemsFactory } from './thunkFactories/getThunkFactory';
-import { postNewItemFactory } from './thunkFactories/postThunkFactory';
-import { putSavedItemFactory } from './thunkFactories/putThunkFactory';
+import { deleteStoredItemFactory } from './thunkFactories/deleteItemThunkFactory';
+import { getItemsFactory } from './thunkFactories/fetchItemsThunkFactory';
+import { postNewItemFactory } from './thunkFactories/createItemThunkFactory';
+import { putSavedItemFactory } from './thunkFactories/updateItemThunkFactory';
 
 export const deleteStoredItem: (id: string) => ThunkAction = deleteStoredItemFactory({
   fetch,

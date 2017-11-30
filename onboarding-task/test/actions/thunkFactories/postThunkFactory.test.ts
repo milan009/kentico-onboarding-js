@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 import {
   postNewItemFactory,
-} from '../../../src/actions/thunkFactories/postThunkFactory';
+} from '../../../src/actions/thunkFactories/createItemThunkFactory';
 import {
   POST_REQUEST_STARTED,
   POST_REQUEST_FAIL,

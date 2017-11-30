@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 import {
   putSavedItemFactory,
-} from '../../../src/actions/thunkFactories/putThunkFactory';
+} from '../../../src/actions/thunkFactories/updateItemThunkFactory';
 import {
   PUT_REQUEST_STARTED,
   PUT_REQUEST_FAIL,

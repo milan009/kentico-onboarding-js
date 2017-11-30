@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 import {
   getItemsFactory,
-} from '../../../src/actions/thunkFactories/getThunkFactory';
+} from '../../../src/actions/thunkFactories/fetchItemsThunkFactory';
 import {
   FETCH_STARTED,
   FETCH_FAIL,

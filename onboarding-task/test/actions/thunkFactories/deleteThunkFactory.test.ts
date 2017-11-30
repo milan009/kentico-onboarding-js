@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 import {
   deleteStoredItemFactory,
-} from '../../../src/actions/thunkFactories/deleteThunkFactory';
+} from '../../../src/actions/thunkFactories/deleteItemThunkFactory';
 import {
   DELETE_REQUEST_FAIL,
   DELETE_REQUEST_STARTED,
