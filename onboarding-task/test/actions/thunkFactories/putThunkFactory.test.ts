@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 
 import {
-  putSavedItemFactory,
+  updateItemThunkFactory,
 } from '../../../src/actions/thunkFactories/updateItemThunkFactory';
 import {
   PUT_REQUEST_STARTED,
@@ -46,9 +46,9 @@ describe('Put thunk factory', () => {
         },
       },
     ];
-    const putSavedItemThunk = putSavedItemFactory({
+    const putSavedItemThunk = updateItemThunkFactory({
       fetch: jest.fn(() => (mockOkResponse)),
-      putThunkActionFactory: putSavedItemFactory,
+      putThunkActionFactory: updateItemThunkFactory,
     });
     const dispatch = jest.fn();
     const getState = jest.fn();
@@ -77,7 +77,7 @@ describe('Put thunk factory', () => {
         },
       },
     ];
-    const putSavedItemThunk = putSavedItemFactory({
+    const putSavedItemThunk = updateItemThunkFactory({
       fetch: jest.fn(() => mockNokResponse),
       putThunkActionFactory: mockPutThunkFactory,
     });

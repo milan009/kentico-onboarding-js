@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 
 import {
-  deleteStoredItemFactory,
+  deleteItemThunkFactory,
 } from '../../../src/actions/thunkFactories/deleteItemThunkFactory';
 import {
   DELETE_REQUEST_FAIL,
@@ -37,9 +37,9 @@ describe('Delete thunk factory', () => {
         },
       },
     ];
-    const deleteStoredItemThunk = deleteStoredItemFactory({
+    const deleteStoredItemThunk = deleteItemThunkFactory({
       fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
-      deleteThunkActionFactory: deleteStoredItemFactory,
+      deleteThunkActionFactory: deleteItemThunkFactory,
     });
     const dispatch = jest.fn();
     const getState = jest.fn();
@@ -67,7 +67,7 @@ describe('Delete thunk factory', () => {
         },
       },
     ];
-    const deleteItemThunk = deleteStoredItemFactory({
+    const deleteItemThunk = deleteItemThunkFactory({
       fetch: jest.fn(() => Promise.resolve(mockNokResponse)),
       deleteThunkActionFactory: jest.fn(() => () => mockDeleteThunk),
     });

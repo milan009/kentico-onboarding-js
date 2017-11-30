@@ -18,7 +18,7 @@ interface IFactoryDependencies {
   getThunkActionFactory: GetThunkActionFactory;
 }
 
-export const getItemsFactory: GetThunkActionFactory = (dependencies) =>
+export const fetchItemsThunkFactory: GetThunkActionFactory = (dependencies) =>
   () => async (dispatch: Dispatch<IStore>) => {
     dispatch(startFetchingItems());
 

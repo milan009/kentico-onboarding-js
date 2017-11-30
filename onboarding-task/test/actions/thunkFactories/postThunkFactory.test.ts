@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 
 import {
-  postNewItemFactory,
+  postItemThunkFactory,
 } from '../../../src/actions/thunkFactories/createItemThunkFactory';
 import {
   POST_REQUEST_STARTED,
@@ -47,10 +47,10 @@ describe('Post thunk factory', () => {
         },
       },
     ];
-    const postItemThunk = postNewItemFactory({
+    const postItemThunk = postItemThunkFactory({
       fetch: jest.fn(() => mockOkResponse),
       optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
-      postThunkActionFactory: postNewItemFactory
+      postThunkActionFactory: postItemThunkFactory
     });
     const dispatch = jest.fn();
     const getState = jest.fn();
@@ -79,7 +79,7 @@ describe('Post thunk factory', () => {
         }
       },
     ];
-    const postItemThunk = postNewItemFactory({
+    const postItemThunk = postItemThunkFactory({
       fetch: jest.fn(() => mockNokResponse),
       optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
       postThunkActionFactory: mockPostThunkFactory

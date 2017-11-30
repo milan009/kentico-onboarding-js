@@ -15,7 +15,7 @@ interface IFactoryDependencies {
   putThunkActionFactory: PutThunkActionFactory;
 }
 
-export const putSavedItemFactory: PutThunkActionFactory = (dependencies) =>
+export const updateItemThunkFactory: PutThunkActionFactory = (dependencies) =>
   (item: ItemData) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     headers.append('Content-type', 'Application/json');

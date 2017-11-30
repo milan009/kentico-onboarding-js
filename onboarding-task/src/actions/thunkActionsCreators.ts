@@ -3,28 +3,28 @@ import * as fetch from 'isomorphic-fetch';
 
 import { ThunkAction } from '../interfaces/IAction';
 import { ItemData } from '../models/ItemData';
-import { deleteStoredItemFactory } from './thunkFactories/deleteItemThunkFactory';
-import { getItemsFactory } from './thunkFactories/fetchItemsThunkFactory';
-import { postNewItemFactory } from './thunkFactories/createItemThunkFactory';
-import { putSavedItemFactory } from './thunkFactories/updateItemThunkFactory';
+import { deleteItemThunkFactory } from './thunkFactories/deleteItemThunkFactory';
+import { fetchItemsThunkFactory } from './thunkFactories/fetchItemsThunkFactory';
+import { postItemThunkFactory } from './thunkFactories/createItemThunkFactory';
+import { updateItemThunkFactory } from './thunkFactories/updateItemThunkFactory';
 
-export const deleteStoredItem: (id: string) => ThunkAction = deleteStoredItemFactory({
+export const deleteItemThunk: (id: string) => ThunkAction = deleteItemThunkFactory({
   fetch,
-  deleteThunkActionFactory: deleteStoredItemFactory,
+  deleteThunkActionFactory: deleteItemThunkFactory,
 });
 
-export const getItems: () => ThunkAction = getItemsFactory({
+export const fetchItemsThunk: () => ThunkAction = fetchItemsThunkFactory({
   fetch,
-  getThunkActionFactory: getItemsFactory,
+  getThunkActionFactory: fetchItemsThunkFactory,
 });
 
-export const postNewItem: (newText: string) => ThunkAction = postNewItemFactory({
+export const createItemThunk: (newText: string) => ThunkAction = postItemThunkFactory({
   fetch,
   optimisticUpdatedGenerator: uuidV4,
-  postThunkActionFactory: postNewItemFactory
+  postThunkActionFactory: postItemThunkFactory
 });
 
-export const putSavedItem: (item: ItemData) => ThunkAction = putSavedItemFactory({
+export const updateItemThunk: (item: ItemData) => ThunkAction = updateItemThunkFactory({
   fetch,
-  putThunkActionFactory: putSavedItemFactory,
+  putThunkActionFactory: updateItemThunkFactory,
 });

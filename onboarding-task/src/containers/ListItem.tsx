@@ -10,7 +10,7 @@ import {
 import { ViewItem } from '../models/ViewItem';
 import { IStore } from '../interfaces/IStore';
 import { ItemData } from '../models/ItemData';
-import { putSavedItem, deleteStoredItem, makeEditable, cancelChange } from '../actions/publicActionCreators';
+import { updateItemThunk, deleteItemThunk, makeEditable, cancelChange } from '../actions/publicActionCreators';
 import { ThunkAction } from '../interfaces/IAction';
 
 interface IListItemContainerProps {
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>, {id}: IListItemContainer
   onClick: () =>
     dispatch(makeEditable(id)),
   onDelete: () =>
-    dispatch(deleteStoredItem(id)),
+    dispatch(deleteItemThunk(id)),
   onSave: (newText: string) =>
-    dispatch(putSavedItem(new ItemData({id, text: newText}))),
+    dispatch(updateItemThunk(new ItemData({id, text: newText}))),
   onCancel: () =>
     dispatch(cancelChange(id)),
   onRetry: (retryAction: ThunkAction) =>

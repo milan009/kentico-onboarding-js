@@ -17,7 +17,7 @@ interface IFactoryDependencies {
   deleteThunkActionFactory: DeleteThunkActionFactory;
 }
 
-export const deleteStoredItemFactory: DeleteThunkActionFactory = (dependencies) =>
+export const deleteItemThunkFactory: DeleteThunkActionFactory = (dependencies) =>
   (id: string) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     const init = {
