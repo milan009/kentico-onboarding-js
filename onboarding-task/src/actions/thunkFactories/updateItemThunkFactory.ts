@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 
 import { ItemData } from '../../models/ItemData';
-import { putFailed, putStarted, putSucceeded } from '../actionCreators';
+import { updateItemFailed, updateItemStarted, updateItemSucceeded } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
@@ -27,13 +27,13 @@ export const updateItemThunkFactory: PutThunkActionFactory = (dependencies) =>
     };
     const url = `${route}/${item.id}`;
 
-    dispatch(putStarted(item));
+    dispatch(updateItemStarted(item));
 
     try {
       const responseItem = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: url, init: options});
-      return dispatch(putSucceeded(responseItem));
+      return dispatch(updateItemSucceeded(responseItem));
 
     } catch (error) {
-      return dispatch(putFailed(item.id, error, dependencies.putThunkActionFactory(dependencies)(item)));
+      return dispatch(updateItemFailed(item.id, error, dependencies.putThunkActionFactory(dependencies)(item)));
     }
   };

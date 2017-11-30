@@ -7,10 +7,10 @@ import {
 } from '../../src/actions/actionTypes';
 import {
   cancelChange, makeEditable,
-  deleteFailed, deleteStarted, deleteSucceeded,
-  fetchingFailed, fetchingSucceeded, startFetchingItems,
-  postFailed, postStarted, postSucceeded,
-  putFailed, putStarted, putSucceeded,
+  deleteItemFailed, deleteItemStarted, deleteItemSucceeded,
+  fetchItemsFailed, fetchItemsSucceeded, fetchItemsStarted,
+  createItemFailed, createItemStarted, createItemSucceeded,
+  updateItemFailed, updateItemStarted, updateItemSucceeded,
 } from '../../src/actions/actionCreators';
 import { ItemData } from '../../src/models/ItemData';
 import { IAction, ThunkAction } from '../../src/interfaces/IAction';
@@ -50,7 +50,7 @@ describe('Action creators', () => {
       type: FETCH_REQUEST_STARTED,
     };
 
-    const createdAction = startFetchingItems();
+    const createdAction = fetchItemsStarted();
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -69,7 +69,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = fetchingSucceeded(fetchResultJSON);
+    const createdAction = fetchItemsSucceeded(fetchResultJSON);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -83,7 +83,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = fetchingFailed(error, mockRetryThunk);
+    const createdAction = fetchItemsFailed(error, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -101,7 +101,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = putStarted(item);
+    const createdAction = updateItemStarted(item);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -119,7 +119,7 @@ describe('Action creators', () => {
       },
     };
 
-    const createdAction = putSucceeded(JSONItem);
+    const createdAction = updateItemSucceeded(JSONItem);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -135,7 +135,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = putFailed(putId, error, mockRetryThunk);
+    const createdAction = updateItemFailed(putId, error, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
 
@@ -150,7 +150,7 @@ describe('Action creators', () => {
       },
     };
 
-    const createdAction = deleteStarted(deleteId);
+    const createdAction = deleteItemStarted(deleteId);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -164,7 +164,7 @@ describe('Action creators', () => {
       },
     };
 
-    const createdAction = deleteSucceeded(deleteId);
+    const createdAction = deleteItemSucceeded(deleteId);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -180,7 +180,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = deleteFailed(deleteId, error, mockRetryThunk);
+    const createdAction = deleteItemFailed(deleteId, error, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -196,7 +196,7 @@ describe('Action creators', () => {
       },
     };
 
-    const createdAction = postStarted(postOptimisticId, textToPost);
+    const createdAction = createItemStarted(postOptimisticId, textToPost);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -216,7 +216,7 @@ describe('Action creators', () => {
       },
     };
 
-    const createdAction = postSucceeded(formerId, JSONItem);
+    const createdAction = createItemSucceeded(formerId, JSONItem);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -232,7 +232,7 @@ describe('Action creators', () => {
       }
     };
 
-    const createdAction = postFailed(putId, error, mockRetryThunk);
+    const createdAction = createItemFailed(putId, error, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });

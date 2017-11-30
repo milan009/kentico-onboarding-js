@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 
 import {/* emptyUuid,*/ route } from '../../utils/constants';
-import { postFailed, postStarted, postSucceeded } from '../actionCreators';
+import { createItemFailed, createItemStarted, createItemSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
@@ -27,13 +27,13 @@ export const postItemThunkFactory: PostThunkActionFactory = (dependencies) =>
     };
 
     const optimisticUpdateId = dependencies.optimisticUpdatedGenerator();
-    dispatch(postStarted(optimisticUpdateId, newText));
+    dispatch(createItemStarted(optimisticUpdateId, newText));
 
     try {
       const item = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: route, init: options});
-      return dispatch(postSucceeded(optimisticUpdateId, item));
+      return dispatch(createItemSucceeded(optimisticUpdateId, item));
 
     } catch (error) {
-      return dispatch(postFailed(optimisticUpdateId, error, dependencies.postThunkActionFactory(dependencies)(newText)));
+      return dispatch(createItemFailed(optimisticUpdateId, error, dependencies.postThunkActionFactory(dependencies)(newText)));
     }
   };

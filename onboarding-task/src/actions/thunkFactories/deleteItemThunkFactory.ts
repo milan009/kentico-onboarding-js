@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 
 import {
-  deleteFailed,
-  deleteStarted,
-  deleteSucceeded,
+  deleteItemFailed,
+  deleteItemStarted,
+  deleteItemSucceeded,
 } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
@@ -26,14 +26,14 @@ export const deleteItemThunkFactory: DeleteThunkActionFactory = (dependencies) =
     };
     const url = `${route}/${id}`;
 
-    dispatch(deleteStarted(id));
+    dispatch(deleteItemStarted(id));
 
     try {
       await fetchJsonResponse({fetch: dependencies.fetch, input: url, init});
-      return dispatch(deleteSucceeded(id));
+      return dispatch(deleteItemSucceeded(id));
 
     } catch (error) {
 
-      return dispatch(deleteFailed(id, error, dependencies.deleteThunkActionFactory(dependencies)(id)));
+      return dispatch(deleteItemFailed(id, error, dependencies.deleteThunkActionFactory(dependencies)(id)));
     }
   };

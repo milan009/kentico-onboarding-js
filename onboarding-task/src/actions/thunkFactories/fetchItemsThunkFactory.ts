@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 
 import {
-  fetchingFailed,
-  fetchingSucceeded,
-  startFetchingItems,
+  fetchItemsFailed,
+  fetchItemsSucceeded,
+  fetchItemsStarted,
 } from '../actionCreators';
 import { route } from '../../utils/constants';
 import { IStore } from '../../interfaces/IStore';
@@ -20,13 +20,13 @@ interface IFactoryDependencies {
 
 export const fetchItemsThunkFactory: GetThunkActionFactory = (dependencies) =>
   () => async (dispatch: Dispatch<IStore>) => {
-    dispatch(startFetchingItems());
+    dispatch(fetchItemsStarted());
 
     try {
       const items = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: route});
-      return dispatch(fetchingSucceeded(items));
+      return dispatch(fetchItemsSucceeded(items));
 
     } catch (error) {
-      return dispatch(fetchingFailed(error, dependencies.getThunkActionFactory(dependencies)()));
+      return dispatch(fetchItemsFailed(error, dependencies.getThunkActionFactory(dependencies)()));
     }
   };

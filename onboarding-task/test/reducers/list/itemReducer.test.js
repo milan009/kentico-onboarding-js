@@ -1,7 +1,7 @@
 import { itemReducer } from '../../../src/reducers/list/itemReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
 import { UPDATE_REQUEST_STARTED } from '../../../src/actions/actionTypes.ts';
-import { putStarted } from '../../../src/actions/actionCreators.ts';
+import { updateItemStarted } from '../../../src/actions/actionCreators.ts';
 
 describe('Item reducer', () => {
   describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
@@ -13,7 +13,7 @@ describe('Item reducer', () => {
         text: 'Glock',
       });
 
-      const action = putStarted(expectedState);
+      const action = updateItemStarted(expectedState);
 
       const createdState = itemReducer(prevState, action);
 

@@ -10,10 +10,10 @@ import {
   UPDATE_REQUEST_STARTED,
 } from '../../../src/actions/actionTypes.ts';
 import {
-  deleteSucceeded,
-  postSucceeded,
-  postStarted,
-  putStarted,
+  deleteItemSucceeded,
+  createItemSucceeded,
+  createItemStarted,
+  updateItemStarted,
 } from '../../../src/actions/actionCreators.ts';
 
 describe('Items map reducer with', () => {
@@ -48,7 +48,7 @@ describe('Items map reducer with', () => {
           }),
         ],
       ]);
-      const action = postStarted(mockId, 'Block');
+      const action = createItemStarted(mockId, 'Block');
 
       const createdState = itemsReducer(prevState, action);
 
@@ -79,7 +79,7 @@ describe('Items map reducer with', () => {
         id: '2',
         text: 'Glock',
       };
-      const action = postSucceeded('1', jsonResponseItem);
+      const action = createItemSucceeded('1', jsonResponseItem);
 
       const createdState = itemsReducer(prevState, action);
 
@@ -89,7 +89,7 @@ describe('Items map reducer with', () => {
 
   describe(`"${DELETE_REQUEST_SUCCESS}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = deleteSucceeded('42');
+      const action = deleteItemSucceeded('42');
       const prevState = testItemsMapState;
 
       const createdState = itemsReducer(prevState, action);
@@ -98,7 +98,7 @@ describe('Items map reducer with', () => {
     });
 
     it('correctly removes item', () => {
-      const action = deleteSucceeded('0');
+      const action = deleteItemSucceeded('0');
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [
@@ -122,7 +122,7 @@ describe('Items map reducer with', () => {
         id: '41',
         text: 'Glock',
       });
-      const action = putStarted(putItem);
+      const action = updateItemStarted(putItem);
 
       const createdState = itemsReducer(testItemsMapState, action);
 
@@ -134,7 +134,7 @@ describe('Items map reducer with', () => {
         id: '1',
         text: 'Flock',
       });
-      const action = putStarted(putItem);
+      const action = updateItemStarted(putItem);
       const prevState = testItemsMapState;
       const expectedState = new OrderedMap([
         [

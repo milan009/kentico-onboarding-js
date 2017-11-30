@@ -13,12 +13,12 @@ import {
 import {
   cancelChange,
   makeEditable,
-  deleteStarted,
-  putStarted,
-  deleteFailed,
-  putFailed,
-  postFailed,
-  putSucceeded,
+  deleteItemStarted,
+  updateItemStarted,
+  deleteItemFailed,
+  updateItemFailed,
+  createItemFailed,
+  updateItemSucceeded,
 } from '../../../src/actions/actionCreators.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
 
@@ -90,7 +90,7 @@ describe('ItemFlags reducer with', () => {
         isStored: false,
         requestError: null,
       });
-      const action = deleteStarted('42');
+      const action = deleteItemStarted('42');
 
       const createdState = itemFlagsReducer(prevState, action);
 
@@ -107,7 +107,7 @@ describe('ItemFlags reducer with', () => {
           id: '42',
         },
       });
-      const action = deleteFailed('42', error, mockDeleteThunk);
+      const action = deleteItemFailed('42', error, mockDeleteThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
@@ -142,7 +142,7 @@ describe('ItemFlags reducer with', () => {
         text: 'Mlock',
       });
 
-      const action = putStarted(putItem);
+      const action = updateItemStarted(putItem);
 
       const createdState = itemFlagsReducer(prevState, action);
 
@@ -159,7 +159,7 @@ describe('ItemFlags reducer with', () => {
           id: '42',
         },
       });
-      const action = putFailed('42', error, mockPutThunk);
+      const action = updateItemFailed('42', error, mockPutThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
@@ -186,7 +186,7 @@ describe('ItemFlags reducer with', () => {
           optimisticId: mockId,
         },
       });
-      const action = postFailed(mockId, error, mockPostThunk);
+      const action = createItemFailed(mockId, error, mockPostThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: false,
@@ -217,7 +217,7 @@ describe('ItemFlags reducer with', () => {
         isBeingEdited: false,
         isStored: true,
       });
-      const action = putSucceeded(mockJsonResponseItem);
+      const action = updateItemSucceeded(mockJsonResponseItem);
 
       const createdState = itemFlagsReducer(prevState, action);
 

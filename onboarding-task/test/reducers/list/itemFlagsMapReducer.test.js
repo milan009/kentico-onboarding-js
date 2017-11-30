@@ -17,14 +17,14 @@ import {
   UPDATE_REQUEST_SUCCESS,
 } from '../../../src/actions/actionTypes.ts';
 import {
-  postSucceeded,
-  postStarted,
-  deleteSucceeded,
+  createItemSucceeded,
+  createItemStarted,
+  deleteItemSucceeded,
   makeEditable,
   cancelChange,
-  deleteStarted,
-  putStarted,
-  putSucceeded,
+  deleteItemStarted,
+  updateItemStarted,
+  updateItemSucceeded,
 } from '../../../src/actions/actionCreators.ts';
 
 describe('ItemFlags map reducer with', () => {
@@ -44,7 +44,7 @@ describe('ItemFlags map reducer with', () => {
 
   describe(`"${DELETE_REQUEST_SUCCESS}" action`, () => {
     it('does not change the state that does not contain given id', () => {
-      const action = deleteSucceeded('42');
+      const action = deleteItemSucceeded('42');
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
@@ -52,7 +52,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('correctly removes item', () => {
-      const action = deleteSucceeded('0');
+      const action = deleteItemSucceeded('0');
       const expectedState = new OrderedMap([
         [
           '1',
@@ -82,7 +82,7 @@ describe('ItemFlags map reducer with', () => {
           new ItemFlags({ isStored: true }),
         ],
       ]);
-      const action = postSucceeded(formerId, {
+      const action = createItemSucceeded(formerId, {
         id: mockId,
         text: 'mlock',
       });
@@ -103,7 +103,7 @@ describe('ItemFlags map reducer with', () => {
         ],
       ]);
 
-      const action = postStarted(
+      const action = createItemStarted(
         mockId, 'mlock'
       );
 
@@ -193,7 +193,7 @@ describe('ItemFlags map reducer with', () => {
 
   describe(`"${DELETE_REQUEST_STARTED}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = deleteStarted('42');
+      const action = deleteItemStarted('42');
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
@@ -201,7 +201,7 @@ describe('ItemFlags map reducer with', () => {
     });
 
     it('sets corresponding flags', () => {
-      const action = deleteStarted('1');
+      const action = deleteItemStarted('1');
       const expectedState = new OrderedMap([
         ...testFlagsMapState,
         [
@@ -222,7 +222,7 @@ describe('ItemFlags map reducer with', () => {
 
   describe(`"${UPDATE_REQUEST_STARTED}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = putStarted(new ItemData({ id: '42' }));
+      const action = updateItemStarted(new ItemData({ id: '42' }));
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
@@ -231,7 +231,7 @@ describe('ItemFlags map reducer with', () => {
 
 
     it('sets corresponding flags', () => {
-      const action = putStarted(new ItemData({ id: '1' }));
+      const action = updateItemStarted(new ItemData({ id: '1' }));
       const expectedState = new OrderedMap([
         ...testFlagsMapState,
         [
@@ -252,7 +252,7 @@ describe('ItemFlags map reducer with', () => {
 
   describe(`"${UPDATE_REQUEST_SUCCESS}" action`, () => {
     it('does nothing to state not containing given id', () => {
-      const action = putSucceeded('42');
+      const action = updateItemSucceeded('42');
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
 
