@@ -9,7 +9,6 @@ import {
   DELETE_REQUEST_SUCCESS,
   ITEM_CHANGE_CANCELLED,
   ITEM_MAKE_EDITABLE,
-  PARSE_RESPONSE_FINISHED,
   CREATE_REQUEST_FAIL,
   CREATE_REQUEST_STARTED,
   CREATE_REQUEST_SUCCESS,
@@ -21,7 +20,6 @@ import {
   postSucceeded,
   postStarted,
   deleteSucceeded,
-  parsingFinished,
   makeEditable,
   cancelChange,
   deleteStarted,
@@ -43,7 +41,6 @@ describe('ItemFlags map reducer with', () => {
     ],
   ]);
   const mockId = '123';
-  const mockIdGenerator = () => mockId;
 
   describe(`"${DELETE_REQUEST_SUCCESS}" action`, () => {
     it('does not change the state that does not contain given id', () => {
@@ -111,31 +108,6 @@ describe('ItemFlags map reducer with', () => {
       );
 
       const createdState = itemFlagsMapReducer(testFlagsMapState, action);
-
-      expect(createdState).toEqual(expectedState);
-    });
-  });
-
-  describe(`"${PARSE_RESPONSE_FINISHED}" action`, () => {
-    it('populates undefined state with flags coresponding with parsed items', () => {
-      const parsedItems = new OrderedMap([
-        [
-          '117',
-          new ItemData({
-            id: '117',
-            text: 'Mlock',
-          }),
-        ],
-      ]);
-      const expectedState = new OrderedMap([
-        [
-          '117',
-          new ItemFlags({ isStored: true }),
-        ],
-      ]);
-      const action = parsingFinished(parsedItems);
-
-      const createdState = itemFlagsMapReducer(undefined, action);
 
       expect(createdState).toEqual(expectedState);
     });

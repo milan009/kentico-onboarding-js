@@ -12,7 +12,7 @@ import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Delete thunk factory', () => {
   const mockId = '17';
-  const mockOkResponse = new Response(null, {status: 200});
+  const mockOkResponse = new Response(JSON.stringify({}), {status: 200});
   const mockNokResponse = new Response(null, {status: 500});
 
   const mockDeleteThunk: ThunkAction = (_: never) => Promise.resolve({

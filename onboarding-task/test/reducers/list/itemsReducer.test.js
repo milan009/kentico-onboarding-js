@@ -5,15 +5,15 @@ import { itemsReducer } from '../../../src/reducers/list/itemsReducer.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
 import {
   DELETE_REQUEST_SUCCESS,
-  CREATE_REQUEST_STARTED, CREATE_REQUEST_SUCCESS,
-  UPDATE_REQUEST_STARTED, PARSE_RESPONSE_FINISHED,
+  CREATE_REQUEST_STARTED,
+  CREATE_REQUEST_SUCCESS,
+  UPDATE_REQUEST_STARTED,
 } from '../../../src/actions/actionTypes.ts';
 import {
   deleteSucceeded,
   postSucceeded,
   postStarted,
   putStarted,
-  parsingFinished,
 } from '../../../src/actions/actionCreators.ts';
 
 describe('Items map reducer with', () => {
@@ -34,7 +34,6 @@ describe('Items map reducer with', () => {
     ],
   ]);
   const mockId = '123';
-  const mockIdGenerator = () => mockId;
 
   describe(`"${CREATE_REQUEST_STARTED}" action`, () => {
     it('adds item to map', () => {
@@ -157,32 +156,6 @@ describe('Items map reducer with', () => {
       const createdState = itemsReducer(prevState, action);
 
       expect(createdState).toEqual(expectedState);
-    });
-  });
-
-  describe(`"${PARSE_RESPONSE_FINISHED}" action`, () => {
-    it('correctly returns parsed state', () => {
-      const parsedItems = OrderedMap([
-        [
-          '17',
-          new ItemData({
-            id: '17',
-            text: 'Popcorn bucket',
-          }),
-        ],
-        [
-          '71',
-          new ItemData({
-            id: '71',
-            text: 'Not-so-much-popcorn bucket',
-          }),
-        ],
-      ]);
-      const action = parsingFinished(parsedItems);
-
-      const createdState = itemsReducer(testItemsMapState, action);
-
-      expect(createdState).toEqual(parsedItems);
     });
   });
 
