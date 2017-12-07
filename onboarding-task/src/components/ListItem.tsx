@@ -5,7 +5,7 @@ import * as classNames from 'classnames';
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
 import { IViewItem } from '../models/ViewItem';
-import { ItemWithRetry } from './RetryItem';
+import { ItemWithRetry } from './ItemWithRetry';
 import { ThunkAction } from '../interfaces/IAction';
 
 export interface IListItemDataProps {
