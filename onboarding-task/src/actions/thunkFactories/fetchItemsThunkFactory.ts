@@ -9,12 +9,11 @@ import { controllerUrl } from '../../utils/constants';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ThunkAction } from '../../interfaces/IAction';
-import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
 type FetchItemsThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
 
 interface IFactoryDependencies {
-  fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  fetchJsonResponse: (url: string, method: string, object?: any) => Promise<IItemDTO[]>;
   getThunkActionFactory: FetchItemsThunkActionFactory;
 }
 
@@ -23,10 +22,13 @@ export const fetchItemsThunkFactory: FetchItemsThunkActionFactory = (dependencie
     dispatch(fetchItemsStarted());
 
     try {
-      const items = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: controllerUrl});
+      const items = await dependencies.fetchJsonResponse(controllerUrl, 'GET');
       return dispatch(fetchItemsSucceeded(items));
 
     } catch (error) {
-      return dispatch(fetchItemsFailed(error, dependencies.getThunkActionFactory(dependencies)()));
+      const retryAction = dependencies.getThunkActionFactory(dependencies)();
+      const failedAction = fetchItemsFailed(error, retryAction);
+
+      return dispatch(failedAction);
     }
   };

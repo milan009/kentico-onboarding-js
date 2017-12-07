@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 import {
   updateItemThunkFactory,
 } from '../../../src/actions/thunkFactories/updateItemThunkFactory';
@@ -13,8 +11,6 @@ import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Put thunk factory', () => {
   const mockItem = new ItemData({id: '17', text: 'Popcorn bucket'});
-  const mockOkResponse = new Response(JSON.stringify(mockItem), {status: 200});
-  const mockNokResponse = new Response(null, {status: 500});
 
   const mockPutThunk: ThunkAction = (_: never) => Promise.resolve({
     type: CREATE_REQUEST_STARTED, payload: {
@@ -47,7 +43,7 @@ describe('Put thunk factory', () => {
       },
     ];
     const putSavedItemThunk = updateItemThunkFactory({
-      fetch: jest.fn(() => (mockOkResponse)),
+      fetchJsonResponse: () => Promise.resolve({id: mockItem.id, text: mockItem.text}),
       putThunkActionFactory: updateItemThunkFactory,
     });
     const dispatch = jest.fn();
@@ -60,6 +56,7 @@ describe('Put thunk factory', () => {
   });
 
   it(`dispatches "${UPDATE_REQUEST_STARTED}" and "${UPDATE_REQUEST_FAIL}" action with given item and NOK response`, async () => {
+    const mockErrorObject = {status: '404', statusText: 'Forbidden'};
     const expectedActions = [
       {
         type: UPDATE_REQUEST_STARTED,
@@ -71,14 +68,14 @@ describe('Put thunk factory', () => {
       {
         type: UPDATE_REQUEST_FAIL,
         payload: {
-          error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
+          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
           id: mockItem.id,
           retryAction: mockPutThunk,
         },
       },
     ];
     const putSavedItemThunk = updateItemThunkFactory({
-      fetch: jest.fn(() => mockNokResponse),
+      fetchJsonResponse: () => { throw new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`); },
       putThunkActionFactory: mockPutThunkFactory,
     });
     const dispatch = jest.fn();

@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 import {
   createItemThunkFactory,
 } from '../../../src/actions/thunkFactories/createItemThunkFactory';
@@ -24,8 +22,6 @@ describe('Post thunk factory', () => {
   const mockPostThunkFactory = (_: never) =>
     (___: never) => mockPostThunk;
 
-  const mockOkResponse = new Response(JSON.stringify({id: mockBackendId, text: mockNewText}), {status: 200});
-  const mockNokResponse = new Response(null, {status: 500});
 
   it(`dispatches "${CREATE_REQUEST_STARTED}" and "${CREATE_REQUEST_SUCCESS}" action with given text and OK response`, async () => {
     const expectedActions = [
@@ -48,7 +44,7 @@ describe('Post thunk factory', () => {
       },
     ];
     const postItemThunk = createItemThunkFactory({
-      fetch: jest.fn(() => mockOkResponse),
+      fetchJsonResponse: () => Promise.resolve({id: mockBackendId, text: mockNewText}),
       optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
       postThunkActionFactory: createItemThunkFactory
     });
@@ -62,6 +58,7 @@ describe('Post thunk factory', () => {
   });
 
   it(`dispatches "${CREATE_REQUEST_STARTED}" and "${CREATE_REQUEST_FAIL}" action with given text and NOK response`, async () => {
+    const mockErrorObject = {status: '404', statusText: 'Forbidden'};
     const expectedActions = [
       {
         type: CREATE_REQUEST_STARTED,
@@ -74,13 +71,13 @@ describe('Post thunk factory', () => {
         type: CREATE_REQUEST_FAIL,
         payload: {
           retryAction: mockPostThunk,
-          error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
+          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
           id: mockOptimisticId,
         }
       },
     ];
     const postItemThunk = createItemThunkFactory({
-      fetch: jest.fn(() => mockNokResponse),
+      fetchJsonResponse: () => { throw new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`); },
       optimisticUpdatedGenerator: jest.fn(() => mockOptimisticId),
       postThunkActionFactory: mockPostThunkFactory
     });

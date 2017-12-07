@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 import {
   deleteItemThunkFactory,
 } from '../../../src/actions/thunkFactories/deleteItemThunkFactory';
@@ -12,8 +10,6 @@ import { ThunkAction } from '../../../src/interfaces/IAction';
 
 describe('Delete thunk factory', () => {
   const mockId = '17';
-  const mockOkResponse = new Response(JSON.stringify({}), {status: 200});
-  const mockNokResponse = new Response(null, {status: 500});
 
   const mockDeleteThunk: ThunkAction = (_: never) => Promise.resolve({
     type: DELETE_REQUEST_STARTED,
@@ -38,7 +34,7 @@ describe('Delete thunk factory', () => {
       },
     ];
     const deleteStoredItemThunk = deleteItemThunkFactory({
-      fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
+      fetchJsonResponse: () => Promise.resolve(),
       deleteThunkActionFactory: deleteItemThunkFactory,
     });
     const dispatch = jest.fn();
@@ -51,6 +47,7 @@ describe('Delete thunk factory', () => {
   });
 
   it(`dispatches "${DELETE_REQUEST_STARTED}" and "${DELETE_REQUEST_FAIL}" action with given id and NOK response`, async () => {
+    const mockErrorObject = {status: '404', statusText: 'Forbidden'};
     const expectedActions = [
       {
         type: DELETE_REQUEST_STARTED,
@@ -62,13 +59,13 @@ describe('Delete thunk factory', () => {
         type: DELETE_REQUEST_FAIL,
         payload: {
           retryAction: mockDeleteThunk,
-          error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
+          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
           id: mockId,
         },
       },
     ];
     const deleteItemThunk = deleteItemThunkFactory({
-      fetch: jest.fn(() => Promise.resolve(mockNokResponse)),
+      fetchJsonResponse: () => { throw new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`); },
       deleteThunkActionFactory: jest.fn(() => () => mockDeleteThunk),
     });
     const dispatch = jest.fn();

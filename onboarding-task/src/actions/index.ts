@@ -7,26 +7,29 @@ import { deleteItemThunkFactory } from './thunkFactories/deleteItemThunkFactory'
 import { fetchItemsThunkFactory } from './thunkFactories/fetchItemsThunkFactory';
 import { createItemThunkFactory } from './thunkFactories/createItemThunkFactory';
 import { updateItemThunkFactory } from './thunkFactories/updateItemThunkFactory';
+import { fetchJsonResponse } from '../utils/fetchJsonResponse';
 
 export { cancelChange, makeEditable } from './actionCreators';
 
+const makeRequest = fetchJsonResponse({fetch});
+
 export const deleteItem: (id: string) => ThunkAction = deleteItemThunkFactory({
-  fetch,
+  fetchJsonResponse: makeRequest,
   deleteThunkActionFactory: deleteItemThunkFactory,
 });
 
 export const fetchItems: () => ThunkAction = fetchItemsThunkFactory({
-  fetch,
+  fetchJsonResponse: makeRequest,
   getThunkActionFactory: fetchItemsThunkFactory,
 });
 
 export const createItem: (newText: string) => ThunkAction = createItemThunkFactory({
-  fetch,
+  fetchJsonResponse: makeRequest,
   optimisticUpdatedGenerator: uuidV4,
   postThunkActionFactory: createItemThunkFactory
 });
 
 export const updateItem: (item: ItemData) => ThunkAction = updateItemThunkFactory({
-  fetch,
+  fetchJsonResponse: makeRequest,
   putThunkActionFactory: updateItemThunkFactory,
 });

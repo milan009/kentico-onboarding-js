@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 import {
   fetchItemsThunkFactory,
 } from '../../../src/actions/thunkFactories/fetchItemsThunkFactory';
@@ -20,9 +18,6 @@ describe('Get thunk factory', () => {
     type: FETCH_REQUEST_STARTED,
   });
 
-  const mockOkResponse = new Response(JSON.stringify(mockItems), {status: 200});
-  const mockNokResponse = new Response(null, {status: 500});
-
   it(`dispatches "${FETCH_REQUEST_STARTED}","${FETCH_REQUEST_SUCCESS} and the parseThunk actions with OK response`, async () => {
     const expectedActions = [
       {
@@ -36,7 +31,7 @@ describe('Get thunk factory', () => {
       },
     ];
     const getItemsThunk = fetchItemsThunkFactory({
-      fetch: jest.fn(() => Promise.resolve(mockOkResponse)),
+      fetchJsonResponse: () => Promise.resolve(mockItems),
       getThunkActionFactory: fetchItemsThunkFactory,
     });
     const dispatch = jest.fn();
@@ -49,6 +44,7 @@ describe('Get thunk factory', () => {
   });
 
   it(`dispatches "${FETCH_REQUEST_STARTED}" and "${FETCH_REQUEST_FAIL}" action with NOK response`, async () => {
+    const mockErrorObject = {status: '404', statusText: 'Forbidden'};
     const expectedActions = [
       {
         type: FETCH_REQUEST_STARTED,
@@ -57,12 +53,12 @@ describe('Get thunk factory', () => {
         type: FETCH_REQUEST_FAIL,
         payload: {
           retryAction: mockGetThunk,
-          error: new Error(`${mockNokResponse.status}: ${mockNokResponse.statusText}`),
+          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
         },
       },
     ];
     const getSavedItemThunk = fetchItemsThunkFactory({
-      fetch: jest.fn(() => mockNokResponse),
+      fetchJsonResponse: () => { throw new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`); },
       getThunkActionFactory: jest.fn(() => () => mockGetThunk),
     });
     const dispatch = jest.fn();
