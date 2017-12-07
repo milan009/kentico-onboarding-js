@@ -35,15 +35,19 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
 
     case CREATE_REQUEST_SUCCESS: {
       const newItem = new ItemFlags({isStored: true});
-      state = state.remove(action.payload.formerId);
 
-      return state.set(action.payload.item.id, newItem);
+      return state
+        .remove(action.payload.formerId)
+        .set(action.payload.item.id, newItem);
     }
 
     case FETCH_REQUEST_SUCCESS: {
-      action.payload.items.map((item: IItemDTO) => {
+      action.payload.items.forEach((item: IItemDTO) => {
         state = state.set(item.id, new ItemFlags({isStored: true}));
       });
+    //  action.payload.items.map((item: IItemDTO) => {
+    //    state = state.set(item.id, new ItemFlags({isStored: true}));
+    //  });
       return state;
     }
 
