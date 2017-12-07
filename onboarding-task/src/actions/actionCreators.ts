@@ -22,8 +22,6 @@ import {
 import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
 
-// region Frontend related action creators
-
 export const cancelChange = (id: string): IAction => ({
   type: ITEM_CHANGE_CANCELLED,
   payload: {id},
@@ -33,10 +31,6 @@ export const makeEditable = (id: string): IAction => ({
   type: ITEM_MAKE_EDITABLE,
   payload: {id},
 });
-
-// endregion
-
-// region GET related action creators
 
 export const fetchItemsStarted = (): IAction => ({
   type: FETCH_REQUEST_STARTED,
@@ -56,10 +50,6 @@ export const fetchItemsFailed = (error: Error, retryAction: ThunkAction): IActio
     retryAction,
   }
 });
-
-// endregion
-
-// region POST related action creators
 
 export const createItemStarted = (optimisticId: string, text: string): IAction => ({
   type: CREATE_REQUEST_STARTED,
@@ -86,10 +76,6 @@ export const createItemFailed = (id: string, error: Error, retryAction: ThunkAct
   }
 });
 
-// endregion
-
-// region PUT related action creators
-
 export const updateItemStarted = (item: ItemData): IAction => ({
   type: UPDATE_REQUEST_STARTED,
   payload: {
@@ -115,10 +101,6 @@ export const updateItemFailed = (id: string, error: Error, retryAction: ThunkAct
   }
 });
 
-// endregion
-
-// region DELETE related action creators
-
 export const deleteItemStarted = (id: string): IAction => ({
   type: DELETE_REQUEST_STARTED,
   payload: {
@@ -141,5 +123,3 @@ export const deleteItemFailed = (id: string, error: Error, retryAction: ThunkAct
     retryAction
   }
 });
-
-// endregion
