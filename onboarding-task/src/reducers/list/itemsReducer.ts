@@ -7,7 +7,7 @@ import {
   DELETE_REQUEST_SUCCESS, FETCH_REQUEST_SUCCESS,
   CREATE_REQUEST_STARTED, CREATE_REQUEST_SUCCESS, UPDATE_REQUEST_STARTED,
 } from '../../actions/actionTypes';
-import { parseAPIResponseJson } from '../../utils/parsing';
+import { parseApiResponseJson } from '../../utils/parseApiResponseJson';
 
 export type ItemsDataMap = OrderedMap<string, ItemData>;
 
@@ -45,7 +45,7 @@ export const itemsReducer = (state: ItemsDataMap = defaultState, action: IAction
     }
 
     case FETCH_REQUEST_SUCCESS: {
-      return parseAPIResponseJson(action.payload.items);
+      return parseApiResponseJson(action.payload.items);
     }
 
     default:
