@@ -11,14 +11,14 @@ import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ThunkAction } from '../../interfaces/IAction';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
-type GetThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
+type FetchItemsThunkActionFactory = (dependencies: IFactoryDependencies) => () => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
-  getThunkActionFactory: GetThunkActionFactory;
+  getThunkActionFactory: FetchItemsThunkActionFactory;
 }
 
-export const fetchItemsThunkFactory: GetThunkActionFactory = (dependencies) =>
+export const fetchItemsThunkFactory: FetchItemsThunkActionFactory = (dependencies) =>
   () => async (dispatch: Dispatch<IStore>) => {
     dispatch(fetchItemsStarted());
 

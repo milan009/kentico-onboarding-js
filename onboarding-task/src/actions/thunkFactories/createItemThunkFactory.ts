@@ -7,15 +7,15 @@ import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
-type PostThunkActionFactory = (dependencies: IFactoryDependencies) => (newText: string) => ThunkAction;
+type CreateItemThunkActionFactory = (dependencies: IFactoryDependencies) => (newText: string) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
   optimisticUpdatedGenerator: () => string;
-  postThunkActionFactory: PostThunkActionFactory;
+  postThunkActionFactory: CreateItemThunkActionFactory;
 }
 
-export const postItemThunkFactory: PostThunkActionFactory = (dependencies) =>
+export const createItemThunkFactory: CreateItemThunkActionFactory = (dependencies) =>
   (newText: string) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     headers.append('Content-type', 'Application/json');

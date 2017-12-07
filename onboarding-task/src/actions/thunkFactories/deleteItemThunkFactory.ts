@@ -10,14 +10,14 @@ import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 
-type DeleteThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
+type DeleteItemThunkActionFactory = (dependencies: IFactoryDependencies) => (id: string) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
-  deleteThunkActionFactory: DeleteThunkActionFactory;
+  deleteThunkActionFactory: DeleteItemThunkActionFactory;
 }
 
-export const deleteItemThunkFactory: DeleteThunkActionFactory = (dependencies) =>
+export const deleteItemThunkFactory: DeleteItemThunkActionFactory = (dependencies) =>
   (id: string) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     const init = {

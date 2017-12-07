@@ -8,14 +8,14 @@ import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
-type PutThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
+type IpdateItemThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
 
 interface IFactoryDependencies {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
-  putThunkActionFactory: PutThunkActionFactory;
+  putThunkActionFactory: IpdateItemThunkActionFactory;
 }
 
-export const updateItemThunkFactory: PutThunkActionFactory = (dependencies) =>
+export const updateItemThunkFactory: IpdateItemThunkActionFactory = (dependencies) =>
   (item: ItemData) => async (dispatch: Dispatch<IStore>) => {
     const headers = new Headers();
     headers.append('Content-type', 'Application/json');
