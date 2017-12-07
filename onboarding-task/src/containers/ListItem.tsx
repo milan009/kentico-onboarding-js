@@ -10,7 +10,7 @@ import {
 import { ViewItem } from '../models/ViewItem';
 import { IStore } from '../interfaces/IStore';
 import { ItemData } from '../models/ItemData';
-import { updateItemThunk, deleteItemThunk, makeEditable, cancelChange } from '../actions/publicActionCreators';
+import { updateItemThunk, deleteItemThunk, makeEditable, cancelChange } from '../actions';
 import { ThunkAction } from '../interfaces/IAction';
 
 interface IListItemContainerProps {

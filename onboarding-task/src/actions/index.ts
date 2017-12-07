@@ -8,6 +8,8 @@ import { fetchItemsThunkFactory } from './thunkFactories/fetchItemsThunkFactory'
 import { postItemThunkFactory } from './thunkFactories/createItemThunkFactory';
 import { updateItemThunkFactory } from './thunkFactories/updateItemThunkFactory';
 
+export { cancelChange, makeEditable } from './actionCreators';
+
 export const deleteItemThunk: (id: string) => ThunkAction = deleteItemThunkFactory({
   fetch,
   deleteThunkActionFactory: deleteItemThunkFactory,

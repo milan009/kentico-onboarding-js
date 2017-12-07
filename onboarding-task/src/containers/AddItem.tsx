@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { createItemThunk } from '../actions/publicActionCreators';
+import { createItemThunk } from '../actions';
 import { AddItem as AddItemComponent, IAddItemCallbackProps } from '../components/AddItem';
 import { IStore } from '../interfaces/IStore';
 
