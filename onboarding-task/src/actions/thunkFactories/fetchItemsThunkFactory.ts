@@ -5,7 +5,7 @@ import {
   fetchItemsSucceeded,
   fetchItemsStarted,
 } from '../actionCreators';
-import { route } from '../../utils/constants';
+import { controllerUrl } from '../../utils/constants';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 import { ThunkAction } from '../../interfaces/IAction';
@@ -23,7 +23,7 @@ export const fetchItemsThunkFactory: FetchItemsThunkActionFactory = (dependencie
     dispatch(fetchItemsStarted());
 
     try {
-      const items = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: route});
+      const items = await fetchJsonResponse<IItemDTO[]>({fetch: dependencies.fetch, input: controllerUrl});
       return dispatch(fetchItemsSucceeded(items));
 
     } catch (error) {

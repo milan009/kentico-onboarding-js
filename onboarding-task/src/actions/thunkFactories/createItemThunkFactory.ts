@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { route } from '../../utils/constants';
+import { controllerUrl } from '../../utils/constants';
 import { createItemFailed, createItemStarted, createItemSucceeded } from '../actionCreators';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
@@ -30,7 +30,7 @@ export const createItemThunkFactory: CreateItemThunkActionFactory = (dependencie
     dispatch(createItemStarted(optimisticUpdateId, newText));
 
     try {
-      const item = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: route, init: options});
+      const item = await fetchJsonResponse<IItemDTO>({fetch: dependencies.fetch, input: controllerUrl, init: options});
       return dispatch(createItemSucceeded(optimisticUpdateId, item));
 
     } catch (error) {

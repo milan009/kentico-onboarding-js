@@ -5,7 +5,7 @@ import {
   deleteItemStarted,
   deleteItemSucceeded,
 } from '../actionCreators';
-import { route } from '../../utils/constants';
+import { controllerUrl } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
@@ -24,7 +24,7 @@ export const deleteItemThunkFactory: DeleteItemThunkActionFactory = (dependencie
       method: 'DELETE',
       headers,
     };
-    const url = `${route}/${id}`;
+    const url = `${controllerUrl}/${id}`;
 
     dispatch(deleteItemStarted(id));
 

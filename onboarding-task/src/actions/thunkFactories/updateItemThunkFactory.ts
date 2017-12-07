@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 
 import { ItemData } from '../../models/ItemData';
 import { updateItemFailed, updateItemStarted, updateItemSucceeded } from '../actionCreators';
-import { route } from '../../utils/constants';
+import { controllerUrl } from '../../utils/constants';
 import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { fetchJsonResponse } from '../../utils/fetchJsonResponse';
@@ -25,7 +25,7 @@ export const updateItemThunkFactory: IpdateItemThunkActionFactory = (dependencie
       headers,
       body: JSON.stringify({id: item.id, text: item.text}),
     };
-    const url = `${route}/${item.id}`;
+    const url = `${controllerUrl}/${item.id}`;
 
     dispatch(updateItemStarted(item));
 
