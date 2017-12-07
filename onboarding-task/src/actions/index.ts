@@ -10,23 +10,23 @@ import { updateItemThunkFactory } from './thunkFactories/updateItemThunkFactory'
 
 export { cancelChange, makeEditable } from './actionCreators';
 
-export const deleteItemThunk: (id: string) => ThunkAction = deleteItemThunkFactory({
+export const deleteItem: (id: string) => ThunkAction = deleteItemThunkFactory({
   fetch,
   deleteThunkActionFactory: deleteItemThunkFactory,
 });
 
-export const fetchItemsThunk: () => ThunkAction = fetchItemsThunkFactory({
+export const fetchItems: () => ThunkAction = fetchItemsThunkFactory({
   fetch,
   getThunkActionFactory: fetchItemsThunkFactory,
 });
 
-export const createItemThunk: (newText: string) => ThunkAction = postItemThunkFactory({
+export const createItem: (newText: string) => ThunkAction = postItemThunkFactory({
   fetch,
   optimisticUpdatedGenerator: uuidV4,
   postThunkActionFactory: postItemThunkFactory
 });
 
-export const updateItemThunk: (item: ItemData) => ThunkAction = updateItemThunkFactory({
+export const updateItem: (item: ItemData) => ThunkAction = updateItemThunkFactory({
   fetch,
   putThunkActionFactory: updateItemThunkFactory,
 });
