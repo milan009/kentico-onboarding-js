@@ -12,7 +12,7 @@ export const isFetchingReducer = (state: boolean = defaultState, action: IAction
 
     case FETCH_REQUEST_SUCCESS:
     case FETCH_REQUEST_FAIL:
-      return false;
+      return defaultState;
 
     default:
       return state;
