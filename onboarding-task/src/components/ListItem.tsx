@@ -5,7 +5,7 @@ import * as classNames from 'classnames';
 import { ViewItem } from './ViewItem';
 import { EditItem } from './EditItem';
 import { IViewItem } from '../models/ViewItem';
-import { RetryItem } from './RetryItem';
+import { ItemWithRetry } from './RetryItem';
 import { ThunkAction } from '../interfaces/IAction';
 
 export interface IListItemDataProps {
@@ -35,7 +35,7 @@ export const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCa
           item={props.item}
           onClick={props.onClick}
         />)) : (
-      <RetryItem
+      <ItemWithRetry
         item={props.item}
         onRetry={props.onRetry}
       />

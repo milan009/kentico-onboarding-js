@@ -13,7 +13,7 @@ export interface IRetryItemCallbackProps {
   onRetry: (action: ThunkAction) => void;
 }
 
-export const RetryItem: React.StatelessComponent<IRetryItemDataProps & IRetryItemCallbackProps> = (props) => (
+export const ItemWithRetry: React.StatelessComponent<IRetryItemDataProps & IRetryItemCallbackProps> = (props) => (
   <div title="An error has occurred">
     <div className="text-left">
       <span className="font-weight-bold">
@@ -24,9 +24,9 @@ export const RetryItem: React.StatelessComponent<IRetryItemDataProps & IRetryIte
     </div>
   </div>);
 
-RetryItem.displayName = 'ViewItem';
+ItemWithRetry.displayName = 'ViewItem';
 
-RetryItem.propTypes = {
+ItemWithRetry.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
