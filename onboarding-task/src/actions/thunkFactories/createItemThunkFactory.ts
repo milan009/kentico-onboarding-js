@@ -34,6 +34,9 @@ export const createItemThunkFactory: CreateItemThunkActionFactory = (dependencie
       return dispatch(createItemSucceeded(optimisticUpdateId, item));
 
     } catch (error) {
-      return dispatch(createItemFailed(optimisticUpdateId, error, dependencies.postThunkActionFactory(dependencies)(newText)));
+      const retryAction = dependencies.postThunkActionFactory(dependencies)(newText);
+      const createFailedAction = createItemFailed(optimisticUpdateId, error, retryAction);
+
+      return dispatch(createFailedAction);
     }
   };
