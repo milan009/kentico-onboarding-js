@@ -29,8 +29,8 @@ export class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItem
   }
 
   _onChange = (event: FormEvent<HTMLInputElement>): void => {
-    const setStateText = (currentText: string) => (() => ({currentText}));
-    this.setState(setStateText(event.currentTarget.value));
+    const currentText = event.currentTarget.value;
+    this.setState(() => ({ currentText }));
   };
 
   _addItem = (event: FormEvent<HTMLFormElement>): void => {
