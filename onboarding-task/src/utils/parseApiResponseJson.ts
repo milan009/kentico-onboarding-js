@@ -5,10 +5,8 @@ import { ItemData } from '../models/ItemData';
 import { IItemDTO } from '../interfaces/IItemDTO';
 
 export const parseApiResponseJson = (json: IItemDTO[]): ItemsDataMap => {
-    let parsedItems = OrderedMap<string, ItemData>();
-    json.map((item: IItemDTO) => {
-      parsedItems = parsedItems.set(item.id, new ItemData(item));
-    });
-
-    return parsedItems;
+  return json.reduce(
+    (previousValue: ItemsDataMap, currentValue) =>
+      previousValue.set(currentValue.id, new ItemData(currentValue)),
+    OrderedMap<string, ItemData>());
 };
