@@ -45,9 +45,7 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
       action.payload.items.forEach((item: IItemDTO) => {
         state = state.set(item.id, new ItemFlags({isStored: true}));
       });
-    //  action.payload.items.map((item: IItemDTO) => {
-    //    state = state.set(item.id, new ItemFlags({isStored: true}));
-    //  });
+
       return state;
     }
 
