@@ -12,11 +12,11 @@ import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import { rootReducer } from './reducers/rootReducer.ts';
-import { fetchItemsThunk } from './actions/publicActionCreators.ts';
+import { fetchItems } from './actions/index.ts';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
-store.dispatch(fetchItemsThunk());
+store.dispatch(fetchItems());
 
 ReactDOM.render(
   <Provider store={store}>
