@@ -57,14 +57,9 @@ export const itemFlagsMapReducer = (state: ItemsFlagsMap = defaultState, action:
     case UPDATE_REQUEST_FAIL:
     case DELETE_REQUEST_FAIL:
     case CREATE_REQUEST_FAIL: {
-      const flagsToEdit = state.get(action.payload.id);
-
-      if (!flagsToEdit) {
-        return state;
-      }
-
-      const editedInfo = itemFlagsReducer(flagsToEdit, action);
-      return state.set(action.payload.id, editedInfo);
+      return state
+        .update(action.payload.id, flagsToEdit =>
+            itemFlagsReducer(flagsToEdit, action));
     }
 
     default:
