@@ -23,7 +23,7 @@ export const fetchItems: () => ThunkAction = fetchItemsThunkFactory({
   getThunkActionFactory: fetchItemsThunkFactory,
 });
 
-export const createItem: (newText: string) => ThunkAction = createItemThunkFactory({
+export const createItem: (text: string) => ThunkAction = createItemThunkFactory({
   fetchJsonResponse: makeRequest,
   optimisticUpdatedGenerator: uuidV4,
   postThunkActionFactory: createItemThunkFactory

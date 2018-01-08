@@ -15,17 +15,17 @@ interface IFactoryDependencies {
 }
 
 export const createItemThunkFactory: CreateItemThunkActionFactory = (dependencies) =>
-  (newText: string) => async (dispatch: Dispatch<IStore>) => {
+  (text: string) => async (dispatch: Dispatch<IStore>) => {
 
     const optimisticUpdateId = dependencies.optimisticUpdatedGenerator();
-    dispatch(createItemStarted(optimisticUpdateId, newText));
+    dispatch(createItemStarted(optimisticUpdateId, text));
 
     try {
-      const item = await dependencies.fetchJsonResponse(controllerUrl, 'POST', {newText});
+      const item = await dependencies.fetchJsonResponse(controllerUrl, 'POST', {text});
       return dispatch(createItemSucceeded(optimisticUpdateId, item));
 
     } catch (error) {
-      const retryAction = dependencies.postThunkActionFactory(dependencies)(newText);
+      const retryAction = dependencies.postThunkActionFactory(dependencies)(text);
       const createFailedAction = createItemFailed(optimisticUpdateId, error, retryAction);
 
       return dispatch(createFailedAction);
