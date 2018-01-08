@@ -36,7 +36,7 @@ export class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDa
           {this.props.requestError.error.message}
         </span>
         {
-          !this.props.requestError.id ?
+          !this.props.requestError.targetItemId ?
             <Retry onResendRequest={this._resendAction} /> : ''
         }
       </div>

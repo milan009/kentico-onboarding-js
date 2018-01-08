@@ -16,7 +16,7 @@ export const errorReducer = (state: IRequestError | null = defaultState, action:
     case DELETE_REQUEST_FAIL:
     case FETCH_REQUEST_FAIL: {
       return {
-        id: action.payload.id,
+        targetItemId: action.payload.id,
         error: action.payload.error,
         retryAction: action.payload.retryAction,
       };

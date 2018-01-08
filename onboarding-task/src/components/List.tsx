@@ -53,7 +53,7 @@ export const List: React.StatelessComponent<IListDataProps & IListCallbackProps>
   return (
     <div className="row">
       {errorComponent}
-      {!props.requestError || props.requestError.id ? listComponent : ''}
+      {!props.requestError || props.requestError.targetItemId ? listComponent : ''}
     </div>
   );
 };
