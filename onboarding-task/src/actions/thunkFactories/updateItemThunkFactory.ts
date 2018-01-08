@@ -16,14 +16,6 @@ interface IFactoryDependencies {
 
 export const updateItemThunkFactory: IpdateItemThunkActionFactory = (dependencies) =>
   (item: ItemData) => async (dispatch: Dispatch<IStore>) => {
-  /*  const headers = new Headers();
-    headers.append('Content-type', 'Application/json');
-
-    const options = {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify({id: item.id, text: item.text}),
-    };*/
     const url = `${controllerUrl}/${item.id}`;
 
     dispatch(updateItemStarted(item));

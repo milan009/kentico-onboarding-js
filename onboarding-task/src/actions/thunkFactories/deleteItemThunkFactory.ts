@@ -18,11 +18,6 @@ interface IFactoryDependencies {
 
 export const deleteItemThunkFactory: DeleteItemThunkActionFactory = (dependencies) =>
   (id: string) => async (dispatch: Dispatch<IStore>) => {
-/*    const headers = new Headers();
-    const init = {
-      method: 'DELETE',
-      headers,
-    };*/
     const url = `${controllerUrl}/${id}`;
 
     dispatch(deleteItemStarted(id));
