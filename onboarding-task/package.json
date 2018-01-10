@@ -121,5 +121,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:57187"
+  "proxy": "https://milanj-todoapp.surge.sh"
 }
