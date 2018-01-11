@@ -43,10 +43,10 @@ export const fetchItemsSucceeded = (items: IItemDTO[]): IAction => ({
   },
 });
 
-export const fetchItemsFailed = (error: Error, retryAction: ThunkAction): IAction => ({
+export const fetchItemsFailed = (errorMessage: string, retryAction: ThunkAction): IAction => ({
   type: FETCH_REQUEST_FAIL,
   payload: {
-    error,
+    errorMessage,
     retryAction,
   }
 });
@@ -67,11 +67,11 @@ export const createItemSucceeded = (formerId: string, item: IItemDTO): IAction =
   },
 });
 
-export const createItemFailed = (id: string, error: Error, retryAction: ThunkAction): IAction => ({
+export const createItemFailed = (id: string, errorMessage: string, retryAction: ThunkAction): IAction => ({
   type: CREATE_REQUEST_FAIL,
   payload: {
     id,
-    error,
+    errorMessage,
     retryAction,
   }
 });
@@ -92,11 +92,11 @@ export const updateItemSucceeded = (item: IItemDTO): IAction => ({
   },
 });
 
-export const updateItemFailed = (id: string, error: Error, retryAction: ThunkAction): IAction => ({
+export const updateItemFailed = (id: string, errorMessage: string, retryAction: ThunkAction): IAction => ({
   type: UPDATE_REQUEST_FAIL,
   payload: {
     id,
-    error,
+    errorMessage,
     retryAction
   }
 });
@@ -115,11 +115,11 @@ export const deleteItemSucceeded = (id: string): IAction => ({
   },
 });
 
-export const deleteItemFailed = (id: string, error: Error, retryAction: ThunkAction): IAction => ({
+export const deleteItemFailed = (id: string, errorMessage: string, retryAction: ThunkAction): IAction => ({
   type: DELETE_REQUEST_FAIL,
   payload: {
     id,
-    error,
+    errorMessage,
     retryAction
   }
 });

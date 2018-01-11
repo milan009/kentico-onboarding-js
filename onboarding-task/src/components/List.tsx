@@ -1,3 +1,5 @@
+import { RequestError } from '../models/RequestError';
+
 const ImmutablePropTypes = require('react-immutable-proptypes');
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
@@ -8,12 +10,12 @@ import { ListItem } from '../containers/ListItem';
 import { Error } from './Error';
 import { Spinner } from './Spinner';
 import { emptyUuid } from '../utils/constants';
-import { IRequestError } from '../interfaces/IRequestError';
+
 import { ThunkAction } from '../interfaces/IAction';
 
 export interface IListDataProps {
   isFetching: boolean;
-  requestError: IRequestError | null;
+  requestError: RequestError | null;
   itemIds: Seq.Indexed<string>;
 }
 

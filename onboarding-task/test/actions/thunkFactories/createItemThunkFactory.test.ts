@@ -71,7 +71,7 @@ describe('Post thunk factory', () => {
         type: CREATE_REQUEST_FAIL,
         payload: {
           retryAction: mockPostThunk,
-          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
+          errorMessage: `${mockErrorObject.status}: ${mockErrorObject.statusText}`,
           id: mockOptimisticId,
         }
       },

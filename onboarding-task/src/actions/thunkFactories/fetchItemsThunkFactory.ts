@@ -27,7 +27,7 @@ export const fetchItemsThunkFactory: FetchItemsThunkActionFactory = (dependencie
 
     } catch (error) {
       const retryAction = dependencies.getThunkActionFactory(dependencies)();
-      const failedAction = fetchItemsFailed(error, retryAction);
+      const failedAction = fetchItemsFailed(error.message, retryAction);
 
       return dispatch(failedAction);
     }

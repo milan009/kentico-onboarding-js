@@ -9,11 +9,11 @@ export interface IErrorCallbackProps {
   onResendRequest: (action: ThunkAction) => void;
 }
 
-export interface IEditItemDataProps {
+export interface IErrorDataProps {
   requestError: IRequestError;
 }
 
-export class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDataProps> {
+export class Error extends React.PureComponent<IErrorCallbackProps & IErrorDataProps> {
 
   static displayName = 'Error';
 
@@ -21,7 +21,7 @@ export class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDa
     onResendRequest: PropTypes.func.isRequired,
   };
 
-  constructor(props: IErrorCallbackProps & IEditItemDataProps) {
+  constructor(props: IErrorCallbackProps & IErrorDataProps) {
     super(props);
   }
 
@@ -33,7 +33,9 @@ export class Error extends React.PureComponent<IErrorCallbackProps & IEditItemDa
         <span className="col-md-8 text-center">
           <span className="glyphicon glyphicon-warning-sign" />
           <strong> Following error was encountered: </strong>
-          {this.props.requestError.error.message}
+          {
+            this.props.requestError.errorMessage
+          }
         </span>
         {
           !this.props.requestError.targetItemId ?

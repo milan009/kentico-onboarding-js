@@ -28,7 +28,7 @@ export const deleteItemThunkFactory: DeleteItemThunkActionFactory = (dependencie
 
     } catch (error) {
       const retryAction = dependencies.deleteThunkActionFactory(dependencies)(id);
-      const failedAction = deleteItemFailed(id, error, retryAction);
+      const failedAction = deleteItemFailed(id, error.message, retryAction);
 
       return dispatch(failedAction);
     }

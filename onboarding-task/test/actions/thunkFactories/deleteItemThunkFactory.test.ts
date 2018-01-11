@@ -59,7 +59,7 @@ describe('Delete thunk factory', () => {
         type: DELETE_REQUEST_FAIL,
         payload: {
           retryAction: mockDeleteThunk,
-          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
+          errorMessage: `${mockErrorObject.status}: ${mockErrorObject.statusText}`,
           id: mockId,
         },
       },

@@ -10,6 +10,7 @@ import {
   UPDATE_REQUEST_STARTED,
   UPDATE_REQUEST_SUCCESS,
 } from '../../actions/actionTypes';
+import { RequestError } from '../../models/RequestError';
 
 const defaultState = new ItemFlags();
 
@@ -30,11 +31,23 @@ export const itemFlagsReducer = (state: ItemFlags = defaultState, action: IActio
 
     case UPDATE_REQUEST_FAIL:
     case DELETE_REQUEST_FAIL: {
-      return state.typedMerge(new ItemFlags({isStored: true, requestError: action.payload}));
+      return state.typedMerge({
+        isStored: true,
+        requestError: new RequestError({
+          targetItemId: action.payload.id,
+          retryAction: action.payload.retryAction,
+          errorMessage: action.payload.errorMessage,
+        })});
     }
 
     case CREATE_REQUEST_FAIL: {
-      return state.typedMerge(new ItemFlags({isStored: false, requestError: action.payload}));
+      return state.typedMerge({
+        isStored: false,
+        requestError: new RequestError({
+          targetItemId: action.payload.id,
+          retryAction: action.payload.retryAction,
+          errorMessage: action.payload.errorMessage,
+        })});
     }
 
     default:

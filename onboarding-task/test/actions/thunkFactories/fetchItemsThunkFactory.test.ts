@@ -53,7 +53,7 @@ describe('Get thunk factory', () => {
         type: FETCH_REQUEST_FAIL,
         payload: {
           retryAction: mockGetThunk,
-          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
+          errorMessage: `${mockErrorObject.status}: ${mockErrorObject.statusText}`,
         },
       },
     ];

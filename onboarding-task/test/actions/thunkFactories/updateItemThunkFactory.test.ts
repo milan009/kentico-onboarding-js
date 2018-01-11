@@ -68,7 +68,7 @@ describe('Put thunk factory', () => {
       {
         type: UPDATE_REQUEST_FAIL,
         payload: {
-          error: new Error(`${mockErrorObject.status}: ${mockErrorObject.statusText}`),
+          errorMessage: `${mockErrorObject.status}: ${mockErrorObject.statusText}`,
           id: mockItem.id,
           retryAction: mockPutThunk,
         },

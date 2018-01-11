@@ -78,12 +78,12 @@ describe('Action creators', () => {
     const expectedAction: IAction = {
       type: FETCH_REQUEST_FAIL,
       payload: {
-        error,
+        errorMessage: error.message,
         retryAction: mockRetryThunk
       }
     };
 
-    const createdAction = fetchItemsFailed(error, mockRetryThunk);
+    const createdAction = fetchItemsFailed(error.message, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -130,12 +130,12 @@ describe('Action creators', () => {
       type: UPDATE_REQUEST_FAIL,
       payload: {
         id: putId,
-        error,
+        errorMessage: error.message,
         retryAction: mockRetryThunk
       }
     };
 
-    const createdAction = updateItemFailed(putId, error, mockRetryThunk);
+    const createdAction = updateItemFailed(putId, error.message, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
 
@@ -175,12 +175,12 @@ describe('Action creators', () => {
       type: DELETE_REQUEST_FAIL,
       payload: {
         id: deleteId,
-        error,
+        errorMessage: error.message,
         retryAction: mockRetryThunk
       }
     };
 
-    const createdAction = deleteItemFailed(deleteId, error, mockRetryThunk);
+    const createdAction = deleteItemFailed(deleteId, error.message, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });
@@ -227,12 +227,12 @@ describe('Action creators', () => {
       type: CREATE_REQUEST_FAIL,
       payload: {
         id: putId,
-        error,
+        errorMessage: error.message,
         retryAction: mockRetryThunk
       }
     };
 
-    const createdAction = createItemFailed(putId, error, mockRetryThunk);
+    const createdAction = createItemFailed(putId, error.message, mockRetryThunk);
 
     expect(createdAction).toEqual(expectedAction);
   });

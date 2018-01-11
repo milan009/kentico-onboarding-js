@@ -1,10 +1,10 @@
 import { TypedRecord } from './TypedRecord';
-import { IRequestError } from '../interfaces/IRequestError';
+import { NullableRequestError } from '../interfaces/IRequestError';
 
 export interface IItemFlags {
   readonly isBeingEdited: boolean;
   readonly isStored: boolean;
-  readonly requestError: IRequestError | null;
+  readonly requestError: NullableRequestError;
 }
 
 const defaultItemFlags: IItemFlags = {
@@ -16,6 +16,6 @@ const defaultItemFlags: IItemFlags = {
 export class ItemFlags extends TypedRecord<IItemFlags, ItemFlags>(defaultItemFlags, 'ItemFlags') implements IItemFlags {
   readonly isBeingEdited: boolean;
   readonly isStored: boolean;
-  readonly requestError: IRequestError | null;
+  readonly requestError: NullableRequestError;
 }
 

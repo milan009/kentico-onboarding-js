@@ -5,22 +5,22 @@ import {
   UPDATE_REQUEST_FAIL, UPDATE_REQUEST_STARTED,
 } from '../../actions/actionTypes';
 import { IAction } from '../../interfaces/IAction';
-import { IRequestError } from '../../interfaces/IRequestError';
+import { NullableRequestError } from '../../interfaces/IRequestError';
+import { RequestError } from '../../models/RequestError';
 
 const defaultState = null;
 
-export const errorReducer = (state: IRequestError | null = defaultState, action: IAction): IRequestError | null => {
+export const errorReducer = (state: NullableRequestError = defaultState, action: IAction): NullableRequestError => {
   switch (action.type) {
     case CREATE_REQUEST_FAIL:
     case UPDATE_REQUEST_FAIL:
     case DELETE_REQUEST_FAIL:
-    case FETCH_REQUEST_FAIL: {
-      return {
+    case FETCH_REQUEST_FAIL:
+      return new RequestError({
         targetItemId: action.payload.id,
-        error: action.payload.error,
         retryAction: action.payload.retryAction,
-      };
-    }
+        errorMessage: action.payload.errorMessage,
+      });
 
     case CREATE_REQUEST_STARTED:
     case UPDATE_REQUEST_STARTED:

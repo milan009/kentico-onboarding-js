@@ -21,6 +21,7 @@ import {
   updateItemSucceeded,
 } from '../../../src/actions/actionCreators.ts';
 import { ItemData } from '../../../src/models/ItemData.ts';
+import { RequestError } from '../../../src/models/RequestError.ts';
 
 describe('ItemFlags reducer with', () => {
   const mockId = '42';
@@ -104,10 +105,10 @@ describe('ItemFlags reducer with', () => {
       const mockDeleteThunk = (_) => Promise.resolve({
         type: DELETE_REQUEST_STARTED,
         payload: {
-          id: '42',
+          targetItemId: '42',
         },
       });
-      const action = deleteItemFailed('42', error, mockDeleteThunk);
+      const action = deleteItemFailed('42', error.message, mockDeleteThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
@@ -116,7 +117,11 @@ describe('ItemFlags reducer with', () => {
       const expectedState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
-        requestError: action.payload,
+        requestError: new RequestError({
+          targetItemId: action.payload.id,
+          retryAction: action.payload.retryAction,
+          errorMessage: action.payload.errorMessage,
+        }),
       });
 
       const createdState = itemFlagsReducer(prevState, action);
@@ -156,10 +161,10 @@ describe('ItemFlags reducer with', () => {
       const mockPutThunk = (_) => Promise.resolve({
         type: UPDATE_REQUEST_STARTED,
         payload: {
-          id: '42',
+          targetItemId: '42',
         },
       });
-      const action = updateItemFailed('42', error, mockPutThunk);
+      const action = updateItemFailed('42', error.message, mockPutThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
@@ -168,7 +173,11 @@ describe('ItemFlags reducer with', () => {
       const expectedState = new ItemFlags({
         isBeingEdited: false,
         isStored: true,
-        requestError: action.payload,
+        requestError: new RequestError({
+          targetItemId: action.payload.id,
+          retryAction: action.payload.retryAction,
+          errorMessage: action.payload.errorMessage,
+        }),
       });
 
       const createdState = itemFlagsReducer(prevState, action);
@@ -186,7 +195,7 @@ describe('ItemFlags reducer with', () => {
           optimisticId: mockId,
         },
       });
-      const action = createItemFailed(mockId, error, mockPostThunk);
+      const action = createItemFailed(mockId, error.message, mockPostThunk);
       const prevState = new ItemFlags({
         isBeingEdited: false,
         isStored: false,
@@ -195,7 +204,11 @@ describe('ItemFlags reducer with', () => {
       const expectedState = new ItemFlags({
         isBeingEdited: false,
         isStored: false,
-        requestError: action.payload,
+        requestError: new RequestError({
+          targetItemId: action.payload.id,
+          retryAction: action.payload.retryAction,
+          errorMessage: action.payload.errorMessage,
+        }),
       });
 
       const createdState = itemFlagsReducer(prevState, action);

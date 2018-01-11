@@ -1,7 +1,7 @@
-import { IRequestError } from './IRequestError';
+import { NullableRequestError } from './IRequestError';
 
 export interface IStatus {
   isFetching: boolean;
-  requestError: IRequestError | null;
+  requestError: NullableRequestError;
 }
 

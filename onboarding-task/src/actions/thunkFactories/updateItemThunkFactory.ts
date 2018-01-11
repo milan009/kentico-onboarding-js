@@ -28,7 +28,7 @@ export const updateItemThunkFactory: IpdateItemThunkActionFactory = (dependencie
 
     } catch (error) {
       const retryAction = dependencies.putThunkActionFactory(dependencies)(item);
-      const failedAction = updateItemFailed(item.id, error, retryAction);
+      const failedAction = updateItemFailed(item.id, error.message, retryAction);
 
       return dispatch(failedAction);
     }
