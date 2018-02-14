@@ -7,14 +7,14 @@ import { ThunkAction } from '../../interfaces/IAction';
 import { IStore } from '../../interfaces/IStore';
 import { IItemDTO } from '../../interfaces/IItemDTO';
 
-type IpdateItemThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
+type UpdateItemThunkActionFactory = (dependencies: IFactoryDependencies) => (item: ItemData) => ThunkAction;
 
 interface IFactoryDependencies {
   fetchJsonResponse: (url: string, method: string, object?: any) => Promise<IItemDTO>;
-  putThunkActionFactory: IpdateItemThunkActionFactory;
+  putThunkActionFactory: UpdateItemThunkActionFactory;
 }
 
-export const updateItemThunkFactory: IpdateItemThunkActionFactory = (dependencies) =>
+export const updateItemThunkFactory: UpdateItemThunkActionFactory = (dependencies) =>
   (item: ItemData) => async (dispatch: Dispatch<IStore>) => {
     const url = `${controllerUrl}/${item.id}`;
 
