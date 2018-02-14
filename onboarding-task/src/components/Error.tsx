@@ -14,16 +14,11 @@ export interface IErrorDataProps {
 }
 
 export class Error extends React.PureComponent<IErrorCallbackProps & IErrorDataProps> {
-
   static displayName = 'Error';
 
   static propTypes = {
     onResendRequest: PropTypes.func.isRequired,
   };
-
-  constructor(props: IErrorCallbackProps & IErrorDataProps) {
-    super(props);
-  }
 
   _resendAction = () => this.props.onResendRequest(this.props.requestError.retryAction);
 
