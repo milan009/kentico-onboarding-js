@@ -23,9 +23,11 @@ export const createItemThunkFactory: CreateItemThunkActionFactory = (dependencie
     try {
       const item = await dependencies.fetchJsonResponse(controllerUrl, 'POST', {text});
       return dispatch(createItemSucceeded(optimisticUpdateId, item));
-
     } catch (error) {
-      const retryAction = dependencies.postThunkActionFactory(dependencies)(text);
+      const retryAction = dependencies.postThunkActionFactory({
+        ...dependencies,
+        optimisticUpdatedGenerator: () => optimisticUpdateId,
+      })(text);
       const createFailedAction = createItemFailed(optimisticUpdateId, error.message, retryAction);
 
       return dispatch(createFailedAction);
